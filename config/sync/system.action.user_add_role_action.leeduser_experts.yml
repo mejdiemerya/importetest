@@ -1,0 +1,14 @@
+uuid: 6abefbd7-2622-412d-9d8d-f9fac20a3ec1
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.leeduser_experts
+  module:
+    - user
+id: user_add_role_action.leeduser_experts
+label: 'Add the LEEDuser Experts role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: leeduser_experts

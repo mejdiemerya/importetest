@@ -1,0 +1,14 @@
+uuid: e85ab64b-6af8-4132-a684-366862b51c34
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.leeduser_basic_member
+  module:
+    - user
+id: user_remove_role_action.leeduser_basic_member
+label: 'Remove the LEEDuser Basic Member role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: leeduser_basic_member

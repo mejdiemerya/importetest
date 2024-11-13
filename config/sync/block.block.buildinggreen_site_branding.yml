@@ -1,0 +1,25 @@
+uuid: 3f9ce221-dfd1-406a-8893-ae414bfb64b3
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - buildinggreen
+_core:
+  default_config_hash: n_nlgjggHVfQt2H__zvLOKB2YtjPDbQ5tHijF9LE1aM
+id: buildinggreen_site_branding
+theme: buildinggreen
+region: header
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  label_display: '0'
+  provider: system
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

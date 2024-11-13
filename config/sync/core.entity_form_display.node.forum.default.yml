@@ -1,0 +1,113 @@
+uuid: 55ce090c-6953-4989-908e-9113282b7cdf
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.forum.comment_forum
+    - field.field.node.forum.field_author_profile
+    - field.field.node.forum.field_last_comment_author
+    - field.field.node.forum.field_project_location
+    - field.field.node.forum.field_question
+    - field.field.node.forum.taxonomy_forums
+    - node.type.forum
+  module:
+    - comment
+    - path
+    - text
+_core:
+  default_config_hash: diOVWc36Ch9NdYFiQ--GTypW8ibCB37SHdkkqLCHP8g
+id: node.forum.default
+targetEntityType: node
+bundle: forum
+mode: default
+content:
+  comment_forum:
+    type: comment_default
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_project_location:
+    type: options_select
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_question:
+    type: text_textarea
+    weight: 9
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 5
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  taxonomy_forums:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  field_author_profile: true
+  field_last_comment_author: true

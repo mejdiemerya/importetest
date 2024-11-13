@@ -1,0 +1,133 @@
+uuid: 8125ecfb-ecf9-44a9-8256-88ff8a9c6055
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.forum.taxonomy_forums
+    - field.storage.node.taxonomy_forums
+    - node.type.forum
+    - views.view.flagging_forum
+  module:
+    - eca_base
+    - eca_content
+    - eca_render
+    - eca_tamper
+id: process_xj8pj1c
+modeller: bpmn_io
+label: 'Notifiction topic level '
+version: v4
+weight: 0
+events:
+  Event_1rxft90:
+    plugin: 'content_entity:update'
+    label: 'update topic'
+    configuration:
+      type: 'node forum'
+    successors:
+      -
+        id: Activity_05kur45
+        condition: Flow_1wb4rd4
+  Event_0j9qs8u:
+    plugin: 'content_entity:insert'
+    label: 'add topic'
+    configuration:
+      type: 'node forum'
+    successors:
+      -
+        id: Activity_05kur45
+        condition: Flow_17uwwn5
+conditions:
+  Flow_0hgfrzy:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: '[topic]'
+      right: '1'
+      operator: greaterthan
+      type: numeric
+  Flow_17uwwn5:
+    plugin: eca_entity_field_value
+    configuration:
+      negate: false
+      case: false
+      expected_value: '1'
+      field_name: status
+      operator: equal
+      type: value
+      entity: node
+  Flow_1wb4rd4:
+    plugin: eca_entity_field_value
+    configuration:
+      negate: false
+      case: false
+      expected_value: '1'
+      field_name: status
+      operator: equal
+      type: value
+      entity: node
+gateways:
+  Gateway_0spfbys:
+    type: 0
+    successors:
+      -
+        id: Activity_0fsbqbf
+        condition: Flow_0hgfrzy
+actions:
+  Activity_05kur45:
+    plugin: 'eca_render_views:views'
+    label: 'view of user that flagged the topic'
+    configuration:
+      view_id: flagging_forum
+      display_id: default
+      arguments: '[node:taxonomy_forums:entity:tid]'
+      name: ''
+      token_name: topic
+      weight: ''
+      mode: append
+    successors:
+      -
+        id: Activity_0mz7evk
+        condition: ''
+  Activity_0mz7evk:
+    plugin: 'eca_tamper:strip_tags'
+    label: 'strip tag'
+    configuration:
+      allowed_tags: ''
+      eca_data: '[topic]'
+      eca_token_name: topic
+    successors:
+      -
+        id: Activity_1yvamff
+        condition: ''
+  Activity_1yvamff:
+    plugin: 'eca_tamper:explode'
+    label: explode
+    configuration:
+      separator: ','
+      limit: ''
+      eca_data: '[topic]'
+      eca_token_name: topic
+    successors:
+      -
+        id: Activity_0vxmhif
+        condition: ''
+  Activity_0fsbqbf:
+    plugin: action_send_email_action
+    label: 'send email'
+    configuration:
+      recipient: '[topic]'
+      subject: test
+      message: test
+      replace_tokens: true
+    successors: {  }
+  Activity_0vxmhif:
+    plugin: 'eca_tamper:array_filter'
+    label: filter
+    configuration:
+      eca_data: '[topic]'
+      eca_token_name: topic
+    successors:
+      -
+        id: Gateway_0spfbys
+        condition: ''

@@ -12,30 +12,61 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "buildingreen/rate",
+                "type": "drupal-module",
+                "version": "3",
+
+                "dist": {
+                    "type": "zip",
+                    "url": "https://git.drupalcode.org/project/rate/-/archive/3.0.x/rate-3.0.x.zip"
+                }
+            }
         }
+
+
     ],
     "require": {
+        "buildingreen/rate": "^3.0",
         "composer/installers": "^2.0",
         "drupal/bootstrap5": "^4.0",
+        "cweagans/composer-patches": "^1.7",
+        "drupal/admin_toolbar": "^3.5",
+        "drupal/base_field_override_ui": "^1.2",
+        "drupal/bpmn_io": "^2.0",
         "drupal/core-composer-scaffold": "^11.0",
         "drupal/core-project-message": "^11.0",
         "drupal/core-recommended": "^11.0",
         "drupal/svg_image_field": "^2.3",
+        "drupal/devel": "^5.3",
+        "drupal/eca": "^2.0",
+        "drupal/eca_cm": "^1.0",
+        "drupal/eca_flag": "^2.0",
+        "drupal/eca_tamper": "^2.0",
+        "drupal/flag": "^4.0@beta",
+        "drupal/forum": "^1.0",
+        "drupal/token": "^1.15",
+        "drupal/upgrade_status": "^4.3",
+        "drupal/votingapi": "^4.0@dev",
         "drush/drush": "^13.3"
     },
     "conflict": {
         "drupal/drupal": "*"
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
         "allow-plugins": {
             "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
-            "phpstan/extension-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
         },
         "sort-packages": true
     },
@@ -73,6 +104,13 @@
             "web/themes/custom/{$name}": [
                 "type:drupal-custom-theme"
             ]
+        },
+        "patches": {
+            "drupal/core": {
+                "RuntimeException: Adding non-existent permissions to a role is not allowed": "https://www.drupal.org/files/issues/2024-06-03/3358586-36.patch"},
+            "buildingreen/rate": {
+                "Automated Drupal 11 compatibility fixes for rate\n": "https://www.drupal.org/files/issues/2024-05-21/rate.3.1.0.rector.patch"
+            }
         },
         "drupal-core-project-message": {
             "include-keys": [

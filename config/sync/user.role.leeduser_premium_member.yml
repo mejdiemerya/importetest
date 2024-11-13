@@ -1,0 +1,9 @@
+uuid: 110694f9-db04-47ca-8b9e-5ee86d339d61
+langcode: en
+status: true
+dependencies: {  }
+id: leeduser_premium_member
+label: 'LEEDuser Premium Member'
+weight: 7
+is_admin: null
+permissions: {  }

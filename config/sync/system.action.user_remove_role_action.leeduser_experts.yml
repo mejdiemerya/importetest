@@ -1,0 +1,14 @@
+uuid: b9945e8a-3dd7-4be7-9377-4838c29335c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.leeduser_experts
+  module:
+    - user
+id: user_remove_role_action.leeduser_experts
+label: 'Remove the LEEDuser Experts role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: leeduser_experts

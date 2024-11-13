@@ -1,0 +1,22 @@
+uuid: a156d8f3-b1ce-45c8-b894-876402b7ee78
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - buildinggreen
+_core:
+  default_config_hash: eYL19CLDyinGTWYQfBD1DswWzglEotE_kHnHx3AxTXM
+id: buildinggreen_powered
+theme: buildinggreen
+region: sidebar_first
+weight: 0
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

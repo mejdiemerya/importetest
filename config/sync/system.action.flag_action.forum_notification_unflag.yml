@@ -1,0 +1,15 @@
+uuid: 009e51bf-0524-424e-b937-00738b45ad5e
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.forum_notification
+  module:
+    - flag
+id: flag_action.forum_notification_unflag
+label: 'Unflag this item'
+type: taxonomy_term
+plugin: 'flag_action:forum_notification_unflag'
+configuration:
+  flag_id: forum_notification
+  flag_action: unflag

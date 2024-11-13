@@ -1,0 +1,22 @@
+uuid: 82200f9f-9d83-4cf1-8f71-10fe9ed40340
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - buildinggreen
+_core:
+  default_config_hash: VfPFqqxfkomud5CO8DUijw85QIl9GIxh_nIxLOYESxg
+id: buildinggreen_help
+theme: buildinggreen
+region: sidebar_first
+weight: 0
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

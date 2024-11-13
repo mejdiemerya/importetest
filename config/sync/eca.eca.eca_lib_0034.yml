@@ -1,0 +1,121 @@
+uuid: 5c7e6363-6b7a-441c-a872-1b126080de71
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.comment_forum
+    - views.view.unflaging_content
+  module:
+    - eca_base
+    - eca_content
+    - eca_render
+    - eca_tamper
+id: eca_lib_0034
+modeller: bpmn_io
+label: 'Notifiction post level'
+version: v1
+weight: 0
+events:
+  Event_1rxft90:
+    plugin: 'content_entity:update'
+    label: 'update comment'
+    configuration:
+      type: 'comment comment_forum'
+    successors:
+      -
+        id: Activity_05kur45
+        condition: ''
+  Event_0j9qs8u:
+    plugin: 'content_entity:insert'
+    label: 'add comment'
+    configuration:
+      type: 'comment comment_forum'
+    successors:
+      -
+        id: Activity_05kur45
+        condition: Flow_00gc5rd
+conditions:
+  Flow_00gc5rd:
+    plugin: eca_entity_field_value
+    configuration:
+      negate: false
+      case: false
+      expected_value: '1'
+      field_name: status
+      operator: equal
+      type: value
+      entity: comment
+  Flow_0hgfrzy:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: '[mail]'
+      right: '1'
+      operator: greaterthan
+      type: numeric
+gateways:
+  Gateway_0spfbys:
+    type: 0
+    successors:
+      -
+        id: Activity_0fsbqbf
+        condition: Flow_0hgfrzy
+actions:
+  Activity_05kur45:
+    plugin: 'eca_render_views:views'
+    label: 'view of user that flagged the node'
+    configuration:
+      view_id: unflaging_content
+      display_id: default
+      arguments: '[comment:entity:nid]'
+      name: ''
+      token_name: mail
+      weight: ''
+      mode: append
+    successors:
+      -
+        id: Activity_0mz7evk
+        condition: ''
+  Activity_0mz7evk:
+    plugin: 'eca_tamper:strip_tags'
+    label: 'strip tag'
+    configuration:
+      allowed_tags: ''
+      eca_data: '[mail]'
+      eca_token_name: mail
+    successors:
+      -
+        id: Activity_1yvamff
+        condition: ''
+  Activity_1yvamff:
+    plugin: 'eca_tamper:explode'
+    label: explode
+    configuration:
+      separator: ','
+      limit: ''
+      eca_data: '[mail]'
+      eca_token_name: mail
+    successors:
+      -
+        id: Activity_0vxmhif
+        condition: ''
+  Activity_0fsbqbf:
+    plugin: action_send_email_action
+    label: 'send email'
+    configuration:
+      recipient: '[mail]'
+      subject: test
+      message: '[comment:author]'
+      replace_tokens: true
+    successors: {  }
+  Activity_0vxmhif:
+    plugin: 'eca_tamper:array_filter'
+    label: filter
+    configuration:
+      eca_data: '[mail]'
+      eca_token_name: mail
+    successors:
+      -
+        id: Gateway_0spfbys
+        condition: ''

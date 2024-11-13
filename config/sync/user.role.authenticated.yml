@@ -4,11 +4,17 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
+    - node.type.forum
+    - workflows.workflow.editorial
   module:
     - comment
     - contact
+    - content_moderation
     - file
     - filter
+    - flag
+    - node
+    - rate
     - search
     - shortcut
     - system
@@ -23,8 +29,21 @@ permissions:
   - 'access content'
   - 'access shortcuts'
   - 'access site-wide contact form'
+  - 'access user profiles'
+  - 'cast rate vote on comment_forum on node of forum'
+  - 'cast rate vote on node of forum'
+  - 'create forum content'
   - 'delete own files'
+  - 'edit any forum content'
+  - 'edit own comments'
+  - 'edit own forum content'
+  - 'flag forum_notification'
+  - 'flag notification'
   - 'post comments'
   - 'search content'
   - 'skip comment approval'
+  - 'unflag forum_notification'
+  - 'unflag notification'
+  - 'use editorial transition create_new_draft'
   - 'use text format basic_html'
+  - 'view user email addresses'

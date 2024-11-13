@@ -1,0 +1,4 @@
+name: custom Forum
+type: module
+description: 'override discussion forums.'
+core_version_requirement: ^10 || ^11

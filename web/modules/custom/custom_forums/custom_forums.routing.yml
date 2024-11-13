@@ -1,0 +1,7 @@
+custom_forums.topic_add:
+  path: '/topic/add'
+  defaults:
+    _controller: '\Drupal\custom_forums\Controller\TopicController::add'
+    _title: 'Create a Topic'
+  requirements:
+    _entity_create_any_access: 'node'

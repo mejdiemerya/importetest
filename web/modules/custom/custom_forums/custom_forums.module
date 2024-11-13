@@ -1,0 +1,269 @@
+<?php
+
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\flag\FlaggingInterface;
+use Drupal\flag\FlagService;
+use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
+use Drupal\taxonomy\Entity\Term;
+
+function custom_forums_entity_extra_field_info() {
+  $extra = [];
+// Define an extra field for the last comment author role.
+  $extra['user']['user']['display']['roles'] = [
+    'label' => t('User Role'),
+    'description' => t('Displays the role of the user.'),
+    'weight' => 1,
+  ];
+  // Define an extra field for the comment count.
+  $extra['node']['forum']['display']['comment_count'] = [
+    'label' => t('Comment Count'),
+    'description' => t('Displays the number of comments on the post.'),
+    'weight' => 1,
+  ];
+  $extra['comment']['comment_forum']['display']['comment_form_button'] = [
+    'label' => t('Comment button'),
+    'description' => t('A button that links to the comment form on the same page.'),
+    'weight' => 10,
+  ];
+  $extra['node']['forum']['display']['comment_button'] = [
+    'label' => t('Comment button'),
+    'description' => t('A button that links to the comment form on the same page.'),
+    'weight' => 10,
+  ];
+  // Define an extra field for the date of the last comment.
+  $extra['node']['forum']['display']['last_comment_date'] = [
+    'label' => t('Last Comment Date'),
+    'description' => t('Displays the date of the last comment.'),
+    'weight' => 4,
+  ];
+  return $extra;
+}
+/**
+ * Implements hook_entity_view().
+ */
+function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+  // Check if the entity is a node and is of type "article".
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'forum') {
+    // Render the comment count if the field is enabled.
+    if ($display->getComponent('comment_count')) {
+      // Load the comment count.
+      if($entity->get('comment_forum')) {
+        $comment_count = $entity->get('comment_forum')->comment_count ?? 0;
+
+        $build['comment_count'] = [
+          '#markup' => $comment_count
+        ];
+
+      }
+    }
+    if ($display->getComponent('comment_button')) {
+      $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $entity->id()], ['fragment' => 'forum_add']);
+      $build['comment_button'] = [
+        '#type' => 'link',
+        '#title' => t('Post a reply'),
+        '#url' => $url,
+        '#attributes' => [
+          'class' => ['button', 'comment-button'],
+        ],
+      ];
+    }
+      // Load the latest comment.
+      $last_comment = \Drupal::entityTypeManager()
+        ->getStorage('comment')
+        ->loadByProperties([
+          'entity_id' => $entity->id(),
+          'entity_type' => 'node',
+          'status' => 1,
+        ]);
+
+      if (!empty($last_comment)) {
+        // Get the last comment.
+        $last_comment = end($last_comment);
+
+        // Get the date of the last comment.
+        $last_comment_date = \Drupal::service('date.formatter')->format($last_comment->getCreatedTime(), 'custom', 'D M j, Y, g:i a');
+        if ($display->getComponent('last_comment_date')) {
+
+          $build['last_comment_date'] = [
+            '#markup' => $last_comment_date,
+          ];
+        }
+      }
+    }
+
+  if ($display->getComponent('comment_form_button')) {
+
+      $node = Drupal::service('current_route_match')->getParameter('node');
+if($node) {
+      $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' =>  $node->id()], ['fragment' => 'forum_add']);
+    $build['comment_form_button'] = [
+      '#type' => 'link',
+      '#title' => t('Post a comment'),
+      '#url' => $url,
+      '#attributes' => [
+        'class' => ['button', 'comment-button'],
+      ],
+    ];
+  }}
+  // Check if the entity is a user.
+  if ($entity->getEntityTypeId() === 'user') {
+    // Load the user roles, excluding 'authenticated' and 'anonymous'.
+    $roles = array_filter($entity->getRoles(), function($role) {
+      return $role !== 'authenticated' && $role !== 'anonymous';
+    });
+
+    // Format roles as a comma-separated list.
+    $roles_display = implode(', ', array_map('ucfirst', $roles));
+
+    // Add the roles to the view array.
+    $build['roles'] = [
+      '#markup' => $roles_display,
+    ];
+  }
+}
+
+function custom_forums_entity_presave(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === 'node'  && $entity->bundle() === 'forum'  && $entity->hasField('field_author_profile')) {
+    // Load the author user entity.
+    $author = $entity->getOwner();
+    // Save the current user's ID to the field.
+    $entity->set('field_author_profile', $author->id());
+    // Load the latest comment.
+    if($entity->id()) {
+      $last_comment = \Drupal::entityTypeManager()
+        ->getStorage('comment')
+        ->loadByProperties([
+          'entity_id' => $entity->id(),
+          'entity_type' => 'node',
+          'status' => 1,
+        ]);
+      if (!empty($last_comment)) {
+        // Get the last comment.
+        $last_comment = end($last_comment);
+        // Get the author of the last comment.
+        $last_comment_author = $last_comment->getOwner();
+        $entity->set('field_last_comment_author', $last_comment_author->id());
+      }
+    }
+  if ($entity->getEntityTypeId() === 'comment' && $entity->bundle() =='comment_forum') {
+    // Load the author user entity.
+    $author = $entity->getOwner();
+
+    // Save the current user's ID to the field.
+    $entity->set('field_author_profile_cm', $author->id());
+
+
+  }
+
+}}
+
+function custom_forums_form_alter(&$form, &$form_state, $form_id)
+{
+
+  if ($form_id == 'comment_comment_forum_form') {
+    $comment = $form_state->getFormObject()->getEntity();
+    $entity_id = $comment->get('entity_id');
+
+//$node=Node::load($entity_id);
+    // Load the current user.
+    $current_user = \Drupal::currentUser();
+    $form['title'] = [
+      '#type' => 'markup',
+      '#markup' => '<p><strong>' . t('Post a reply ') . '</p>',
+      '#weight' => -10,
+    ];
+    // Display the current user's name at the top of the form.
+    $form['author_name_display'] = [
+      '#type' => 'markup',
+      '#markup' => '<p><strong>' . t('Your Name ') . '</strong>' . $current_user->getDisplayName() . '</p>',
+      '#weight' => -10,
+    ];
+    $form['actions']['submit']['#value'] = t('Post Comment');
+
+    // Change the label for the comment body field to "Response".
+    $form['comment_body']['widget'][0]['#title'] = t('Response');
+    // Remove the Preview button if it exists.
+    if (isset($form['actions']['preview'])) {
+      unset($form['actions']['preview']);
+    }
+  }
+  if ($form_id == 'node_forum_form' || $form_id == 'node_forum_edit_form') {
+    // Remove the Preview button if it exists.
+    if (isset($form['actions']['preview'])) {
+      unset($form['actions']['preview']);
+    }
+    $form['actions']['submit']['#value'] = t('Post to forum');
+
+    // Add a Cancel button.
+    $form['actions']['cancel'] = [
+      '#type' => 'link',
+      '#title' => t('Cancel'),
+      '#url' => \Drupal\Core\Url::fromRoute('<front>'),
+      '#attributes' => [
+        'class' => [
+          'button',
+          'cancel',
+        ],
+      ],
+      '#weight' => 20,
+    ];
+    // Get the form ID from the URL or any custom logic.
+    $current_form_id = \Drupal::request()->query->get('forum_id');
+    if ($current_form_id) {
+      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($current_form_id);
+
+      // Ensure the form field exists in the form and assign it the value.
+      if (isset($form['taxonomy_forums'])) {
+        $form['taxonomy_forums']['widget'][0]['target_id']['#default_value'] = $term;
+      }
+      // Add  "Forum area" with a change link
+      $change_url = \Drupal\Core\Url::fromRoute('custom_forums.topic_add')->toString();
+
+      // Add the forum area field with the term name and change link
+      $form['forum_area'] = [
+        '#markup' => t('Forum area: @forum_name <a href="@change_url">[change]</a>', [
+          '@forum_name' => $term->getName(),
+          '@change_url' => $change_url,
+        ]),
+      ];
+    }
+
+  }
+}
+
+//function custom_forums_flagging_presave(FlaggingInterface $flagging) {
+//  // Check if the flagging is for a taxonomy term.
+//  $flagged_entity = $flagging->getFlaggable();
+//  if ($flagged_entity instanceof Term) {
+//    // Load all content (nodes) related to the flagged taxonomy term.
+//    $term_id = $flagged_entity->id();
+//    \Drupal::logger('custom_forums_flagging')->debug('Flagging triggered for term ID: @term_id', ['@term_id' => $term_id]);
+//
+//    $entity_type_manager = \Drupal::entityTypeManager();
+//    $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['taxonomy_forums' => $term_id]);
+//
+//    // Flag each related node if it's not already flagged.
+//    foreach ($related_nodes as $node) {
+//      \Drupal::logger('custom_forums_flagging')->debug('Processing node ID: @node_id related to term ID: @term_id', ['@node_id' => $node->id(), '@term_id' => $term_id]);
+//
+//      // Load the flag service and check if the node is already flagged.
+//      $flag_service = \Drupal::service('flag');
+//      $flag = $flag_service->getFlagById('notification');
+//
+//      if ($flag && !$flag_service->getFlagging($flag, $node)) {
+//        // Flag the node if not already flagged.
+//        $flag_service->flag($flag, $node);
+//        \Drupal::logger('custom_forums_flagging')->debug('Flagged node ID: @node_id', ['@node_id' => $node->id()]);
+//      }
+//    }
+//  }
+//}
+
+
+
+
+

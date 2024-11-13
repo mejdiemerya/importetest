@@ -1,0 +1,9 @@
+uuid: bb593165-16d3-41d6-bb65-ad1be4394006
+langcode: en
+status: true
+dependencies: {  }
+name: 'Credit categorie'
+vid: credit_categorie
+description: null
+weight: 0
+new_revision: false

@@ -1,0 +1,22 @@
+uuid: af78d65f-145e-4d40-91b5-4f4918cc680c
+langcode: en
+status: true
+dependencies:
+  theme:
+    - buildinggreen
+_core:
+  default_config_hash: nGE3EoPQQaQCuqTUtZgw0-KIzmrqdKDzdNQf2JyPUt4
+id: buildinggreen_primary_local_tasks
+theme: buildinggreen
+region: highlighted
+weight: -4
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }
