@@ -4,4 +4,4 @@ custom_forums.topic_add:
     _controller: '\Drupal\custom_forums\Controller\TopicController::add'
     _title: 'Create a Topic'
   requirements:
-    _entity_create_any_access: 'node'
+    _access: 'TRUE'

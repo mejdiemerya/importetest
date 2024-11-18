@@ -370,7 +370,24 @@ function custom_forums_preprocess_node(array &$variables) {
     // Pass the flagged terms information to the Twig template.
     $variables['flagged_terms'] = $flagged_terms;
   }
-  // Set cache to no caching for this variable processing.
-  $variables['#cache']['max-age'] = 0;
 }
 
+/**
+ * Implements hook_theme().
+ */
+function custom_forums_theme($existing, $type, $theme, $path) {
+  return [
+    'anonymous_message' => [
+      'variables' => [
+        'message' => NULL,
+        'details' => [],
+      ],
+    ],
+    'authenticated_forum_list' => [
+      'variables' => [
+        'forums' => [],
+        'form' => NULL,
+      ],
+    ],
+  ];
+}

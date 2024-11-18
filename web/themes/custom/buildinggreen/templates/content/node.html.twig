@@ -75,24 +75,24 @@
   ]
 %}
 <article{{ attributes.addClass(classes) }}>
+  {{ dump() }}
   {% for item in content.taxonomy_forums['#items'] %}
-
   <div class="button-container">
     <div class="button">
       <a href="/forums?taxonomy_forums_target_id={{ item.entity.id }}">
       <span>{{ 'See all forum discussions about'|t }}         {{ item.entity.label }}</span>
       </a>
     </div>
-
     <div class="button">
+      <a href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'forum_id': item.entity.id}}) }}">
       <span>{{ 'Post a new question about'|t }} {{ item.entity.label }} </span>
+      </a>
     </div>
   </div>
   {% endfor %}
   <header class="{{ layout }}">
     {{ title_prefix }}
     <p>{{ 'Forum discussion'|t }}</p>
-
 
 
     <p>{{ content.taxonomy_forums }}</p>

@@ -21,6 +21,7 @@ dependencies:
     - 'taxonomy_term:forums:276ccf3e-d1bc-4b00-ac0c-6b66f6eae3e9'
     - 'taxonomy_term:forums:42f084bb-6d9b-428d-85b5-d57174b80ec1'
     - 'taxonomy_term:forums:4a2fff69-3857-4197-8c88-c7365db17e6d'
+    - 'taxonomy_term:forums:60d78a72-35d1-44b3-9762-16c67d9073b2'
     - 'taxonomy_term:forums:72b47190-e8a6-4433-9b51-24307e76fdb3'
     - 'taxonomy_term:forums:a8715ade-8879-4669-b3a2-a1f9f307fa62'
     - 'taxonomy_term:forums:b3de9adf-926d-4030-92f1-65866d630c1d'
@@ -36,6 +37,7 @@ dependencies:
     - rate
     - taxonomy
     - user
+    - views_load_more
 id: forums
 label: forums
 module: views
@@ -207,16 +209,13 @@ display:
           hide_alter_empty: true
           counter_start: 1
       pager:
-        type: mini
+        type: load_more
         options:
           offset: 0
           pagination_heading_level: h4
           items_per_page: 10
           total_pages: null
           id: 0
-          tags:
-            next: ››
-            previous: ‹‹
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -225,6 +224,14 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
+          more_button_text: 'Load more'
+          end_text: ''
+          advanced:
+            content_selector: ''
+            pager_selector: ''
+          effects:
+            type: ''
+            speed: slow
       exposed_form:
         type: basic
         options:
@@ -555,6 +562,7 @@ display:
           value:
             40: 40
             58: 58
+            59: 59
             41: 41
             42: 42
             43: 43
@@ -573,7 +581,7 @@ display:
             55: 55
             57: 57
           group: 1
-          exposed: false
+          exposed: true
           expose:
             operator_id: taxonomy_forums_target_id_op
             label: 'Forums (taxonomy_forums)'
@@ -582,7 +590,7 @@ display:
             operator: taxonomy_forums_target_id_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: taxonomy_forums_target_id
+            identifier: forum_id
             required: false
             remember: false
             multiple: false
