@@ -14,12 +14,10 @@ class TopicController extends ControllerBase {
    * Display the topic creation form.
    */
   public function add() {
-    $form = $this->formBuilder()->getForm(TopicForm::class);
-
+    $form = \Drupal::formBuilder()->getForm(TopicForm::class);
     $render_array = [
       '#theme' => 'item_list',
       '#items' => [],
-      '#form' => [],
     ];
 // Build a query for terms in the 'forums' vocabulary that have the specified fields.
     $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery()->accessCheck(false);
@@ -27,7 +25,9 @@ class TopicController extends ControllerBase {
       ->notExists('field_credit')
       ->notExists('field_credit_category')
       ->notExists('field_leed_version')
-      ->notExists('field_rating_system');
+      ->notExists('field_rating_system')
+      ->sort('tid', 'ASC');
+
 
 // Execute the query to get term IDs.
     $tids = $query->execute();
@@ -44,9 +44,11 @@ class TopicController extends ControllerBase {
         // Add the link to the render array.
         $render_array['#items'][] = $link;
       }
-      $render_array['#form'][] = $form;
 
 
-    return $render_array;
+    return [
+      'item_list' => $render_array,
+      'form' => $form,
+    ];
   }
 }

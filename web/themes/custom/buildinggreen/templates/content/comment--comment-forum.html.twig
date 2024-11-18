@@ -87,11 +87,11 @@
 
 
   <div class="comment__text-wrapper">
-        <p class="comment__time">{{ created }}</p>
+        <p class="comment__time">{{ created |date(("F j, Y - g:i a")) }}</p>
 
     <div{{ content_attributes.addClass('comment__content') }}>
       {{ content.comment_body }}
-      {{ content.field_author_profile_cm }}
+      {{ content.uid }}
       {{ content.comment_button }}
       {{ content.rate_comment_rate }}
       {{ content.comment_form_button }}

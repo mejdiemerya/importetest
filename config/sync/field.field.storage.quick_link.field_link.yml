@@ -1,0 +1,25 @@
+uuid: b4c915da-1367-4978-b66a-72cc1a3e804a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.storage.field_link
+    - storage.storage_type.quick_link
+  module:
+    - link
+_core:
+  default_config_hash: '-lFyHs086ZVjl4r9S6BratbCpQSwCGV7NZM3cxHWSBY'
+id: storage.quick_link.field_link
+field_name: field_link
+entity_type: storage
+bundle: quick_link
+label: Link
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 0
+field_type: link

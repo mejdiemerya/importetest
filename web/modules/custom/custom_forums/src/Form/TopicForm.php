@@ -19,16 +19,32 @@ class TopicForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $form['title'] = [
-      '#type' => 'textfield',
-      '#title' => $this->t('Topic Title'),
-      '#required' => TRUE,
+    $vocabularies = [
+      'leed_version' => 'leed_version',
+      'rating_system' => 'rating_system',
+      'credit_categorie' => 'credit_categorie',
+      'credit' => 'credit',
     ];
 
-    $form['description'] = [
-      '#type' => 'textarea',
-      '#title' => $this->t('Description'),
-    ];
+// Loop through each vocabulary and create a corresponding select field.
+foreach ($vocabularies as $field_name => $vocabulary_id) {
+  // Load the terms for the current vocabulary.
+  $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree($vocabulary_id);
+
+  // Prepare the options list.
+  $options = [];
+  foreach ($terms as $term) {
+    $options[$term->tid] = $term->name;
+  }
+
+  // Add the select field to the form.
+  $form[$field_name] = [
+    '#type' => 'select',
+    '#title' => $this->t('Choose a term from @vocabulary', ['@vocabulary' => $vocabulary_id]),
+    '#options' => $options,
+    '#required' => TRUE,
+  ];
+}
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
@@ -42,20 +58,10 @@ class TopicForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    // Create a node of type "topic".
-    $node = Node::create([
-      'type' => 'topic',
-      'title' => $form_state->getValue('title'),
-      'body' => [
-        'value' => $form_state->getValue('description'),
-        'format' => 'basic_html',
-      ],
-    ]);
 
-    // Save the node.
-    $node->save();
 
-    $this->messenger()->addMessage($this->t('Topic "%title" has been created.', ['%title' => $node->getTitle()]));
+
+
     $form_state->setRedirect('<front>');
   }
 }

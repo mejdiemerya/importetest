@@ -5,7 +5,6 @@ dependencies:
   config:
     - core.entity_view_display.comment.comment_forum.default
     - field.field.node.forum.comment_forum
-    - field.field.node.forum.field_author_profile
     - field.field.node.forum.field_last_comment_author
     - field.field.node.forum.field_project_location
     - field.field.node.forum.field_question
@@ -14,7 +13,6 @@ dependencies:
   module:
     - comment
     - text
-    - user
 _core:
   default_config_hash: ipzVP57UiuSE3ixt_lV1XzR2l-hqw_tGClp8eHN7zbw
 id: node.forum.default
@@ -25,7 +23,7 @@ content:
   comment_button:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 7
     region: content
   comment_forum:
     type: comment_default
@@ -34,16 +32,12 @@ content:
       view_mode: default
       pager_id: 0
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
-  field_author_profile:
-    type: entity_reference_entity_view
-    label: hidden
-    settings:
-      view_mode: author_profile
-      link: false
+  content_moderation_control:
+    settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
   field_project_location:
     type: entity_reference_label
@@ -51,29 +45,29 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_question:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   flag_notification:
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 9
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 4
     region: content
   rate_rate:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 8
     region: content
   taxonomy_forums:
     type: entity_reference_label
@@ -81,7 +75,16 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 0
+    weight: 1
+    region: content
+  uid:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: author_profile
+      link: false
+    third_party_settings: {  }
+    weight: 2
     region: content
 hidden:
   author_picture: true
@@ -90,3 +93,4 @@ hidden:
   last_comment_author_image: true
   last_comment_author_role: true
   last_comment_date: true
+  user_picture: true

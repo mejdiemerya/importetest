@@ -1,14 +1,12 @@
 <?php
 
 
+use Drupal\comment\Entity\Comment;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\flag\FlaggingInterface;
-use Drupal\flag\FlagService;
+use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\node\Entity\Node;
-use Drupal\node\NodeInterface;
-use Drupal\taxonomy\Entity\Term;
+
+use Drupal\user\Entity\Role;
 
 function custom_forums_entity_extra_field_info() {
   $extra = [];
@@ -18,10 +16,21 @@ function custom_forums_entity_extra_field_info() {
     'description' => t('Displays the role of the user.'),
     'weight' => 1,
   ];
+  // Define an extra field for the user name.
+  $extra['user']['user']['display']['user_name'] = [
+    'label' => t('User Name'),
+    'description' => t('Displays the user name.'),
+    'weight' => 1,
+  ];
   // Define an extra field for the comment count.
   $extra['node']['forum']['display']['comment_count'] = [
     'label' => t('Comment Count'),
     'description' => t('Displays the number of comments on the post.'),
+    'weight' => 1,
+  ];
+  $extra['node']['forum']['display']['user_picture'] = [
+    'label' => t('User picture'),
+    'description' => t('Displays the user picture.'),
     'weight' => 1,
   ];
   $extra['comment']['comment_forum']['display']['comment_form_button'] = [
@@ -93,7 +102,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
           ];
         }
       }
-    }
+
 
   if ($display->getComponent('comment_form_button')) {
 
@@ -109,57 +118,117 @@ if($node) {
       ],
     ];
   }}
+  if ($display->getComponent('user_picture')) {
+
+    $author=$entity->getOwner();
+    $user_picture_item = $author->get('user_picture')->first();
+    $user_picture_file = $user_picture_item->entity;
+
+    if ($user_picture_file) {
+      // Build the render array.
+      $build['user_picture'] = [
+        '#theme' => 'image',
+        '#uri' => $user_picture_file->getFileUri(),
+        '#attributes' => [
+          'width' => '100',
+          'height' => '100',
+          'alt' => $user_picture_item->get('alt')->getValue() ?? '',
+          'title' => $user_picture_item->get('title')->getValue() ?? '',
+        ],
+      ];
+    }
+  }}
+
   // Check if the entity is a user.
   if ($entity->getEntityTypeId() === 'user') {
-    // Load the user roles, excluding 'authenticated' and 'anonymous'.
-    $roles = array_filter($entity->getRoles(), function($role) {
-      return $role !== 'authenticated' && $role !== 'anonymous';
+
+    // Load the user roles.
+    $roles = $entity->getRoles();
+
+    // Filter out 'authenticated' and 'anonymous' roles.
+    $roles = array_filter($roles, function ($role_id) {
+      return $role_id !== 'authenticated' && $role_id !== 'anonymous' && $role_id !== 'administrator';
     });
 
-    // Format roles as a comma-separated list.
-    $roles_display = implode(', ', array_map('ucfirst', $roles));
+    // Load role entities for the remaining role IDs.
+    $role_entities = Role::loadMultiple($roles);
 
-    // Add the roles to the view array.
-    $build['roles'] = [
-      '#markup' => $roles_display,
-    ];
+    // Build a comma-separated list of role labels.
+    $role_labels = [];
+    foreach ($role_entities as $role) {
+      $role_labels[] = $role->label();
+    }
+
+    // Format roles for display if the 'roles' component exists.
+    if (!empty($role_labels) && $display->getComponent('roles')) {
+      $build['roles'] = [
+        '#markup' => implode(', ', $role_labels),
+      ];
+    }
+    $user_name=$entity->getDisplayName();
+
+
+    if ($display->getComponent('user_name')) {
+      // Add the roles to the view array.
+      $build['user_name'] = [
+        '#markup' =>'<p>' .$user_name.'</p>',
+      ];
+    }
   }
 }
 
-function custom_forums_entity_presave(EntityInterface $entity) {
-  if ($entity->getEntityTypeId() === 'node'  && $entity->bundle() === 'forum'  && $entity->hasField('field_author_profile')) {
-    // Load the author user entity.
-    $author = $entity->getOwner();
-    // Save the current user's ID to the field.
-    $entity->set('field_author_profile', $author->id());
+function custom_forums_entity_insert(EntityInterface $entity)
+{
+  if ($entity->getEntityTypeId() === 'comment' && $entity->bundle() =='comment_forum') {
     // Load the latest comment.
-    if($entity->id()) {
+    $node_related_id =$entity->get('entity_id')->getValue()[0]['target_id'];
+
+    $node_related=Node::load($node_related_id);
+    if($node_related_id) {
       $last_comment = \Drupal::entityTypeManager()
         ->getStorage('comment')
         ->loadByProperties([
-          'entity_id' => $entity->id(),
+          'entity_id' =>   $node_related_id,
           'entity_type' => 'node',
           'status' => 1,
         ]);
+
       if (!empty($last_comment)) {
         // Get the last comment.
         $last_comment = end($last_comment);
         // Get the author of the last comment.
         $last_comment_author = $last_comment->getOwner();
-        $entity->set('field_last_comment_author', $last_comment_author->id());
+        $node_related->set('field_last_comment_author', $last_comment_author->id());
+        $node_related->save();
       }
     }
-  if ($entity->getEntityTypeId() === 'comment' && $entity->bundle() =='comment_forum') {
-    // Load the author user entity.
-    $author = $entity->getOwner();
-
-    // Save the current user's ID to the field.
-    $entity->set('field_author_profile_cm', $author->id());
-
-
   }
+}
+function custom_forums_entity_delete(EntityInterface $entity) {
+  if ($entity instanceof Comment) {
+    // Get the related node of the comment.
+    $node_related = $entity->getCommentedEntity();
 
-}}
+    // Get the most recent comment on this node, if any.
+    $last_comment = \Drupal::entityTypeManager()
+      ->getStorage('comment')
+      ->loadByProperties([
+        'entity_id' => $node_related->id(),
+        'status' => 1,
+      ]);
+
+    // Get the last comment.
+    if (!empty($last_comment)) {
+      $last_comment = end($last_comment);
+      $node_related->set('field_last_comment_author', $last_comment->getOwnerId());
+    }
+    else {
+      // No comments remain; clear the field.
+      $node_related->set('field_last_comment_author', NULL);
+    }
+    $node_related->save();
+  }
+}
 
 function custom_forums_form_alter(&$form, &$form_state, $form_id)
 {
@@ -263,7 +332,45 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
 //  }
 //}
 
+function custom_forums_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+  switch ($entity_type->id()) {
+
+    case 'node':
+    case 'comment':
+      $fields['uid']->setDisplayConfigurable('view', TRUE)
+        ->setDisplayOptions('view', ['region' => 'hidden']);
+      break;
+
+  }
+}
 
 
 
+
+/**
+ * Implements hook_preprocess_HOOK() for node templates.
+ */
+function custom_forums_preprocess_node(array &$variables) {
+  // Check if the node has the taxonomy reference field.
+  if (isset($variables['content']['taxonomy_forums']['#items'])) {
+    $flag_service = \Drupal::service('flag');
+    $flag = $flag_service->getFlagById('forum_notification');
+    $flagged_terms = [];
+
+    // Loop through each taxonomy term referenced in the field.
+    foreach ($variables['content']['taxonomy_forums']['#items'] as $delta => $item) {
+      $term = $item->entity;
+      $is_flagged = $flag->isFlagged( $term);
+      $flagged_terms[$delta] = [
+        'term' => $term,
+        'is_flagged' => $is_flagged,
+      ];
+    }
+
+    // Pass the flagged terms information to the Twig template.
+    $variables['flagged_terms'] = $flagged_terms;
+  }
+  // Set cache to no caching for this variable processing.
+  $variables['#cache']['max-age'] = 0;
+}
 

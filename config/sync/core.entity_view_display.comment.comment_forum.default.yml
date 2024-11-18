@@ -5,7 +5,6 @@ dependencies:
   config:
     - comment.type.comment_forum
     - field.field.comment.comment_forum.comment_body
-    - field.field.comment.comment_forum.field_author_profile_cm
   module:
     - text
 _core:
@@ -25,25 +24,25 @@ content:
   comment_form_button:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 1
     region: content
-  field_author_profile_cm:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  rate_comment_rate:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  uid:
     type: entity_reference_entity_view
     label: hidden
     settings:
       view_mode: author_profile
       link: false
     third_party_settings: {  }
-    weight: 101
-    region: content
-  links:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 100
-    region: content
-  rate_comment_rate:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 100
+    weight: 4
     region: content
 hidden: {  }

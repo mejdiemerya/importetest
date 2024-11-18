@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Olivero's theme implementation to display a node.
+ * Olivero's theme implementation to display a node teaser.
  *
  * Available variables:
  * - node: The node entity with limited access to object properties and methods.
@@ -61,47 +61,66 @@
  */
 #}
 
-{% set layout = layout ? 'layout--' ~ layout|clean_class %}
-
 {%
   set classes = [
     'node',
     'node--type-' ~ node.bundle|clean_class,
-    layout ? 'grid-full',
     node.isPromoted() ? 'node--promoted',
     node.isSticky() ? 'node--sticky',
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-<article{{ attributes.addClass(classes) }}>
-  <header class="{{ layout }}">
-    {{ title_prefix }}
-    {{ content.taxonomy_forums }}
 
-      <h2{{ title_attributes.addClass('node__title') }}>
-        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-      </h2>
 
-    {{ title_suffix }}
-    {% if display_submitted %}
-      <div class="node__meta">
-        <span{{ author_attributes }}>
-          {{ date }}
-        </span>
-        {{ metadata }}
-      </div>
-    {% endif %}
-  </header>
+{% embed "olivero:teaser" with {
+  attributes: attributes.addClass(classes),
+  author_attributes,
+  author_name,
+  content,
+  date,
+  display_submitted,
+  label,
+  metadata,
+  title_attributes,
+  title_prefix,
+  title_suffix,
+  read_more,
+  url,
+  } only %}
 
-  <div{{ content_attributes.addClass('node__content', layout) }}>
-    {{ content.field_notification }}
-    {{ content.comment_button }}
-    {{ content.field_project_location }}
-    {{ content.field_question }}
-    {{ content.field_author_profile }}
-    {{ content.rate_rate }}
-    {{ content.comment_forum }}
-  </div>
+  {% block content %}
+    <table class="content-table">
+      <tr>
+        <!-- First Column -->
+        <td class="content-column">
+          {{ content.user_picture }}
 
-</article>
+          <h4 >
+                <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+              </h4>
+          <h5 > {{ content.taxonomy_forums }}</h5>
+
+          <h6{{ author_attributes }}>
+
+          {{ 'posted by'|t }} {% apply spaceless %}<a href="users/" class="node__author">{{ author_name }}</a>{% endapply %} {{ 'on'|t }} {{ date|date("M j, Y, g:i a")  }} {{ content.field_project_location }}
+
+          </h6>
+         <div>{{ content.field_question }}</div>
+        </td>
+
+        <!-- Second Column -->
+        <td class="content-column">
+          {{ content.comment_count }}
+        </td>
+
+        <!-- Third Column -->
+        <td class="content-column">
+          {{ content.field_last_comment_author }}
+          {{ content.last_comment_date }}
+
+        </td>
+      </tr>
+    </table>
+  {% endblock %}
+{% endembed %}

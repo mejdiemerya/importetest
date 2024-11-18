@@ -1,6 +1,7 @@
 _core:
   default_config_hash: 4GIX5Esnc_umpXUBj4IIocRX7Mt5fPhm4AgXfE3E56E
 module:
+  add_content_by_bundle: 0
   admin_toolbar: 0
   admin_toolbar_tools: 0
   announcements_feed: 0
@@ -20,6 +21,8 @@ module:
   datetime: 0
   dblog: 0
   devel: 0
+  display_link_plus: 0
+  draggableviews: 0
   dynamic_page_cache: 0
   eca: 0
   eca_access: 0
@@ -51,6 +54,8 @@ module:
   history: 0
   image: 0
   link: 0
+  media: 0
+  media_library: 0
   menu_link_content: 0
   menu_ui: 0
   mysql: 0
@@ -59,9 +64,13 @@ module:
   page_cache: 0
   path: 0
   path_alias: 0
+  quick_links: 0
   rate: 0
   search: 0
   shortcut: 0
+  storage: 0
+  svg_image_field: 0
+  svg_image_field_media_bundle: 0
   system: 0
   tamper: 0
   taxonomy: 0

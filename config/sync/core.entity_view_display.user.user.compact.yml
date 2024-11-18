@@ -30,3 +30,4 @@ content:
 hidden:
   member_for: true
   roles: true
+  user_name: true

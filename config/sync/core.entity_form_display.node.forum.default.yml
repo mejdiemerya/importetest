@@ -4,14 +4,15 @@ status: true
 dependencies:
   config:
     - field.field.node.forum.comment_forum
-    - field.field.node.forum.field_author_profile
     - field.field.node.forum.field_last_comment_author
     - field.field.node.forum.field_project_location
     - field.field.node.forum.field_question
     - field.field.node.forum.taxonomy_forums
     - node.type.forum
+    - workflows.workflow.editorial
   module:
     - comment
+    - content_moderation
     - path
     - text
 _core:
@@ -49,7 +50,7 @@ content:
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default
-    weight: 100
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -109,5 +110,4 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  field_author_profile: true
   field_last_comment_author: true

@@ -1,7 +1,7 @@
 {#
 /**
  * @file
- * Olivero's theme implementation to display a node teaser.
+ * Olivero's theme implementation to display a node.
  *
  * Available variables:
  * - node: The node entity with limited access to object properties and methods.
@@ -61,56 +61,65 @@
  */
 #}
 
+{% set layout = layout ? 'layout--' ~ layout|clean_class %}
+
 {%
   set classes = [
     'node',
     'node--type-' ~ node.bundle|clean_class,
+    layout ? 'grid-full',
     node.isPromoted() ? 'node--promoted',
     node.isSticky() ? 'node--sticky',
     not node.isPublished() ? 'node--unpublished',
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
+<article{{ attributes.addClass(classes) }}>
+  {% for item in content.taxonomy_forums['#items'] %}
 
+  <div class="button-container">
+    <div class="button">
+      <a href="/forums?taxonomy_forums_target_id={{ item.entity.id }}">
+      <span>{{ 'See all forum discussions about'|t }}         {{ item.entity.label }}</span>
+      </a>
+    </div>
 
-{% embed "olivero:teaser" with {
-  attributes: attributes.addClass(classes),
-  author_attributes,
-  author_name,
-  content,
-  date,
-  display_submitted,
-  label,
-  metadata,
-  title_attributes,
-  title_prefix,
-  title_suffix,
-  read_more,
-  url,
-  } only %}
-  {% block prefix %}
+    <div class="button">
+      <span>{{ 'Post a new question about'|t }} {{ item.entity.label }} </span>
+    </div>
+  </div>
+  {% endfor %}
+  <header class="{{ layout }}">
     {{ title_prefix }}
+    <p>{{ 'Forum discussion'|t }}</p>
+
+
+
+    <p>{{ content.taxonomy_forums }}</p>
+
+      <h2{{ title_attributes.addClass('node__title') }}>
+        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      </h2>
+
     {{ title_suffix }}
-  {% endblock %}
-  {% block meta %}
     {% if display_submitted %}
       <div class="node__meta">
         <span{{ author_attributes }}>
-          {{ 'By'|t }} {% apply spaceless %}<span class="node__author">{{ author_name }}</span>{% endapply %}, {{ date }}
+          {{ date |date(("F j, Y - g:i a"))}}
         </span>
-        {{ metadata }}
+          {{ content.field_project_location }}
       </div>
     {% endif %}
-  {% endblock %}
-  {% block image %}{{~ content.field_image ~}}{% endblock %}
-  {% block title %}
-    {% if label and not page %}
-      <h2{{ title_attributes.addClass('node__title', 'teaser__title') }}>
-        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-      </h2>
-    {% endif %}
-  {% endblock %}
-  {% block content %}
-    {{ content|without('field_image', 'links') }}
-  {% endblock %}
-{% endembed %}
+  </header>
+
+  <div{{ content_attributes.addClass('node__content', layout) }}>
+    <div>
+      <div>  {{ content.field_question }}
+        {{ content.rate_rate }}</div>
+      <div>{{ author_name }}</div>
+    </div>
+    {{ content.comment_button }}
+    {{ content.comment_forum }}
+  </div>
+
+</article>

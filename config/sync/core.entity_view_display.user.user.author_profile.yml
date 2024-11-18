@@ -21,6 +21,11 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
+  user_name:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
   user_picture:
     type: image
     label: hidden

@@ -1,0 +1,15 @@
+uuid: 08232f67-abfd-44cc-b3de-ced47c0e0246
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Ah_65WfH-3iLlno2h02jAkYWVS1clCame_9PzGEzM1E
+id: quick_link
+label: 'Quick Link'
+description: ''
+help: null
+new_revision: true
+revision_expose: false
+revision_log: false
+name_pattern: ''
+has_canonical: false

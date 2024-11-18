@@ -5,7 +5,6 @@ dependencies:
   config:
     - comment.type.comment_forum
     - field.field.comment.comment_forum.comment_body
-    - field.field.comment.comment_forum.field_author_profile_cm
   module:
     - text
 _core:
@@ -29,5 +28,4 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  field_author_profile_cm: true
   subject: true

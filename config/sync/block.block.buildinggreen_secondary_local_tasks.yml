@@ -9,7 +9,7 @@ _core:
 id: buildinggreen_secondary_local_tasks
 theme: buildinggreen
 region: highlighted
-weight: -2
+weight: -5
 provider: null
 plugin: local_tasks_block
 settings:

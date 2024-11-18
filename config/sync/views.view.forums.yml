@@ -7,9 +7,30 @@ dependencies:
     - node.type.forum
     - taxonomy.vocabulary.credit
     - taxonomy.vocabulary.credit_categorie
+    - taxonomy.vocabulary.forums
     - taxonomy.vocabulary.leed_version
     - taxonomy.vocabulary.location
     - taxonomy.vocabulary.rating_system
+  content:
+    - 'taxonomy_term:forums:055437b6-8179-4a1c-a40a-381c24b4a82d'
+    - 'taxonomy_term:forums:166108f8-fa50-492f-9757-c7de275bf04e'
+    - 'taxonomy_term:forums:1809684c-4f94-4572-bac6-44bf55761a36'
+    - 'taxonomy_term:forums:1b6e519c-2e41-43c1-8471-9f3e63ad706f'
+    - 'taxonomy_term:forums:1d794879-2c2c-4b2c-a807-2a47c9bf0470'
+    - 'taxonomy_term:forums:267442c8-6e0b-409b-aec8-76d13646ce86'
+    - 'taxonomy_term:forums:276ccf3e-d1bc-4b00-ac0c-6b66f6eae3e9'
+    - 'taxonomy_term:forums:42f084bb-6d9b-428d-85b5-d57174b80ec1'
+    - 'taxonomy_term:forums:4a2fff69-3857-4197-8c88-c7365db17e6d'
+    - 'taxonomy_term:forums:72b47190-e8a6-4433-9b51-24307e76fdb3'
+    - 'taxonomy_term:forums:a8715ade-8879-4669-b3a2-a1f9f307fa62'
+    - 'taxonomy_term:forums:b3de9adf-926d-4030-92f1-65866d630c1d'
+    - 'taxonomy_term:forums:b49cda4a-de54-45d2-a53d-9cacf148a4d5'
+    - 'taxonomy_term:forums:b529fdae-6c0b-4d37-870f-ce4e40b5874a'
+    - 'taxonomy_term:forums:d03862e8-a48e-4bd1-ab43-5ef431c6e48b'
+    - 'taxonomy_term:forums:d3e14599-6cfd-4ec2-9587-71004059ad85'
+    - 'taxonomy_term:forums:da72125f-dd87-4065-91e6-224d8d94ba5c'
+    - 'taxonomy_term:forums:e67f0f4e-9d8e-47e9-9cf9-877d64eaff0e'
+    - 'taxonomy_term:forums:fe0059bf-1199-4221-a68d-056ff071f296'
   module:
     - node
     - rate
@@ -522,6 +543,77 @@ display:
           hierarchy: false
           limit: true
           error_message: true
+        taxonomy_forums_target_id:
+          id: taxonomy_forums_target_id
+          table: node__taxonomy_forums
+          field: taxonomy_forums_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value:
+            40: 40
+            58: 58
+            41: 41
+            42: 42
+            43: 43
+            44: 44
+            45: 45
+            46: 46
+            47: 47
+            48: 48
+            49: 49
+            50: 50
+            51: 51
+            52: 52
+            53: 53
+            54: 54
+            56: 56
+            55: 55
+            57: 57
+          group: 1
+          exposed: false
+          expose:
+            operator_id: taxonomy_forums_target_id_op
+            label: 'Forums (taxonomy_forums)'
+            description: ''
+            use_operator: false
+            operator: taxonomy_forums_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: taxonomy_forums_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              leeduser_experts: '0'
+              leeduser_moderators: '0'
+              leeduser_premium_member: '0'
+              leeduser_basic_member: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: forums
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
       filter_groups:
         operator: AND
         groups:
@@ -562,8 +654,8 @@ display:
           plugin_id: text
           empty: false
           content:
-            value: "<a id=\"post-question\" href=\"/topic/add\"  class=\"use-ajax\" 'data-dialog-type' =' 'modal'\r\n<i class=\"fi flaticon-communication\" data-gtm-vis-has-fired7025260_75=\"1\"></i>Post a question or comment</a>"
-            format: basic_html
+            value: "<a  id=\"post-question\" href=\"/topic/add\"  class=\"use-ajax button--primary \" data-dialog-type='modal'\r\n<i class=\"fi flaticon-communication\" data-gtm-vis-has-fired7025260_75=\"1\"></i>Post a question or comment</a>"
+            format: full_html
           tokenize: false
       footer: {  }
       display_extenders: {  }

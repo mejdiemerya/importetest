@@ -13,6 +13,7 @@ dependencies:
     - file
     - filter
     - flag
+    - media
     - node
     - rate
     - search
@@ -46,4 +47,5 @@ permissions:
   - 'unflag notification'
   - 'use editorial transition create_new_draft'
   - 'use text format basic_html'
+  - 'view media'
   - 'view user email addresses'
