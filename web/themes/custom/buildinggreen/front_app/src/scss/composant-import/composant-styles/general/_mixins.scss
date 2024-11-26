@@ -1,0 +1,191 @@
+// MIXINS ET FUNCTIONS
+
+// Functions em() / rem()
+// Fonctions de conversion pixel vers em / rem
+
+$transition02: all .2s;
+$transition04: all .4s ease-out;
+$link-transition-on: all 200ms ease-out;
+$link-transition-off: all 400ms ease-out;
+
+
+
+// Mixin - list-reset
+// Styles par defaut pour les listes <ul>
+@mixin list-reset {
+  list-style-type: none;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+}
+
+// Mixin - button-reset
+// Styles par defaut pour les boutons <button>
+@mixin button-reset {
+  background: none;
+  border: 0 none;
+  padding: 0;
+}
+
+// Mixin - button-reset
+// Styles par defaut pour les boutons <button>
+@mixin outline-reset {
+  outline: 1px dotted currentColor;
+}
+
+// Mixin - breakpoint()
+// Mixin pour les mediaqueries.
+// $target peut prendre les valeurs listées dans _constants.scss
+@mixin breakpoint($target) {
+  @at-root #{"&"} {
+    @media #{$target} {
+      @content;
+    }
+  }
+}
+
+// Pour le calcul des media queries
+@function lower-bound($range) {
+  @if length($range) <= 0 {
+    @return 0;
+  }
+
+  @return nth($range, 1);
+}
+
+// Pour le calcul des media queries
+@function upper-bound($range) {
+  @if length($range) < 2 {
+    @return 999999999999;
+  }
+
+  @return nth($range, 2);
+}
+
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+
+@mixin link-full-item-list {
+  text-decoration: none;
+  &:after {
+    content: "";
+    box-sizing: content-box;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin link-with-hover($color: $white, $background: $yellow-green, $prefix: '+') {
+  position: relative;
+  text-decoration: none;
+  padding: 10px 20px 20px 20px;
+
+  &:before {
+    content: "#{$prefix}";
+    position: static;
+    transform: translateY(-50%);
+    margin-right: 10px;
+    color: $color;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -0.2rem;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 0.15rem;
+    transition: $link-transition-off;
+    z-index: -1;
+    background: $background;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: $color;
+
+    &:after {
+      bottom: -1px;
+      height: 100%;
+      left: 0;
+      transition: $link-transition-on;
+    }
+  }
+}
+
+// Mixin
+// --------------------------------------------------
+@mixin bi-font-family($font-family, $important: null) {
+  @if $important != '!important' {
+    font-family: $font-family, $font-family-sans-serif;
+  }@else {
+    font-family: $font-family, $font-family-sans-serif !important;
+  }
+}
+@mixin h1() {
+  @include bi-font-family(Poppins);
+  font-weight: 400;
+  @include font-size(48px);
+}
+
+@mixin h2() {
+  @include bi-font-family(Poppins);
+  @include font-size(36px);
+  font-weight: 400;
+}
+
+@mixin h3() {
+  @include bi-font-family(Poppins);
+  @include font-size(18px);
+  font-weight: 400;
+}
+
+@mixin h5() {
+  @include bi-font-family(Poppins);
+  @include font-size(16px);
+  font-weight: 500;
+}
+
+@mixin blockquote() {
+  border-left: 4px solid $yellow-green;
+  padding-left: 20px;
+
+  @include media-breakpoint-up(md) {
+    padding-left: 50px;
+  }
+}
+
+@mixin blockquote-p() {
+  @include bi-font-family(AvenirNextBold);
+  @include font-size(24px);
+  margin-bottom: 40px;
+
+  @include media-breakpoint-up(md) {
+    @include font-size(38px);
+    margin-bottom: 60px;
+  }
+}
+
+@mixin p() {
+  @include bi-font-family(Poppins);
+  @include font-size(16px);
+  line-height: 1.5;
+  font-weight: 400;
+}
+

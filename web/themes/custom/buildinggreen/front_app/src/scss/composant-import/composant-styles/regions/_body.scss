@@ -1,0 +1,188 @@
+//
+// Section Body
+// --------------------------------------------------
+
+// Variable
+// --------------------------------------------------
+$TITLE-padding: 25px;
+$TITLE-padding-mb: 15px;
+
+// Mixin
+// --------------------------------------------------
+
+// Making
+// --------------------------------------------------
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none !important;
+}
+
+s:root {
+  --navbar-header-height: 135px;
+  --navbar-header-height-mobile: 105px;
+}
+
+html {
+  font-size: 1rem;
+  overflow-x: hidden;
+
+  body {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    overflow-x: hidden;
+
+    a,
+    .nav-link {}
+
+    p {
+      @include p;
+    }
+  }
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+nav ul {
+  @include list-reset;
+}
+
+p {
+  margin-bottom: 0;
+
+  &+p {
+    margin-top: $TITLE-padding-mb;
+
+    @include media-breakpoint-up(lg) {
+      margin-top: $TITLE-padding;
+    }
+  }
+}
+
+
+h1,
+.h1 {
+  @include h1;
+}
+
+h2,
+.h2 {
+  @include h2;
+}
+
+h3,
+.h3 {
+  @include h3;
+}
+
+h5,
+h5 {
+  @include h5;
+}
+
+blockquote {
+  @include blockquote;
+
+  p {
+    @include blockquote-p;
+  }
+}
+
+.ajax-progress {
+  position: absolute;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+
+  img,
+  div {
+    display: none !important;
+  }
+
+  &:after {
+    content: " ";
+    display: block;
+    width: 30px;
+    height: 30px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid $white;
+    border-color: $white transparent $white transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+}
+
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+// Container bonus.
+// --------------------------------------------------
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+
+  &-x4p {
+    @include media-breakpoint-up(lg) {
+      max-width: 1440px;
+      padding-left: 190px;
+      padding-right: 190px;
+    }
+  }
+
+  &-x3p {
+    @include media-breakpoint-up(lg) {
+      max-width: 1232px;
+    }
+  }
+
+  &-x2p-lg {
+    @include media-breakpoint-up(lg) {
+      max-width: 1200px;
+    }
+
+
+  }
+
+  &-x2p {
+    @include media-breakpoint-up(lg) {
+      max-width: 1062px;
+    }
+
+
+  }
+
+  &-lg {
+    @include media-breakpoint-up(lg) {
+      max-width: 1036px;
+    }
+  }
+
+}
+
+// Content.
+// --------------------------------------------------
+main[role="main"] {
+  // padding-top: $header-height;
+  padding-top: 0;
+  position: relative;
+  z-index: 1;
+}

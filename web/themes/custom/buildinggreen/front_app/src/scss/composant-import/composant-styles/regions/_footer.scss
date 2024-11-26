@@ -1,0 +1,42 @@
+footer {
+    >.container {
+        border-top: 1px solid $gray-light;
+        padding-top: 15px;
+        padding-bottom: 16px;
+    }
+
+    .region-footer-first {
+        display: flex;
+
+        #block-buildinggreen-logofooter {
+            .field--name-field-logo-footer {
+                img {
+                    max-height: 75px;
+                    padding-right: 30px;
+                }
+            }
+        }
+
+        nav {
+            &.menu--footer {
+                ul {
+                    &.navbar-nav {
+                        display: flex;
+                        flex-direction: row;
+
+                        li {
+                            padding-right: 15px;
+
+                            a {
+                                font-size: 16px;
+                                line-height: 1.6;
+                                color: $blue-dark;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

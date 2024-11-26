@@ -1,0 +1,43 @@
+//
+// Util Function
+// --------------------------------------------------
+
+// Variable
+// --------------------------------------------------
+
+// Mixin
+// --------------------------------------------------
+
+// Making
+// --------------------------------------------------
+.btn {
+  &.header_search {
+    background-color: $red;
+    border-radius: 5px;
+    color: $white;
+    padding: 12px 18px;
+    font-weight: 700;
+    border: none;
+    text-transform: uppercase;
+    @include font-size(18px);
+    @include bi-font-family(Poppins);
+    width: 170px;
+    // box-shadow: none;
+
+    //right: 6%;
+    //top: 25%;
+    &:hover {
+      background-color: $red-2;
+    }
+
+    &:focus {
+      box-shadow: -5px 6px 4px #f59393;
+    }
+
+    @media (max-width: 575.98px) {
+      font-size: 11px;
+      width: 109px;
+      padding: 10px 10px;
+    }
+  }
+}

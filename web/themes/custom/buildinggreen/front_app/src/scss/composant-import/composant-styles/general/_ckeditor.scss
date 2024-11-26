@@ -1,0 +1,239 @@
+// Ckeditor Special Mixin
+// -----------------------------------------------------------------------------
+
+@mixin CKEditor() {
+
+  h1 {
+    @include bi-font-family(Poppins);
+    font-weight: 700;
+    @include font-size(61px);
+    line-height: normal;
+    color: $color-blue;
+  }
+
+  h2 {
+    @include bi-font-family(Poppins);
+    font-weight: 700;
+    @include font-size(50px);
+    line-height: normal;
+    color: $vert;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    @include bi-font-family(Poppins);
+    font-weight: 700;
+    @include font-size(30px);
+    line-height: normal;
+    color: $color-blue;
+    margin-bottom: 17px;
+  }
+
+  h4 {
+    @include bi-font-family(Poppins);
+    font-weight: 700;
+    @include font-size(22px);
+    line-height: normal;
+    color: $color-blue;
+  }
+
+  h5 {
+    @include bi-font-family(Poppins);
+    font-weight: 700;
+    @include font-size(20px);
+    line-height: normal;
+    color: $color-blue;
+  }
+
+  h6 {
+    @include bi-font-family(Poppins);
+    font-weight: 700;
+    @include font-size(18px);
+    line-height: normal;
+    color: $color-blue;
+  }
+
+  p {
+    @include bi-font-family(Poppins);
+    @include font-size(21px);
+    line-height: normal;
+    color: $gray-dark-5;
+  }
+
+  ul:not(.slick-dots) {
+    margin: 29px 0 43px 0;
+    padding-left: 21px;
+
+    li {
+      position: relative;
+      display: table;
+      @include bi-font-family(Poppins);
+      // font-weight: 400;
+      @include font-size(21px);
+      line-height: normal;
+      color: $gray-dark-3;
+      margin-bottom: 10px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        background-image: url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='4' cy='4' r='4' fill='%234A9869'/%3E%3C/svg%3E%0A");
+        color: $vert;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        top: 10px;
+        left: -18px;
+      }
+
+
+    }
+  }
+
+  ol {
+    margin: 29px 0 43px 0;
+    padding-left: 21px;
+
+    li {
+      &::marker {
+        color: $vert;
+        width: 8px;
+        height: 8px;
+      }
+
+      @include bi-font-family(Helvetica);
+      font-weight: 400;
+      @include font-size(21px);
+      line-height: 24px;
+      color: $gray-dark-3;
+      margin-bottom: 10px;
+    }
+  }
+
+  blockquote {
+    position: relative;
+    border-left: none;
+    padding-left: 3px;
+    margin-top: 38px;
+    margin-bottom: 78px;
+
+    &::before {
+      content: '';
+      position: absolute;
+      background-image: url("data:image/svg+xml,%3Csvg width='94' height='80' viewBox='0 0 94 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M56.2288 19.8075C56.2288 17.1008 56.3979 14.4787 56.7363 11.9412C57.0746 9.40374 57.4975 6.95082 58.005 4.58249C60.4579 3.14457 63.08 2.04499 65.8713 1.28375C68.6625 0.522492 71.7075 0.141865 75.0063 0.141865C78.2204 0.141865 81.2231 0.522492 84.0144 1.28375C86.8902 2.04499 89.5546 3.14457 92.0075 4.58249C92.515 6.95082 92.9379 9.40374 93.2763 11.9412C93.6146 14.4787 93.7838 17.1008 93.7838 19.8075C93.7838 21.5837 93.3185 25.5169 92.3881 31.6069C91.4577 37.6123 90.2735 44.7173 88.8356 52.9219C87.4823 61.1264 86.0444 69.3733 84.5219 77.6625C82.4073 79.0158 79.2354 79.6925 75.0063 79.6925C70.8617 79.6925 67.6898 79.0158 65.4906 77.6625C64.0527 69.3733 62.6148 61.1264 61.1769 52.9219C59.739 44.7173 58.5548 37.6123 57.6244 31.6069C56.694 25.5169 56.2288 21.5837 56.2288 19.8075ZM0.784375 19.8075C0.784375 17.1008 0.953542 14.4787 1.29188 11.9412C1.63021 9.40374 2.05313 6.95082 2.56063 4.58249C5.01354 3.14457 7.63563 2.04499 10.4269 1.28375C13.2181 0.522492 16.2631 0.141865 19.5619 0.141865C22.776 0.141865 25.7788 0.522492 28.57 1.28375C31.4458 2.04499 34.1102 3.14457 36.5631 4.58249C37.0706 6.95082 37.4935 9.40374 37.8319 11.9412C38.1702 14.4787 38.3394 17.1008 38.3394 19.8075C38.3394 21.5837 37.8742 25.5169 36.9438 31.6069C36.0133 37.6123 34.8292 44.7173 33.3913 52.9219C32.0379 61.1264 30.6 69.3733 29.0775 77.6625C26.9629 79.0158 23.791 79.6925 19.5619 79.6925C15.4173 79.6925 12.2454 79.0158 10.0463 77.6625C8.60833 69.3733 7.17042 61.1264 5.7325 52.9219C4.29458 44.7173 3.11042 37.6123 2.18 31.6069C1.24958 25.5169 0.784375 21.5837 0.784375 19.8075Z' fill='%23005CA9' fill-opacity='0.1'/%3E%3C/svg%3E%0A");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: left top;
+      left: -3%;
+      top: -11px;
+      z-index: -9;
+      width: 74px;
+      height: 61px;
+
+      @include media-breakpoint-up(md) {
+        top: -17px;
+        left: -2%;
+        width: 94px;
+        height: 80px;
+      }
+
+      @include media-breakpoint-up(lg) {
+        left: -1%;
+        top: -38%;
+      }
+    }
+
+
+    &::after {
+      content: '';
+      position: absolute;
+      background-image: url("data:image/svg+xml,%3Csvg width='94' height='80' viewBox='0 0 94 80' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M37.7713 60.1925C37.7713 62.8992 37.6021 65.5212 37.2638 68.0587C36.9254 70.5963 36.5025 73.0492 35.995 75.4175C33.5421 76.8554 30.92 77.955 28.1287 78.7162C25.3375 79.4775 22.2925 79.8581 18.9938 79.8581C15.7796 79.8581 12.7769 79.4775 9.98562 78.7162C7.10979 77.955 4.44542 76.8554 1.9925 75.4175C1.485 73.0492 1.06208 70.5963 0.723753 68.0587C0.385419 65.5212 0.216252 62.8992 0.216253 60.1925C0.216253 58.4163 0.68146 54.4831 1.61188 48.3931C2.54229 42.3877 3.72646 35.2827 5.16438 27.0781C6.51771 18.8735 7.95563 10.6267 9.47813 2.33749C11.5927 0.984163 14.7646 0.307498 18.9938 0.307498C23.1383 0.307499 26.3102 0.984165 28.5094 2.3375C29.9473 10.6267 31.3852 18.8735 32.8231 27.0781C34.261 35.2827 35.4452 42.3877 36.3756 48.3931C37.306 54.4831 37.7713 58.4163 37.7713 60.1925ZM93.2156 60.1925C93.2156 62.8992 93.0465 65.5213 92.7081 68.0588C92.3698 70.5963 91.9469 73.0492 91.4394 75.4175C88.9865 76.8554 86.3644 77.955 83.5731 78.7163C80.7819 79.4775 77.7369 79.8581 74.4381 79.8581C71.224 79.8581 68.2213 79.4775 65.43 78.7162C62.5542 77.955 59.8898 76.8554 57.4369 75.4175C56.9294 73.0492 56.5065 70.5963 56.1681 68.0587C55.8298 65.5213 55.6606 62.8992 55.6606 60.1925C55.6606 58.4163 56.1258 54.4831 57.0563 48.3931C57.9867 42.3877 59.1708 35.2827 60.6088 27.0781C61.9621 18.8735 63.4 10.6267 64.9225 2.3375C67.0371 0.984168 70.209 0.307503 74.4381 0.307503C78.5827 0.307504 81.7546 0.984169 83.9538 2.3375C85.3917 10.6267 86.8296 18.8735 88.2675 27.0781C89.7054 35.2827 90.8896 42.3877 91.82 48.3931C92.7504 54.4831 93.2156 58.4163 93.2156 60.1925Z' fill='%23005CA9' fill-opacity='0.1'/%3E%3C/svg%3E%0A");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: right bottom;
+      right: -2%;
+      bottom: -12px;
+      z-index: -9;
+      width: 74px;
+      height: 61px;
+
+      @include media-breakpoint-up(md) {
+        width: 94px;
+        height: 80px;
+        right: -5%;
+        bottom: -23px;
+      }
+
+      @include media-breakpoint-up(lg) {
+        right: 12%;
+        bottom: -65%;
+      }
+
+      @include media-breakpoint-up(xl) {
+        right: 1%;
+        bottom: -65%;
+      }
+
+
+
+    }
+
+    p {
+      @include bi-font-family(Poppins);
+      font-style: normal;
+      font-weight: 700;
+      @include font-size(29px);
+      line-height: normal;
+      color: $vert;
+    }
+  }
+
+  img.align-left {
+    margin: 0 15px 0 0;
+    max-width: 100%;
+    height: auto;
+    @include media-breakpoint-up(md) {
+      margin: 24px 34px 13px 0;
+    }
+  }
+
+  img.align-right {
+    margin: 0 0 10px 12px;
+    max-width: 100%;
+    height: auto;
+    @include media-breakpoint-up(md) {
+      margin: 0 0 0 55px;
+    }
+
+  }
+
+  img.align-center {
+    margin-top: 15px;
+    margin-bottom: 10px;
+	    max-width: 100%;
+    height: auto;
+  }
+
+  p+p {
+    margin-top: 8px;
+  }
+
+
+}
+
+.field--name-field-titre {
+  h2 {
+    @include bi-font-family(Poppins);
+    font-weight: 700;
+    @include font-size(50px);
+    line-height: normal;
+    color: $vert;
+    margin-bottom: 20px;
+  }
+}
+
+// Styles in CKEditor edit forms textarea
+// -----------------------------------------------------------------------------
+.text-formatted {
+  @include CKEditor();
+}
