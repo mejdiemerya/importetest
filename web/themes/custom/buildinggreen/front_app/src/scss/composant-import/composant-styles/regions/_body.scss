@@ -190,3 +190,21 @@ main[role="main"] {
   position: relative;
   z-index: 1;
 }
+
+.container{
+  &-fluid{
+    &-cuctom{
+      @include MQ(XLplus) {
+        width: 90%;
+      }
+      @include MQ(XXLplus) {
+        width: 80%;
+      }
+    }
+  }
+}
+
+
+.navbar{
+  background-image:none;
+}

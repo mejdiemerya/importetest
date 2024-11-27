@@ -114,7 +114,14 @@ $dark-1: #333333;
 
 
 $color-c1: #333;
-
+$color-c2: #ccc;
+$state-success-bg: #dff0d8;
+$brand-success: #7DB138;
+$brand-info:  #70B2BE;
+$brand-warning: #CF371B;
+$brand-neutral: #5d5d77;
+$brand-danger:  #d9534f ;
+$brand-highlight: #dcffaf;
 
 //=== Inverted navbar
 // Reset inverted navbar basics
@@ -146,9 +153,13 @@ $navbar-inverse-toggle-border-color:        #333 !default;
 $var-rem-baseline: 16px !default;
 $var-rem-fallback: false !default;
 $var-rem-px-only: false !default;
+$font-size-xlarge: ceil(($var-rem-baseline * 1.4)) !default; // ~22.4px
+$font-size-large: ceil(($var-rem-baseline * 1.25)) !default; // ~20px
+$font-size-small: ceil(($var-rem-baseline * 0.80)) !default; // ~13.6px
+$font-size-xsmall:ceil(($var-rem-baseline * 0.70)) !default; // ~12px
 
 
-// Z-index Scale
+  // Z-index Scale
 // --------------------------------------------------
 $var-zIndex-1: 100 !default;
 $var-zIndex-2: 200 !default;
