@@ -125,12 +125,22 @@ set footer_classes = ' ' ~
 
 {% if page.footer_first or page.footer_second %}
 	<footer role="contentinfo" class="mt-auto {{ footer_classes }}">
-		<div class="{{ b5_top_container }}">
+		<div class="{{ b5_top_container }} container-x4p">
 			<div class="row">
-				<div class="col-sm-8">
+				<div class="col-md-8">
+          <div class="d-flex">
+            <div class="logo-footer">
+            <a href="" target="_blank">
+            <img src="/themes/custom/buildinggreen/front_app/dist/assets/images/logo-footer.png" class="img-responsive" alt="logo-footer" height="75" width="45">
+            </a>
+            </div>
+            <div class="menu-footer">
 					{{ page.footer_first }}
+          <p class="small">© 2020 BuildingGreen, Inc. All rights reserved except where noted.</p>
+            </div>
+          </div>
 				</div>
-				<div class="col-sm-4">
+				<div class="col-md-4">
 					{{ page.footer_second }}
 				</div>
 			</div>

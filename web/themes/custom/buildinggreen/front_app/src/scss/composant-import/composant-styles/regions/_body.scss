@@ -149,8 +149,6 @@ blockquote {
   &-x4p {
     @include media-breakpoint-up(lg) {
       max-width: 1440px;
-      padding-left: 190px;
-      padding-right: 190px;
     }
   }
 
