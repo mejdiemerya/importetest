@@ -92,4 +92,6 @@ theme:
   olivero: 0
   claro: 0
   buildinggreen: 0
+  stable9: 0
+  bootstrap5: 0
 profile: standard
