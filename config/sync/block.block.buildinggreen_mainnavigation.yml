@@ -1,0 +1,25 @@
+uuid: 57ce8548-3e6a-482e-a067-6b2d596ecf4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - buildinggreen
+id: buildinggreen_mainnavigation
+theme: buildinggreen
+region: nav_branding
+weight: 0
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

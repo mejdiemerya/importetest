@@ -255,3 +255,17 @@
     display: none;
   }
 }
+
+
+#block-buildinggreen-site-branding {
+  text-transform: uppercase;
+  .site-logo {
+    margin-top: 0;
+    img {
+      height: 60px;
+      @include MQ(SM) {
+        height: 50px;
+      }
+    }
+  }
+}

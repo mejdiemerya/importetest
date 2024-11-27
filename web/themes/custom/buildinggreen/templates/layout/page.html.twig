@@ -58,8 +58,6 @@ set footer_classes = ' ' ~
 
 <header role="banner">
   <nav class="navbar navbar-inverse navbar-hover p-0" id="utility">
-    {{ page.top_header }}
-
     {% if page.nav_branding or page.nav_main or page.nav_additional %}
       <nav class="{{ nav_classes }} w-100">
         <div class="d-flex flex-column flex-lg-row">
@@ -82,11 +80,10 @@ set footer_classes = ' ' ~
       </nav>
     {% endif %}
   </nav>
-
-	{{ page.header }}
-  {{ page.nav_branding }}
-
-
+  <div class="container container-fluid-cuctom d-flex flex-column flex-lg-row justify-content-lg-between">
+    {{ page.header }}
+    {{ page.nav_branding }}
+  </div>
 </header>
 
 <main role="main">
