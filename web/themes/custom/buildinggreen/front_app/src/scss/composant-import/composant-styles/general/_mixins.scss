@@ -10,6 +10,14 @@ $link-transition-off: all 400ms ease-out;
 
 
 
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
 // Mixin - list-reset
 // Styles par defaut pour les listes <ul>
 @mixin list-reset {
@@ -139,27 +147,27 @@ $link-transition-off: all 400ms ease-out;
   }
 }
 @mixin h1() {
-  @include bi-font-family(Poppins);
-  font-weight: 400;
-  @include font-size(48px);
+  //@include bi-font-family(Poppins);
+  //font-weight: 400;
+  //@include font-size(48px);
 }
 
 @mixin h2() {
-  @include bi-font-family(Poppins);
-  @include font-size(36px);
-  font-weight: 400;
+  //@include bi-font-family(Poppins);
+  //@include font-size(36px);
+  //font-weight: 400;
 }
 
 @mixin h3() {
-  @include bi-font-family(Poppins);
-  @include font-size(18px);
-  font-weight: 400;
+  //@include bi-font-family(Poppins);
+  //@include font-size(18px);
+  //font-weight: 400;
 }
 
 @mixin h5() {
-  @include bi-font-family(Poppins);
-  @include font-size(16px);
-  font-weight: 500;
+  //@include bi-font-family(Poppins);
+  //@include font-size(16px);
+  //font-weight: 500;
 }
 
 @mixin blockquote() {
@@ -172,20 +180,123 @@ $link-transition-off: all 400ms ease-out;
 }
 
 @mixin blockquote-p() {
-  @include bi-font-family(AvenirNextBold);
-  @include font-size(24px);
-  margin-bottom: 40px;
-
-  @include media-breakpoint-up(md) {
-    @include font-size(38px);
-    margin-bottom: 60px;
-  }
+  //@include bi-font-family(AvenirNextBold);
+  //@include font-size(24px);
+  //margin-bottom: 40px;
+  //
+  //@include media-breakpoint-up(md) {
+  //  @include font-size(38px);
+  //  margin-bottom: 60px;
+  //}
 }
 
 @mixin p() {
-  @include bi-font-family(Poppins);
-  @include font-size(16px);
-  line-height: 1.5;
-  font-weight: 400;
+  //@include bi-font-family(Poppins);
+  //@include font-size(16px);
+  //line-height: 1.5;
+  //font-weight: 400;
 }
 
+
+//MQ
+$XS: 360px;
+$S: 600px; // test on credit LU expert
+$SM: 768px;
+$M: 992px;
+$L: 1200px;
+$XL: 1440px;
+$XXL: 1800px;
+
+//mixin
+@mixin MQ($canvas) {
+  @if $canvas == XS {
+    @media only screen and (min-width: 0) and (max-width: $S - 1) { @content; }
+  }
+  @else if $canvas == S {
+    @media only screen and (min-width: $S) and (max-width: $SM - 1) { @content; }
+  }
+  @else if $canvas == SM {
+    @media only screen and (min-width: $SM) and (max-width: $M - 1) { @content; }
+  }
+  @else if $canvas == M {
+    @media only screen and (min-width: $M) and (max-width: $L - 1) { @content; }
+  }
+  @else if $canvas == L {
+    @media only screen and (min-width: $L) and (max-width: $XL - .01) { @content; }
+  }
+  @else if $canvas == XL {
+    @media only screen and (min-width: $XL) and (max-width: $XXL - .01) { @content; }
+  }
+  @else if $canvas == XXL {
+    @media only screen and (min-width: $XXL) { @content; }
+  }
+  @else if $canvas == XSplus {
+    @media only screen and (min-width: $XS) { @content; }
+  }
+  @else if $canvas == Splus {
+    @media only screen and (min-width: $S) { @content; }
+  }
+  @else if $canvas == SMplus {
+    @media only screen and (min-width: $SM) { @content; }
+  }
+  @else if $canvas == Mplus {
+    @media only screen and (min-width: $M) { @content; }
+  }
+  @else if $canvas == Lplus {
+    @media only screen and (min-width: $L) { @content; }
+  }
+  @else if $canvas == XLplus {
+    @media only screen and (min-width: $XL) { @content; }
+  }
+  @else if $canvas == XXLplus {
+    @media only screen and (min-width: $XXL) { @content; }
+  }
+  @else if $canvas == XSneg {
+    @media only screen and (max-width: $XS) { @content; }
+  }
+  @else if $canvas == Sneg {
+    @media only screen and (max-width: $S) { @content; }
+  }
+  @else if $canvas == SMneg {
+    @media only screen and (max-width: $SM - 1) { @content; } // Andrea subtracted 1 to match Bootstrap breakpoint
+  }
+  @else if $canvas == Mneg {
+    @media only screen and (max-width: $M - 1) { @content; } // Andrea subtracted 1 to match Bootstrap breakpoint
+  }
+  @else if $canvas == Lneg {
+    @media only screen and (max-width: $L - 1) { @content; } // Andrea subtracted 1 to match Bootstrap breakpoint
+  }
+  @else if $canvas == XLneg {
+    @media only screen and (max-width: $XL - 1) { @content; } // Andrea subtracted 1 to match Bootstrap breakpoint
+  }
+  @else if $canvas == XXLneg {
+    @media only screen and (max-width: $XXL) { @content; }
+  }
+  @else if $canvas == StoM {
+    @media only screen and (min-width: $S) and (max-width: $M - .01) { @content; }
+  }
+  @else if $canvas == StoL {
+    @media only screen and (min-width: $S) and (max-width: $L - .01) { @content; }
+  }
+  @else if $canvas == StoSM {
+    @media only screen and (min-width: $S) and (max-width: $SM - .01) { @content; }
+  }
+  @else if $canvas == SMtoM {
+    @media only screen and (min-width: $SM) and (max-width: $M - .01) { @content; }
+  }
+  @else if $canvas == SMtoL {
+    @media only screen and (min-width: $SM) and (max-width: $L - .01) { @content; }
+  }
+  @else if $canvas == XStoM {
+    @media only screen and (min-width: $XS) and (max-width: $M - .01) { @content; }
+  }
+  @else if $canvas == StoXL {
+    @media only screen and (min-width: $S) and (max-width: $XL - .01) { @content; }
+  }
+  @else if $canvas == MtoXL {
+    @media only screen and (min-width: $M) and (max-width: $XL - .01) { @content; }
+  }
+  @else if $canvas == LtoXL {
+    @media only screen and (min-width: $L) and (max-width: $XL - .01) { @content; }
+  }
+}

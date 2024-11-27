@@ -43,7 +43,7 @@
  */
 #}
 {%
-set nav_classes = 'navbar navbar-expand-lg' ~
+set nav_classes = 'navbar-expand-lg' ~
   (b5_navbar_schema != 'none' ? " navbar-#{b5_navbar_schema}" : ' ') ~
   (b5_navbar_schema != 'none' ? (b5_navbar_schema == 'dark' ? ' text-light' : ' text-dark' ) : ' ') ~
   (b5_navbar_bg_schema != 'none' ? " bg-#{b5_navbar_bg_schema}" : ' ')
@@ -57,29 +57,35 @@ set footer_classes = ' ' ~
 %}
 
 <header role="banner">
-  <nav class="navbar navbar-inverse navbar-hover">
+  <nav class="navbar navbar-inverse navbar-hover p-0" id="utility">
     {{ page.top_header }}
+
+    {% if page.nav_branding or page.nav_main or page.nav_additional %}
+      <nav class="{{ nav_classes }} w-100">
+        <div class="d-flex flex-column flex-lg-row">
+          {% if page.nav_main or page.nav_additional %}
+            <div class="d-flex align-center d-lg-none justify-content-between w-100">
+              <div class="logo d-lg-none"><img src="/themes/custom/buildinggreen/logo-white.png" alt="Home" /></div>
+              <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-txt">{{ 'MENU'|t }}</span>
+                <span class="glyphicon glyphicon-menu-hamburger"></span>
+              </button>
+            </div>
+
+
+            <div class="collapse navbar-collapse justify-content-md-end w-100 justify-content-lg-between flex-column flex-lg-row" id="navbarSupportedContent">
+              {{ page.nav_main }}
+              {{ page.nav_additional }}
+            </div>
+          {% endif %}
+        </div>
+      </nav>
+    {% endif %}
   </nav>
+
 	{{ page.header }}
+  {{ page.nav_branding }}
 
-	{% if page.nav_branding or page.nav_main or page.nav_additional %}
-		<nav class="{{ nav_classes }}">
-			<div class="{{ b5_top_container }} d-flex">
-				{{ page.nav_branding }}
-
-				{% if page.nav_main or page.nav_additional %}
-					<button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-
-					<div class="collapse navbar-collapse justify-content-md-end" id="navbarSupportedContent">
-						{{ page.nav_main }}
-						{{ page.nav_additional }}
-					</div>
-				{% endif %}
-			</div>
-		</nav>
-	{% endif %}
 
 </header>
 

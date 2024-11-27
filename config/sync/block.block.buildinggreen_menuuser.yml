@@ -1,0 +1,25 @@
+uuid: 8b00840a-cae0-4959-9cea-59cac0a3d66a
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.menu-user
+  module:
+    - system
+  theme:
+    - buildinggreen
+id: buildinggreen_menuuser
+theme: buildinggreen
+region: nav_additional
+weight: -7
+provider: null
+plugin: 'system_menu_block:menu-user'
+settings:
+  id: 'system_menu_block:menu-user'
+  label: 'Menu user'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

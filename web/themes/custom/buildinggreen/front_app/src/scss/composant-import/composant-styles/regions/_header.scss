@@ -1,0 +1,257 @@
+// Inverse navbar
+
+.navbar-inverse {
+  background-color: $navbar-inverse-bg;
+  border-color: $navbar-inverse-border;
+
+  .navbar-brand {
+    color: $navbar-inverse-brand-color;
+    &:hover,
+    &:focus {
+      color: $navbar-inverse-brand-hover-color;
+      background-color: $navbar-inverse-brand-hover-bg;
+    }
+  }
+
+  .navbar-text {
+    color: $navbar-inverse-color;
+  }
+
+  .navbar-nav {
+    > li > a {
+      color: $navbar-inverse-link-color;
+
+      &:hover,
+      &:focus {
+        color: $navbar-inverse-link-hover-color;
+        background-color: $navbar-inverse-link-hover-bg;
+      }
+    }
+    > .active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $navbar-inverse-link-active-color;
+        background-color: $navbar-inverse-link-active-bg;
+      }
+    }
+    > .disabled > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $navbar-inverse-link-disabled-color;
+        background-color: $navbar-inverse-link-disabled-bg;
+      }
+    }
+  }
+
+  // Darken the responsive nav toggle
+  .navbar-toggle {
+    border-color: $navbar-inverse-toggle-border-color;
+    &:hover,
+    &:focus {
+      background-color: $navbar-inverse-toggle-hover-bg;
+    }
+    .icon-bar {
+      background-color: $navbar-inverse-toggle-icon-bar-bg;
+    }
+  }
+
+  .navbar-collapse,
+  .navbar-form {
+    border-color: darken($navbar-inverse-bg, 7%);
+  }
+
+  // Dropdowns
+  .navbar-nav {
+    > .open > a {
+      &,
+      &:hover,
+      &:focus {
+        background-color: $navbar-inverse-link-active-bg;
+        color: $navbar-inverse-link-active-color;
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      // Dropdowns get custom display
+      .open .dropdown-menu {
+        > .dropdown-header {
+          border-color: $navbar-inverse-border;
+        }
+        .divider {
+          background-color: $navbar-inverse-border;
+        }
+        > li > a {
+          color: $navbar-inverse-link-color;
+          &:hover,
+          &:focus {
+            color: $navbar-inverse-link-hover-color;
+            background-color: $navbar-inverse-link-hover-bg;
+          }
+        }
+        > .active > a {
+          &,
+          &:hover,
+          &:focus {
+            color: $navbar-inverse-link-active-color;
+            background-color: $navbar-inverse-link-active-bg;
+          }
+        }
+        > .disabled > a {
+          &,
+          &:hover,
+          &:focus {
+            color: $navbar-inverse-link-disabled-color;
+            background-color: $navbar-inverse-link-disabled-bg;
+          }
+        }
+      }
+    }
+  }
+
+  .navbar-link {
+    color: $navbar-inverse-link-color;
+    &:hover {
+      color: $navbar-inverse-link-hover-color;
+    }
+  }
+
+  .btn-link {
+    color: $navbar-inverse-link-color;
+    &:hover,
+    &:focus {
+      color: $navbar-inverse-link-hover-color;
+    }
+    &[disabled],
+    fieldset[disabled] & {
+      &:hover,
+      &:focus {
+        color: $navbar-inverse-link-disabled-color;
+      }
+    }
+  }
+}
+
+#utility .logo img {
+  padding: 0;
+  height: 24px;
+  @include MQ(XSneg) {
+    &:first-of-type {
+      margin-left: -5px;
+      margin-right: 8px;
+    }
+  }
+  @include MQ(XSplus) {
+    height: 30px;
+    margin-right: 10px;
+  }
+  @include MQ(SMplus) {
+    height: 48px;
+    margin: 5px 5px 0 15px;
+  }
+}
+
+#utility {
+  margin-bottom: 25px;
+  @include MQ(SMneg) {
+    margin-bottom: 0;
+    ul {
+      font-size: 20px;
+    }
+    li {
+      a {
+        color: tint($state-success-bg,40%);
+        &:hover {
+          background-color: $state-success-bg;
+          color: $black;
+        }
+      }
+    }
+  }
+
+  a {
+    //padding-top: 0.25em;
+    //padding-bottom: 0.25em;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    color: $color-c2;
+    &:hover{
+      color: $white;
+    }
+  }
+
+  .menu--menu-user {
+    display: block;
+    @include MQ(S){
+      display: none;
+    }
+    ul[data-block='nav_additional']{
+      > li{
+        &:nth-child(2){
+          font-weight: 600;
+          > a{
+            background-color: tint($brand-success,50%);
+            color: $black;
+            &:hover {
+              background-color: $brand-success;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @include border-radius(0);
+  min-height: 0;
+  font-size: $font-size-small;
+  @include MQ(SMplus) {
+    .login, .account {
+      font-weight: 600;
+      a {
+        background-color: tint($brand-success,50%);
+        color: $black;
+      }
+      a:hover {
+        background-color: $brand-success;
+        color: white;
+      }
+    }
+  }
+}
+
+.navbar-toggle {
+  position: relative;
+  float: right;
+  margin-right: 15px;
+  padding: 9px 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+  border: 1px solid transparent;
+  border-radius: 4px;
+
+  // We remove the `outline` here, but later compensate by attaching `:hover`
+  // styles to `:focus`.
+  &:focus {
+    outline: 0;
+  }
+
+  // Bars
+  .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+  }
+  .icon-bar + .icon-bar {
+    margin-top: 4px;
+  }
+
+  @include media-breakpoint-down(md) {
+    display: none;
+  }
+}

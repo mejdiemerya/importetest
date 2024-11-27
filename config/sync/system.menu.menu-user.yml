@@ -1,0 +1,8 @@
+uuid: db77d49a-8bc8-499a-87e6-fff2a3071e4a
+langcode: en
+status: true
+dependencies: {  }
+id: menu-user
+label: 'Menu user'
+description: ''
+locked: false
