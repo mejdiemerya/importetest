@@ -81,7 +81,8 @@ foreach ($vocabularies as $field_name => $vocabulary_id) {
     $redirect_url= Url::fromRoute('node.add',['node_type' => 'forum'])->setOption('query', ['forum_id' => $tid])->toString();;
 
     // Perform the redirect.
-    return  new RedirectResponse($redirect_url);
+    $response = new RedirectResponse($redirect_url);
+    $response->send();
 
   }
 }

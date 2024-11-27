@@ -79,9 +79,18 @@
   <div class="button-container">
     <div class="button">
       <a href="/forums?taxonomy_forums_target_id={{ item.entity.id }}">
-      <span>{{ 'See all forum discussions about'|t }}         {{ item.entity.label }}</span>
+      <span>{{ 'See all forum discussions about'|t }}{{ item.entity.label }}</span>
       </a>
     </div>
+      <div class="taxonomy-subscriptions">
+        {% for item in flagged_terms %}
+          <div class="button">
+            <a href="{{ item.flag_link }}" class="use-ajax">
+              <span>{{ item.action_label }} {{ 'from discussions about'|t }} {{ item.term.label }}</span>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
     <div class="button">
       <a href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'forum_id': item.entity.id}}) }}">
       <span>{{ 'Post a new question about'|t }} {{ item.entity.label }} </span>
