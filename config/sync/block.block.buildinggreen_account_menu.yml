@@ -1,6 +1,6 @@
 uuid: 0b504513-44ad-4e61-9e99-5b54a5887169
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - system.menu.account
@@ -12,7 +12,7 @@ _core:
   default_config_hash: gmxYWWHmgbe0Pnv8y48ZLSLH5mEHejOjAP6RLxUfdzU
 id: buildinggreen_account_menu
 theme: buildinggreen
-region: secondary_menu
+region: header
 weight: -7
 provider: null
 plugin: 'system_menu_block:account'

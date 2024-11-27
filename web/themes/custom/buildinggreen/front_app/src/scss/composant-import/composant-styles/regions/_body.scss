@@ -37,6 +37,12 @@ html {
     position: relative;
     overflow-x: hidden;
 
+    font-family: $CONST-FONT-SourceSansPro;
+    font-size: $var-rem-baseline;
+    line-height: 1.6;
+    color: $color-c1;
+    background-color: $white;
+    background-image: none;
     a,
     .nav-link {}
 

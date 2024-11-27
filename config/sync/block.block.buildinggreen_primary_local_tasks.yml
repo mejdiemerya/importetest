@@ -1,6 +1,6 @@
 uuid: af78d65f-145e-4d40-91b5-4f4918cc680c
 langcode: en
-status: true
+status: false
 dependencies:
   theme:
     - buildinggreen
@@ -8,7 +8,7 @@ _core:
   default_config_hash: nGE3EoPQQaQCuqTUtZgw0-KIzmrqdKDzdNQf2JyPUt4
 id: buildinggreen_primary_local_tasks
 theme: buildinggreen
-region: highlighted
+region: header
 weight: -6
 provider: null
 plugin: local_tasks_block

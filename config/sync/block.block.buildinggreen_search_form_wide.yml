@@ -1,6 +1,6 @@
 uuid: 87284162-0a1f-49ff-8931-9cdbc31ca858
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - search
@@ -10,7 +10,7 @@ _core:
   default_config_hash: imMyHD6LYci0gtXq56qr9ZKGHzbEG9uFydrN5EhKtSU
 id: buildinggreen_search_form_wide
 theme: buildinggreen
-region: secondary_menu
+region: header
 weight: -8
 provider: null
 plugin: search_form_block

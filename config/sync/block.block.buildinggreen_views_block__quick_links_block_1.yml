@@ -1,6 +1,6 @@
 uuid: b0c9cfcd-c1b0-4ec3-a1c8-be7ec28459a2
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - views.view.quick_links
@@ -11,7 +11,7 @@ dependencies:
     - buildinggreen
 id: buildinggreen_views_block__quick_links_block_1
 theme: buildinggreen
-region: highlighted
+region: header
 weight: 0
 provider: null
 plugin: 'views_block:quick_links-block_1'

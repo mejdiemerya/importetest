@@ -1,6 +1,6 @@
 uuid: 6dcfad22-2693-4646-a9a6-6b4e65b34d0c
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - system.menu.main
@@ -12,7 +12,7 @@ _core:
   default_config_hash: KWAiziL39uEzmOJEql_wbUP2RtqGceL3WM2CfxhMelE
 id: buildinggreen_main_menu
 theme: buildinggreen
-region: primary_menu
+region: header
 weight: -7
 provider: null
 plugin: 'system_menu_block:main'
