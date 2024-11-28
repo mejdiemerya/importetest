@@ -1,9 +1,10 @@
 footer {
   margin-top: 45px !important;
-    >.container {
+    >.container-fluid-cuctom  {
         border-top: 1px solid $gray-light;
-        padding-top: 15px;
-        padding-bottom: 20px;
+        padding-top: 15px !important;
+        padding-bottom: 20px !important;
+        margin: auto !important;
     }
     .logo-footer {
       display: none;
