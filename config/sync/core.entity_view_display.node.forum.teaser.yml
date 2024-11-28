@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.forum.comment_forum
+    - field.field.node.forum.field_credits
     - field.field.node.forum.field_last_comment_author
     - field.field.node.forum.field_project_location
     - field.field.node.forum.field_question
@@ -90,6 +91,7 @@ hidden:
   comment_button: true
   comment_forum: true
   content_moderation_control: true
+  field_credits: true
   last_comment_author_image: true
   last_comment_author_role: true
   rate_rate: true

@@ -3,10 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.forums.field_credit
-    - field.field.taxonomy_term.forums.field_credit_category
-    - field.field.taxonomy_term.forums.field_leed_version
-    - field.field.taxonomy_term.forums.field_rating_system
     - field.field.taxonomy_term.forums.forum_container
     - taxonomy.vocabulary.forums
   module:
@@ -31,8 +27,4 @@ content:
     weight: 1
     region: content
 hidden:
-  field_credit: true
-  field_credit_category: true
-  field_leed_version: true
-  field_rating_system: true
   forum_container: true

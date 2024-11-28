@@ -1,0 +1,47 @@
+uuid: afd5c0cf-1614-44f1-90e3-6d08305dfd16
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.credit.field_credit_meta_points
+    - field.field.taxonomy_term.credit.field_credit_requirement_text
+    - field.field.taxonomy_term.credit.field_guest_expert
+    - taxonomy.vocabulary.credit
+  module:
+    - text
+id: taxonomy_term.credit.default
+targetEntityType: taxonomy_term
+bundle: credit
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_credit_meta_points:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_credit_requirement_text:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_guest_expert:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

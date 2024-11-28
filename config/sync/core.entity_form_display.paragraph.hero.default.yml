@@ -4,10 +4,13 @@ status: true
 dependencies:
   config:
     - field.field.paragraph.hero.field_description
+    - field.field.paragraph.hero.field_lien_leeduser_tour
+    - field.field.paragraph.hero.field_lien_pricing
     - field.field.paragraph.hero.field_title
     - field.field.paragraph.hero.field_video
     - paragraphs.paragraphs_type.hero
   module:
+    - link
     - media_library
     - text
 id: paragraph.hero.default
@@ -22,6 +25,22 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_lien_leeduser_tour:
+    type: link_default
+    weight: 4
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_lien_pricing:
+    type: link_default
+    weight: 3
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
   field_title:
     type: string_textfield

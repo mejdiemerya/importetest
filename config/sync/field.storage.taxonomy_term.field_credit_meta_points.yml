@@ -1,15 +1,17 @@
-uuid: 031644d4-b3b7-4e32-bb62-754f87122df5
+uuid: ba3cfc67-655d-42e7-ac3a-b1b4b576f2ac
 langcode: en
 status: true
 dependencies:
   module:
     - taxonomy
-id: taxonomy_term.field_credit_category
-field_name: field_credit_category
+id: taxonomy_term.field_credit_meta_points
+field_name: field_credit_meta_points
 entity_type: taxonomy_term
-type: entity_reference
+type: string
 settings:
-  target_type: taxonomy_term
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
 module: core
 locked: false
 cardinality: 1

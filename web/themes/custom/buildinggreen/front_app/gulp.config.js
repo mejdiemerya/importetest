@@ -6,7 +6,10 @@ module.exports = function () {
     deploySrc: "./dist/assets/*/**",
     sass: {
       src: "src/scss/composant-import/",
-      composant: ["default-composant"],
+      composant: [
+        "default-composant",
+        "hero-composant",
+      ],
       quality: ["src/scss/**/*.scss"],
       dest: "./dist/assets/composant/",
       output: "styles.css",

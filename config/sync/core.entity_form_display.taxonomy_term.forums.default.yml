@@ -3,10 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.forums.field_credit
-    - field.field.taxonomy_term.forums.field_credit_category
-    - field.field.taxonomy_term.forums.field_leed_version
-    - field.field.taxonomy_term.forums.field_rating_system
     - field.field.taxonomy_term.forums.forum_container
     - taxonomy.vocabulary.forums
   module:
@@ -25,46 +21,6 @@ content:
     region: content
     settings:
       rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_credit:
-    type: entity_reference_autocomplete
-    weight: 3
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_credit_category:
-    type: entity_reference_autocomplete
-    weight: 4
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_leed_version:
-    type: entity_reference_autocomplete
-    weight: 6
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_rating_system:
-    type: entity_reference_autocomplete
-    weight: 5
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
       placeholder: ''
     third_party_settings: {  }
   name:

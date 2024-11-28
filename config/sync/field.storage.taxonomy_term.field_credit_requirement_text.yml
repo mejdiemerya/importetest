@@ -1,16 +1,16 @@
-uuid: bf88655a-dac6-4352-a2b2-0f3ef0a7cdac
+uuid: fc3e4193-92b6-4263-88a4-f48bea7210f3
 langcode: en
 status: true
 dependencies:
   module:
     - taxonomy
-id: taxonomy_term.field_leed_version
-field_name: field_leed_version
+    - text
+id: taxonomy_term.field_credit_requirement_text
+field_name: field_credit_requirement_text
 entity_type: taxonomy_term
-type: entity_reference
-settings:
-  target_type: taxonomy_term
-module: core
+type: text_long
+settings: {  }
+module: text
 locked: false
 cardinality: 1
 translatable: true

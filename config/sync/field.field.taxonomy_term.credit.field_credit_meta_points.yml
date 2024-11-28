@@ -1,0 +1,19 @@
+uuid: 999dea00-389d-493f-9a8b-d54fc97ffa01
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_credit_meta_points
+    - taxonomy.vocabulary.credit
+id: taxonomy_term.credit.field_credit_meta_points
+field_name: field_credit_meta_points
+entity_type: taxonomy_term
+bundle: credit
+label: Points
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

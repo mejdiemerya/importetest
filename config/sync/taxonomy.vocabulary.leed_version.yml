@@ -1,9 +1,0 @@
-uuid: ffc6b4e0-2348-4a8d-8a07-e2104c4a26ab
-langcode: en
-status: true
-dependencies: {  }
-name: 'LEED Version'
-vid: leed_version
-description: null
-weight: 0
-new_revision: false
