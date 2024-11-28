@@ -1,0 +1,41 @@
+uuid: 63c52cde-ff33-434c-9a2f-840ed045a4a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.hero.field_description
+    - field.field.paragraph.hero.field_title
+    - field.field.paragraph.hero.field_video
+    - paragraphs.paragraphs_type.hero
+  module:
+    - text
+id: paragraph.hero.default
+targetEntityType: paragraph
+bundle: hero
+mode: default
+content:
+  field_description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_video:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden: {  }
