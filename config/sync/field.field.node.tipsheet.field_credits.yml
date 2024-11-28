@@ -1,0 +1,29 @@
+uuid: 000960ab-425f-4bec-9378-96b784d14607
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_credits
+    - node.type.tipsheet
+    - taxonomy.vocabulary.credit
+id: node.tipsheet.field_credits
+field_name: field_credits
+entity_type: node
+bundle: tipsheet
+label: Credits
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      credit: credit
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,46 +1,20 @@
-uuid: 649cb707-28db-48fa-84e4-14a7a544ab65
+uuid: 6ce56821-9454-4be0-a680-02751109ee51
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
-    - node.type.forum
+    - search_api.index.default_index
     - taxonomy.vocabulary.credit
-    - taxonomy.vocabulary.forums
     - taxonomy.vocabulary.location
-  content:
-    - 'taxonomy_term:forums:055437b6-8179-4a1c-a40a-381c24b4a82d'
-    - 'taxonomy_term:forums:166108f8-fa50-492f-9757-c7de275bf04e'
-    - 'taxonomy_term:forums:1809684c-4f94-4572-bac6-44bf55761a36'
-    - 'taxonomy_term:forums:1b6e519c-2e41-43c1-8471-9f3e63ad706f'
-    - 'taxonomy_term:forums:1d794879-2c2c-4b2c-a807-2a47c9bf0470'
-    - 'taxonomy_term:forums:267442c8-6e0b-409b-aec8-76d13646ce86'
-    - 'taxonomy_term:forums:276ccf3e-d1bc-4b00-ac0c-6b66f6eae3e9'
-    - 'taxonomy_term:forums:42f084bb-6d9b-428d-85b5-d57174b80ec1'
-    - 'taxonomy_term:forums:4a2fff69-3857-4197-8c88-c7365db17e6d'
-    - 'taxonomy_term:forums:72b47190-e8a6-4433-9b51-24307e76fdb3'
-    - 'taxonomy_term:forums:a8715ade-8879-4669-b3a2-a1f9f307fa62'
-    - 'taxonomy_term:forums:b3de9adf-926d-4030-92f1-65866d630c1d'
-    - 'taxonomy_term:forums:b49cda4a-de54-45d2-a53d-9cacf148a4d5'
-    - 'taxonomy_term:forums:b529fdae-6c0b-4d37-870f-ce4e40b5874a'
-    - 'taxonomy_term:forums:d03862e8-a48e-4bd1-ab43-5ef431c6e48b'
-    - 'taxonomy_term:forums:d3e14599-6cfd-4ec2-9587-71004059ad85'
-    - 'taxonomy_term:forums:da72125f-dd87-4065-91e6-224d8d94ba5c'
-    - 'taxonomy_term:forums:e67f0f4e-9d8e-47e9-9cf9-877d64eaff0e'
-    - 'taxonomy_term:forums:fe0059bf-1199-4221-a68d-056ff071f296'
   module:
-    - node
-    - rate
-    - taxonomy
-    - user
-    - views_load_more
+    - search_api
 id: forums
 label: forums
 module: views
 description: ''
 tag: ''
-base_table: node_field_data
-base_field: nid
+base_table: search_api_index_default_index
+base_field: search_api_id
 display:
   default:
     id: default
@@ -50,26 +24,44 @@ display:
     display_options:
       title: forums
       fields:
-        title:
-          id: title
-          table: node_field_data
-          field: title
+        author:
+          id: author
+          table: search_api_index_default_index
+          field: author
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: title
-          plugin_id: field
+          entity_type: null
+          entity_field: null
+          plugin_id: search_api_field
           label: ''
           exclude: false
           alter:
             alter_text: false
+            text: ''
             make_link: false
+            path: ''
             absolute: false
-            word_boundary: false
-            ellipsis: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
             strip_tags: false
             trim: false
+            preserve_tags: ''
             html: false
           element_type: ''
           element_class: ''
@@ -85,8 +77,7 @@ display:
           hide_alter_empty: true
           click_sort_column: value
           type: string
-          settings:
-            link_to_entity: true
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -97,121 +88,24 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        node_rate_widget_field:
-          id: node_rate_widget_field
-          table: node
-          field: node_rate_widget_field
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: rate_widget_field
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          id_column: title
-          widgets: ''
-          widget_display: full
-          display_overrides:
-            hide_label: 0
-            hide_description: 0
-            hide_summary: 0
-        counter:
-          id: counter
-          table: views
-          field: counter
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: counter
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          counter_start: 1
+          field_rendering: true
+          fallback_handler: search_api
+          fallback_options:
+            link_to_item: false
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
       pager:
-        type: load_more
+        type: mini
         options:
           offset: 0
           pagination_heading_level: h4
           items_per_page: 10
           total_pages: null
           id: 0
+          tags:
+            next: ››
+            previous: ‹‹
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -220,14 +114,6 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          more_button_text: 'Load more'
-          end_text: ''
-          advanced:
-            content_selector: ''
-            pager_selector: ''
-          effects:
-            type: ''
-            speed: slow
       exposed_form:
         type: basic
         options:
@@ -239,74 +125,77 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: perm
-        options:
-          perm: 'access content'
+        type: none
+        options: {  }
       cache:
-        type: tag
+        type: search_api_none
         options: {  }
       empty: {  }
-      sorts:
-        created:
-          id: created
-          table: node_field_data
-          field: created
+      sorts: {  }
+      arguments: {  }
+      filters:
+        type:
+          id: type
+          table: search_api_index_default_index
+          field: type
           relationship: none
           group_type: group
           admin_label: ''
-          entity_type: node
-          entity_field: created
-          plugin_id: date
-          order: DESC
-          expose:
-            label: ''
-            field_identifier: ''
-          exposed: false
-          granularity: second
-      arguments: {  }
-      filters:
-        status:
-          id: status
-          table: node_field_data
-          field: status
-          entity_type: node
-          entity_field: status
-          plugin_id: boolean
-          value: '1'
-          group: 1
-          expose:
-            operator: ''
-        type:
-          id: type
-          table: node_field_data
-          field: type
-          entity_type: node
-          entity_field: type
-          plugin_id: bundle
+          plugin_id: search_api_options
+          operator: or
           value:
             forum: forum
           group: 1
-        field_project_location_target_id:
-          id: field_project_location_target_id
-          table: node__field_project_location
-          field: field_project_location_target_id
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+        field_credits:
+          id: field_credits
+          table: search_api_index_default_index
+          field: field_credits
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: taxonomy_index_tid
+          plugin_id: search_api_term
           operator: or
           value: {  }
           group: 1
           exposed: true
           expose:
-            operator_id: field_project_location_target_id_op
-            label: 'Project location '
+            operator_id: field_credits_op
+            label: 'Filter by LEED Credit'
             description: ''
             use_operator: false
-            operator: field_project_location_target_id_op
+            operator: field_credits_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: project_location
+            identifier: field_credits
             required: false
             remember: false
             multiple: false
@@ -315,10 +204,62 @@ display:
               anonymous: '0'
               content_editor: '0'
               administrator: '0'
-              leeduser_experts: '0'
               leeduser_moderators: '0'
               leeduser_premium_member: '0'
               leeduser_basic_member: '0'
+              lu_guest_expert: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: credit
+          type: select
+          hierarchy: true
+          limit: true
+          error_message: true
+        field_project_location:
+          id: field_project_location
+          table: search_api_index_default_index
+          field: field_project_location
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api_term
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_project_location_op
+            label: 'Filter by location'
+            description: ''
+            use_operator: false
+            operator: field_project_location_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_project_location
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              content_editor: '0'
+              administrator: '0'
+              leeduser_moderators: '0'
+              leeduser_premium_member: '0'
+              leeduser_basic_member: '0'
+              lu_guest_expert: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -338,173 +279,31 @@ display:
           hierarchy: false
           limit: true
           error_message: true
-        field_credit_target_id:
-          id: field_credit_target_id
-          table: taxonomy_term__field_credit
-          field: field_credit_target_id
-          relationship: taxonomy_forums
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_credit_target_id_op
-            label: Credit
-            description: ''
-            use_operator: false
-            operator: field_credit_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: credit
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-              leeduser_experts: '0'
-              leeduser_moderators: '0'
-              leeduser_premium_member: '0'
-              leeduser_basic_member: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: credit
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
-        taxonomy_forums_target_id:
-          id: taxonomy_forums_target_id
-          table: node__taxonomy_forums
-          field: taxonomy_forums_target_id
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: taxonomy_index_tid
-          operator: or
-          value:
-            40: 40
-            58: 58
-            59: 59
-            41: 41
-            42: 42
-            43: 43
-            44: 44
-            45: 45
-            46: 46
-            47: 47
-            48: 48
-            49: 49
-            50: 50
-            51: 51
-            52: 52
-            53: 53
-            54: 54
-            56: 56
-            55: 55
-            57: 57
-          group: 1
-          exposed: true
-          expose:
-            operator_id: taxonomy_forums_target_id_op
-            label: 'Forums (taxonomy_forums)'
-            description: ''
-            use_operator: false
-            operator: taxonomy_forums_target_id_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: forum_id
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-              leeduser_experts: '0'
-              leeduser_moderators: '0'
-              leeduser_premium_member: '0'
-              leeduser_basic_member: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: forums
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
       style:
         type: default
       row:
-        type: 'entity:node'
+        type: search_api
         options:
-          relationship: none
-          view_mode: teaser
+          view_modes:
+            'entity:node':
+              ':default': default
+              accueil: ':default'
+              article: ':default'
+              credit_bev: ':default'
+              credit_cost_guidance: ':default'
+              credit_faq: ':default'
+              forum: teaser
+              page: ':default'
+              tipsheet: ':default'
       query:
-        type: views_query
+        type: search_api_query
         options:
-          query_comment: ''
-          disable_sql_rewrite: false
-          distinct: false
-          replica: false
+          bypass_access: false
+          skip_access: false
+          preserve_facet_query_args: false
           query_tags: {  }
-      relationships:
-        taxonomy_forums:
-          id: taxonomy_forums
-          table: node__taxonomy_forums
-          field: taxonomy_forums
-          relationship: none
-          group_type: group
-          admin_label: 'taxonomy_forums: Taxonomy term'
-          plugin_id: standard
-          required: false
-      header:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: text
-          empty: false
-          content:
-            value: "<a  id=\"post-question\" href=\"/topic/add\"  class=\"use-ajax button--primary \" data-dialog-type='modal'\r\n<i class=\"fi flaticon-communication\" data-gtm-vis-has-fired7025260_75=\"1\"></i>Post a question or comment</a>"
-            format: full_html
-          tokenize: false
+      relationships: {  }
+      header: {  }
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -515,8 +314,9 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
-      tags: {  }
+      tags:
+        - 'config:search_api.index.default_index'
+        - 'search_api_list:default_index'
   page_1:
     id: page_1
     display_title: Page
@@ -533,5 +333,6 @@ display:
         - url
         - url.query_args
         - 'user.node_grants:view'
-        - user.permissions
-      tags: {  }
+      tags:
+        - 'config:search_api.index.default_index'
+        - 'search_api_list:default_index'

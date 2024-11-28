@@ -68,6 +68,9 @@ module:
   quick_links: 0
   rate: 0
   search: 0
+  search_api: 0
+  search_api_db: 0
+  search_api_db_defaults: 0
   shortcut: 0
   storage: 0
   svg_image_field: 0
