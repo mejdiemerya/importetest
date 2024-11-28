@@ -11,7 +11,7 @@ dependencies:
 id: buildinggreen_menuuser
 theme: buildinggreen
 region: nav_additional
-weight: -7
+weight: -9
 provider: null
 plugin: 'system_menu_block:menu-user'
 settings:

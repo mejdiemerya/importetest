@@ -1,22 +1,22 @@
-uuid: 88730bc2-f37f-401e-b37f-d9709cd05e3e
+uuid: e0c36fee-f918-4f2a-8e37-c9a40172b2a1
 langcode: en
 status: true
 dependencies:
   config:
-    - system.menu.top-navigation
+    - system.menu.reseau-sociaux
   module:
     - system
   theme:
     - buildinggreen
-id: buildinggreen_topnavigation
+id: buildinggreen_reseausociaux
 theme: buildinggreen
-region: nav_additional
-weight: -10
+region: footer_second
+weight: 0
 provider: null
-plugin: 'system_menu_block:top-navigation'
+plugin: 'system_menu_block:reseau-sociaux'
 settings:
-  id: 'system_menu_block:top-navigation'
-  label: 'Top navigation'
+  id: 'system_menu_block:reseau-sociaux'
+  label: 'Reseau Sociaux'
   label_display: '0'
   provider: system
   level: 1

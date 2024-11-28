@@ -1,0 +1,8 @@
+uuid: 4e6d78c1-8e7d-42cf-aed7-31fc5aa819c8
+langcode: en
+status: true
+dependencies: {  }
+id: reseau-sociaux
+label: 'Reseau Sociaux'
+description: ''
+locked: false

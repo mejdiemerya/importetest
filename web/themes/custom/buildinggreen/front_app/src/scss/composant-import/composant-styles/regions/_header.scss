@@ -131,8 +131,18 @@
       }
     }
   }
+  .navbar-expand-lg {
+    @include media-breakpoint-down(lg) {
+      padding:10px;
+    }
+  }
 }
-
+#utility .logo{
+  @include media-breakpoint-down(lg) {
+    padding-top: 4px;
+    padding-left: 15px;
+  }
+}
 #utility .logo img {
   padding: 0;
   height: 24px;
@@ -143,7 +153,7 @@
     }
   }
   @include MQ(XSplus) {
-    height: 30px;
+    height: 40px;
     margin-right: 10px;
   }
   @include MQ(SMplus) {
@@ -233,6 +243,7 @@
   background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
   border: 1px solid transparent;
   border-radius: 4px;
+  border-color: #333;
 
   // We remove the `outline` here, but later compensate by attaching `:hover`
   // styles to `:focus`.
@@ -251,20 +262,162 @@
     margin-top: 4px;
   }
 
-  @include media-breakpoint-down(md) {
+  @include media-breakpoint-down(lg) {
     display: none;
   }
 }
 
 
 #block-buildinggreen-site-branding {
+  display: none;
   text-transform: uppercase;
+  @include media-breakpoint-up(lg) {  display: block; }
+
   .site-logo {
     margin-top: 0;
     img {
       height: 60px;
       @include MQ(SM) {
         height: 50px;
+      }
+    }
+  }
+}
+@include media-breakpoint-down(lg) {
+.region-nav-additional {
+    flex-direction: column;
+  padding-top: 8px;
+  padding-bottom: 15px;
+  nav {
+    ul {
+      >li {
+        border-bottom: 1px dotted #656a5e;
+      }
+    }
+  }
+  }
+
+}
+.navbar-collapse {
+  margin-top: 12px;
+  border-top: 1px solid #101010;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+button{
+  &.navbar-toggler {
+    border:1px solid $dark-1;
+     &:hover {
+       background-color: $dark-1;
+     }
+    &:focus{
+      box-shadow:none !important;
+    }
+    .navbar-toggler-txt {
+      color:$white;
+      font-size:13px;
+      margin-right: 12px;
+    }
+    .glyphicon-menu-hamburger {
+      position: relative;
+      &::before {
+        content:'';
+        background-image: url("data:image/svg+xml,%3Csvg width='22' height='15' viewBox='0 0 22 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline y1='1.5' x2='22' y2='1.5' stroke='%23fff' stroke-width='3'/%3E%3Cline y1='7.5' x2='22' y2='7.5' stroke='%23fff' stroke-width='3'/%3E%3Cline y1='13.5' x2='22' y2='13.5' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 12px;
+        height: 11px;
+        position: absolute;
+        top: 10px;
+        right: -5px;
+      }
+    }
+  }
+}
+.menu--menu-a-gauche{
+  display: none;
+  @include media-breakpoint-up(lg) {
+    display: block;
+  }
+}
+.region-nav-branding {
+  align-items: center;
+.navigation.menu--main {
+  display: none;
+  @include media-breakpoint-up(lg) {
+    display: block;
+  }
+  ul {
+    &.navbar-nav {
+      @include media-breakpoint-up(lg) {
+        flex-direction: row;
+      }
+      li {
+        a {
+          font-family:$CONST-FONT-SourceSansPro;
+          text-transform: uppercase;
+          color: $blue-dark;
+          text-decoration: none;
+          font-size: 18px;
+          padding-left: 16px;
+          padding-right: 16px;
+          &:hover,&:focus {
+            outline: dotted 1px $dark;
+            text-decoration: none;
+            background-color: $gray-dark-12;
+          }
+        }
+      }
+    }
+  }
+}
+}
+.search-block-form {
+  display: none;
+  @include media-breakpoint-up(lg) {
+    display: block;
+  }
+  margin-left: 1em;
+  form {
+    display: flex;
+    align-items: center;
+    input[type="search"] {
+      border-radius: 13px 0 0 13px;
+      color: #000;
+      height: 39px;
+      padding: 6px 12px;
+      font-size: 16px;
+      line-height: 1.6;
+      background-color: #fff;
+      background-image: none;
+      border: 1px solid #ccc;
+    }
+    .form-actions {
+      position:relative;
+      margin-left: -4px;
+      input[type="submit"] {
+        border-radius: 0 13px 13px 0;
+        color: $white;
+        background-color: $color-green;
+        height: 39px;
+        width:39px;
+        border: none;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: none;
+        box-shadow: none;
+        font-size: 0;
+      }
+      &::after {
+        content: "";
+        background-image: url("data:image/svg+xml,%3Csvg width='21' height='22' viewBox='0 0 21 22' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M19.7798 18.1437C19.986 18.3537 20.1016 18.6362 20.1016 18.9305C20.1016 19.2248 19.986 19.5074 19.7798 19.7174L19.2945 20.2071C19.0855 20.415 18.8028 20.5317 18.508 20.5317C18.2132 20.5317 17.9305 20.415 17.7215 20.2071L11.6303 14.1159C11.6057 14.092 11.5862 14.0675 11.5581 14.0393C10.1425 14.9489 8.44058 15.3031 6.7796 15.0339C5.11862 14.7646 3.61578 13.8909 2.56002 12.5807C1.50425 11.2704 0.970066 9.61617 1.06016 7.93592C1.15026 6.25567 1.85827 4.66802 3.0481 3.4782C4.23792 2.28837 5.82556 1.58036 7.50581 1.49026C9.18606 1.40016 10.8403 1.93435 12.1505 2.99012C13.4608 4.04589 14.3345 5.54872 14.6038 7.2097C14.873 8.87068 14.5188 10.5726 13.6092 11.9882L13.6901 12.0568L19.7798 18.1437ZM11.4743 4.70027C10.762 3.98799 9.85452 3.50291 8.86656 3.30639C7.8786 3.10987 6.85454 3.21073 5.9239 3.59621C4.99326 3.98169 4.19783 4.63449 3.63819 5.47205C3.07855 6.3096 2.77985 7.2943 2.77985 8.30162C2.77985 9.30894 3.07855 10.2936 3.63819 11.1312C4.19783 11.9688 4.99326 12.6215 5.9239 13.007C6.85454 13.3925 7.8786 13.4934 8.86656 13.2968C9.85452 13.1003 10.762 12.6153 11.4743 11.903C12.4286 10.9476 12.9648 9.65257 12.9654 8.30222C12.9659 6.95186 12.4307 5.65645 11.4772 4.70027H11.4743Z' fill='%23fff' stroke='%23fff' stroke-width='1.64803'/%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 20px;
+        height: 20px;
+        z-index: 99;
+        position: absolute;
+        top: 9px;
+        right: 9px;
       }
     }
   }
