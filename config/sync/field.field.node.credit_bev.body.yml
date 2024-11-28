@@ -1,0 +1,24 @@
+uuid: c940ff74-7671-409a-a51b-27812717d5c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.credit_bev
+  module:
+    - text
+id: node.credit_bev.body
+field_name: body
+entity_type: node
+bundle: credit_bev
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

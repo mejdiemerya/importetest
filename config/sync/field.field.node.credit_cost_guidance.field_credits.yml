@@ -1,16 +1,16 @@
-uuid: d5fda808-d73d-4fa9-a648-a45f4fe29141
+uuid: d625ec76-dd2a-416a-b3c2-1056e50dfd7e
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.field_credit
+    - field.storage.node.field_credits
+    - node.type.credit_cost_guidance
     - taxonomy.vocabulary.credit
-    - taxonomy.vocabulary.forums
-id: taxonomy_term.forums.field_credit
-field_name: field_credit
-entity_type: taxonomy_term
-bundle: forums
-label: Credit
+id: node.credit_cost_guidance.field_credits
+field_name: field_credits
+entity_type: node
+bundle: credit_cost_guidance
+label: Credits
 description: ''
 required: false
 translatable: false

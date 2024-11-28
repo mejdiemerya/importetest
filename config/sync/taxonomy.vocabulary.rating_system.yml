@@ -1,9 +1,0 @@
-uuid: 2891932c-6733-49ef-9713-6a41768ea60e
-langcode: en
-status: true
-dependencies: {  }
-name: 'Rating system'
-vid: rating_system
-description: null
-weight: 0
-new_revision: false

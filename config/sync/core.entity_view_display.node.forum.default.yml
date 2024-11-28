@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_display.comment.comment_forum.default
     - field.field.node.forum.comment_forum
+    - field.field.node.forum.field_credits
     - field.field.node.forum.field_last_comment_author
     - field.field.node.forum.field_project_location
     - field.field.node.forum.field_question
@@ -38,6 +39,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_credits:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
     region: content
   field_project_location:
     type: entity_reference_label

@@ -1,16 +1,16 @@
-uuid: 914ee428-b6ca-41a3-8632-63e7e682d4cb
+uuid: 2b10935c-de30-4dbf-a976-2e2bc6b9d46d
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.taxonomy_term.field_rating_system
-    - taxonomy.vocabulary.forums
-    - taxonomy.vocabulary.rating_system
-id: taxonomy_term.forums.field_rating_system
-field_name: field_rating_system
-entity_type: taxonomy_term
-bundle: forums
-label: 'Rating system'
+    - field.storage.node.field_credits
+    - node.type.credit_bev
+    - taxonomy.vocabulary.credit
+id: node.credit_bev.field_credits
+field_name: field_credits
+entity_type: node
+bundle: credit_bev
+label: Credits
 description: ''
 required: false
 translatable: false
@@ -20,7 +20,7 @@ settings:
   handler: 'default:taxonomy_term'
   handler_settings:
     target_bundles:
-      rating_system: rating_system
+      credit: credit
     sort:
       field: name
       direction: asc

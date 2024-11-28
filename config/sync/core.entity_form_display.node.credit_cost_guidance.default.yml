@@ -1,23 +1,23 @@
-uuid: db71c1f4-0e9b-49f6-8bf4-42ae5c6e46b6
+uuid: 5ae05f8c-c9c2-4ced-ac1f-77f4bf8e7f10
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.page.body
-    - node.type.page
+    - field.field.node.credit_cost_guidance.body
+    - field.field.node.credit_cost_guidance.field_credits
+    - node.type.credit_cost_guidance
   module:
+    - content_moderation
     - path
     - text
-_core:
-  default_config_hash: SfpLhPExzvR0MgFp0Wp7CrmgEnhcqQ-fXIWFhbf4ue0
-id: node.page.default
+id: node.credit_cost_guidance.default
 targetEntityType: node
-bundle: page
+bundle: credit_cost_guidance
 mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 31
+    weight: 121
     region: content
     settings:
       rows: 9
@@ -30,6 +30,16 @@ content:
     weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_credits:
+    type: entity_reference_autocomplete
+    weight: 26
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default

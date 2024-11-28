@@ -1,19 +1,17 @@
-uuid: 78cb6ef0-3e95-479b-ab88-cd8965983467
+uuid: b77cf7ac-f09c-4bcd-811e-44189ce6e5a4
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.page.body
-    - node.type.page
+    - field.field.node.credit_bev.body
+    - field.field.node.credit_bev.field_credits
+    - node.type.credit_bev
   module:
     - text
-    - user
-_core:
-  default_config_hash: 8BgdRtLbtQ0F__o0FHSH0Mx5fvXOra9tfT1GmNKbRYw
-id: node.page.teaser
+id: node.credit_bev.teaser
 targetEntityType: node
-bundle: page
+bundle: credit_bev
 mode: teaser
 content:
   body:
@@ -22,10 +20,13 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
-    weight: 100
-    region: content
-  links:
     weight: 101
     region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
 hidden:
+  field_credits: true
   uid: true

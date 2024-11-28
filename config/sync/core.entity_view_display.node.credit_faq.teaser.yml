@@ -1,19 +1,17 @@
-uuid: 78cb6ef0-3e95-479b-ab88-cd8965983467
+uuid: 8e131681-88c3-4fcf-92ee-0e348e72d794
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.page.body
-    - node.type.page
+    - field.field.node.credit_faq.body
+    - field.field.node.credit_faq.field_credits
+    - node.type.credit_faq
   module:
     - text
-    - user
-_core:
-  default_config_hash: 8BgdRtLbtQ0F__o0FHSH0Mx5fvXOra9tfT1GmNKbRYw
-id: node.page.teaser
+id: node.credit_faq.teaser
 targetEntityType: node
-bundle: page
+bundle: credit_faq
 mode: teaser
 content:
   body:
@@ -22,10 +20,13 @@ content:
     settings:
       trim_length: 600
     third_party_settings: {  }
-    weight: 100
-    region: content
-  links:
     weight: 101
     region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
 hidden:
+  field_credits: true
   uid: true

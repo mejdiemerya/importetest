@@ -1,0 +1,25 @@
+uuid: 52ffc6a3-ad68-4573-a3ea-d0a563c032b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_guest_expert
+    - taxonomy.vocabulary.credit
+id: taxonomy_term.credit.field_guest_expert
+field_name: field_guest_expert
+entity_type: taxonomy_term
+bundle: credit
+label: 'Guest expert'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: views
+  handler_settings:
+    view:
+      view_name: guest_experts
+      display_name: entity_reference_1
+      arguments: {  }
+field_type: entity_reference

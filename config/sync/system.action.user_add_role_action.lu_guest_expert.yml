@@ -1,14 +1,14 @@
-uuid: 6abefbd7-2622-412d-9d8d-f9fac20a3ec1
+uuid: 061c1455-4bba-40dd-b19e-38946a26a9bd
 langcode: en
 status: true
 dependencies:
   config:
-    - user.role.leeduser_experts
+    - user.role.lu_guest_expert
   module:
     - user
-id: user_add_role_action.leeduser_experts
+id: user_add_role_action.lu_guest_expert
 label: 'Add the LEEDuser Experts role to the selected user(s)'
 type: user
 plugin: user_add_role_action
 configuration:
-  rid: leeduser_experts
+  rid: lu_guest_expert
