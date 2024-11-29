@@ -56,13 +56,13 @@ function js() {
   let tasks = config.js.composant.map(composant => {
     return gulp
       .src(config.js.src + composant + '/index.js')
-      .pipe(webpackStream({
-        entry: config.js.src + composant + '/index.js',
-        output: {
-          filename: composant + '.js',
-        },
-        mode: 'development',
-      }))
+      // .pipe(webpackStream({
+      //   entry: config.js.src + composant + '/index.js',
+      //   output: {
+      //     filename: composant + '.js',
+      //   },
+      //   mode: 'development',
+      // }))
       .pipe(gulp.dest(config.js.dest + composant));
   });
 
