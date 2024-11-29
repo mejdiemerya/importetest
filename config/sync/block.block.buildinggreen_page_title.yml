@@ -9,7 +9,7 @@ _core:
 id: buildinggreen_page_title
 theme: buildinggreen
 region: sidebar_first
-weight: -5
+weight: -9
 provider: null
 plugin: page_title_block
 settings:

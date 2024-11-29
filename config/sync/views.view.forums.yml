@@ -4,10 +4,9 @@ status: true
 dependencies:
   config:
     - search_api.index.default_index
-    - taxonomy.vocabulary.credit
-    - taxonomy.vocabulary.location
   module:
     - search_api
+    - taxonomy
 id: forums
 label: forums
 module: views
@@ -175,110 +174,10 @@ display:
             default_group_multiple: {  }
             group_items: {  }
           reduce_duplicates: false
-        field_credits:
-          id: field_credits
-          table: search_api_index_default_index
-          field: field_credits
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_term
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_credits_op
-            label: 'Filter by LEED Credit'
-            description: ''
-            use_operator: false
-            operator: field_credits_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_credits
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-              leeduser_moderators: '0'
-              leeduser_premium_member: '0'
-              leeduser_basic_member: '0'
-              lu_guest_expert: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: credit
-          type: select
-          hierarchy: true
-          limit: true
-          error_message: true
-        field_project_location:
-          id: field_project_location
-          table: search_api_index_default_index
-          field: field_project_location
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_term
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_project_location_op
-            label: 'Filter by location'
-            description: ''
-            use_operator: false
-            operator: field_project_location_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_project_location
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              content_editor: '0'
-              administrator: '0'
-              leeduser_moderators: '0'
-              leeduser_premium_member: '0'
-              leeduser_basic_member: '0'
-              lu_guest_expert: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          vid: location
-          type: select
-          hierarchy: false
-          limit: true
-          error_message: true
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
       style:
         type: default
       row:
@@ -302,7 +201,29 @@ display:
           skip_access: false
           preserve_facet_query_args: false
           query_tags: {  }
-      relationships: {  }
+      relationships:
+        field_credits:
+          id: field_credits
+          table: search_api_datasource_default_index_entity_node
+          field: field_credits
+          relationship: none
+          group_type: group
+          admin_label: 'Credits: Taxonomy term'
+          entity_type: node
+          plugin_id: search_api
+          required: false
+          skip_access: false
+        field_project_location:
+          id: field_project_location
+          table: search_api_datasource_default_index_entity_node
+          field: field_project_location
+          relationship: none
+          group_type: group
+          admin_label: 'Project location: Taxonomy term'
+          entity_type: node
+          plugin_id: search_api
+          required: false
+          skip_access: false
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -311,7 +232,6 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
         - 'user.node_grants:view'
       tags:
@@ -330,7 +250,6 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
         - 'user.node_grants:view'
       tags:

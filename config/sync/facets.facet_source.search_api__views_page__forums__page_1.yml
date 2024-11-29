@@ -1,0 +1,12 @@
+uuid: efef308f-4e9b-498d-8b46-73b36fe2990f
+langcode: en
+status: true
+dependencies: {  }
+id: search_api__views_page__forums__page_1
+name: 'search_api:views_page__forums__page_1'
+filter_key: ''
+url_processor: query_string
+breadcrumb:
+  active: false
+  before: true
+  group: false

@@ -1,0 +1,24 @@
+uuid: f9f0a015-70a8-45ac-9fa8-c8b19e4e4261
+langcode: en
+status: false
+dependencies:
+  config:
+    - facets.facet.credit
+  module:
+    - facets
+  theme:
+    - buildinggreen
+id: buildinggreen_credits
+theme: buildinggreen
+region: sidebar_first
+weight: -13
+provider: null
+plugin: 'facet_block:credit'
+settings:
+  id: 'facet_block:credit'
+  label: Credits
+  label_display: visible
+  provider: facets
+  context_mapping: {  }
+  block_id: buildinggreen_credits
+visibility: {  }
