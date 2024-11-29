@@ -65,6 +65,12 @@ $btn-warning-border:             darken($btn-warning-bg, 5%) ;
 $btn-danger-color:               #fff !default;
 $btn-danger-bg:                  $brand-danger;
 $btn-danger-border:              darken($btn-danger-bg, 5%) ;
+$btn-neutral-color:               #000 ;
+$btn-neutral-bg:                  #C9D3BC ;
+$btn-neutral-border:              #bdc9ad ;
+.btn-neutral {
+  @include button-variant($btn-neutral-color, $btn-neutral-bg, $btn-neutral-border);
+}
 .btn-default {
   @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
 }
