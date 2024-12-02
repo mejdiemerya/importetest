@@ -44,6 +44,11 @@ function custom_forums_entity_extra_field_info() {
     'description' => t('A button that links to the comment form on the same page.'),
     'weight' => 10,
   ];
+  $extra['node']['forum']['display']['title_forum'] = [
+    'label' => t('title forum'),
+    'description' => t('title forum.'),
+    'weight' => 10,
+  ];
   $extra['node']['forum']['display']['comment_button'] = [
     'label' => t('Comment button'),
     'description' => t('A button that links to the comment form on the same page.'),
@@ -63,6 +68,29 @@ function custom_forums_entity_extra_field_info() {
 function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
   // Check if the entity is a node and is of type "article".
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'forum') {
+    if ($display->getComponent('title')) {
+      $combined_title='';
+      // Check if the entity has the 'field_credits'.
+      if (!empty($entity->get('field_credits')->target_id)) {
+        $credit_id = $entity->get('field_credits')->target_id;
+        if($credit_id) {
+          $label = getCreditFilterLabel($credit_id);
+          $combined_title = sprintf("%s\n%s", $label['title'], $label['description']);
+        }
+      }
+
+      // Check if the entity has the 'field_tipsheet'.
+      if (!empty($entity->get('field_tipsheet')->target_id)) {
+        $tipsheet_id = $entity->get('field_tipsheet')->target_id;
+        $label = getTipsheetName($tipsheet_id);
+        $combined_title =$label;  // You can modify how you combine the labels.
+      }
+      // Add combined title to the build array.
+      $build['title_forum'] = [
+        '#markup' => $combined_title,
+      ];
+
+    }
     // Render the comment count if the field is enabled.
     if ($display->getComponent('comment_count')) {
       // Load the comment count.
@@ -478,4 +506,74 @@ function custom_forums_theme($existing, $type, $theme, $path) {
       ],
     ],
   ];
+}
+function getCreditFilterLabel($tid) {
+  $parents = loadAllParentsModal($tid);
+  \Drupal::logger('custom_module')->notice('Form state parents: @values', ['@values' => $tid]);
+  $count = count($parents);
+  $data = array('title' => '', 'description' => '');
+  switch ($count) {
+    case 1:
+      // Only one item means we are looking at LEED Version.
+      $data['title'] = strip_tags($parents[0]->name->value);
+      break;
+
+    case 2:
+      $data['title'] = strip_tags($parents[0]->name->value);
+      break;
+
+    case 3:
+      $data['title'] = strip_tags(sprintf('%s %s', $parents[1]->name->value, $parents[0]->name->value));
+      $data['description'] = strip_tags($parents[0]->description->value);
+      break;
+
+    case 4:
+      $data['title'] = strip_tags(sprintf('%s %s', $parents[2]->name->value, $parents[0]->name->value));
+      $data['description'] = strip_tags($parents[0]->description->value);
+      break;
+  }
+  return $data;
+}
+
+  function loadAllParentsModal($tid) {
+
+    \Drupal::logger('custom_module')->notice('Form state parents tid: @values', ['@values' => $tid]);
+
+    $parents = [];
+    $term = Term::load($tid);
+
+    \Drupal::logger('custom_module')->notice('Form state parents tid2: @values', ['@values' =>  json_encode($term)]);
+
+    if (  $term) {
+      $parents[] = $term;
+      $n = 0;
+
+      while (isset($parents[$n]) && $parent_id = $parents[$n]->parent->target_id) {
+
+        if ($parent = Term::load($parent_id)) {
+          $parents[] = $parent;
+          $n++;
+        } else {
+          break;
+        }
+      }
+    }
+    \Drupal::logger('custom_module')->notice('Form state parents tid2: @values', ['@values' =>  json_encode($parents)]);
+
+
+    return $parents;
+  }
+
+ function getTipsheetName($nid) {
+  $query = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
+    ->condition('type', 'tipsheet')
+    ->condition('nid', $nid)->accessCheck() // Replace 'field_credit' with the actual field linking to the credit.
+    ->range(0, 1);
+
+  $nids = $query->execute();
+  if (!empty($nids)) {
+    $node = \Drupal\node\Entity\Node::load(reset($nids));
+    return $node->get('title')->value;
+  }
+  return '';
 }

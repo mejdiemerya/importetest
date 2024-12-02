@@ -90,22 +90,25 @@
   } only %}
 
   {% block content %}
-    <table class="content-table">
-      <tr>
+      <tr class="search-result ">
         <!-- First Column -->
-        <td class="content-column">
-          {{ content.user_picture }}
+        <td class="forum-topic">
+          <div class="pull-left mr10 mb05 hidden-xs">
 
-          <h4 >
-                <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-              </h4>
+          {{ content.user_picture }}
+          </div>
+        </td>
+        <td class="content-column">
+          <h4><a href="{{ url }}" rel="bookmark">{{ label }}</a></h4>
+          <h6>
+            <em class="pr05">{{ 'posted by'|t }}  <a href="users/" class="OP"><strong>{{ author_name }}</strong></a> on {{ date }} ></em>
+          </h6>
           <h5 > {{ content.taxonomy_forums }}</h5>
           <h5 > {{ content.field_credits }}</h5>
           <h5 > {{ content.field_tipsheet }}</h5>
 
           <h6{{ author_attributes }}>
 
-{#          {{ 'posted by'|t }} {% apply spaceless %}<a href="users/" class="node__author">{{ author_name }}</a>{% endapply %} {{ 'on'|t }} {{ date|date("M j, Y, g:i a")  }} {{ content.field_project_location }}#}
 
           </h6>
          <div>{{ content.field_question }}</div>
@@ -123,6 +126,5 @@
 
         </td>
       </tr>
-    </table>
   {% endblock %}
 {% endembed %}

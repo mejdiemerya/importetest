@@ -74,61 +74,68 @@
     view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
   ]
 %}
-<article{{ attributes.addClass(classes) }}>
-  {% for item in content.taxonomy_forums['#items'] %}
-  <div class="button-container">
-    <div class="button">
-      <a href="/forums?taxonomy_forums_target_id={{ item.entity.id }}">
-      <span>{{ 'See all forum discussions about'|t }}{{ item.entity.label }}</span>
-      </a>
-    </div>
-      <div class="taxonomy-subscriptions">
-        {% for item in flagged_terms %}
-          <div class="button">
-            <a href="{{ item.flag_link }}" class="use-ajax">
-              <span>{{ item.action_label }} {{ 'from discussions about'|t }} {{ item.term.label }}</span>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
-    <div class="button">
-      <a href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'forum_id': item.entity.id}}) }}">
-      <span>{{ 'Post a new question about'|t }} {{ item.entity.label }} </span>
-      </a>
-    </div>
-  </div>
-  {% endfor %}
-  <header class="{{ layout }}">
-    {{ title_prefix }}
-    <p>{{ 'Forum discussion'|t }}</p>
+{#<article{{ attributes.addClass(classes) }}>#}
+{#  {% for item in content.taxonomy_forums['#items'] %}#}
+{#  <div class="button-container">#}
+{#    <div class="button">#}
+{#      <a href="/forums?taxonomy_forums_target_id={{ item.entity.id }}">#}
+{#      <span>{{ 'See all forum discussions about'|t }}{{ item.entity.label }}</span>#}
+{#      </a>#}
+{#    </div>#}
+{#      <div class="taxonomy-subscriptions">#}
+{#        {% for item in flagged_terms %}#}
+{#          <div class="button">#}
+{#            <a href="{{ item.flag_link }}" class="use-ajax">#}
+{#              <span>{{ item.action_label }} {{ 'from discussions about'|t }} {{ item.term.label }}</span>#}
+{#            </a>#}
+{#          </div>#}
+{#        {% endfor %}#}
+{#      </div>#}
+{#    <div class="button">#}
+{#      <a href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'forum_id': item.entity.id}}) }}">#}
+{#      <span>{{ 'Post a new question about'|t }} {{ item.entity.label }} </span>#}
+{#      </a>#}
+{#    </div>#}
+{#  </div>#}
+{#  {% endfor %}#}
+{#  <header class="{{ layout }}">#}
+{#    {{ title_prefix }}#}
+{#    <p>{{ 'Forum discussion'|t }}</p>#}
 
 
-    <p>{{ content.taxonomy_forums }}</p>
-    <p>{{ content.taxonomy_forums }}</p>
+{#    <p>{{ content.taxonomy_forums }}</p>#}
+{#    <p>{{ content.taxonomy_forums }}</p>#}
 
-      <h2{{ title_attributes.addClass('node__title') }}>
-        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-      </h2>
+{#      <h2{{ title_attributes.addClass('node__title') }}>#}
+{#        <a href="{{ url }}" rel="bookmark">{{ label }}</a>#}
+{#      </h2>#}
 
-    {{ title_suffix }}
-    {% if display_submitted %}
-      <div class="node__meta">
-        <span{{ author_attributes }}>
+{#    {{ title_suffix }}#}
+{#    {% if display_submitted %}#}
+{#      <div class="node__meta">#}
+{#        <span{{ author_attributes }}>#}
 {#          {{ date |date(("F j, Y - g:i a"))}}#}
-        </span>
-          {{ content.field_project_location }}
-      </div>
-    {% endif %}
-  </header>
+{#        </span>#}
+{#          {{ content.field_project_location }}#}
+{#      </div>#}
+{#    {% endif %}#}
+{#  </header>#}
 
-  <div{{ content_attributes.addClass('node__content', layout) }}>
-    <div>
-      <div>  {{ content.field_question }}
-        {{ content.rate_rate }}</div>
-      <div>{{ author_name }}</div>
-    </div>
-    {{ content.comment_button }}
-    {{ content.comment_forum }}
+{#  <div{{ content_attributes.addClass('node__content', layout) }}>#}
+{#    <div>#}
+{#      <div>  {{ content.field_question }}#}
+{#        {{ content.rate_rate }}</div>#}
+{#      <div>{{ author_name }}</div>#}
+{#    </div>#}
+{#    {{ content.comment_button }}#}
+{#    {{ content.comment_forum }}#}
+{#  </div>#}
+
+{#</article>#}
+<div class="row">
+  <div class="col-md-9 col-md-push-3 mb20">
+    <article{{ attributes.addClass(classes) }}>
+      {{ author_picture }}
+    </article>
   </div>
-
-</article>
+</div>

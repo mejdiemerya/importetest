@@ -82,14 +82,11 @@ class TopicForm extends FormBase {
       ],
     );
 
-    $submit_text = 'Submit';
-    $label = $this->getCreditFilterLabel(67);
-    $submit_text = sprintf("%s\n%s", $label['title'], $label['description']);
+
     $form['modal']['submit'] = array(
       '#prefix' => '<div id="post-question-submit">',
       '#suffix' => '</div>',
       '#type' => 'submit',
-      '#value' => $submit_text,
       '#attributes' => ['style' => 'display:none;'],
     );
     $leed_version = $form_state->getValue('leed_version_modal');
@@ -155,10 +152,9 @@ class TopicForm extends FormBase {
     if (!empty($selected_value)) {
       $label = $this->getCreditFilterLabel($selected_value);
       $submit_text = sprintf("%s\n%s", $label['title'], $label['description']);
-
+      $form['modal']['submit']['#value'] = $submit_text;
       // Update the submit button text.
-      $response->addCommand(new HtmlCommand('#post-question-submit input[type="submit"]', $submit_text));
-
+      $response->addCommand(new HtmlCommand('#post-question-submit', $form['modal']['submit']));
       // Make the submit button visible.
       // Assuming you have initially set 'display:none;' on the button.
       $response->addCommand(new InvokeCommand('#post-question-submit input[type="submit"]', 'css', ['display', 'inline']));
