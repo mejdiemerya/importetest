@@ -74,16 +74,7 @@ class LeeduserSearchForm extends FormBase {
     $form['#attached']['library'][] = 'core/drupal.ajax';
     $form['#attached']['library'][] = 'core/jquery';
     $form['#attached']['library'][]='core/drupal.dialog';
-//    $form['keyword_search'] = [
-//      '#type' => 'textfield',
-//      '#title' => t('Search Forums'),
-//      '#default_value' => '',
-//      '#attributes' => [
-//        'placeholder' => t('Search within forums'),
-//      ],
-//      '#prefix' => '<div id="keyword-search">',
-//      '#suffix' => '</div>',
-//    ];
+
     // Get the current request
     $request = \Drupal::request();
 
@@ -157,6 +148,16 @@ class LeeduserSearchForm extends FormBase {
 
 
     }
+    $form['keyword_search'] = [
+      '#type' => 'textfield',
+      '#title' => t('Search Forums'),
+      '#default_value' => '',
+      '#attributes' => [
+        'placeholder' => t('Search within forums'),
+      ],
+      '#prefix' => '<div id="keyword-search">',
+      '#suffix' => '</div>',
+    ];
     $form['credit_filter_fieldset'] = array(
       '#type' => 'fieldset',
       '#title' =>  t('Filter by LEED Credit'),
@@ -491,7 +492,10 @@ class LeeduserSearchForm extends FormBase {
 
     // Initialize the 'f' query parameter as an array.
     $filters = [];
-
+    $keyword_search = $form_state->getValue('keyword_search');
+    if (!empty($keyword_search)) {
+      $filters[] = 'combined:' . $keyword_search;
+    }
     // LEED version.
     $leed_version = $form_state->getValue('leed_version');
     if (!empty($leed_version)) {

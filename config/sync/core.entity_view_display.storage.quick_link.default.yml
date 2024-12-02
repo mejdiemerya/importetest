@@ -3,9 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.storage.quick_link.field_forum
     - field.field.storage.quick_link.field_hover_text
     - field.field.storage.quick_link.field_icon
     - field.field.storage.quick_link.field_link
+    - field.field.storage.quick_link.field_tipsheet
     - storage.storage_type.quick_link
   module:
     - link
@@ -16,6 +18,14 @@ targetEntityType: storage
 bundle: quick_link
 mode: default
 content:
+  field_forum:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: -4
+    region: content
   field_hover_text:
     type: basic_string
     label: above
@@ -34,6 +44,14 @@ content:
       target: ''
     third_party_settings: {  }
     weight: 1
+    region: content
+  field_tipsheet:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
     region: content
   name:
     type: string

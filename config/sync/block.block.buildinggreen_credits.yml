@@ -11,7 +11,7 @@ dependencies:
 id: buildinggreen_credits
 theme: buildinggreen
 region: sidebar_first
-weight: -13
+weight: -11
 provider: null
 plugin: 'facet_block:credit'
 settings:

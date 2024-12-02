@@ -11,7 +11,7 @@ _core:
 id: buildinggreen_syndicate
 theme: buildinggreen
 region: sidebar_first
-weight: -7
+weight: -6
 provider: null
 plugin: node_syndicate_block
 settings:

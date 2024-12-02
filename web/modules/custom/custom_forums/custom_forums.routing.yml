@@ -5,3 +5,10 @@ custom_forums.topic_add:
     _title: 'Create a Topic'
   requirements:
     _access: 'TRUE'
+custom_forums.site_settings:
+  path: '/admin/custom_forums/site'
+  defaults:
+    _title: 'Paramétrage du site'
+    _form: 'Drupal\custom_forums\Form\CustomForumsSettingsForm'
+  requirements:
+    _permission: 'access content'

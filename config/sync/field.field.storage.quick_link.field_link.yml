@@ -15,11 +15,11 @@ entity_type: storage
 bundle: quick_link
 label: Link
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  link_type: 17
   title: 0
+  link_type: 17
 field_type: link

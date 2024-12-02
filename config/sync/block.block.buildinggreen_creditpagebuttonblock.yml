@@ -1,4 +1,4 @@
-uuid: 041b5b72-89dd-48bb-9d3d-9676c451f7f4
+uuid: 71bf0022-865d-47f5-b48a-cf56c42be89d
 langcode: en
 status: true
 dependencies:
@@ -7,15 +7,15 @@ dependencies:
     - system
   theme:
     - buildinggreen
-id: buildinggreen_leedusersearchblock
+id: buildinggreen_creditpagebuttonblock
 theme: buildinggreen
 region: sidebar_first
-weight: -14
+weight: -15
 provider: null
-plugin: leeduser_search_block
+plugin: leeduser_credit_page_button
 settings:
-  id: leeduser_search_block
-  label: 'Leeduser Search Block'
+  id: leeduser_credit_page_button
+  label: 'Credit Page Button Block'
   label_display: '0'
   provider: custom_forums
 visibility:

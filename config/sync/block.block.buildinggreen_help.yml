@@ -11,7 +11,7 @@ _core:
 id: buildinggreen_help
 theme: buildinggreen
 region: sidebar_first
-weight: -8
+weight: -7
 provider: null
 plugin: help_block
 settings:

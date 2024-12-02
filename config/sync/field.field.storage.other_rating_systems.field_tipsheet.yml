@@ -1,0 +1,29 @@
+uuid: e598aea9-dd0e-4c17-8fcb-6caad69e3d99
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.storage.field_tipsheet
+    - node.type.tipsheet
+    - storage.storage_type.other_rating_systems
+id: storage.other_rating_systems.field_tipsheet
+field_name: field_tipsheet
+entity_type: storage
+bundle: other_rating_systems
+label: tipsheet
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      tipsheet: tipsheet
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

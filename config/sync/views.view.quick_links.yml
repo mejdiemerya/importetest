@@ -12,6 +12,7 @@ dependencies:
     - display_link_plus
     - draggableviews
     - link
+    - media
     - storage
     - svg_image_field
     - user
@@ -366,13 +367,11 @@ display:
             operator_limit_selection: false
             operator_list: {  }
       style:
-        type: grid_responsive
+        type: default
         options:
           grouping: {  }
-          columns: 5
-          cell_min_width: 175
-          grid_gutter: 20
-          alignment: horizontal
+          row_class: ''
+          default_row_class: true
       row:
         type: fields
         options:
@@ -432,23 +431,6 @@ display:
           append_destination: true
           arguments_mapping: {  }
       footer: {  }
-      display_extenders: {  }
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - user.permissions
-      tags:
-        - 'config:field.storage.media.field_media_svg'
-        - 'config:field.storage.storage.field_hover_text'
-        - 'config:field.storage.storage.field_link'
-  block_1:
-    id: block_1
-    display_title: Block
-    display_plugin: block
-    position: 1
-    display_options:
       display_extenders: {  }
     cache_metadata:
       max-age: -1

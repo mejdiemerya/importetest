@@ -11,7 +11,7 @@ dependencies:
 id: buildinggreen_forums
 theme: buildinggreen
 region: sidebar_first
-weight: -12
+weight: -10
 provider: null
 plugin: 'facet_block:forum'
 settings:

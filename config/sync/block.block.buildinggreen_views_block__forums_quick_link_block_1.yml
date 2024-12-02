@@ -1,27 +1,27 @@
-uuid: b0c9cfcd-c1b0-4ec3-a1c8-be7ec28459a2
+uuid: 62fc80fc-047c-4eaa-83ab-53fd91f4e06a
 langcode: en
-status: false
+status: true
 dependencies:
   config:
-    - views.view.quick_links
+    - views.view.forums_quick_link
   module:
     - system
     - views
   theme:
     - buildinggreen
-id: buildinggreen_views_block__quick_links_block_1
+id: buildinggreen_views_block__forums_quick_link_block_1
 theme: buildinggreen
-region: header
-weight: 0
+region: sidebar_first
+weight: -13
 provider: null
-plugin: 'views_block:quick_links-block_1'
+plugin: 'views_block:forums_quick_link-block_1'
 settings:
-  id: 'views_block:quick_links-block_1'
+  id: 'views_block:forums_quick_link-block_1'
   label: ''
   label_display: visible
   provider: views
   views_label: ''
-  items_per_page: '12'
+  items_per_page: none
 visibility:
   request_path:
     id: request_path
