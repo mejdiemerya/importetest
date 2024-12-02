@@ -27,38 +27,15 @@ class TopicController extends ControllerBase {
 
   public function add() {
     $output = [];
-    if ($this->currentUser->isAnonymous()) {
-      $output['#theme'] = 'anonymous_message';
-    }
-    else {
-      $form = \Drupal::formBuilder()->getForm(TopicForm::class);
-      $ForumsList = [];
-
-      $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery()->accessCheck(false);
-      $query->condition('vid', 'forums')
-        ->notExists('field_credit')
-        ->notExists('field_credit_category')
-        ->notExists('field_leed_version')
-        ->notExists('field_rating_system')
-        ->sort('tid', 'ASC');
-
-      $tids = $query->execute();
-      $forums = Term::loadMultiple($tids);
-
-      foreach ($forums as $forum) {
-        $term_name = $forum->get('name')->value;
-        $url = Url::fromRoute('node.add', ['node_type' => 'forum'])
-          ->setOption('query', ['forum_id' => $forum->id()]);
-        $link = Link::fromTextAndUrl($term_name, $url)->toRenderable();
-        $ForumsList[] = $link;
-      }
+    $form = \Drupal::formBuilder()->getForm(TopicForm::class);
 
       $output = [
-        '#theme' => 'authenticated_forum_list',
-        '#forums' => $ForumsList,
+        '#theme' => 'post_question_modal',
         '#form' => $form,
+        '#is_anonymous' => $this->currentUser->isAnonymous(),
+        '#is_authenticated' => $this->currentUser->isAuthenticated(),
       ];
-    }
+
 
     return $output;
   }

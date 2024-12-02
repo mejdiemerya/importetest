@@ -272,7 +272,9 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
       unset($form['actions']['preview']);
     }
     $form['actions']['submit']['#value'] = t('Post to forum');
-
+    $form['#attached']['library'][] = 'core/drupal.ajax';
+    $form['#attached']['library'][] = 'core/jquery';
+    $form['#attached']['library'][]='core/drupal.dialog';
     // Add a Cancel button.
     $form['actions']['cancel'] = [
       '#type' => 'link',
@@ -288,6 +290,9 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
     ];
     // Get the form ID from the URL or any custom logic.
     $current_form_id = \Drupal::request()->query->get('forum_id');
+    $current_credit_id = \Drupal::request()->query->get('credit_id');
+    $current_tipsheet_id = \Drupal::request()->query->get('tipsheet_id');
+
     if ($current_form_id) {
       $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($current_form_id);
 
@@ -296,15 +301,37 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
         $form['taxonomy_forums']['widget'][0]['target_id']['#default_value'] = $term;
       }
       // Add  "Forum area" with a change link
+
+
+      // Add the forum area field with the term name and change link
+      $form['forum_area'] = [
+        '#markup' => t('Forum area: @forum_name <a href="#" data-bs-toggle="modal" data-bs-target="#post-question-modal"  >[change] </a>', [
+          '@forum_name' => $term->getName(),
+        ]),
+      ];
+    }
+    if ($current_credit_id ) {
+      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($current_credit_id );
+      // Ensure the form field exists in the form and assign it the value.
+      if (isset($form['field_credits'])) {
+        $form['field_credits']['widget'][0]['target_id']['#default_value'] = $term;
+      }
+      // Add  "Forum area" with a change link
       $change_url = \Drupal\Core\Url::fromRoute('custom_forums.topic_add')->toString();
 
       // Add the forum area field with the term name and change link
       $form['forum_area'] = [
-        '#markup' => t('Forum area: @forum_name <a href="@change_url">[change]</a>', [
-          '@forum_name' => $term->getName(),
-          '@change_url' => $change_url,
-        ]),
-      ];
+        '#markup' => t('Forum area: @forum_name <a href="#" data-bs-toggle="modal" data-bs-target="#post-question-modal"  >[change] </a>', [
+          '@forum_name' =>  strip_tags($term->getDescription()),
+        ]), ];
+    }
+    if ($current_tipsheet_id) {
+      $term = \Drupal::entityTypeManager()->getStorage('node')->load($current_tipsheet_id );
+      // Ensure the form field exists in the form and assign it the value.
+      if (isset($form['field_tipsheet'])) {
+        $form['field_tipsheet']['widget'][0]['target_id']['#default_value'] = $term;
+      }
+
     }
 
   }
@@ -433,22 +460,21 @@ function custom_forums_preprocess_node(array &$variables) {
     }
   }
 }
-
+function custom_forums_preprocess_page(&$variables) {
+  $current_user = \Drupal::currentUser();
+  $variables['is_anonymous'] = $current_user->isAnonymous();
+  $variables['is_authenticated'] = $current_user->isAuthenticated();
+}
 /**
  * Implements hook_theme().
  */
 function custom_forums_theme($existing, $type, $theme, $path) {
   return [
-    'anonymous_message' => [
+     'post_question_modal' => [
       'variables' => [
-        'message' => NULL,
-        'details' => [],
-      ],
-    ],
-    'authenticated_forum_list' => [
-      'variables' => [
-        'forums' => [],
         'form' => NULL,
+        'is_authenticated'=>NULL,
+        'is_anonymous'=>NULL,
       ],
     ],
   ];

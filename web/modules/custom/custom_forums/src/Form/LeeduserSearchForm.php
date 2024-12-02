@@ -2,12 +2,15 @@
 
 namespace Drupal\custom_forums\Form;
 
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
@@ -70,24 +73,90 @@ class LeeduserSearchForm extends FormBase {
 
     $form['#attached']['library'][] = 'core/drupal.ajax';
     $form['#attached']['library'][] = 'core/jquery';
+    $form['#attached']['library'][]='core/drupal.dialog';
+//    $form['keyword_search'] = [
+//      '#type' => 'textfield',
+//      '#title' => t('Search Forums'),
+//      '#default_value' => '',
+//      '#attributes' => [
+//        'placeholder' => t('Search within forums'),
+//      ],
+//      '#prefix' => '<div id="keyword-search">',
+//      '#suffix' => '</div>',
+//    ];
+    // Get the current request
+    $request = \Drupal::request();
 
-    $form['keyword_search'] = [
-      '#type' => 'textfield',
-      '#title' => t('Search Forums'),
-      '#default_value' => '',
-      '#attributes' => [
-        'placeholder' => t('Search within forums'),
-      ],
-      '#prefix' => '<div id="keyword-search">',
-      '#suffix' => '</div>',
-    ];
-    // Post Question Link.
-    $form['post_question'] = [
-      '#type' => 'markup',
-      '#prefix' => '<a id="post-question" href=""><i class="fi flaticon-communication"></i>',
-      '#suffix' => '</a>',
-      '#markup' => t('Post a question or comment'),
-    ];
+// Retrieve query parameters from the current URL
+    $query_params = $request->query->all();
+// Initialize variables to store extracted IDs
+    $forum_id = null;
+    $credit_id = null;
+    $location_id = null;
+
+// Check if the 'f' parameter contains multiple items.
+    if (isset($query_params['f'])) {
+      // Loop through each parameter to extract key-value pairs.
+      foreach ($query_params['f'] as $param) {
+        if (preg_match('/^forum:(\d+)$/', $param, $matches)) {
+          $forum_id = $matches[1];
+        } elseif (preg_match('/^credit:(\d+)$/', $param, $matches)) {
+          $credit_id = $matches[1];
+        } elseif (preg_match('/^location:(\d+)$/', $param, $matches)) {
+          $location_id = $matches[1];
+        }
+      }
+    }
+    $active_search_parents=[];
+    if($credit_id!== null) {
+
+      $active_search_parents = $this->loadAllParents($credit_id);
+    }
+      if (count($active_search_parents) == 4 ){
+
+        $post_question_url = Url::fromRoute('node.add', [
+          'node_type' => 'forum'
+        ], [
+          'query' => [
+            'credit_id' => (int) $credit_id,
+            'forum_id' => $this->getTermIdByName('Credit Forums', 'forums'),
+            'destination' => 'forums',
+          ]
+        ])->toString();
+        $form['post_question'] = array(
+          '#prefix' => '<a id="post-question" href="' . $post_question_url . '"><i class="fi flaticon-communication"></i>',
+          '#suffix' => '</a>',
+          '#markup' => t('Post a question or comment'),
+        );
+
+
+    }
+    elseif ($forum_id !== null) {
+      $post_question_url = Url::fromRoute('node.add',
+        [
+        'node_type' => 'forum'
+      ], [
+        'query' => [
+          'forum_id' => $forum_id,
+        ],
+      ])->toString();
+      $form['post_question'] = [
+        '#prefix' => '<a id="post-question" href="' . $post_question_url . '"><i class="fi flaticon-communication"></i>',
+        '#suffix' => '</a>',
+        '#markup' => t('Post a question or comment'),
+      ];
+    } else {
+
+      // Post Question Link.
+      $form['post_question'] = [
+        '#type' => 'markup',
+        '#prefix' => '<a id="post-question" href="#" data-bs-toggle="modal" data-bs-target="#post-question-modal"  ><i class="fi flaticon-communication"></i>',
+        '#suffix' => '</a>',
+        '#markup' => t('Post a question or comment'),
+      ];
+
+
+    }
     $form['credit_filter_fieldset'] = array(
       '#type' => 'fieldset',
       '#title' =>  t('Filter by LEED Credit'),
@@ -188,7 +257,7 @@ class LeeduserSearchForm extends FormBase {
     }
     $credit_category = $form_state->getValue('credit_category');
     if (!empty($credit_category)) {
-      $form['credit_filter_fieldset']['credit']['#options'] = $this->getCreditCategories($credit_category);
+      $form['credit_filter_fieldset']['credit']['#options'] = $this->getCredits($credit_category);
     }
     return $form;
   }
@@ -358,63 +427,56 @@ class LeeduserSearchForm extends FormBase {
   }
 
   /**
-   * Helper function to get post question link.
+   * Checks if the term is at the third level of hierarchy.
+   *
+   * @param int $tid
+   *   The term ID to check.
+   *
+   * @return array
+   *   TRUE if the term is at the third level, FALSE otherwise.
    */
-  protected function getPostQuestionLink() {
-    global $user;
 
-    // Example logic based on Drupal 7 code.
-    // Adjust according to Drupal 10 APIs and your site structure.
 
-    // Check user roles and active credit filters.
-    if ($this->hasSingleCreditFilter() && $this->currentUserHasPermission()) {
-      $credit_id = (int) $this->getActiveCredits()[0];
-      $query = [
-        'credit_id' => $credit_id,
-        'forum_id' => 'BG_LEEDUSER_SEARCH_CREDITS_FORUM_TID',
-        'destination' => 'forums',
-      ];
-      $url = Url::fromRoute('node.add', ['node_type' => 'forum'], ['query' => $query])->toString();
-    }
-    elseif (isset($this->getCurrentFilters()['im_field_tipsheet'])) {
-      $query = [
-        'tipsheet_id' => $this->getCurrentFilters()['im_field_tipsheet'],
-        'forum_id' => 'BG_LEEDUSER_SEARCH_TIPSHEET_FORUM_TID',
-      ];
-      $url = Url::fromRoute('node.add', ['node_type' => 'forum'], ['query' => $query])->toString();
-    }
-    elseif (isset($this->getCurrentFilters()['im_taxonomy_forums'])) {
-      $query = [
-        'forum_id' => $this->getCurrentFilters()['im_taxonomy_forums'],
-      ];
-      $url = Url::fromRoute('node.add', ['node_type' => 'forum'], ['query' => $query])->toString();
-    }
-    else {
-      // Use modal window.
-      $url = '#';
-      // Ensure you have a modal setup using Drupal's AJAX API.
+  function loadAllParents($tid) {
+
+
+    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+    $parents = [];
+
+    if ($term = $term_storage->load($tid)) {
+      $parents[] = $term;
+      $n = 0;
+
+      while (isset($parents[$n]) && $parent_id = $parents[$n]->parent->target_id) {
+        if ($parent = $term_storage->load($parent_id)) {
+          $parents[] = $parent;
+          $n++;
+        } else {
+          break;
+        }
+      }
     }
 
-    // Build the link with appropriate attributes.
-    $attributes = [];
-    if ($url == '#') {
-      $attributes['data-toggle'] = 'modal';
-      $attributes['data-target'] = '#post-question-modal';
-    }
 
-    $link = Link::fromTextAndUrl(
-      $this->t('<i class="fi flaticon-communication"></i> Post a question or comment', [], ['context' => 'Html']),
-      Url::fromUserInput($url)
-    )->toRenderable();
-
-    $link['#attributes']['id'] = 'post-question';
-
-    return $link;
+    return $parents;
   }
 
 
+  function getTermIdByName($term_name, $vocabulary) {
+    // Load the term storage handler.
+    $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
 
+    // Create an entity query for terms.
+    $query = $term_storage->getQuery()
+      ->condition('vid', $vocabulary)
+      ->condition('name', $term_name)->accessCheck(false);
 
+    // Execute the query and fetch the TID.
+    $tids = $query->execute();
+
+    // Return the first TID found, or NULL if none found.
+    return !empty($tids) ? reset($tids) : null;
+  }
 
   /**
    * {@inheritdoc}

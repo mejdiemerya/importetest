@@ -1,0 +1,13 @@
+uuid: 5bda003e-5c45-4a26-a544-dbc10a56ba9b
+langcode: en
+status: true
+dependencies: {  }
+id: modal_list_forums
+label: 'Modal list forums'
+description: ''
+help: ''
+new_revision: true
+revision_expose: false
+revision_log: false
+name_pattern: ''
+has_canonical: false

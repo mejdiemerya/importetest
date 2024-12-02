@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.forum.field_last_comment_author
     - field.field.node.forum.field_project_location
     - field.field.node.forum.field_question
+    - field.field.node.forum.field_tipsheet
     - field.field.node.forum.taxonomy_forums
     - node.type.forum
   module:
@@ -63,6 +64,14 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
+  field_tipsheet:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 11
+    region: content
   flag_notification:
     settings: {  }
     third_party_settings: {  }
@@ -102,4 +111,5 @@ hidden:
   last_comment_author_image: true
   last_comment_author_role: true
   last_comment_date: true
+  search_api_excerpt: true
   user_picture: true

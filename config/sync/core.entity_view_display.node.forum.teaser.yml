@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.forum.field_last_comment_author
     - field.field.node.forum.field_project_location
     - field.field.node.forum.field_question
+    - field.field.node.forum.field_tipsheet
     - field.field.node.forum.taxonomy_forums
     - node.type.forum
   module:
@@ -92,6 +93,8 @@ hidden:
   comment_forum: true
   content_moderation_control: true
   field_credits: true
+  field_tipsheet: true
   last_comment_author_image: true
   last_comment_author_role: true
   rate_rate: true
+  search_api_excerpt: true
