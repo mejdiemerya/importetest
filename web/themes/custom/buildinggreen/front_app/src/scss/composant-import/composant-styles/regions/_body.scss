@@ -4,7 +4,7 @@
 
 // Variable
 // --------------------------------------------------
-$TITLE-padding: 25px;
+$TITLE-padding: 15px;
 $TITLE-padding-mb: 15px;
 
 // Mixin
@@ -63,7 +63,9 @@ h6 {
 nav ul {
   @include list-reset;
 }
-
+b, strong {
+  font-weight: 600;
+}
 p {
   margin-bottom: 0;
 

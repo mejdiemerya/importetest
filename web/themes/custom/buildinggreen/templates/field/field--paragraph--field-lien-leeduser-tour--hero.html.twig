@@ -1,3 +1,5 @@
 {% for item in items %}
-  <a class="btn btn-sm btn-neutral" href="{{ item.content['#url'].toString() }}">{{ item.content['#title'] }}</a>
+  <a class="btn btn-sm btn-neutral" href="{{ item.content['#url'].toString() }}">
+    <strong data-gtm-vis-has-fired7025260_75="1"><em data-gtm-vis-has-fired7025260_75="1">{{ item.content['#title'] }}</em></strong>
+  </a>
 {% endfor %}
