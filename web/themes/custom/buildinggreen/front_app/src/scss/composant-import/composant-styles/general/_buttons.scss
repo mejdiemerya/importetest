@@ -93,3 +93,34 @@ $btn-neutral-border:              #bdc9ad ;
 .btn-danger {
   @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
 }
+
+
+$padding-large-vertical:    10px ;
+$padding-large-horizontal:  16px ;
+
+$padding-small-vertical:    5px ;
+$padding-small-horizontal:  10px;
+a#post-question, a#forum-filter {
+  margin-bottom: 1em;
+  @include button-size($padding-large-vertical, $padding-large-horizontal, 14px, 1.1, 6px);
+  display: inline-block;
+  padding-top: 12px;
+  padding-bottom: 9px;
+  width: 100%;
+  text-align: left;
+  @include MQ(S) {
+    width: 48%;
+  }
+  box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.4);
+  text-decoration: none;
+  text-transform: uppercase;
+  .fi, .glyphicon {
+    font-size: 130%;
+    float: left;
+    padding-right: 8px;
+    display: block;
+  }
+}
+a#post-question {
+  @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
+}

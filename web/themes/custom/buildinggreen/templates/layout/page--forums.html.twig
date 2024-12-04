@@ -102,14 +102,15 @@
     set content_classes = (page.sidebar_first and page.sidebar_second) ? 'col-12 col-lg-6' : ((page.sidebar_first or page.sidebar_second) ? 'col-12 col-lg-9' : 'col-12' )
   %}
 
+  {% if page.breadcrumb %}
+    {{ page.breadcrumb }}
+  {% endif %}
 
-  <div class="{{ b5_top_container }}">
-    {% if page.breadcrumb %}
-      {{ page.breadcrumb }}
-    {% endif %}
-    <div class="row g-0 m-0">
+  <div class="container container-fluid-cuctom">
+
+    <div class="row g-4">
       {% if page.sidebar_first %}
-        <div class="order-2 order-lg-1 {{ sidebar_first_classes }}">
+        <div class="order-2 order-lg-1 d-flex flex-column gap-4 {{ sidebar_first_classes }}">
           {{ page.sidebar_first }}
         </div>
       {% endif %}
@@ -118,7 +119,7 @@
         {{ page.content }}
       </div>
       {% if page.sidebar_second %}
-        <div class="order-3 {{ sidebar_second_classes }}">
+        <div class="order-3 d-flex flex-column gap-4 {{ sidebar_second_classes }}">
           {{ page.sidebar_second }}
         </div>
       {% endif %}    </div>

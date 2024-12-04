@@ -7,7 +7,7 @@
 // Bootstrap
 // --------------------------------------------------
 @import 'general/bootstrap';
-@import '../../../../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
+//@import '../../../../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
 
 
 // Fonts
@@ -20,6 +20,8 @@
 @import 'general/mixins';
 @import 'general/ckeditor';
 @import 'general/buttons';
+@import 'general/form';
+@import 'general/print';
 
 // Others
 // --------------------------------------------------

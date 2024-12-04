@@ -1,0 +1,151 @@
+$well-bg:                     #f5f5f5 ;
+$well-border:                 darken($well-bg, 7%) ;
+$border-radius-base:        4px;
+$font-size-base:          14px;
+$font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
+$font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
+#block-buildinggreen-leedusersearchblock {
+  @include MQ(SMneg) {
+    min-height: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: $well-bg;
+    border: 1px solid $well-border;
+    border-radius: $border-radius-base;
+  }
+  @include MQ(Mplus) {
+    min-height: 20px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: $well-bg;
+    border: 1px solid $well-border;
+    border-radius: $border-radius-base;
+    margin-right: -15px;
+  }
+  @include MQ(Mplus) {
+    margin-right: 0;
+  }
+  margin-bottom: 2em;
+  label[for=edit-keyword-search], .panel-title {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: ($font-size-base * 0.9);
+    font-weight: 600;
+  }
+  .panel-heading,
+  .panel-title,
+  .panel-body {
+    margin: 0;
+    padding: 0;
+    border-color: transparent;
+    background-color: transparent;
+  }
+
+  .panel-title {
+    margin-bottom: 0.35em;
+  }
+
+  /*#keyword-search,*/
+  /*	#edit-credit-filter-fieldset,
+    #location_fieldset {
+      margin-top: 1em;
+    }*/
+
+  #show-results {
+    margin-top: 0.5em;
+    .btn-primary{
+      color: #333;
+      background-color: #fff;
+      border-color: #ccc;
+      &.focus,
+      &:focus,
+      &:hover{
+        color: #333;
+        background-color: #e6e6e6;
+        border-color: #adadad;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .panel {
+    border: none;
+    background-color: transparent;
+    @include box-shadow(none);
+    margin-bottom: 0.5em;
+    &#edit-location-filter-fieldset,
+    &#edit-credit-filter-fieldset {
+      margin-bottom: 0.5em;
+      &.collapsed {
+        margin-bottom: 0.5em;
+      }
+    }
+    &#edit-location-queries {
+      margin-bottom: 0;
+    }
+  }
+
+  /*	#edit-credit-filter-fieldset select,
+    #edit-location-filter-fieldset select {
+        margin-bottom: 0.75em;
+    }*/
+
+  #edit-credit-filter-fieldset .panel-body,
+  #edit-location-filter-fieldset .panel-body {
+    font-size: $font-size-xsmall;
+    a {
+      text-decoration: none;
+    }
+  }
+
+  a.panel-title::before {
+    content: "\2212";
+    padding-right: 0.35em;
+    font-family: "glyphicons-halflings-regular";
+  }
+
+  .collapsed a.panel-title::before {
+    content: "\002b ";
+  }
+
+  #clear-search button,
+  #edit-clear-credits,
+  #edit-clear-location {
+    float: right;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 120%;
+    margin-top: -1px;
+  }
+
+  .form-item-search-scope {
+    float: left;
+    margin: 0.1em 0 0;
+    &:first-of-type {
+      padding-right: 1em;
+    }
+  }
+
+  #search-scope {
+    font-size: ($font-size-small * 0.95);
+    margin: 0 0 0.5em;
+    @extend .clearfix;
+  }
+
+  .form-control {
+    border-radius: 0;
+    padding: 5px 8px;
+    line-height: 1.2;
+    height: inherit;
+    font-size: 14px;
+    color: #000;
+  }
+
+  .form-control,
+  .form-group {
+    margin-bottom: 1em;
+  }
+
+}

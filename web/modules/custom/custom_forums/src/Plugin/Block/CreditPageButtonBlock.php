@@ -66,7 +66,7 @@ class CreditPageButtonBlock extends BlockBase {
           $well_tipsheet = Node::load($well_tipsheet_nid);
           $url = Url::fromRoute('entity.node.canonical', ['node' => $well_tipsheet->id()])->toString();
 
-          $output .= '<a class="mb10 btn btn-lg btn-wrap wide btn-info text-left btn-icon" style="padding: 10px 15px;" href="' . $url . '">';
+          $output .= '<a class="w-100 mb-2 btn btn-lg btn-wrap wide btn-info text-start btn-icon" style="padding: 10px 15px;" href="' . $url . '">';
           $output .= '<i class="glyphicon glyphicon-leaf hidden-sm"></i> <div>Read <strong><em>' . Html::escape($well_tipsheet->label()) . '</em></strong>&nbsp;&raquo;</div></a>';
 
           if ($k === 0) {
@@ -76,7 +76,7 @@ class CreditPageButtonBlock extends BlockBase {
       }
       else {
         $url = Url::fromRoute('entity.node.canonical', ['node' => $tipsheet->id()])->toString();
-        $output .= '<a class="mb10 btn btn-lg btn-wrap wide btn-info text-left btn-icon" style="padding: 10px 15px;" href="' . $url . '">';
+        $output .= '<a class="mb-2 w-100 btn btn-lg btn-wrap wide btn-info text-start btn-icon" style="padding: 10px 15px;" href="' . $url . '">';
         $output .= '<i class="glyphicon glyphicon-leaf hidden-sm"></i> <div>Read <strong><em>' . Html::escape($tipsheet->label()) . '</em></strong>&nbsp;&raquo;</div></a>';
       }
     }
