@@ -174,7 +174,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       if ($display->getComponent('last_comment_date')) {
 
         $build['last_comment_date'] = [
-          '#markup' => $last_comment_date,
+          '#markup' => '<div class="xsmall line-snug">'.$last_comment_date.'</div>',
         ];
       }
     }
@@ -267,7 +267,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
     // Format roles for display if the 'roles' component exists.
     if (!empty($role_labels) && $display->getComponent('roles')) {
       $build['roles'] = [
-        '#markup' => implode(', ', $role_labels),
+        '#markup' => '<div class="role_labels xsmall">'.implode(', ', $role_labels)."</div>",
       ];
     }
     $user_name=$entity->getDisplayName();
@@ -276,7 +276,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
     if ($display->getComponent('user_name')) {
       // Add the roles to the view array.
       $build['user_name'] = [
-        '#markup' =>'<p>' .$user_name.'</p>',
+        '#markup' =>'<div class="user_name"><strong>' .$user_name.'</strong></div>',
       ];
     }
   }

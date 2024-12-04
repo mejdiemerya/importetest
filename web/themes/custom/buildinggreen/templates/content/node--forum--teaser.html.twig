@@ -61,74 +61,61 @@
  */
 #}
 
-{%
-  set classes = [
-    'node',
-    'node--type-' ~ node.bundle|clean_class,
-    node.isPromoted() ? 'node--promoted',
-    node.isSticky() ? 'node--sticky',
-    not node.isPublished() ? 'node--unpublished',
-    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-  ]
-%}
+{% set classes = [
+  'node',
+  'node--type-' ~ node.bundle|clean_class,
+  node.isPromoted() ? 'node--promoted',
+  node.isSticky() ? 'node--sticky',
+  not node.isPublished() ? 'node--unpublished',
+  view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+] %}
 
 
-{% embed "olivero:teaser" with {
-  attributes: attributes.addClass(classes),
-  author_attributes,
-  author_name,
-  content,
-  date,
-  display_submitted,
-  label,
-  metadata,
-  title_attributes,
-  title_prefix,
-  title_suffix,
-  read_more,
-  url,
-  } only %}
+{{ attach_library('buildinggreen/forum') }}
 
   {% block content %}
-      <tr class="search-result ">
+    <div class="py-3 border-bottom">
+      <div class="row">
         <!-- First Column -->
-        <td class="forum-topic">
-          <div class="pull-left mr10 mb05 hidden-xs">
 
-          {{ content.user_picture }}
+        <div class="content-column col-12 col-lg-8 forum-topic">
+          <div class="float-start me-2 mb-2">
+            <div class="user-picture">{{ content.user_picture }}</div>
           </div>
-        </td>
-        <td class="content-column">
           <h4><a href="{{ url }}" rel="bookmark">{{ label }}</a></h4>
-          <h6>
-            <em class="pr05">{{ 'posted by'|t }}  <a href="users/" class="OP"><strong>{{ author_name }}</strong></a> on {{ date }} </em>
-          </h6>
           {% if content.title_forum['#credit'] %}
-              {{ content.title_forum }}
+            {{ content.title_forum }}
           {% elseif content.title_forum['#tipsheet'] %}
-              <a   href="{{ content.title_forum['#url'] }}"><div> {{ content.title_forum['#text'] }}</div></a>
+            <a href="{{ content.title_forum['#url'] }}">
+              <div> {{ content.title_forum['#text'] }}</div>
+            </a>
           {% else %}
-              <a  href="{{ content.title_forum['#url'] }}"> <div> {{ content.title_forum['#text'] }}</div></a>
+            <a href="{{ content.title_forum['#url'] }}">
+              <div> {{ content.title_forum['#text'] }}</div>
+            </a>
           {% endif %}
 
-          <h6{{ author_attributes }}>
-
-
+          <h6>
+            <em class="pr05">{{ 'posted by'|t }} <a href="users/" class="OP"><strong>{{ author_name }}</strong></a>
+              on {{ date }} </em>
           </h6>
-         <div>{{ content.field_question }}</div>
-        </td>
+
+
+
+          <div class="search-snippet">{{ content.field_question }}</div>
+        </div>
 
         <!-- Second Column -->
-        <td class="content-column">
-          {{ content.comment_count }}
-        </td>
+        <div class="content-column col-12 col-lg-1">
+          <div class="speech-bubble">{{ content.comment_count }}</div>
+        </div>
 
         <!-- Third Column -->
-        <td class="content-column">
+        <div class="content-column col-12 col-lg-3 small">
           {{ content.field_last_comment_author }}
           {{ content.last_comment_date }}
-
-        </td>
-      </tr>
+        </div>
+      </div>
+    </div>
   {% endblock %}
-{% endembed %}
+

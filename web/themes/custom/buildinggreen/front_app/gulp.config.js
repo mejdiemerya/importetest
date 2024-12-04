@@ -9,6 +9,7 @@ module.exports = function () {
       composant: [
         "default-composant",
         "hero-composant",
+        "forum-composant",
       ],
       quality: ["src/scss/**/*.scss"],
       dest: "./dist/assets/composant/",

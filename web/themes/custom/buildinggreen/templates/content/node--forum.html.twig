@@ -63,33 +63,65 @@
 
 {% set layout = layout ? 'layout--' ~ layout|clean_class %}
 
-{%
-  set classes = [
-    'node',
-    'node--type-' ~ node.bundle|clean_class,
-    layout ? 'grid-full',
-    node.isPromoted() ? 'node--promoted',
-    node.isSticky() ? 'node--sticky',
-    not node.isPublished() ? 'node--unpublished',
-    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
-  ]
-%}
 
 
-{{ attach_library('bootstrap5/node') }}
-<div class="row">
+
+{{ attach_library('buildinggreen/forum') }}
+<div class="row node-forum g-3">
+  <div class="col-md-3 col-md-pull-9 ">
+    {% if content.title_forum['#credit'] %}
+      <div class="spotlight btn-group-vertical wide text-left gap-3" role="group" class="wide" aria-label="...">
+        <a type="button" class="btn btn-light btn-wrap" href="/forums/?f[0]=credit:{{ content.title_forum['#credit_id'] }}"><i class="fi flaticon-communication"></i> <div>See all forum discussions about {{ content.title_forum['#text'] }}</div></a>
+
+        {% if flagged_terms['is_flagged'] %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
+        {% else %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
+        {% endif %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'credit_id':content.title_forum['#credit_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
+      </div>
+
+    {% elseif content.title_forum['#tipsheet'] %}
+      <div class="spotlight btn-group-vertical wide text-left mt05" role="group" class="wide" aria-label="...">
+        <a type="button" class="btn btn-light btn-wrap" href="/forums/?f[0]=tipsheet:{{ content.title_forum['#tipsheet_id'] }}"><i class="fi flaticon-communication"></i> <div>See all forum discussions about {{ content.title_forum['#text'] }}</div></a>
+
+        {% if flagged_terms['is_flagged'] %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
+        {% else %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
+        {% endif %}
+        <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'tipsheet_id':content.title_forum['#tipsheet_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
+      </div>
+
+    {% else %}
+      <div class="spotlight btn-group-vertical wide text-left mt05" role="group" class="wide" aria-label="...">
+        <a type="button" class="btn btn-light btn-wrap" href="/forums/?f[0]=forum:{{ content.title_forum['#forum_id'] }}"><i class="fi flaticon-communication"></i> <div>See all forum discussions about {{ content.title_forum['#text'] }}</div></a>
+
+        {% if flagged_terms['is_flagged'] %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
+        {% else %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
+        {% endif %}
+        <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'forum_id':content.title_forum['#forum_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#forum_name'] }}</div></a>
+      </div>
+    {% endif %}
+
+
+  </div><!-- /col -->
   <div class="col-md-9 col-md-push-3 mb20">
     <div id="node" class=" magnify clearfix">
 
-    <p class="supertitle mt05 mb0">Forum discussion</p>
-      {% if content.title_forum['#markup'] is not empty %}
-        <p class="topic-credit nullify">{{ content.title_forum }}</p>
-      {% else %}
-        <p class="topic-credit nullify">{{ content.taxonomy_forums }}</p>
-      {% endif %}
-      <h2{{ title_attributes.addClass('node__title') }}>
-        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-      </h2>
+    <p class="supertitle mt-1 mb-0">Forum discussion</p>
+
+    {% if content.title_forum['#markup'] is not empty %}
+      <p class="topic-credit nullify mb-1">{{ content.title_forum }}</p>
+    {% else %}
+      <p class="topic-credit nullify mb-1">{{ content.taxonomy_forums }}</p>
+    {% endif %}
+
+      <h1{{ title_attributes.addClass('node__title') }}>
+      {{ label }}
+    </h1>
 
     <div class="content" >
     <div class="post op clearfix">
@@ -124,44 +156,4 @@
 </div><!-- end node -->
 </div><!-- end col -->
   </div>
-  <div class="col-md-3 col-md-pull-9 ">
-    {% if content.title_forum['#credit'] %}
-  <div class="spotlight btn-group-vertical wide text-left mt05" role="group" class="wide" aria-label="...">
-    <a type="button" class="btn btn-light btn-wrap" href="/forums/?f[0]=credit:{{ content.title_forum['#credit_id'] }}"><i class="fi flaticon-communication"></i> <div>See all forum discussions about {{ content.title_forum['#text'] }}</div></a>
-
-    {% if flagged_terms['is_flagged'] %}
-    <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
-    {% else %}
-    <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
-    {% endif %}
-    <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'credit_id':content.title_forum['#credit_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
-  </div>
-
-  {% elseif content.title_forum['#tipsheet'] %}
-      <div class="spotlight btn-group-vertical wide text-left mt05" role="group" class="wide" aria-label="...">
-        <a type="button" class="btn btn-light btn-wrap" href="/forums/?f[0]=tipsheet:{{ content.title_forum['#tipsheet_id'] }}"><i class="fi flaticon-communication"></i> <div>See all forum discussions about {{ content.title_forum['#text'] }}</div></a>
-
-        {% if flagged_terms['is_flagged'] %}
-          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
-        {% else %}
-          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
-        {% endif %}
-        <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'tipsheet_id':content.title_forum['#tipsheet_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
-      </div>
-
-    {% else %}
-      <div class="spotlight btn-group-vertical wide text-left mt05" role="group" class="wide" aria-label="...">
-        <a type="button" class="btn btn-light btn-wrap" href="/forums/?f[0]=forum:{{ content.title_forum['#forum_id'] }}"><i class="fi flaticon-communication"></i> <div>See all forum discussions about {{ content.title_forum['#text'] }}</div></a>
-
-        {% if flagged_terms['is_flagged'] %}
-          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
-        {% else %}
-          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
-        {% endif %}
-        <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'forum_id':content.title_forum['#forum_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#forum_name'] }}</div></a>
-      </div>
-  {% endif %}
-
-
-  </div><!-- /col -->
 </div>
