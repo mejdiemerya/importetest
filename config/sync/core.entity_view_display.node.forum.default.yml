@@ -34,64 +34,53 @@ content:
       view_mode: default
       pager_id: 0
     third_party_settings: {  }
-    weight: 3
+    weight: 8
     region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
     weight: 0
     region: content
-  field_credits:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 10
-    region: content
   field_project_location:
     type: entity_reference_label
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
-    weight: 5
+    weight: 4
     region: content
   field_question:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 6
-    region: content
-  field_tipsheet:
-    type: entity_reference_label
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 11
+    weight: 5
     region: content
   flag_notification:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 10
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 9
     region: content
   rate_rate:
     settings: {  }
     third_party_settings: {  }
-    weight: 8
+    weight: 6
     region: content
   taxonomy_forums:
     type: entity_reference_label
     label: hidden
     settings:
       link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  title_forum:
+    settings: {  }
     third_party_settings: {  }
     weight: 1
     region: content
@@ -102,12 +91,14 @@ content:
       view_mode: author_profile
       link: false
     third_party_settings: {  }
-    weight: 2
+    weight: 3
     region: content
 hidden:
   author_picture: true
   comment_count: true
+  field_credits: true
   field_last_comment_author: true
+  field_tipsheet: true
   last_comment_author_image: true
   last_comment_author_role: true
   last_comment_date: true

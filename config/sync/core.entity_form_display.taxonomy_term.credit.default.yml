@@ -6,6 +6,7 @@ dependencies:
     - field.field.taxonomy_term.credit.field_credit_meta_points
     - field.field.taxonomy_term.credit.field_credit_requirement_text
     - field.field.taxonomy_term.credit.field_guest_expert
+    - field.field.taxonomy_term.credit.field_intent
     - taxonomy.vocabulary.credit
   module:
     - path
@@ -47,6 +48,14 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_intent:
+    type: text_textarea
+    weight: 27
+    region: content
+    settings:
+      rows: 5
       placeholder: ''
     third_party_settings: {  }
   name:

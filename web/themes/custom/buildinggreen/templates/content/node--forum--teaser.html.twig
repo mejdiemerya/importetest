@@ -101,11 +101,15 @@
         <td class="content-column">
           <h4><a href="{{ url }}" rel="bookmark">{{ label }}</a></h4>
           <h6>
-            <em class="pr05">{{ 'posted by'|t }}  <a href="users/" class="OP"><strong>{{ author_name }}</strong></a> on {{ date }} ></em>
+            <em class="pr05">{{ 'posted by'|t }}  <a href="users/" class="OP"><strong>{{ author_name }}</strong></a> on {{ date }} </em>
           </h6>
-          <h5 > {{ content.taxonomy_forums }}</h5>
-          <h5 > {{ content.field_credits }}</h5>
-          <h5 > {{ content.field_tipsheet }}</h5>
+          {% if content.title_forum['#credit'] %}
+              {{ content.title_forum }}
+          {% elseif content.title_forum['#tipsheet'] %}
+              <a   href="{{ content.title_forum['#url'] }}"><div> {{ content.title_forum['#text'] }}</div></a>
+          {% else %}
+              <a  href="{{ content.title_forum['#url'] }}"> <div> {{ content.title_forum['#text'] }}</div></a>
+          {% endif %}
 
           <h6{{ author_attributes }}>
 

@@ -5,6 +5,9 @@ dependencies:
   config:
     - filter.format.basic_html
     - node.type.forum
+    - storage.storage_type.modal_list_forums
+    - storage.storage_type.other_rating_systems
+    - storage.storage_type.quick_link
     - workflows.workflow.editorial
   module:
     - comment
@@ -18,6 +21,7 @@ dependencies:
     - rate
     - search
     - shortcut
+    - storage
     - system
 _core:
   default_config_hash: cFrlqjtkTfvY3RGccjJkPf1SGIfJ942IrxTLWAO4mgA
@@ -48,4 +52,8 @@ permissions:
   - 'use editorial transition create_new_draft'
   - 'use text format basic_html'
   - 'view media'
+  - 'view published modal_list_forums storage entities'
+  - 'view published other_rating_systems storage entities'
+  - 'view published quick_link storage entities'
+  - 'view published storage entities'
   - 'view user email addresses'

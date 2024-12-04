@@ -1,0 +1,168 @@
+{#
+/**
+ * @file
+ * Olivero's theme implementation to display a node.
+ *
+ * Available variables:
+ * - node: The node entity with limited access to object properties and methods.
+ *   Only method names starting with "get", "has", or "is" and a few common
+ *   methods such as "id", "label", and "bundle" are available. For example:
+ *   - node.getCreatedTime() will return the node creation timestamp.
+ *   - node.hasField('field_example') returns TRUE if the node bundle includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   - node.isPublished() will return whether the node is published or not.
+ *   Calling other methods, such as node.delete(), will result in an exception.
+ *   See \Drupal\node\Entity\Node for a full list of public properties and
+ *   methods for the node object.
+ * - label: (optional) The title of the node.
+ * - content: All node items. Use {{ content }} to print them all,
+ *   or print a subset such as {{ content.field_example }}. Use
+ *   {{ content|without('field_example') }} to temporarily suppress the printing
+ *   of a given child element.
+ * - author_picture: The node author user entity, rendered using the "compact"
+ *   view mode.
+ * - metadata: Metadata for this node.
+ * - date: (optional) Themed creation date field.
+ * - author_name: (optional) Themed author name field.
+ * - url: Direct URL of the current node.
+ * - display_submitted: Whether submission information should be displayed.
+ * - attributes: HTML attributes for the containing element.
+ *   The attributes.class element may contain one or more of the following
+ *   classes:
+ *   - node: The current template type (also known as a "theming hook").
+ *   - node--type-[type]: The current node type. For example, if the node is an
+ *     "Article" it would result in "node--type-article". Note that the machine
+ *     name will often be in a short form of the human readable label.
+ *   - node--view-mode-[view_mode]: The View Mode of the node; for example, a
+ *     teaser would result in: "node--view-mode-teaser", and
+ *     full: "node--view-mode-full".
+ *   The following are controlled through the node publishing options.
+ *   - node--promoted: Appears on nodes promoted to the front page.
+ *   - node--sticky: Appears on nodes ordered above other non-sticky nodes in
+ *     teaser listings.
+ *   - node--unpublished: Appears on unpublished nodes visible only to site
+ *     admins.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - content_attributes: Same as attributes, except applied to the main
+ *   content tag that appears in the template.
+ * - author_attributes: Same as attributes, except applied to the author of
+ *   the node tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - teaser: Flag for the teaser state. Will be true if view_mode is 'teaser'.
+ * - page: Flag for the full page state. Will be true if view_mode is 'full'.
+ *
+ * @see template_preprocess_node()
+ */
+#}
+
+{% set layout = layout ? 'layout--' ~ layout|clean_class %}
+
+{%
+  set classes = [
+    'node',
+    'node--type-' ~ node.bundle|clean_class,
+    layout ? 'grid-full',
+    node.isPromoted() ? 'node--promoted',
+    node.isSticky() ? 'node--sticky',
+    not node.isPublished() ? 'node--unpublished',
+    view_mode ? 'node--view-mode-' ~ view_mode|clean_class,
+  ]
+%}
+
+
+{{ attach_library('bootstrap5/node') }}
+<div class="row">
+  <div class="col-md-9 col-md-push-3 mb20">
+    <div id="node" class=" magnify clearfix">
+
+    <p class="supertitle mt05 mb0">Forum discussion</p>
+      {% if content.title_forum['#markup'] is not empty %}
+        <p class="topic-credit nullify">{{ content.title_forum }}</p>
+      {% else %}
+        <p class="topic-credit nullify">{{ content.taxonomy_forums }}</p>
+      {% endif %}
+      <h2{{ title_attributes.addClass('node__title') }}>
+        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+      </h2>
+
+    <div class="content" >
+    <div class="post op clearfix">
+
+      <div class="post-author">
+        {{ author_name }}
+      </div><!-- /post-author -->
+
+      <div class="post-text">
+        <div class="meta mb10 hidden-xs">
+          <p class="location pull-right">Project location: {{ content.field_project_location }}
+          <p class="date"><span class="glyphicon glyphicon-time"></span>{{ date}} </p>
+        </div>
+        {{content.field_question}}
+        <a name="comments"></a>
+      </div><!-- /post-text -->
+    </div><!-- /post op -->
+    <div class="mb10">
+      {{ content.comment_button }}
+    </div>
+      {{ content.comment_forum[0]['comments'] }}
+      {% if not logged_in %}
+        <a name="post-comment"></a>
+        <div id="comments" class="comment-wrapper margin-bottom-x">
+          <a name="comment-form"></a>
+          <h4 class="title comment-form">Add new comment</h4>
+          <p class="small line-snug">To post a comment, you need to <a href="/signup/#comments">register for a LEEDuser Basic membership</a> (free) or <a href="#" data-toggle="modal" data-target="#login-modal">login to your existing profile</a>.</p>
+        </div>
+        {% else %}
+        {{     content.comment_forum[0]['comment_form']  }}
+      {% endif %}
+</div><!-- end node -->
+</div><!-- end col -->
+  </div>
+  <div class="col-md-3 col-md-pull-9 ">
+  {% if content.title_forum['#credit'] %}
+  <div class="spotlight btn-group-vertical wide text-left mt05" role="group" class="wide" aria-label="...">
+    <a type="button" class="btn btn-light btn-wrap" href="/forums/?f[0]=credit:{{ content.title_forum['#credit_id'] }}"><i class="fi flaticon-communication"></i> <div>See all forum discussions about {{ content.title_forum['#text'] }}</div></a>
+
+    {% if flagged_terms[0]['is_flagged'] %}
+    <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms[0]['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
+    {% else %}
+    <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms[0]['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
+    {% endif %}
+    <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'credit_id':content.title_forum['#credit_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
+  </div>
+
+
+    {% elseif content.title_forum['#tipsheet'] %}
+      <div class="spotlight btn-group-vertical wide text-left mt05" role="group" class="wide" aria-label="...">
+        <a type="button" class="btn btn-light btn-wrap" href="/forums/?f[0]=tipsheet:{{ content.title_forum['#tipsheet_id'] }}"><i class="fi flaticon-communication"></i> <div>See all forum discussions about {{ content.title_forum['#text'] }}</div></a>
+
+        {% if flagged_terms[0]['is_flagged'] %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms[0]['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
+        {% else %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms[0]['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
+        {% endif %}
+        <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'tipsheet_id':content.title_forum['#tipsheet_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
+      </div>
+
+    {% else %}
+      <div class="spotlight btn-group-vertical wide text-left mt05" role="group" class="wide" aria-label="...">
+        <a type="button" class="btn btn-light btn-wrap" href="/forums/?f[0]=forum:{{ content.title_forum['#forum_id'] }}"><i class="fi flaticon-communication"></i> <div>See all forum discussions about {{ content.title_forum['#text'] }}</div></a>
+
+        {% if flagged_terms[0]['is_flagged'] %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms[0]['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
+        {% else %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms[0]['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
+        {% endif %}
+        <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'forum_id':content.title_forum['#forum_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#forum_name'] }}</div></a>
+      </div>
+  {% endif %}
+
+
+  </div><!-- /col -->
+</div>

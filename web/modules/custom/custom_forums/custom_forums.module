@@ -6,12 +6,10 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Url;
 use Drupal\flag\FlaggingInterface;
-use Drupal\flag\FlagServiceInterface;
 use Drupal\node\Entity\Node;
 
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
-use Drupal\taxonomy\TermInterface;
 use Drupal\user\Entity\Role;
 
 function custom_forums_entity_extra_field_info() {
@@ -69,13 +67,40 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
   // Check if the entity is a node and is of type "article".
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'forum') {
     if ($display->getComponent('title')) {
-      $combined_title='';
+      $result = [
+        'markup' => '',
+        'url' => '',
+        'credit' => false,
+        'tipsheet' => false,
+        'text' => '', // Placeholder for text
+      ];
+      // Initialize credit and tipsheet IDs.
+      $credit_id = NULL;
+      $tipsheet_id = NULL;
+      $forum_id = NULL;
+      $forum_name=NULL;
+      if (!$entity->get('taxonomy_forums')->isEmpty()) {
+        $term = $entity->get('taxonomy_forums')->entity;
+
+        if ($term) {
+          // Get the name of the taxonomy term.
+          $forum_id = $term->id();
+          $forum_name =  $term->getName();
+          $result['text'] = $forum_name;
+
+        }
+      }
       // Check if the entity has the 'field_credits'.
       if (!empty($entity->get('field_credits')->target_id)) {
         $credit_id = $entity->get('field_credits')->target_id;
-        if($credit_id) {
+        if ($credit_id) {
           $label = getCreditFilterLabel($credit_id);
-          $combined_title = sprintf("%s\n%s", $label['title'], $label['description']);
+          $link = Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $credit_id])->toString();
+          $result['markup'] = sprintf('<a href="%s">%s:%s</a><br>', $link, $label['title'], $label['description']);
+          $result['url'] = $link;
+          $result['credit'] = true; // Set credit to true.
+          $result['text'] = $label['title'];// Add text.
+
         }
       }
 
@@ -83,18 +108,34 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       if (!empty($entity->get('field_tipsheet')->target_id)) {
         $tipsheet_id = $entity->get('field_tipsheet')->target_id;
         $label = getTipsheetName($tipsheet_id);
-        $combined_title =$label;  // You can modify how you combine the labels.
-      }
-      // Add combined title to the build array.
-      $build['title_forum'] = [
-        '#markup' => $combined_title,
-      ];
+        $link = Url::fromRoute('entity.node.canonical', ['node' => $tipsheet_id])->toString();
+        $result['markup'] = sprintf('<a href="%s">%s</a>', $link, $label);
+        $result['url'] = $link;
+        $result['tipsheet'] = true;
+        $result['text'] = $label;
 
+
+      }
+
+          // Add combined result to the build array.
+      $build['title_forum'] = [
+        '#credit_id'=>$credit_id,
+        '#forum_name'=>$forum_name,
+        '#forum_id'=>$forum_id,
+        '#tipsheet_id' => $tipsheet_id,
+        '#markup' => $result['markup'],
+        '#allowed_tags' => ['a', 'br'],
+        '#url' => $result['url'], // Include the URL.
+        '#credit' => $result['credit'], // Include the credit flag.
+        '#tipsheet' => $result['tipsheet'], // Include the tipsheet flag.
+        '#text' => $result['text'], // Include the text.
+
+      ];
     }
     // Render the comment count if the field is enabled.
     if ($display->getComponent('comment_count')) {
       // Load the comment count.
-      if($entity->get('comment_forum')) {
+      if ($entity->get('comment_forum')) {
         $comment_count = $entity->get('comment_forum')->comment_count ?? 0;
 
         $build['comment_count'] = [
@@ -104,7 +145,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       }
     }
     if ($display->getComponent('comment_button')) {
-      $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $entity->id()], ['fragment' => 'forum_add']);
+      $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $entity->id()], ['fragment' => 'comment-form']);
       $build['comment_button'] = [
         '#type' => 'link',
         '#title' => t('Post a reply'),
@@ -114,65 +155,94 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
         ],
       ];
     }
-      // Load the latest comment.
-      $last_comment = \Drupal::entityTypeManager()
-        ->getStorage('comment')
-        ->loadByProperties([
-          'entity_id' => $entity->id(),
-          'entity_type' => 'node',
-          'status' => 1,
-        ]);
+    // Load the latest comment.
+    $last_comment = \Drupal::entityTypeManager()
+      ->getStorage('comment')
+      ->loadByProperties([
+        'entity_id' => $entity->id(),
+        'entity_type' => 'node',
+        'status' => 1,
+      ]);
 
-      if (!empty($last_comment)) {
-        // Get the last comment.
-        $last_comment = end($last_comment);
+    if (!empty($last_comment)) {
+      // Get the last comment.
+      $last_comment = end($last_comment);
 
-        // Get the date of the last comment.
-        $last_comment_date = \Drupal::service('date.formatter')->format($last_comment->getCreatedTime(), 'custom', 'D M j, Y, g:i a');
-        if ($display->getComponent('last_comment_date')) {
+      // Get the date of the last comment.
+      $last_comment_date = \Drupal::service('date.formatter')->format($last_comment->getCreatedTime(), 'custom', 'D M j, Y, g:i a');
+      if ($display->getComponent('last_comment_date')) {
 
-          $build['last_comment_date'] = [
-            '#markup' => $last_comment_date,
+        $build['last_comment_date'] = [
+          '#markup' => $last_comment_date,
+        ];
+      }
+    }
+
+
+    if ($display->getComponent('user_picture')) {
+
+      // Get the author (user entity).
+      $author = $entity->getOwner();
+
+      // Retrieve the user_picture field value.
+      $user_picture_item = $author->get('user_picture')->first();
+
+      // If the user has a profile picture.
+      if ($user_picture_item && $user_picture_item->entity) {
+        $user_picture_file = $user_picture_item->entity;
+
+        // Build the render array for the user picture.
+        $build['user_picture'] = [
+          '#theme' => 'image',
+          '#uri' => $user_picture_file->getFileUri(),
+          '#attributes' => [
+            'width' => '100',
+            'height' => '100',
+            'alt' => $user_picture_item->get('alt')->getValue() ?? '',
+            'title' => $user_picture_item->get('title')->getValue() ?? '',
+          ],
+        ];
+      } else {
+        // If no user picture exists, use the default image from the field settings.
+        $field = \Drupal\field\Entity\FieldConfig::loadByName('user', 'user', 'user_picture');
+        $default_image = $field->getSetting('default_image');
+        // Load the default image by its UUID.
+        $file = \Drupal::service('entity.repository')->loadEntityByUuid('file', $default_image['uuid']);
+
+        if ($file) {
+          // Build the render array for the default image.
+          $build['user_picture'] = [
+            '#theme' => 'image',
+            '#uri' => $file->getFileUri(),
+            '#attributes' => [
+              'width' => '100',
+              'height' => '100',
+              'alt' => $default_image['default_image']['alt'] ?? '',
+              'title' => $default_image['default_image']['title'] ?? '',
+            ],
           ];
         }
       }
+    }
+  }
+  if ($entity->getEntityTypeId() === 'comment' ) {
 
-
-  if ($display->getComponent('comment_form_button')) {
+    if ($display->getComponent('comment_form_button')) {
 
       $node = Drupal::service('current_route_match')->getParameter('node');
-if($node) {
-      $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' =>  $node->id()], ['fragment' => 'forum_add']);
-    $build['comment_form_button'] = [
-      '#type' => 'link',
-      '#title' => t('Post a comment'),
-      '#url' => $url,
-      '#attributes' => [
-        'class' => ['button', 'comment-button'],
-      ],
-    ];
-  }}
-  if ($display->getComponent('user_picture')) {
-
-    $author=$entity->getOwner();
-    $user_picture_item = $author->get('user_picture')->first();
-    $user_picture_file = $user_picture_item->entity;
-
-    if ($user_picture_file) {
-      // Build the render array.
-      $build['user_picture'] = [
-        '#theme' => 'image',
-        '#uri' => $user_picture_file->getFileUri(),
-        '#attributes' => [
-          'width' => '100',
-          'height' => '100',
-          'alt' => $user_picture_item->get('alt')->getValue() ?? '',
-          'title' => $user_picture_item->get('title')->getValue() ?? '',
-        ],
-      ];
+      if ($node) {
+        $url = \Drupal\Core\Url::fromRoute('entity.node.canonical', ['node' => $node->id()], ['fragment' => 'comment-form']);
+        $build['comment_form_button'] = [
+          '#type' => 'link',
+          '#title' => t('Post a comment'),
+          '#url' => $url,
+          '#attributes' => [
+            'class' => ['button', 'comment-button'],
+          ],
+        ];
+      }
     }
-  }}
-
+  }
   // Check if the entity is a user.
   if ($entity->getEntityTypeId() === 'user') {
 
@@ -392,48 +462,48 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
 //  }
 //}
 
-function custom_forums_flagging_presave(FlaggingInterface $flagging) {
-  // Check if the flagging is for a taxonomy term.
-  $flagged_entity = $flagging->getFlaggable();
-  if ($flagged_entity instanceof Term) {
-    // Determine if the operation is a flagging or unflagging operation.
-    $is_flaging = $flagging->isNew();
-
-    // Load all content (nodes) related to the flagged taxonomy term.
-    $term_id = $flagged_entity->id();
-    \Drupal::logger('custom_forums_flagging')->debug('@operation triggered for term ID: @term_id', ['@operation' => $is_flaging ? 'Flagging' : 'Unflagging', '@term_id' => $term_id]);
-
-    $entity_type_manager = \Drupal::entityTypeManager();
-    $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['taxonomy_forums' => $term_id]);
-
-    // Load the flag service.
-    $flag_service = \Drupal::service('flag');
-    $flag = $flag_service->getFlagById('notification');
-    $account = \Drupal::currentUser();
-
-    foreach ($related_nodes as $node) {
-      \Drupal::logger('custom_forums_flagging')->debug('Processing node ID: @node_id related to term ID: @term_id', ['@node_id' => $node->id(), '@term_id' => $term_id]);
-
-      if ($flag) {
-        if ($is_flaging) {
-          // Flag each related node if it's not already flagged.
-          if (!$flag_service->getFlagging($flag, $node, $account)) {
-            $flag_service->flag($flag, $node);
-            \Drupal::logger('custom_forums_flagging')->debug('Flagged node ID: @node_id', ['@node_id' => $node->id()]);
-          }
-        }
-        else {
-          // Unflag each related node if it is flagged.
-          $flagging_node = $flag_service->getFlagging($flag, $node, $account);
-          if ($flagging_node) {
-            $flag_service->unflag($flagging_node);
-            \Drupal::logger('custom_forums_flagging')->debug('Unflagged node ID: @node_id', ['@node_id' => $node->id()]);
-          }
-        }
-      }
-    }
-  }
-}
+//function custom_forums_flagging_presave(FlaggingInterface $flagging) {
+//  // Check if the flagging is for a taxonomy term.
+//  $flagged_entity = $flagging->getFlaggable();
+//  if ($flagged_entity instanceof Term) {
+//    // Determine if the operation is a flagging or unflagging operation.
+//    $is_flaging = $flagging->isNew();
+//
+//    // Load all content (nodes) related to the flagged taxonomy term.
+//    $term_id = $flagged_entity->id();
+//    \Drupal::logger('custom_forums_flagging')->debug('@operation triggered for term ID: @term_id', ['@operation' => $is_flaging ? 'Flagging' : 'Unflagging', '@term_id' => $term_id]);
+//
+//    $entity_type_manager = \Drupal::entityTypeManager();
+//    $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['taxonomy_forums' => $term_id]);
+//
+//    // Load the flag service.
+//    $flag_service = \Drupal::service('flag');
+//    $flag = $flag_service->getFlagById('notification');
+//    $account = \Drupal::currentUser();
+//
+//    foreach ($related_nodes as $node) {
+//      \Drupal::logger('custom_forums_flagging')->debug('Processing node ID: @node_id related to term ID: @term_id', ['@node_id' => $node->id(), '@term_id' => $term_id]);
+//
+//      if ($flag) {
+//        if ($is_flaging) {
+//          // Flag each related node if it's not already flagged.
+//          if (!$flag_service->getFlagging($flag, $node, $account)) {
+//            $flag_service->flag($flag, $node);
+//            \Drupal::logger('custom_forums_flagging')->debug('Flagged node ID: @node_id', ['@node_id' => $node->id()]);
+//          }
+//        }
+//        else {
+//          // Unflag each related node if it is flagged.
+//          $flagging_node = $flag_service->getFlagging($flag, $node, $account);
+//          if ($flagging_node) {
+//            $flag_service->unflag($flagging_node);
+//            \Drupal::logger('custom_forums_flagging')->debug('Unflagged node ID: @node_id', ['@node_id' => $node->id()]);
+//          }
+//        }
+//      }
+//    }
+//  }
+//}
 
 function custom_forums_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
   switch ($entity_type->id()) {
