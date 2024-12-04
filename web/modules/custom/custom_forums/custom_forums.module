@@ -436,76 +436,73 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
   }
 }
 
-//function custom_forums_flagging_presave(FlaggingInterface $flagging) {
-//  // Check if the flagging is for a taxonomy term.
-//  $flagged_entity = $flagging->getFlaggable();
-//  if ($flagged_entity instanceof Term) {
-//    // Load all content (nodes) related to the flagged taxonomy term.
-//    $term_id = $flagged_entity->id();
-//    \Drupal::logger('custom_forums_flagging')->debug('Flagging triggered for term ID: @term_id', ['@term_id' => $term_id]);
-//
-//    $entity_type_manager = \Drupal::entityTypeManager();
-//    $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['taxonomy_forums' => $term_id]);
-//
-//    // Load the flag service and check if the node is already flagged.
-//    $flag_service = \Drupal::service('flag');
-//    $flag = $flag_service->getFlagById('notification');
-//    $account = \Drupal::currentUser();
-//    // Flag each related node if it's not already flagged.
-//    foreach ($related_nodes as $node) {
-//      \Drupal::logger('custom_forums_flagging')->debug('Processing node ID: @node_id related to term ID: @term_id', ['@node_id' => $node->id(), '@term_id' => $term_id]);
-//      if ($flag && !$flag_service->getFlagging($flag, $node, $account)) {
-//        // Flag the node if not already flagged.
-//        $flag_service->flag($flag, $node);
-//        \Drupal::logger('custom_forums_flagging')->debug('Flagged node ID: @node_id', ['@node_id' => $node->id()]);
-//      }
-//    }
-//  }
-//}
+function custom_forums_flagging_presave(FlaggingInterface $flagging) {
+  // Check if the flagging is for a taxonomy term.
+  $flagged_entity = $flagging->getFlaggable();
+  $related_nodes=[];
+  $entity_type_manager = \Drupal::entityTypeManager();
 
-//function custom_forums_flagging_presave(FlaggingInterface $flagging) {
-//  // Check if the flagging is for a taxonomy term.
-//  $flagged_entity = $flagging->getFlaggable();
-//  if ($flagged_entity instanceof Term) {
-//    // Determine if the operation is a flagging or unflagging operation.
-//    $is_flaging = $flagging->isNew();
-//
-//    // Load all content (nodes) related to the flagged taxonomy term.
-//    $term_id = $flagged_entity->id();
-//    \Drupal::logger('custom_forums_flagging')->debug('@operation triggered for term ID: @term_id', ['@operation' => $is_flaging ? 'Flagging' : 'Unflagging', '@term_id' => $term_id]);
-//
-//    $entity_type_manager = \Drupal::entityTypeManager();
-//    $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['taxonomy_forums' => $term_id]);
-//
-//    // Load the flag service.
-//    $flag_service = \Drupal::service('flag');
-//    $flag = $flag_service->getFlagById('notification');
-//    $account = \Drupal::currentUser();
-//
-//    foreach ($related_nodes as $node) {
-//      \Drupal::logger('custom_forums_flagging')->debug('Processing node ID: @node_id related to term ID: @term_id', ['@node_id' => $node->id(), '@term_id' => $term_id]);
-//
-//      if ($flag) {
-//        if ($is_flaging) {
-//          // Flag each related node if it's not already flagged.
-//          if (!$flag_service->getFlagging($flag, $node, $account)) {
-//            $flag_service->flag($flag, $node);
-//            \Drupal::logger('custom_forums_flagging')->debug('Flagged node ID: @node_id', ['@node_id' => $node->id()]);
-//          }
-//        }
-//        else {
-//          // Unflag each related node if it is flagged.
-//          $flagging_node = $flag_service->getFlagging($flag, $node, $account);
-//          if ($flagging_node) {
-//            $flag_service->unflag($flagging_node);
-//            \Drupal::logger('custom_forums_flagging')->debug('Unflagged node ID: @node_id', ['@node_id' => $node->id()]);
-//          }
-//        }
-//      }
-//    }
-//  }
-//}
+  if ($flagged_entity instanceof Term) {
 
+    if ($flagged_entity->bundle() == 'forums') {
+      $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['taxonomy_forums' => $flagged_entity->id()]);
+
+    } elseif ($flagged_entity->bundle() == 'credit') {
+      $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['field_credits' => $flagged_entity->id()]);
+    }
+  }
+  if ($flagged_entity instanceof Node) {
+    if($flagged_entity->bundle() == 'tipsheet'){
+      $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['field_tipsheet' => $flagged_entity->id()]);
+    }
+  }
+    // Load the flag service and check if the node is already flagged.
+    $flag_service = \Drupal::service('flag');
+    $flag = $flag_service->getFlagById('notification');
+    $account = \Drupal::currentUser();
+    // Flag each related node if it's not already flagged.
+    foreach ($related_nodes as $node) {
+      if ($flag && !$flag_service->getFlagging($flag, $node, $account)) {
+        // Flag the node if not already flagged.
+        $flag_service->flag($flag, $node);
+      }
+    }
+
+}
+
+
+function custom_forums_flagging_delete(FlaggingInterface $flagging) {
+  // Check if the flagging is for a taxonomy term.
+  $flagged_entity = $flagging->getFlaggable();
+  $related_nodes=[];
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  if ($flagged_entity instanceof Term) {
+
+    if ($flagged_entity->bundle() == 'forums') {
+      $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['taxonomy_forums' => $flagged_entity->id()]);
+
+    } elseif ($flagged_entity->bundle() == 'credit') {
+      $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['field_credits' => $flagged_entity->id()]);
+    }
+  }
+  if ($flagged_entity instanceof Node) {
+    if($flagged_entity->bundle() == 'tipsheet'){
+      $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['field_tipsheet' => $flagged_entity->id()]);
+    }
+  }
+  // Load the flag service and check if the node is already flagged.
+  $flag_service = \Drupal::service('flag');
+  $flag = $flag_service->getFlagById('notification');
+  $account = \Drupal::currentUser();
+  // Flag each related node if it's not already flagged.
+  foreach ($related_nodes as $node) {
+    if ($flag && $flag_service->getFlagging($flag, $node, $account)) {
+      // Flag the node if not already flagged.
+      $flag_service->unflag($flag, $node);
+    }
+  }
+}
 function custom_forums_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
   switch ($entity_type->id()) {
 
@@ -654,7 +651,6 @@ function custom_forums_theme($existing, $type, $theme, $path) {
 }
 function getCreditFilterLabel($tid) {
   $parents = loadAllParentsModal($tid);
-  \Drupal::logger('custom_module')->notice('Form state parents: @values', ['@values' => $tid]);
   $count = count($parents);
   $data = array('title' => '', 'description' => '');
   switch ($count) {
@@ -682,12 +678,10 @@ function getCreditFilterLabel($tid) {
 
   function loadAllParentsModal($tid) {
 
-    \Drupal::logger('custom_module')->notice('Form state parents tid: @values', ['@values' => $tid]);
 
     $parents = [];
     $term = Term::load($tid);
 
-    \Drupal::logger('custom_module')->notice('Form state parents tid2: @values', ['@values' =>  json_encode($term)]);
 
     if (  $term) {
       $parents[] = $term;
@@ -703,7 +697,6 @@ function getCreditFilterLabel($tid) {
         }
       }
     }
-    \Drupal::logger('custom_module')->notice('Form state parents tid2: @values', ['@values' =>  json_encode($parents)]);
 
 
     return $parents;
