@@ -2,6 +2,7 @@
 
 
 use Drupal\comment\Entity\Comment;
+use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Url;
@@ -545,9 +546,16 @@ function custom_forums_preprocess_node(array &$variables) {
           'flag' => 'forum_notification',
           'entity_id' => $term->id(),
         ];
+        // Get the current page URL for the destination parameter.
+        $current_path = \Drupal::service('path.current')->getPath();
+        $current_query = \Drupal::request()->query->all(); // Get query parameters from the current request.
+        $destination = Url::fromUserInput($current_path, ['query' => $current_query])->toString();
 
-        // Generate the URL for flagging/unflagging.
-        $link = Url::fromRoute($route_name, $route_parameters)->toString();
+        // Generate the URL for flagging/unflagging with the destination parameter.
+        $link = Url::fromRoute($route_name, $route_parameters, [
+          'query' => ['destination' => $destination],
+        ])->toString();
+
         $flagged_terms = [
           'term' => $term,
           'is_flagged' => $is_flagged,
@@ -561,40 +569,65 @@ function custom_forums_preprocess_node(array &$variables) {
     if ($variables['node']->hasField('field_credits') && !$variables['node']->get('field_credits')->isEmpty()) {
 
       $subscription_credit_flag = $flag_service->getFlagById('subscription_credit');
-      $is_flagged = $subscription_credit_flag->isFlagged($variables['node']);
-      $route_name = $is_flagged ? 'flag.action_link_unflag' : 'flag.action_link_flag';
-      $route_parameters = [
-        'flag' => 'subscription_credit',
-        'entity_id' => $variables['node']->id(),
-      ];
+      $credit_id = $variables['node']->get('field_credits')->target_id;
+      if ($credit_id) {
+        $term = Term::load($credit_id);
+        $is_flagged = $subscription_credit_flag->isFlagged($term);
+        $route_name = $is_flagged ? 'flag.action_link_unflag' : 'flag.action_link_flag';
+        $route_parameters = [
+          'flag' => 'subscription_credit',
+          'entity_id' => $term->id(),
+        ];
+        $current_path = \Drupal::service('path.current')->getPath();
+        $current_query = \Drupal::request()->query->all(); // Get query parameters from the current request.
 
-      $flagged_terms = [
-        'term' => $variables['node'],
-        'is_flagged' => $is_flagged,
-        'flag_link' => Url::fromRoute($route_name, $route_parameters)->toString(),
-        'action_label' => $is_flagged ? t('Unsubscribe Credits') : t('Subscribe Credits'),
-      ];
+        $destination = Url::fromUserInput($current_path, ['query' => $current_query])->toString();
+
+  // Generate the URL for flagging/unflagging with the destination parameter.
+        $link = Url::fromRoute($route_name, $route_parameters, [
+          'query' => ['destination' => $destination],
+        ])->toString();
+        $flagged_terms = [
+          'term' => $term,
+          'is_flagged' => $is_flagged,
+          'flag_link' => $link,
+          'action_label' => $is_flagged ? t('Unsubscribe Credits') : t('Subscribe Credits'),
+        ];
+      }
     }
-
     // Add logic for `field_tipsheet`.
     if ($variables['node']->hasField('field_tipsheet') && !$variables['node']->get('field_tipsheet')->isEmpty()) {
 
       $subscription_tipsheet_flag = $flag_service->getFlagById('subscription_tipsheet');
-      $is_flagged = $subscription_tipsheet_flag->isFlagged($variables['node']);
-      $route_name = $is_flagged ? 'flag.action_link_unflag' : 'flag.action_link_flag';
-      $route_parameters = [
-        'flag' => 'subscription_tipsheet',
-        'entity_id' => $variables['node']->id(),
-      ];
+      $tipsheet_id = $variables['node']->get('field_tipsheet')->target_id;
+      if ($tipsheet_id) {
+        $node = Node::load($tipsheet_id);
+        $is_flagged = $subscription_tipsheet_flag->isFlagged($node);
+        $route_name = $is_flagged ? 'flag.action_link_unflag' : 'flag.action_link_flag';
+        $route_parameters = [
+          'flag' => 'subscription_tipsheet',
+          'entity_id' =>  $node->id(),
+        ];
+        $current_path = \Drupal::service('path.current')->getPath();
+        $current_query = \Drupal::request()->query->all(); // Get query parameters from the current request.
+        $destination = Url::fromUserInput($current_path, ['query' => $current_query])->toString();
 
-      $flagged_terms = [
-        'term' => $variables['node'],
-        'is_flagged' => $is_flagged,
-        'flag_link' => Url::fromRoute($route_name, $route_parameters)->toString(),
-        'action_label' => $is_flagged ? t('Unsubscribe Tipsheet') : t('Subscribe Tipsheet'),
-      ];
-    }
+// Generate the URL for flagging/unflagging with the destination parameter.
+        $link = Url::fromRoute($route_name, $route_parameters, [
+          'query' => ['destination' => $destination],
+        ])->toString();
+        $flagged_terms = [
+          'term' => $node,
+          'is_flagged' => $is_flagged,
+          'flag_link' => $link,
+          'action_label' => $is_flagged ? t('Unsubscribe Tipsheet') : t('Subscribe Tipsheet'),
+        ];
 
+      }
+      }
+    $variables['#cache'] = [
+      'max-age' => 0,
+    ];
     // Pass the flagged terms information to the Twig template.
     $variables['flagged_terms'] = $flagged_terms;
 
