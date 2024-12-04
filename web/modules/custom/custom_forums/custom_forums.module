@@ -524,38 +524,80 @@ function custom_forums_entity_base_field_info_alter(&$fields, EntityTypeInterfac
  * Implements hook_preprocess_HOOK() for node templates.
  */
 function custom_forums_preprocess_node(array &$variables) {
-  // Ensure the node object is present.
-  if (isset($variables['node']) && $variables['node'] instanceof NodeInterface) {
-    // Check if the node has the 'taxonomy_forums' field.
-    if (isset($variables['content']['taxonomy_forums']['#items'])) {
-      $flag_service = \Drupal::service('flag');
-      $flag = $flag_service->getFlagById('forum_notification');
-      $flagged_terms = [];
+  // Ensure the node object is present and is a NodeInterface instance.
+  if (isset($variables['node']) && $variables['node'] instanceof \Drupal\node\NodeInterface) {
+    $flag_service = \Drupal::service('flag');
 
-      // Loop through each taxonomy term referenced in the field.
+    // Initialize flagged terms array.
+    $flagged_terms = [];
+
+    // Check if the node has the 'taxonomy_forums' field.
+    if ($variables['node']->hasField('taxonomy_forums') && !$variables['node']->get('taxonomy_forums')->isEmpty()) {
+      $flag = $flag_service->getFlagById('forum_notification');
+
       foreach ($variables['content']['taxonomy_forums']['#items'] as $item) {
         $term = $item->entity;
 
         // Check if the term has been flagged.
         $is_flagged = $flag->isFlagged($term);
-        // Determine the route name and parameters for flag or unflag actions.
         $route_name = $is_flagged ? 'flag.action_link_unflag' : 'flag.action_link_flag';
         $route_parameters = [
-          'flag' => 'forum_notification', // Your flag ID.
+          'flag' => 'forum_notification',
           'entity_id' => $term->id(),
         ];
 
         // Generate the URL for flagging/unflagging.
         $link = Url::fromRoute($route_name, $route_parameters)->toString();
-          $flagged_terms[] = [
-            'term' => $term,
-            'is_flagged' => $is_flagged,
-            'flag_link' => $link, // Use the generated link.
-            'action_label' => $is_flagged ? t('Unsubscribe') : t('Subscribe')];
+        $flagged_terms = [
+          'term' => $term,
+          'is_flagged' => $is_flagged,
+          'flag_link' => $link,
+          'action_label' => $is_flagged ? t('Unsubscribe') : t('Subscribe'),
+        ];
       }
-      // Pass the flagged terms information to the Twig template.
-      $variables['flagged_terms'] = $flagged_terms;
     }
+
+    // Add logic for `field_credits`.
+    if ($variables['node']->hasField('field_credits') && !$variables['node']->get('field_credits')->isEmpty()) {
+
+      $subscription_credit_flag = $flag_service->getFlagById('subscription_credit');
+      $is_flagged = $subscription_credit_flag->isFlagged($variables['node']);
+      $route_name = $is_flagged ? 'flag.action_link_unflag' : 'flag.action_link_flag';
+      $route_parameters = [
+        'flag' => 'subscription_credit',
+        'entity_id' => $variables['node']->id(),
+      ];
+
+      $flagged_terms = [
+        'term' => $variables['node'],
+        'is_flagged' => $is_flagged,
+        'flag_link' => Url::fromRoute($route_name, $route_parameters)->toString(),
+        'action_label' => $is_flagged ? t('Unsubscribe Credits') : t('Subscribe Credits'),
+      ];
+    }
+
+    // Add logic for `field_tipsheet`.
+    if ($variables['node']->hasField('field_tipsheet') && !$variables['node']->get('field_tipsheet')->isEmpty()) {
+
+      $subscription_tipsheet_flag = $flag_service->getFlagById('subscription_tipsheet');
+      $is_flagged = $subscription_tipsheet_flag->isFlagged($variables['node']);
+      $route_name = $is_flagged ? 'flag.action_link_unflag' : 'flag.action_link_flag';
+      $route_parameters = [
+        'flag' => 'subscription_tipsheet',
+        'entity_id' => $variables['node']->id(),
+      ];
+
+      $flagged_terms = [
+        'term' => $variables['node'],
+        'is_flagged' => $is_flagged,
+        'flag_link' => Url::fromRoute($route_name, $route_parameters)->toString(),
+        'action_label' => $is_flagged ? t('Unsubscribe Tipsheet') : t('Subscribe Tipsheet'),
+      ];
+    }
+
+    // Pass the flagged terms information to the Twig template.
+    $variables['flagged_terms'] = $flagged_terms;
+
   }
 }
 function custom_forums_preprocess_page(&$variables) {

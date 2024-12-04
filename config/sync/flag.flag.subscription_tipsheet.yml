@@ -1,21 +1,21 @@
-uuid: a399e166-ec98-4073-be71-5effd31888f0
+uuid: eec690f1-c64e-42ce-9ca6-1316b7f71c61
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: notification
-label: 'Subscription topic '
+id: subscription_tipsheet
+label: 'Subscription tipsheet'
 bundles:
-  - forum
+  - tipsheet
 entity_type: node
 global: false
-flag_short: 'Subscribe to new posts about'
+flag_short: 'Flag this item'
 flag_long: ''
-flag_message: 'You have successfully subscribed to this content.'
-unflag_short: 'Unsubscribe to new posts about'
+flag_message: ''
+unflag_short: 'Unflag this item'
 unflag_long: ''
-unflag_message: 'You have successfully unsubscribed from this content.'
+unflag_message: ''
 unflag_denied_text: ''
 weight: 0
 flag_type: 'entity:node'
