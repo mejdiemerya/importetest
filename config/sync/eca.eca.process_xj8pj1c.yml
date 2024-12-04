@@ -6,7 +6,9 @@ dependencies:
     - field.field.node.forum.taxonomy_forums
     - field.storage.node.taxonomy_forums
     - node.type.forum
+    - views.view.flagging_credit
     - views.view.flagging_forum
+    - views.view.flagging_tipsheet
   module:
     - eca_base
     - eca_content
@@ -27,6 +29,12 @@ events:
       -
         id: Activity_05kur45
         condition: Flow_1wb4rd4
+      -
+        id: Activity_132bfct
+        condition: ''
+      -
+        id: Activity_0zwb5ba
+        condition: ''
   Event_0j9qs8u:
     plugin: 'content_entity:insert'
     label: 'add topic'
@@ -36,6 +44,12 @@ events:
       -
         id: Activity_05kur45
         condition: Flow_17uwwn5
+      -
+        id: Activity_132bfct
+        condition: ''
+      -
+        id: Activity_0zwb5ba
+        condition: ''
 conditions:
   Flow_0hgfrzy:
     plugin: eca_count
@@ -76,7 +90,7 @@ gateways:
 actions:
   Activity_05kur45:
     plugin: 'eca_render_views:views'
-    label: 'view of user that flagged the topic'
+    label: 'view of user that flagged the forums'
     configuration:
       view_id: flagging_forum
       display_id: default
@@ -131,3 +145,30 @@ actions:
       -
         id: Gateway_0spfbys
         condition: ''
+  Activity_132bfct:
+    plugin: 'eca_render_views:views'
+    label: 'view of user that flagged the credit'
+    configuration:
+      view_id: flagging_credit
+      display_id: default
+      arguments: '[node:taxonomy_forums:entity:tid]'
+      name: ''
+      token_name: topic
+      weight: ''
+      mode: append
+    successors:
+      -
+        id: Activity_0mz7evk
+        condition: ''
+  Activity_0zwb5ba:
+    plugin: 'eca_render_views:views'
+    label: 'view of user that flagged tipsheet'
+    configuration:
+      view_id: flagging_tipsheet
+      display_id: default
+      arguments: '[node:taxonomy_forums:entity:tid]'
+      name: ''
+      token_name: topic
+      weight: ''
+      mode: append
+    successors: {  }
