@@ -76,7 +76,6 @@
     author_id and author_id == commented_entity.getOwnerId() ? 'by-' ~ commented_entity.getEntityTypeId() ~ '-author',
   ]
 %}
-{{ attach_library('olivero/comments') }}
 
 
 <article {{ attributes.addClass(classes).setAttribute('role', 'article').setAttribute('data-drupal-selector', 'comment') }}>
@@ -84,12 +83,10 @@
     <div class="post-author">
       {{ content.uid }}
     </div>
-
-
     <div class="post-text" data-gtm-vis-has-fired7025260_75="1">
       <div class="meta mb10" data-gtm-vis-has-fired7025260_75="1">
         <p class="date" data-gtm-vis-has-fired7025260_75="1">
-          <span class="glyphicon glyphicon-time" data-gtm-vis-has-fired7025260_75="1"></span>June 20, 2022 - 12:36 pm
+          <span class="glyphicon glyphicon-time" data-gtm-vis-has-fired7025260_75="1"></span>{{ created }}
         </p>
       </div>
       <div class="comment_body">{{ content.comment_body }}</div>
@@ -101,9 +98,4 @@
     </div>
 
   </div>
-
-  <span class="hidden" data-comment-timestamp="{{ new_indicator_timestamp }}"></span>
-{#        <p class="comment__time">{{ created |date(("F j, Y - g:i a")) }}</p>#}
-
-
 </article>

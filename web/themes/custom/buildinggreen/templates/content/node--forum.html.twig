@@ -119,16 +119,14 @@
       <p class="topic-credit nullify mb-1">{{ content.taxonomy_forums }}</p>
     {% endif %}
 
-      <h1{{ title_attributes.addClass('node__title') }}>
-      {{ label }}
-    </h1>
+      <h1{{ title_attributes.addClass('node__title') }}>{{ label }}</h1>
 
-    <div class="content" >
+    <div class="content">
     <div class="post op clearfix">
 
       <div class="post-author">
         {{ author_name }}
-      </div><!-- /post-author -->
+      </div>
 
       <div class="post-text">
         <div class="meta mb10 hidden-xs">
@@ -139,11 +137,12 @@
 
       </div><!-- /post-text -->
     </div><!-- /post op -->
-      {{ membership_promo_block }}
+
 
       <div class="mb-4">
       {{ content.comment_button }}
     </div>
+      {{ membership_promo_block }}
       {{ content.comment_forum[0]['comments'] }}
       {% if not logged_in %}
         <div class="margin-bottom-x well well-success mt-2">

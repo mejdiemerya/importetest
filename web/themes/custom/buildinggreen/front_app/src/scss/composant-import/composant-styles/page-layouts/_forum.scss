@@ -157,3 +157,13 @@ div.thumbsup-rating-wrapper > div.form-type-radio{
     justify-content: center;
   }
 }
+
+.membership-promo-block {
+  clear: both;
+  background-color: $gray-lighter;
+  padding: 10px 20px 20px;
+  margin: 0 0 0.5em;
+  @include MQ(Mneg){
+    margin: 0 -15px 0.5em;
+  }
+}
