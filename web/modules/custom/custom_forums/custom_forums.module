@@ -97,7 +97,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
         if ($credit_id) {
           $label = getCreditFilterLabel($credit_id);
           $link = Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $credit_id])->toString();
-          $result['markup'] = sprintf('<a href="%s">%s:%s</a><br>', $link, $label['title'], $label['description']);
+          $result['markup'] = sprintf('<a href="%s"><strong>%s:</strong><em>%s</em></a><br>', $link, $label['title'], $label['description']);
           $result['url'] = $link;
           $result['credit'] = true; // Set credit to true.
           $result['text'] = $label['title'];// Add text.
@@ -125,7 +125,6 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
         '#forum_id'=>$forum_id,
         '#tipsheet_id' => $tipsheet_id,
         '#markup' => $result['markup'],
-        '#allowed_tags' => ['a', 'br'],
         '#url' => $result['url'], // Include the URL.
         '#credit' => $result['credit'], // Include the credit flag.
         '#tipsheet' => $result['tipsheet'], // Include the tipsheet flag.
@@ -152,7 +151,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
         '#title' => t('Post a reply'),
         '#url' => $url,
         '#attributes' => [
-          'class' => ['button', 'comment-button'],
+          'class' => ['button', 'comment-button', 'btn btn-sm btn-success scroll-to-anchor'],
         ],
       ];
     }
@@ -347,7 +346,7 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
     $current_user = \Drupal::currentUser();
     $form['title'] = [
       '#type' => 'markup',
-      '#markup' => '<p><strong>' . t('Post a reply ') . '</p>',
+      '#markup' => '<h2 class="title comment-form">' . t('Post a reply ') . '</h2>',
       '#weight' => -10,
     ];
     // Display the current user's name at the top of the form.

@@ -77,24 +77,33 @@
   ]
 %}
 {{ attach_library('olivero/comments') }}
+
+
 <article {{ attributes.addClass(classes).setAttribute('role', 'article').setAttribute('data-drupal-selector', 'comment') }}>
-  {#
-    Hide the "new" indicator by default, let a piece of JavaScript ask the
-    server which comments are new for the user. Rendering the final "new"
-    indicator here would break the render cache.
-  #}
+  <div class="content">
+    <div class="post-author">
+      {{ content.uid }}
+    </div>
+
+
+    <div class="post-text" data-gtm-vis-has-fired7025260_75="1">
+      <div class="meta mb10" data-gtm-vis-has-fired7025260_75="1">
+        <p class="date" data-gtm-vis-has-fired7025260_75="1">
+          <span class="glyphicon glyphicon-time" data-gtm-vis-has-fired7025260_75="1"></span>June 20, 2022 - 12:36 pm
+        </p>
+      </div>
+      <div class="comment_body">{{ content.comment_body }}</div>
+      {% if  logged_in %}
+        {{ content.rate_comment_rate }}
+        <div class="links list-inline">{{ content.comment_form_button }}</div>
+
+      {% endif %}
+    </div>
+
+  </div>
+
   <span class="hidden" data-comment-timestamp="{{ new_indicator_timestamp }}"></span>
-
-
-  <div class="comment__text-wrapper">
 {#        <p class="comment__time">{{ created |date(("F j, Y - g:i a")) }}</p>#}
 
-    <div{{ content_attributes.addClass('comment__content') }}>
-      {{ content.comment_body }}
-      {{ content.uid }}
-      {{ content.rate_comment_rate }}
-      {{ content.comment_form_button }}
 
-    </div>
-  </div>
 </article>

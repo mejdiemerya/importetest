@@ -93,6 +93,26 @@
     font-weight: 600;
     margin: 0 0 0.5em;
   }
+  .comment {
+    padding: 1em 0;
+    border-bottom: 1px dotted #a6a6a6;
+    .links {
+      display: inline-block;
+      padding: 0.4em 0.6em;
+      line-height: 1;
+      background-color: #e6e6e6;
+      border-radius: 5px;
+      font-size: 12.8px;
+    }
+    //.new {
+    //  font-size: $font-size-xsmall;
+    //  background-color: $brand-warning;
+    //  color: white;
+    //  padding: 0 5px;
+    //  margin-bottom: 0.25em;
+    //  display: inline-block;
+    //}
+  }
   @media only screen and (min-width: 768px) {
     .post-author {
       width: 20%;
@@ -113,5 +133,27 @@
     .post-author .thumbs {
       display: block;
     }
+  }
+}
+
+
+div.thumbsup-rating-wrapper > div.form-type-radio{
+  display: flex;
+  align-items: center;
+  > label{
+    border-left: 1px solid #ccc !important;
+  }
+  > *{
+    font-weight: 600;
+    width: 50px;
+    height: 43px;
+    float: right;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-left: none;
+    background-color: #fff;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
   }
 }

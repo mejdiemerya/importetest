@@ -132,26 +132,28 @@
 
       <div class="post-text">
         <div class="meta mb10 hidden-xs">
-          <p class="location pull-right">Project location: {{ content.field_project_location }}
+          <div class="location float-end d-flex align-items-center">Project location: {{ content.field_project_location }}</div>
           <p class="date"><span class="glyphicon glyphicon-time"></span>{{ date}} </p>
         </div>
         {{content.field_question}}
-        <a name="comments"></a>
+
       </div><!-- /post-text -->
     </div><!-- /post op -->
-    <div class="mb10">
+    <div class="mb-4">
       {{ content.comment_button }}
     </div>
       {{ content.comment_forum[0]['comments'] }}
       {% if not logged_in %}
-        <a name="post-comment"></a>
-        <div id="comments" class="comment-wrapper margin-bottom-x">
-          <a name="comment-form"></a>
+        <div class="margin-bottom-x well well-success mt-2">
           <h4 class="title comment-form">Add new comment</h4>
           <p class="small line-snug">To post a comment, you need to <a href="/signup/#comments">register for a LEEDuser Basic membership</a> (free) or <a href="#" data-toggle="modal" data-target="#login-modal">login to your existing profile</a>.</p>
         </div>
         {% else %}
-        {{     content.comment_forum[0]['comment_form']  }}
+      <div id="comments" class="comment-wrapper magnify">
+        <div class="comments-only" data-gtm-vis-has-fired7025260_75="1">
+          {{ content.comment_forum[0]['comment_form']  }}
+        </div>
+      </div>
       {% endif %}
 </div><!-- end node -->
 </div><!-- end col -->
