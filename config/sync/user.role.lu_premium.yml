@@ -1,0 +1,12 @@
+uuid: 4cf49ca1-847d-4aa0-84bb-8060606dad8c
+langcode: en
+status: true
+dependencies:
+  module:
+    - custom_forums
+id: lu_premium
+label: 'LEEDuser Premium Member'
+weight: 10
+is_admin: null
+permissions:
+  - 'access leeduser premium content'

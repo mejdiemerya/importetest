@@ -1,0 +1,4 @@
+access leeduser premium content:
+  title: 'Access LEEDuser premium content'
+  description: 'Allow access to premium (tier 3) content.'
+  restrict access: true
