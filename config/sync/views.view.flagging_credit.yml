@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - flag.flag.forum_notification
+    - flag.flag.subscription_credit
     - taxonomy.vocabulary.credit
   module:
     - flag
@@ -249,7 +249,7 @@ display:
           entity_type: taxonomy_term
           plugin_id: flag_relationship
           required: true
-          flag: forum_notification
+          flag: subscription_credit
           user_scope: any
         uid:
           id: uid
@@ -274,4 +274,4 @@ display:
         - url.query_args
         - user.permissions
       tags:
-        - flag.flag.forum_notification
+        - flag.flag.subscription_credit

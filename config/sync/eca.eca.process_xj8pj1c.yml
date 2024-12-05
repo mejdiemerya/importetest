@@ -3,7 +3,17 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.credit_bev.field_credits
+    - field.field.node.credit_cost_guidance.field_credits
+    - field.field.node.credit_faq.field_credits
+    - field.field.node.forum.field_credits
+    - field.field.node.forum.field_question
+    - field.field.node.forum.field_tipsheet
     - field.field.node.forum.taxonomy_forums
+    - field.field.node.tipsheet.field_credits
+    - field.storage.node.field_credits
+    - field.storage.node.field_question
+    - field.storage.node.field_tipsheet
     - field.storage.node.taxonomy_forums
     - node.type.forum
     - views.view.flagging_credit
@@ -27,14 +37,8 @@ events:
       type: 'node forum'
     successors:
       -
-        id: Activity_05kur45
+        id: Gateway_0r5svti
         condition: Flow_1wb4rd4
-      -
-        id: Activity_132bfct
-        condition: ''
-      -
-        id: Activity_0zwb5ba
-        condition: ''
   Event_0j9qs8u:
     plugin: 'content_entity:insert'
     label: 'add topic'
@@ -42,14 +46,8 @@ events:
       type: 'node forum'
     successors:
       -
-        id: Activity_05kur45
+        id: Gateway_0r5svti
         condition: Flow_17uwwn5
-      -
-        id: Activity_132bfct
-        condition: ''
-      -
-        id: Activity_0zwb5ba
-        condition: ''
 conditions:
   Flow_0hgfrzy:
     plugin: eca_count
@@ -87,6 +85,24 @@ gateways:
       -
         id: Activity_0fsbqbf
         condition: Flow_0hgfrzy
+  Gateway_1scpnr2:
+    type: 0
+    successors:
+      -
+        id: Activity_0mz7evk
+        condition: ''
+  Gateway_0r5svti:
+    type: 0
+    successors:
+      -
+        id: Activity_05kur45
+        condition: ''
+      -
+        id: Activity_0zwb5ba
+        condition: ''
+      -
+        id: Activity_132bfct
+        condition: ''
 actions:
   Activity_05kur45:
     plugin: 'eca_render_views:views'
@@ -101,7 +117,7 @@ actions:
       mode: append
     successors:
       -
-        id: Activity_0mz7evk
+        id: Gateway_1scpnr2
         condition: ''
   Activity_0mz7evk:
     plugin: 'eca_tamper:strip_tags'
@@ -131,8 +147,15 @@ actions:
     label: 'send email'
     configuration:
       recipient: '[topic]'
-      subject: test
-      message: test
+      subject: 'New Question'
+      message: |-
+        From: [node:author:display-name]
+
+        Reply to: <a href="/node/[node:nid]">[node:title]</a>
+
+        [node:field_question]
+
+        Post a reply: <a href="/node/[node:nid]">[node:title]</a>
       replace_tokens: true
     successors: {  }
   Activity_0vxmhif:
@@ -151,14 +174,14 @@ actions:
     configuration:
       view_id: flagging_credit
       display_id: default
-      arguments: '[node:taxonomy_forums:entity:tid]'
+      arguments: '[node:field_credits:0:target_id]'
       name: ''
       token_name: topic
       weight: ''
       mode: append
     successors:
       -
-        id: Activity_0mz7evk
+        id: Gateway_1scpnr2
         condition: ''
   Activity_0zwb5ba:
     plugin: 'eca_render_views:views'
@@ -166,9 +189,12 @@ actions:
     configuration:
       view_id: flagging_tipsheet
       display_id: default
-      arguments: '[node:taxonomy_forums:entity:tid]'
+      arguments: '[node:field_tipsheet:target_id]'
       name: ''
       token_name: topic
       weight: ''
       mode: append
-    successors: {  }
+    successors:
+      -
+        id: Gateway_1scpnr2
+        condition: ''

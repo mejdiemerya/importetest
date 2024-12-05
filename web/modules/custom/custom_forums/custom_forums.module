@@ -413,6 +413,8 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
       // Ensure the form field exists in the form and assign it the value.
       if (isset($form['field_credits'])) {
         $form['field_credits']['widget'][0]['target_id']['#default_value'] = $term;
+        $form['taxonomy_forums']['widget'][0]['target_id']['#default_value'] =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->load(getTermIdByName('Credit Forums', 'forums'));
+
       }
       // Add  "Forum area" with a change link
       $change_url = \Drupal\Core\Url::fromRoute('custom_forums.topic_add')->toString();
@@ -428,6 +430,8 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
       // Ensure the form field exists in the form and assign it the value.
       if (isset($form['field_tipsheet'])) {
         $form['field_tipsheet']['widget'][0]['target_id']['#default_value'] = $term;
+        $form['taxonomy_forums']['widget'][0]['target_id']['#default_value'] =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->load(getTermIdByName('Tipsheet Forum', 'forums'));
+
       }
 
     }
@@ -727,4 +731,19 @@ function getCreditFilterLabel($tid) {
     return $node->get('title')->value;
   }
   return '';
+}
+function getTermIdByName($term_name, $vocabulary) {
+  // Load the term storage handler.
+  $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+
+  // Create an entity query for terms.
+  $query = $term_storage->getQuery()
+    ->condition('vid', $vocabulary)
+    ->condition('name', $term_name)->accessCheck(false);
+
+  // Execute the query and fetch the TID.
+  $tids = $query->execute();
+
+  // Return the first TID found, or NULL if none found.
+  return !empty($tids) ? reset($tids) : null;
 }

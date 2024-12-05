@@ -38,4 +38,7 @@ content:
     weight: 0
     region: content
 hidden:
+  field_first_name: true
+  field_last_name: true
   member_for: true
+  search_api_excerpt: true

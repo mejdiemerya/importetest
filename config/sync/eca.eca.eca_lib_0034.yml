@@ -105,8 +105,12 @@ actions:
     label: 'send email'
     configuration:
       recipient: '[mail]'
-      subject: test
-      message: '[comment:author]'
+      subject: 'New Comment'
+      message: |-
+        From: [comment:author]
+        Reply to: <a href="/node/[comment:entity:nid]">[comment:entity]</a>
+        [comment:body]
+        Post a reply: <a href="/node/[comment:entity:nid]">[comment:entity]</a>
       replace_tokens: true
     successors: {  }
   Activity_0vxmhif:

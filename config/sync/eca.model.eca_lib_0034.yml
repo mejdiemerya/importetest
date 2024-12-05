@@ -123,10 +123,14 @@ modeldata: |
             <camunda:string>[mail]</camunda:string>
           </camunda:field>
           <camunda:field name="subject">
-            <camunda:string>test</camunda:string>
+            <camunda:string>New Comment</camunda:string>
           </camunda:field>
           <camunda:field name="message">
-            <camunda:string>[comment:author]</camunda:string>
+            <camunda:string>From: [comment:author]
+  Reply to: &lt;a href="/node/[comment:entity:nid]"&gt;[comment:entity]&lt;/a&gt;
+  [comment:body]
+  Post a reply: &lt;a href="/node/[comment:entity:nid]"&gt;[comment:entity]&lt;/a&gt;
+  </camunda:string>
           </camunda:field>
           <camunda:field name="replace_tokens">
             <camunda:string>yes</camunda:string>

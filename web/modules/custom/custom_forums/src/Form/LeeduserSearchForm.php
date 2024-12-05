@@ -84,7 +84,7 @@ class LeeduserSearchForm extends FormBase {
     $forum_id = null;
     $credit_id = null;
     $location_id = null;
-
+    $tipsheet_id= null;
 // Check if the 'f' parameter contains multiple items.
     if (isset($query_params['f'])) {
       // Loop through each parameter to extract key-value pairs.
@@ -95,6 +95,9 @@ class LeeduserSearchForm extends FormBase {
           $credit_id = $matches[1];
         } elseif (preg_match('/^location:(\d+)$/', $param, $matches)) {
           $location_id = $matches[1];
+        }
+        elseif (preg_match('/^tipsheet:(\d+)$/', $param, $matches)) {
+          $tipsheet_id = $matches[1];
         }
       }
     }
@@ -136,7 +139,25 @@ class LeeduserSearchForm extends FormBase {
         '#suffix' => '</a>',
         '#markup' => t('Post a question or comment'),
       ];
-    } else {
+
+    }
+      elseif ( $tipsheet_id !== null) {
+        $post_question_url = Url::fromRoute('node.add',
+          [
+            'node_type' => 'forum'
+          ], [
+            'query' => [
+              'tipsheet_id' => $tipsheet_id,
+              'forum_id' => $this->getTermIdByName('Tipsheet Forum', 'forums'),
+            ],
+          ])->toString();
+        $form['post_question'] = [
+          '#prefix' => '<a id="post-question" href="' . $post_question_url . '"><i class="fi flaticon-communication"></i>',
+          '#suffix' => '</a>',
+          '#markup' => t('Post a question or comment'),
+        ];
+      }
+      else {
 
       // Post Question Link.
       $form['post_question'] = [
