@@ -421,6 +421,7 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
         $form['taxonomy_forums']['#access'] = FALSE;
         $form['field_credits']['#access'] = FALSE;
         $form['field_tipsheet']['#access'] = FALSE;
+        $form['moderation_state']['#access'] = FALSE;
       }
       // Add  "Forum area" with a change link
 
@@ -441,6 +442,8 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
         $form['taxonomy_forums']['#access'] = FALSE;
         $form['field_credits']['#access'] = FALSE;
         $form['field_tipsheet']['#access'] = FALSE;
+        $form['moderation_state']['#access'] = FALSE;
+
       }
       // Add  "Forum area" with a change link
       $change_url = \Drupal\Core\Url::fromRoute('custom_forums.topic_add')->toString();
@@ -459,6 +462,7 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
         $form['taxonomy_forums']['widget'][0]['target_id']['#default_value'] =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->load(getTermIdByName('Tipsheet Forum', 'forums'));
         $form['taxonomy_forums']['#access'] = FALSE;
         $form['field_credits']['#access'] = FALSE;
+        $form['moderation_state']['#access'] = FALSE;
       }
 
     }
