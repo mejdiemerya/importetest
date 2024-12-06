@@ -1,0 +1,31 @@
+uuid: 91f1683f-30b2-444f-bdda-3444d3d940df
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_bloc
+    - node.type.accueil
+    - paragraphs.paragraphs_type.hero
+  module:
+    - entity_reference_revisions
+id: node.accueil.field_bloc
+field_name: field_bloc
+entity_type: node
+bundle: accueil
+label: Bloc
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      hero: hero
+    negate: 0
+    target_bundles_drag_drop:
+      hero:
+        weight: 2
+        enabled: true
+field_type: entity_reference_revisions

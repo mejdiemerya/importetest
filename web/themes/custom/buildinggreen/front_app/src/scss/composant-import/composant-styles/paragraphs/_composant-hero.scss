@@ -1,0 +1,70 @@
+#hero {
+  padding-bottom: 15px;
+  //margin-top: -25px;
+  @include MQ(SMplus){
+    //margin-top: -15px;
+  }
+  margin-bottom: 15px;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url('#{$bi-img-path}/blurry-city_991a.jpg');
+  @include MQ(Mplus) {
+    background-image: url('#{$bi-img-path}/blurry-city_1200.jpg');
+  }
+  @include MQ(Lplus) {
+    background-image: url('#{$bi-img-path}/blurry-city_2100.jpg');
+  }
+  .field--name-field-title {
+    width: 100%;
+    @include gradient-vertical(rgba(23,44,41,1), rgba(23,44,41,0.4), 0%, 100%);
+    color: white;
+    font-weight: 400;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-shadow: 0px 1px 2px black;
+  }
+  .vid {
+    @include MQ(SMneg) {
+      margin-top: 15px;
+    }
+    @include MQ(StoSM){
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  .row {
+    @include MQ(SMplus){
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    @include MQ(Mplus){
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    @include MQ(Lplus){
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    @include MQ(XLplus){
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  }
+
+  p {
+    font-weight: 400;
+    @include font-size($h4-font-sizes);
+    line-height: 1.5;
+    text-shadow: 0px 0px 5px #e7ded9;
+    color: #000;
+  }
+
+  @include MQ(Lplus) {
+    p {
+
+    }
+  }
+}

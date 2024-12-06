@@ -1,0 +1,46 @@
+uuid: 61ba951e-8658-49a9-b2c7-d93b3b1c85c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.tipsheet.body
+    - field.field.node.tipsheet.field_credits
+    - field.field.node.tipsheet.field_guest_expert
+    - node.type.tipsheet
+  module:
+    - text
+id: node.tipsheet.default
+targetEntityType: node
+bundle: tipsheet
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_credits:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_guest_expert:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 102
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  uid: true

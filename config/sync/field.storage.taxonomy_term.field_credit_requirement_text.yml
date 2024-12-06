@@ -1,0 +1,19 @@
+uuid: fc3e4193-92b6-4263-88a4-f48bea7210f3
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - text
+id: taxonomy_term.field_credit_requirement_text
+field_name: field_credit_requirement_text
+entity_type: taxonomy_term
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

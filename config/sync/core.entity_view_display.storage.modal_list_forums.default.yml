@@ -1,0 +1,31 @@
+uuid: 759c3cca-9f6d-4277-a829-e3c524cbb6df
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.storage.modal_list_forums.field_forum
+    - storage.storage_type.modal_list_forums
+id: storage.modal_list_forums.default
+targetEntityType: storage
+bundle: modal_list_forums
+mode: default
+content:
+  field_forum:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: -4
+    region: content
+  name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: -5
+    region: content
+hidden:
+  search_api_excerpt: true
+  user_id: true

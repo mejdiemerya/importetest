@@ -1,0 +1,30 @@
+//
+// Base
+// --------------------------------------------------
+@import 'general/variables';
+
+
+// Bootstrap
+// --------------------------------------------------
+@import 'general/bootstrap';
+//@import '../../../../node_modules/bootstrap-icons/font/bootstrap-icons.scss';
+
+
+// Fonts
+// --------------------------------------------------
+@import 'general/typography';
+
+
+// Mixins
+// --------------------------------------------------
+@import 'general/mixins';
+@import 'general/layout';
+@import 'general/ckeditor';
+@import 'general/buttons';
+@import 'general/form';
+@import 'general/print';
+
+// Others
+// --------------------------------------------------
+@import 'modals/nav';
+@import 'regions/nav';

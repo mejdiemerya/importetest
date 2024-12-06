@@ -1,0 +1,25 @@
+uuid: 019be8c6-e35b-4255-add8-b8674a565cc1
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.menu-a-gauche
+  module:
+    - system
+  theme:
+    - buildinggreen
+id: buildinggreen_gotobuildinggreen.com
+theme: buildinggreen
+region: nav_main
+weight: 0
+provider: null
+plugin: 'system_menu_block:menu-a-gauche'
+settings:
+  id: 'system_menu_block:menu-a-gauche'
+  label: 'Go to BuildingGreen.com'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

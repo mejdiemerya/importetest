@@ -1,0 +1,126 @@
+//
+// Util Function
+// --------------------------------------------------
+
+// Variable
+// --------------------------------------------------
+
+// Mixin
+// --------------------------------------------------
+
+// Making
+// --------------------------------------------------
+.btn {
+  &.header_search {
+    background-color: $red;
+    border-radius: 5px;
+    color: $white;
+    padding: 12px 18px;
+    font-weight: 700;
+    border: none;
+    text-transform: uppercase;
+    @include font-size(18px);
+    @include bi-font-family(Poppins);
+    width: 170px;
+    // box-shadow: none;
+
+    //right: 6%;
+    //top: 25%;
+    &:hover {
+      background-color: $red-2;
+    }
+
+    &:focus {
+      box-shadow: -5px 6px 4px #f59393;
+    }
+
+    @media (max-width: 575.98px) {
+      font-size: 11px;
+      width: 109px;
+      padding: 10px 10px;
+    }
+  }
+}
+
+// Alternate buttons
+// --------------------------------------------------
+$brand-primary:         darken(#428bca, 6.5%); // #337ab7
+$btn-default-color:              #333 ;
+$btn-default-bg:                 #fff ;
+$btn-default-border:             #ccc ;
+$btn-primary-color:              #fff ;
+$btn-primary-bg:                 $brand-primary ;
+$btn-primary-border:             darken($btn-primary-bg, 5%) ;
+$btn-success-color:              #fff ;
+$btn-success-bg:                 $brand-success ;
+$btn-success-border:             darken($btn-success-bg, 5%) ;
+$btn-info-color:                 #fff !default;
+$btn-info-bg:                    $brand-info ;
+$btn-info-border:                darken($btn-info-bg, 5%) ;
+
+$btn-warning-color:              #fff ;
+$btn-warning-bg:                 $brand-warning ;
+$btn-warning-border:             darken($btn-warning-bg, 5%) ;
+
+$btn-danger-color:               #fff !default;
+$btn-danger-bg:                  $brand-danger;
+$btn-danger-border:              darken($btn-danger-bg, 5%) ;
+$btn-neutral-color:               #000 ;
+$btn-neutral-bg:                  #C9D3BC ;
+$btn-neutral-border:              #bdc9ad ;
+.btn-neutral {
+  @include button-variant($btn-neutral-color, $btn-neutral-bg, $btn-neutral-border);
+}
+.btn-default {
+  @include button-variant($btn-default-color, $btn-default-bg, $btn-default-border);
+}
+.btn-primary {
+  @include button-variant($btn-primary-color, $btn-primary-bg, $btn-primary-border);
+}
+// Success appears as green
+.btn-success {
+  @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
+}
+// Info appears as blue-green
+.btn-info {
+  @include button-variant($btn-info-color, $btn-info-bg, $btn-info-border);
+}
+// Warning appears as orange
+.btn-warning {
+  @include button-variant($btn-warning-color, $btn-warning-bg, $btn-warning-border);
+}
+// Danger and error appear as red
+.btn-danger {
+  @include button-variant($btn-danger-color, $btn-danger-bg, $btn-danger-border);
+}
+
+
+$padding-large-vertical:    10px ;
+$padding-large-horizontal:  16px ;
+
+$padding-small-vertical:    5px ;
+$padding-small-horizontal:  10px;
+a#post-question, a#forum-filter {
+  margin-bottom: 1em;
+  @include button-size($padding-large-vertical, $padding-large-horizontal, 14px, 1.1, 6px);
+  display: inline-block;
+  padding-top: 12px;
+  padding-bottom: 9px;
+  width: 100%;
+  text-align: left;
+  @include MQ(S) {
+    width: 48%;
+  }
+  box-shadow: 1px 1px 5px 0 rgba(0,0,0,0.4);
+  text-decoration: none;
+  text-transform: uppercase;
+  .fi, .glyphicon {
+    font-size: 130%;
+    float: left;
+    padding-right: 8px;
+    display: block;
+  }
+}
+a#post-question {
+  @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
+}

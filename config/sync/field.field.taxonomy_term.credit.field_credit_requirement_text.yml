@@ -1,0 +1,24 @@
+uuid: db0c72c6-0a2a-4d76-b2b9-d922c5eea906
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_credit_requirement_text
+    - filter.format.full_html
+    - taxonomy.vocabulary.credit
+  module:
+    - text
+id: taxonomy_term.credit.field_credit_requirement_text
+field_name: field_credit_requirement_text
+entity_type: taxonomy_term
+bundle: credit
+label: 'Full text'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text_long

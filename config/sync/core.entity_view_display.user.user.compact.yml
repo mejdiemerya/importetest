@@ -20,12 +20,17 @@ content:
     type: image
     label: hidden
     settings:
-      image_style: thumbnail
       image_link: content
+      image_style: thumbnail
       image_loading:
         attribute: lazy
     third_party_settings: {  }
     weight: 0
     region: content
 hidden:
+  field_first_name: true
+  field_last_name: true
   member_for: true
+  roles: true
+  search_api_excerpt: true
+  user_name: true

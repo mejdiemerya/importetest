@@ -1,0 +1,105 @@
+uuid: 25466313-a1e3-4790-aa9d-449034944523
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.forum.comment_forum
+    - field.field.node.forum.field_credits
+    - field.field.node.forum.field_last_comment_author
+    - field.field.node.forum.field_project_location
+    - field.field.node.forum.field_question
+    - field.field.node.forum.field_tipsheet
+    - field.field.node.forum.taxonomy_forums
+    - node.type.forum
+  module:
+    - text
+_core:
+  default_config_hash: MlT-p1QL2wigjhOAXEPyl3kjZ3FgIULo_rGoV_RiCMQ
+id: node.forum.teaser
+targetEntityType: node
+bundle: forum
+mode: teaser
+content:
+  comment_count:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_last_comment_author:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: author_profile
+      link: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_project_location:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_question:
+    type: text_trimmed
+    label: hidden
+    settings:
+      trim_length: 200
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  flag_notification:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  last_comment_date:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  taxonomy_forums:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  title_forum:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  uid:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  user_picture:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  author_picture: true
+  comment_button: true
+  comment_forum: true
+  content_moderation_control: true
+  field_credits: true
+  field_tipsheet: true
+  last_comment_author_image: true
+  last_comment_author_role: true
+  rate_rate: true
+  search_api_excerpt: true

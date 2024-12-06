@@ -1,0 +1,22 @@
+uuid: 3ce4ae20-1990-447f-a7c6-706309830165
+langcode: en
+status: false
+dependencies:
+  module:
+    - system
+  theme:
+    - buildinggreen
+_core:
+  default_config_hash: VhBzWb7lMRtIOg9G7VSw_0uopi-7zXeHq4vXqqV1HFE
+id: buildinggreen_breadcrumbs
+theme: buildinggreen
+region: breadcrumb
+weight: -6
+provider: null
+plugin: system_breadcrumb_block
+settings:
+  id: system_breadcrumb_block
+  label: Breadcrumbs
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -1,0 +1,525 @@
+// MIXINS ET FUNCTIONS
+
+// Functions em() / rem()
+// Fonctions de conversion pixel vers em / rem
+
+$transition02: all .2s;
+$transition04: all .4s ease-out;
+$link-transition-on: all 200ms ease-out;
+$link-transition-off: all 400ms ease-out;
+
+
+
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+// Mixin - list-reset
+// Styles par defaut pour les listes <ul>
+@mixin list-reset {
+  list-style-type: none;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+}
+
+// Mixin - button-reset
+// Styles par defaut pour les boutons <button>
+@mixin button-reset {
+  background: none;
+  border: 0 none;
+  padding: 0;
+}
+
+// Mixin - button-reset
+// Styles par defaut pour les boutons <button>
+@mixin outline-reset {
+  outline: 1px dotted currentColor;
+}
+
+// Mixin - breakpoint()
+// Mixin pour les mediaqueries.
+// $target peut prendre les valeurs listées dans _constants.scss
+@mixin breakpoint($target) {
+  @at-root #{"&"} {
+    @media #{$target} {
+      @content;
+    }
+  }
+}
+
+// Pour le calcul des media queries
+@function lower-bound($range) {
+  @if length($range) <= 0 {
+    @return 0;
+  }
+
+  @return nth($range, 1);
+}
+
+// Pour le calcul des media queries
+@function upper-bound($range) {
+  @if length($range) < 2 {
+    @return 999999999999;
+  }
+
+  @return nth($range, 2);
+}
+
+@function str-replace($string, $search, $replace: '') {
+  $index: str-index($string, $search);
+
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+
+@mixin link-full-item-list {
+  text-decoration: none;
+  &:after {
+    content: "";
+    box-sizing: content-box;
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+@mixin link-with-hover($color: $white, $background: $yellow-green, $prefix: '+') {
+  position: relative;
+  text-decoration: none;
+  padding: 10px 20px 20px 20px;
+
+  &:before {
+    content: "#{$prefix}";
+    position: static;
+    transform: translateY(-50%);
+    margin-right: 10px;
+    color: $color;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -0.2rem;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 0.15rem;
+    transition: $link-transition-off;
+    z-index: -1;
+    background: $background;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: $color;
+
+    &:after {
+      bottom: -1px;
+      height: 100%;
+      left: 0;
+      transition: $link-transition-on;
+    }
+  }
+}
+
+// Mixin
+// --------------------------------------------------
+@mixin bi-font-family($font-family, $important: null) {
+  @if $important != '!important' {
+    font-family: $font-family, $font-family-sans-serif;
+  }@else {
+    font-family: $font-family, $font-family-sans-serif !important;
+  }
+}
+@mixin h1() {
+
+  @include font-size($h1-font-sizes);
+  letter-spacing: -0.00625em;
+  @include MQ(Mplus) {
+    letter-spacing: -0.0125em;
+  }
+}
+
+@mixin h2() {
+  //@include bi-font-family(Poppins);
+  //@include font-size(36px);
+  //font-weight: 400;
+}
+
+@mixin h3() {
+  //@include bi-font-family(Poppins);
+  //@include font-size(18px);
+  //font-weight: 400;
+  color: #2D5751;
+  margin-top: 25px;
+  margin-bottom: 12.5px;
+}
+
+@mixin h5() {
+  //@include bi-font-family(Poppins);
+  //@include font-size(16px);
+  //font-weight: 500;
+}
+
+@mixin blockquote() {
+  border-left: 4px solid $yellow-green;
+  padding-left: 20px;
+
+  @include media-breakpoint-up(md) {
+    padding-left: 50px;
+  }
+}
+
+@mixin blockquote-p() {
+  //@include bi-font-family(AvenirNextBold);
+  //@include font-size(24px);
+  //margin-bottom: 40px;
+  //
+  //@include media-breakpoint-up(md) {
+  //  @include font-size(38px);
+  //  margin-bottom: 60px;
+  //}
+}
+
+@mixin p() {
+  //@include bi-font-family(Poppins);
+  //@include font-size(16px);
+  //line-height: 1.5;
+  //font-weight: 400;
+}
+
+
+//MQ
+$XS: 360px;
+$S: 600px; // test on credit LU expert
+$SM: 768px;
+$M: 992px;
+$L: 1200px;
+$XL: 1440px;
+$XXL: 1800px;
+
+//mixin
+@mixin MQ($canvas) {
+  @if $canvas == XS {
+    @media only screen and (min-width: 0) and (max-width: $S - 1) { @content; }
+  }
+  @else if $canvas == S {
+    @media only screen and (min-width: $S) and (max-width: $SM - 1) { @content; }
+  }
+  @else if $canvas == SM {
+    @media only screen and (min-width: $SM) and (max-width: $M - 1) { @content; }
+  }
+  @else if $canvas == M {
+    @media only screen and (min-width: $M) and (max-width: $L - 1) { @content; }
+  }
+  @else if $canvas == L {
+    @media only screen and (min-width: $L) and (max-width: $XL - .01) { @content; }
+  }
+  @else if $canvas == XL {
+    @media only screen and (min-width: $XL) and (max-width: $XXL - .01) { @content; }
+  }
+  @else if $canvas == XXL {
+    @media only screen and (min-width: $XXL) { @content; }
+  }
+  @else if $canvas == XSplus {
+    @media only screen and (min-width: $XS) { @content; }
+  }
+  @else if $canvas == Splus {
+    @media only screen and (min-width: $S) { @content; }
+  }
+  @else if $canvas == SMplus {
+    @media only screen and (min-width: $SM) { @content; }
+  }
+  @else if $canvas == Mplus {
+    @media only screen and (min-width: $M) { @content; }
+  }
+  @else if $canvas == Lplus {
+    @media only screen and (min-width: $L) { @content; }
+  }
+  @else if $canvas == XLplus {
+    @media only screen and (min-width: $XL) { @content; }
+  }
+  @else if $canvas == XXLplus {
+    @media only screen and (min-width: $XXL) { @content; }
+  }
+  @else if $canvas == XSneg {
+    @media only screen and (max-width: $XS) { @content; }
+  }
+  @else if $canvas == Sneg {
+    @media only screen and (max-width: $S) { @content; }
+  }
+  @else if $canvas == SMneg {
+    @media only screen and (max-width: $SM - 1) { @content; } // Andrea subtracted 1 to match Bootstrap breakpoint
+  }
+  @else if $canvas == Mneg {
+    @media only screen and (max-width: $M - 1) { @content; } // Andrea subtracted 1 to match Bootstrap breakpoint
+  }
+  @else if $canvas == Lneg {
+    @media only screen and (max-width: $L - 1) { @content; } // Andrea subtracted 1 to match Bootstrap breakpoint
+  }
+  @else if $canvas == XLneg {
+    @media only screen and (max-width: $XL - 1) { @content; } // Andrea subtracted 1 to match Bootstrap breakpoint
+  }
+  @else if $canvas == XXLneg {
+    @media only screen and (max-width: $XXL) { @content; }
+  }
+  @else if $canvas == StoM {
+    @media only screen and (min-width: $S) and (max-width: $M - .01) { @content; }
+  }
+  @else if $canvas == StoL {
+    @media only screen and (min-width: $S) and (max-width: $L - .01) { @content; }
+  }
+  @else if $canvas == StoSM {
+    @media only screen and (min-width: $S) and (max-width: $SM - .01) { @content; }
+  }
+  @else if $canvas == SMtoM {
+    @media only screen and (min-width: $SM) and (max-width: $M - .01) { @content; }
+  }
+  @else if $canvas == SMtoL {
+    @media only screen and (min-width: $SM) and (max-width: $L - .01) { @content; }
+  }
+  @else if $canvas == XStoM {
+    @media only screen and (min-width: $XS) and (max-width: $M - .01) { @content; }
+  }
+  @else if $canvas == StoXL {
+    @media only screen and (min-width: $S) and (max-width: $XL - .01) { @content; }
+  }
+  @else if $canvas == MtoXL {
+    @media only screen and (min-width: $M) and (max-width: $XL - .01) { @content; }
+  }
+  @else if $canvas == LtoXL {
+    @media only screen and (min-width: $L) and (max-width: $XL - .01) { @content; }
+  }
+}
+
+@mixin gradient-vertical($start-color: #555, $end-color: #333, $start-percent: 0%, $end-percent: 100%) {
+  background-image: -webkit-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Safari 5.1-6, Chrome 10+
+  background-image: -o-linear-gradient(top, $start-color $start-percent, $end-color $end-percent);  // Opera 12
+  background-image: linear-gradient(to bottom, $start-color $start-percent, $end-color $end-percent); // Standard, IE10, Firefox 16+, Opera 12.10+, Safari 7+, Chrome 26+
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#{ie-hex-str($start-color)}', endColorstr='#{ie-hex-str($end-color)}', GradientType=0); // IE9 and down
+  background-repeat: repeat-x;
+}
+$breakpoints: (
+  xsmall : 325px,
+  small: 768px,
+  medium : 992px,
+  large : 1200px,
+  xlarge : 1440px
+);
+@mixin make-font-size($fs-font-size) {
+  // If $fs-font-size is a list, include
+  // both font-size and line-height
+  @if type-of($fs-font-size) == "list" {
+    font-size: nth($fs-font-size, 1);
+    @if (length($fs-font-size) > 1) {
+      line-height: nth($fs-font-size, 2);
+    }
+  }
+  @else {
+    font-size: $fs-font-size;
+  }
+}
+@mixin font-size($fs-map, $fs-breakpoints: $breakpoints) {
+  @each $fs-breakpoint, $fs-font-size in $fs-map {
+    @if $fs-breakpoint == null {
+      @include make-font-size($fs-font-size);
+    }
+    @else {
+      // If $fs-font-size is a key that exists in
+      // $fs-breakpoints, use the value
+      @if map-has-key($fs-breakpoints, $fs-breakpoint) {
+        $fs-breakpoint: map-get($fs-breakpoints, $fs-breakpoint);
+      }
+      @media screen and (min-width: $fs-breakpoint) {
+        @include make-font-size($fs-font-size);
+      }
+    }
+  }
+}
+$p-font-sizes: (
+  null  : 18px,
+  small : 17px,
+  medium: 18px,
+  xlarge : 19px
+);
+
+$h0-font-sizes: (
+  null  : 38px,
+  small : 40px,
+  medium: 48px,
+  xlarge : 55px
+);
+
+$h1-font-sizes: (
+  null  : 38px,
+  small : 40px,
+  medium: 48px,
+  xlarge : 50px
+);
+
+$h15-font-sizes: (
+  null  : 35px,
+  small : 38px,
+  medium: 42px,
+  xlarge : 44px
+);
+
+$h2-font-sizes: (
+  null  : 32px,
+  small : 34px,
+  medium: 36px,
+  xlarge : 38px
+);
+
+$h3-font-sizes: (
+  null  : 28px,
+  small : 26px,
+  medium: 28px,
+  xlarge : 30px
+);
+
+$h4-font-sizes: (
+  null  : 23px,
+  small : 22px,
+  medium: 23px,
+  xlarge : 24px
+);
+
+$h5-font-sizes: (
+  null  : 19px,
+  small : 18px,
+  medium: 19px,
+  xlarge : 20px
+);
+
+$h6-font-sizes: (
+  null  : 14px,
+  small : 15px,
+  medium: 16px,
+  xlarge : 17px
+);
+@mixin button-size($padding-vertical, $padding-horizontal, $font-size, $line-height, $border-radius) {
+  padding: $padding-vertical $padding-horizontal;
+  font-size: $font-size;
+  line-height: $line-height;
+  border-radius: $border-radius;
+}
+
+@mixin button-variant($color, $background, $border) {
+  color: $color;
+  background-color: $background;
+  border-color: $border;
+
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: darken($background, 10%);
+    border-color: darken($border, 25%);
+  }
+  &:hover {
+    color: $color;
+    background-color: darken($background, 10%);
+    border-color: darken($border, 12%);
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $color;
+    background-color: darken($background, 10%);
+    border-color: darken($border, 12%);
+
+    &:hover,
+    &:focus,
+    &.focus {
+      color: $color;
+      background-color: darken($background, 17%);
+      border-color: darken($border, 25%);
+    }
+  }
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    background-image: none;
+  }
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    &:hover,
+    &:focus,
+    &.focus {
+      background-color: $background;
+      border-color: $border;
+    }
+  }
+
+  .badge {
+    color: $background;
+    background-color: $color;
+  }
+}
+$font-size-base:          14px;
+$font-size-h1:            floor(($font-size-base * 2.6)); // ~36px
+$font-size-h2:            floor(($font-size-base * 2.15)) ; // ~30px
+$font-size-h3:            ceil(($font-size-base * 1.7)) ; // ~24px
+$font-size-h4:            ceil(($font-size-base * 1.25)) ; // ~18px
+$font-size-h5:            $font-size-base ;
+$font-size-h6:            ceil(($font-size-base * 0.85)) ; // ~12px
+
+.small {
+  font-size: $font-size-small !important;
+}
+
+.xsmall {
+  font-size: $font-size-xsmall !important;
+}
+
+.large {
+  font-size: $font-size-large !important;
+}
+
+.xlarge {
+  font-size: $font-size-xlarge !important;
+}
+
+.xxlarge {
+  font-size: $font-size-h3 !important;
+}
+.noline {
+  text-decoration: none !important;
+}
+
+.line, .underline, .line-links a {
+  text-decoration: underline !important;
+}
+
+.text-left {
+  text-align: left !important;
+}
+$line-height-xsmall: 		1.3;
+.line-snug {
+  line-height: $line-height-xsmall !important;
+}
+$brand-midtone:			#46828C;
+$brand-light:			tint($brand-midtone, 66%);
+
+$gray-base:              #000 !default;
+$gray-darker:            lighten($gray-base, 13.5%) ; // #222
+$gray-dark:              lighten($gray-base, 20%) ;   // #333
+$gray:                   lighten($gray-base, 33.5%) ; // #555
+$gray-light:             lighten($gray-base, 46.7%) ; // #777
+$gray-lighter:           lighten($gray-base, 93.5%) ; // #eee

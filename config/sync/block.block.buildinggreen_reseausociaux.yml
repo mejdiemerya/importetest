@@ -1,0 +1,25 @@
+uuid: e0c36fee-f918-4f2a-8e37-c9a40172b2a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.reseau-sociaux
+  module:
+    - system
+  theme:
+    - buildinggreen
+id: buildinggreen_reseausociaux
+theme: buildinggreen
+region: footer_second
+weight: 0
+provider: null
+plugin: 'system_menu_block:reseau-sociaux'
+settings:
+  id: 'system_menu_block:reseau-sociaux'
+  label: 'Reseau Sociaux'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

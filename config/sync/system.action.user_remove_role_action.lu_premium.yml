@@ -1,0 +1,14 @@
+uuid: 5c23ee78-6875-4fa9-b34a-b5c3bbaaa737
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.lu_premium
+  module:
+    - user
+id: user_remove_role_action.lu_premium
+label: 'Remove the LEEDuser Premium Member role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: lu_premium

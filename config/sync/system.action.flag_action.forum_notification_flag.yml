@@ -1,0 +1,15 @@
+uuid: b56260ea-403f-4d5a-9d46-782fab69831a
+langcode: en
+status: true
+dependencies:
+  config:
+    - flag.flag.forum_notification
+  module:
+    - flag
+id: flag_action.forum_notification_flag
+label: 'Flag this item'
+type: taxonomy_term
+plugin: 'flag_action:forum_notification_flag'
+configuration:
+  flag_id: forum_notification
+  flag_action: flag

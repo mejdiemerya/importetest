@@ -1,0 +1,20 @@
+uuid: 58c8d3a2-3016-4eef-a1da-8fa1fb818bd4
+langcode: en
+status: true
+dependencies:
+  config:
+    - storage.storage_type.quick_link
+_core:
+  default_config_hash: IThQGXB3NadjYDCz7MQVxvSfTVMf2ftYmBdCPUVZGAI
+id: storage.quick_link.name
+field_name: name
+entity_type: storage
+bundle: quick_link
+label: Label
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

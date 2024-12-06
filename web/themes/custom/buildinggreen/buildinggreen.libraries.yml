@@ -1,0 +1,21 @@
+global-styling:
+  css:
+    theme:
+      front_app/dist/assets/composant/default-composant/default-composant.min.css:
+        {}
+  js:
+    front_app/dist/assets/composant/default-composant/index.js: {}
+    #front_app/src/js/composant/default-composant/main.js: {}
+    # front_app/src/js/composant/default-composant/nav.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+
+hero:
+  css:
+    theme:
+      front_app/dist/assets/composant/hero-composant/hero-composant.min.css: { minified: true }
+forum:
+  css:
+    theme:
+      front_app/dist/assets/composant/forum-composant/forum-composant.min.css: { minified: true }

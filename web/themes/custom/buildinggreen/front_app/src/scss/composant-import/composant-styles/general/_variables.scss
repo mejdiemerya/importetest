@@ -1,0 +1,199 @@
+//
+// Summary
+// --------------------------------------------------
+
+//  [1. CONST]
+//  [2. Variables]
+
+//
+// [1.] CONST
+// --------------------------------------------------
+$bi-assets-base-path: '../..' !default;
+$bi-img-path: '#{$bi-assets-base-path}/images' !default;
+$bi-nbsp: '\00a0';
+
+
+// Const Font
+$CONST-FONT-SourceSansPro: 'SourceSansPro', "Trebuchet MS", Helvetica, sans-serif !default;
+
+// Const Font Weight
+// --------------------------------------------------
+//$CONST-FONT-WEIGHT-THIN: 100;
+//$CONST-FONT-WEIGHT-EXTRA-LIGHT: 200;
+//$CONST-FONT-WEIGHT-LIGHT: 300;
+//$CONST-FONT-WEIGHT-REGULAR: 400;
+//$CONST-FONT-WEIGHT-MEDIUM: 500;
+//$CONST-FONT-WEIGHT-SEMI-BOLD: 600;
+//$CONST-FONT-WEIGHT-BOLD: 700;
+//$CONST-FONT-WEIGHT-EXTRA-BOLD: 800;
+//$CONST-FONT-WEIGHT-BLACK: 900;
+
+// Const Base Unit
+// --------------------------------------------------
+$CONST-BASE-UNIT: 8px !default;
+
+//
+// [2.] Variables
+// --------------------------------------------------
+// Base
+// --------------------------------------------------
+
+// Color
+// --------------------------------------------------
+
+// Refonte color 2021
+//$blue_light: #e2ecef;
+//$blue_medium: #003b4a;
+//$blue_dark: #003b4a;
+//$gray_light: #f5f8fa;
+//$gray_medium: #99b1b6;
+//$gray_dark: #5c7c83;
+//$color_alert: #ff4040;
+//$green_valid: #3d8704;
+//$green: #84bc56;
+//$light_green: #f3f8e9;
+//$orange: #f0620a;
+//$turquoise: #3b94a7;
+
+$blue-lighter: #F4F8FB;
+$blue-light: #E5ECEE;
+$blue-medium: #F8FAFC;
+$blue-dark: #283686;
+$blue-dark-1: #1c265e;
+$blue: $blue-medium;
+$bc: $blue-lighter;
+$color-resume: #1E293B;
+$color-border: #94A3B8;
+
+$yellow-green: #F0B942;
+$vert: #4A9869;
+$black-medium: #334155;
+$vert-2: #1E515E;
+$vert-3: #86BC24;
+
+$sapphire-light: #809DA3;
+$sapphire: #023B4A;
+$bleu: $sapphire;
+
+$gray-light: #E5E5E5;
+$gray-light-2: #E4F0E9;
+$gray-light-3: #E1F0E9;
+$gray-medium: #99b1b6;
+$gray-dark: #5c7c83;
+$gray-dark-1: #1E293B;
+$gray-dark-2: #64748B;
+$gray-dark-3: #0F172A;
+$gray-dark-4: #CBD5E1;
+$gray-dark-5: #1F2825;
+$gray-dark-6: #E8E8E8;
+$gray-dark-7: #D9D9D9;
+$gray-dark-8: #555454;
+$gray-dark-9: #e5e5e4;
+$gray-dark-10: #cdcdcd;
+$gray-dark-11: #857c7c;
+$gray-dark-12: #e6e6e6;
+$red: #E63812;
+$red-2: #BE3112;
+$red-3: #ff0021;
+
+
+$background-logo: #FCF1D9;
+$color-border: #E2E8F0;
+$white: #fff;
+$color-green: #2D5751;
+$color-green-1: #4A9869;
+$color-green-3: #3C7D56;
+$color-green-2: #F1F7F4;
+$gray-dark-5: #3A3A3A;
+$gray-dark-6: #5c5858;
+$color-gray: #2E2E2E;
+$color-blue: #005CA9;
+$color-blue-1: #003C6F;
+$color-blue-2: #285a9a;
+$dark: #000;
+$dark-1: #333333;
+
+
+$color-c1: #333;
+$color-c2: #ccc;
+$state-success-bg: #dff0d8;
+$brand-success: #7DB138;
+$brand-info:  #70B2BE;
+$brand-warning: #CF371B;
+$brand-neutral: #5d5d77;
+$brand-danger:  #d9534f ;
+$brand-highlight: #dcffaf;
+
+//=== Inverted navbar
+// Reset inverted navbar basics
+$navbar-inverse-color:                      lighten($gray-light, 15%) !default;
+$navbar-inverse-bg:                         #222 !default;
+$navbar-inverse-border:                     darken($navbar-inverse-bg, 10%) !default;
+
+// Inverted navbar links
+$navbar-inverse-link-color:                 lighten($gray-light, 15%) !default;
+$navbar-inverse-link-hover-color:           #fff !default;
+$navbar-inverse-link-hover-bg:              transparent !default;
+$navbar-inverse-link-active-color:          $navbar-inverse-link-hover-color !default;
+$navbar-inverse-link-active-bg:             darken($navbar-inverse-bg, 10%) !default;
+$navbar-inverse-link-disabled-color:        #444 !default;
+$navbar-inverse-link-disabled-bg:           transparent !default;
+
+// Inverted navbar brand label
+$navbar-inverse-brand-color:                $navbar-inverse-link-color !default;
+$navbar-inverse-brand-hover-color:          #fff !default;
+$navbar-inverse-brand-hover-bg:             transparent !default;
+
+// Inverted navbar toggle
+$navbar-inverse-toggle-hover-bg:            #333 !default;
+$navbar-inverse-toggle-icon-bar-bg:         #fff !default;
+$navbar-inverse-toggle-border-color:        #333 !default;
+
+// Rem
+// --------------------------------------------------
+$var-rem-baseline: 16px !default;
+$var-rem-fallback: false !default;
+$var-rem-px-only: false !default;
+$font-size-xlarge: ceil(($var-rem-baseline * 1.4)) !default; // ~22.4px
+$font-size-large: ceil(($var-rem-baseline * 1.25)) !default; // ~20px
+$font-size-small: ceil(($var-rem-baseline * 0.80)) !default; // ~13.6px
+$font-size-xsmall:ceil(($var-rem-baseline * 0.70)) !default; // ~12px
+
+
+  // Z-index Scale
+// --------------------------------------------------
+$var-zIndex-1: 100 !default;
+$var-zIndex-2: 200 !default;
+$var-zIndex-3: 300 !default;
+$var-zIndex-4: 400 !default;
+$var-zIndex-5: 500 !default;
+$var-zIndex-6: 600 !default;
+$var-zIndex-7: 700 !default;
+$var-zIndex-8: 800 !default;
+$var-zIndex-9: 900 !default;
+$var-zIndex-10: 1000 !default;
+
+
+// Theme Drupal Bootstrap 5 variables.
+// --------------------------------------------------
+$navbar-brand-image-height: 36px !default;
+$navbar-brand-image-height-lg: 60px !default;
+$navbar-brand-image-width: auto !default;
+$navbar-brand-image-margin: 0 1rem 0 0 !default;
+
+$navbar-brand-site-title-text-transform: uppercase !default;
+$navbar-brand-site-title-font-size: 1.5rem !default;
+$navbar-brand-site-title-font-weight: bold !default;
+$navbar-brand-site-title-letter-spacing: 2px !default;
+$navbar-brand-site-slogan-font-size: .875rem !default;
+
+$region-padding: 0 .5rem !default;
+
+$footer-padding: 2rem 0 !default;
+
+$nav-tabs-link-active-bg-sm: #dee2e6 !default;
+
+$local-tasks-primary-margin: 1rem 0 !default;
+$local-tasks-secondary-margin: 0 0 1rem 0 !default;
+
+$table-striped-bg: #f9f9f9 !default;

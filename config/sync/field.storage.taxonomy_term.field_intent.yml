@@ -1,0 +1,19 @@
+uuid: 8cda1ed3-157c-43e9-aff3-01f9bc5fa6f4
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - text
+id: taxonomy_term.field_intent
+field_name: field_intent
+entity_type: taxonomy_term
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

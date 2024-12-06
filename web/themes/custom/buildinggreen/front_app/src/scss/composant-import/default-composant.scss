@@ -1,0 +1,28 @@
+//
+// Page Article.
+// --------------------------------------------------
+
+
+// General.
+// --------------------------------------------------
+// Import variables + Bootstrap.
+@import 'composant-styles/base';
+
+
+// Page regions.
+// --------------------------------------------------
+@import 'composant-styles/regions/header';
+@import 'composant-styles/regions/body';
+@import 'composant-styles/regions/footer';
+
+
+
+
+// Page content blocks = Paragraphs.
+// --------------------------------------------------
+
+
+// Page layout (overwrite last position).
+// --------------------------------------------------
+@import 'composant-styles/page-layouts/homepage';
+@import 'composant-styles/modals/_modal-post-question';

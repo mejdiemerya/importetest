@@ -4,11 +4,16 @@ status: true
 dependencies:
   config:
     - filter.format.restricted_html
+    - storage.storage_type.modal_list_forums
+    - storage.storage_type.other_rating_systems
+    - storage.storage_type.quick_link
   module:
     - comment
     - contact
     - filter
+    - media
     - search
+    - storage
     - system
 _core:
   default_config_hash: 6WavjUYXIegP9AAg2zXGx54MWIVoomC3SZhNiqe-Dyk
@@ -20,5 +25,11 @@ permissions:
   - 'access comments'
   - 'access content'
   - 'access site-wide contact form'
+  - 'access user profiles'
   - 'search content'
   - 'use text format restricted_html'
+  - 'view media'
+  - 'view published modal_list_forums storage entities'
+  - 'view published other_rating_systems storage entities'
+  - 'view published quick_link storage entities'
+  - 'view published storage entities'

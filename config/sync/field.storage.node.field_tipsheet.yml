@@ -1,0 +1,19 @@
+uuid: b7026a25-c08e-489b-b868-0ce7e39a5adc
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_tipsheet
+field_name: field_tipsheet
+entity_type: node
+type: entity_reference
+settings:
+  target_type: node
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

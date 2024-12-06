@@ -1,0 +1,25 @@
+uuid: 88730bc2-f37f-401e-b37f-d9709cd05e3e
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.top-navigation
+  module:
+    - system
+  theme:
+    - buildinggreen
+id: buildinggreen_topnavigation
+theme: buildinggreen
+region: nav_additional
+weight: -10
+provider: null
+plugin: 'system_menu_block:top-navigation'
+settings:
+  id: 'system_menu_block:top-navigation'
+  label: 'Top navigation'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

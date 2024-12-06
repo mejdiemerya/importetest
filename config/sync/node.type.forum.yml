@@ -1,0 +1,23 @@
+uuid: e9c544a7-a1b1-4f2c-94d8-21e71b538e5d
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+  enforced:
+    module:
+      - forum
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+_core:
+  default_config_hash: Jy_D2Nfllzh1aAdW2D4HIK4SgiSDoEU72fpN89lmUro
+name: 'Forum topic'
+type: forum
+description: 'A <em>forum topic</em> starts a new discussion thread within a forum.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

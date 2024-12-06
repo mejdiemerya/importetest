@@ -1,0 +1,73 @@
+uuid: 63c52cde-ff33-434c-9a2f-840ed045a4a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.hero.field_description
+    - field.field.paragraph.hero.field_lien_leeduser_tour
+    - field.field.paragraph.hero.field_lien_pricing
+    - field.field.paragraph.hero.field_title
+    - field.field.paragraph.hero.field_video
+    - paragraphs.paragraphs_type.hero
+  module:
+    - link
+    - text
+    - text_field_formatter
+id: paragraph.hero.default
+targetEntityType: paragraph
+bundle: hero
+mode: default
+content:
+  field_description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_lien_leeduser_tour:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_lien_pricing:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_title:
+    type: text_field_formatter
+    label: hidden
+    settings:
+      wrap_tag: h1
+      wrap_class: text-left
+      wrap_attributes: ''
+      override_link_label: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_video:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden: {  }

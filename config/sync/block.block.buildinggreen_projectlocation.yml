@@ -1,0 +1,24 @@
+uuid: d95c6ca8-aac7-4fb9-8cfc-8eb82fdd9516
+langcode: en
+status: false
+dependencies:
+  config:
+    - facets.facet.location
+  module:
+    - facets
+  theme:
+    - buildinggreen
+id: buildinggreen_projectlocation
+theme: buildinggreen
+region: sidebar_first
+weight: -9
+provider: null
+plugin: 'facet_block:location'
+settings:
+  id: 'facet_block:location'
+  label: 'Project location'
+  label_display: visible
+  provider: facets
+  context_mapping: {  }
+  block_id: buildinggreen_projectlocation
+visibility: {  }

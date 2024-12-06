@@ -1,29 +1,65 @@
 _core:
   default_config_hash: 4GIX5Esnc_umpXUBj4IIocRX7Mt5fPhm4AgXfE3E56E
 module:
+  add_content_by_bundle: 0
+  admin_toolbar: 0
+  admin_toolbar_tools: 0
   announcements_feed: 0
   automated_cron: 0
   big_pipe: 0
   block: 0
   block_content: 0
+  bpmn_io: 0
   breakpoint: 0
   ckeditor5: 0
   comment: 0
   config: 0
   contact: 0
+  content_moderation: 0
   contextual: 0
+  custom_forums: 0
   datetime: 0
   dblog: 0
+  devel: 0
+  display_link_plus: 0
+  draggableviews: 0
   dynamic_page_cache: 0
+  eca: 0
+  eca_access: 0
+  eca_base: 0
+  eca_cache: 0
+  eca_cm: 0
+  eca_config: 0
+  eca_content: 0
+  eca_endpoint: 0
+  eca_file: 0
+  eca_flag: 0
+  eca_log: 0
+  eca_misc: 0
+  eca_modeller_bpmn: 0
+  eca_queue: 0
+  eca_render: 0
+  eca_tamper: 0
+  eca_ui: 0
+  eca_user: 0
+  eca_views: 0
+  eca_workflow: 0
   editor: 0
+  entity_reference_revisions: 0
+  facets: 0
+  facets_rest: 0
+  facets_searchbox_widget: 0
   field: 0
   field_ui: 0
   file: 0
   filter: 0
+  flag: 0
   help: 0
   history: 0
   image: 0
   link: 0
+  media: 0
+  media_library: 0
   menu_link_content: 0
   menu_ui: 0
   mysql: 0
@@ -32,18 +68,43 @@ module:
   page_cache: 0
   path: 0
   path_alias: 0
+  quick_links: 0
+  rate: 0
+  rest: 0
   search: 0
+  search_api: 0
+  search_api_db: 0
+  search_api_db_defaults: 0
+  search_api_page: 0
+  serialization: 0
   shortcut: 0
+  storage: 0
+  svg_image_field: 0
+  svg_image_field_media_bundle: 0
   system: 0
+  tamper: 0
   taxonomy: 0
   text: 0
+  text_field_formatter: 0
+  token: 0
   toolbar: 0
+  twig_tweak: 0
   update: 0
+  upgrade_status: 0
   user: 0
+  views_load_more: 0
   views_ui: 0
+  votingapi: 0
+  workflows: 0
+  eca_form: 1
+  forum: 1
   views: 10
+  paragraphs: 11
   standard: 1000
 theme:
   olivero: 0
   claro: 0
+  buildinggreen: 0
+  stable9: 0
+  bootstrap5: 0
 profile: standard

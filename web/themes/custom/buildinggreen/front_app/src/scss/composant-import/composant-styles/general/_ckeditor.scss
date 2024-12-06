@@ -1,0 +1,110 @@
+// Ckeditor Special Mixin
+// -----------------------------------------------------------------------------
+
+@mixin CKEditor() {
+
+  h1 {}
+
+  h2 {}
+
+  h3 {}
+
+  h4 {}
+
+  h5 {}
+
+  h6 {}
+
+  p {}
+
+  ul:not(.slick-dots) {
+    li {}
+  }
+
+  ol {
+    li {}
+  }
+
+  blockquote {
+    p {}
+  }
+
+  img.align-left {}
+
+  img.align-right {}
+
+  img.align-center {}
+
+  p+p {}
+
+
+}
+
+
+// Styles in CKEditor edit forms textarea
+// -----------------------------------------------------------------------------
+.text-formatted {
+  @include CKEditor();
+}
+
+
+
+.magnify {
+  @include font-size($p-font-sizes);
+  h1 {
+    @include font-size($h1-font-sizes);
+    letter-spacing: -0.00625em;
+    @include MQ(SMplus) {
+      letter-spacing: -0.0125em;
+    }
+  }
+  h2 {
+    @include font-size($h2-font-sizes);
+    letter-spacing: -0.00625em;
+    @include MQ(SMplus) {
+      letter-spacing: -0.0125em;
+    }
+    &.comment-form{
+      margin-top: 25px;
+      margin-bottom: 12.5px;
+    }
+  }
+  h3 {
+    @include font-size($h3-font-sizes);
+  }
+
+  h4 {
+    @include font-size($h4-font-sizes);
+  }
+
+  h5 {
+    @include font-size($h5-font-sizes);
+  }
+
+  h6 {
+    @include font-size($h6-font-sizes);
+  }
+
+  // Exceptions to responsive text behavior
+  .region-sidebar-first,
+  .region-sidebar-second,
+  .alert,
+  .credit-page-nav,
+  .panel,
+  .credit-browser,
+  .credit-selector,
+  .tabledrag-toggle-weight {
+    font-size: $font-size-base;
+  }
+
+  .panel-title {
+    font-size: ceil(($font-size-base * 1.125));
+  }
+
+  // Smaller H2 for blocks
+  h2.block-title {
+    font-size: $font-size-h3;
+    font-weight: 400;
+    margin-top: 0;
+  }
+}

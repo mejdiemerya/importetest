@@ -1,0 +1,22 @@
+uuid: edacc19f-94f4-4fc7-909f-fb72e197105c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_question
+    - node.type.forum
+  module:
+    - text
+id: node.forum.field_question
+field_name: field_question
+entity_type: node
+bundle: forum
+label: 'Your question/comment'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long
