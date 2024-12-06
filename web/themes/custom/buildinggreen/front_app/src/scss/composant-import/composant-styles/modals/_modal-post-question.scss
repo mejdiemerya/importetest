@@ -3,12 +3,14 @@
   .modal-dialog {
     @include MQ(Mplus) {
       width: 800px;
+      max-width: 800px !important;
       #modal-option1 {
-        //border-right: 1px solid $gray-midlight;
+        border-right: 1px solid #ccc;
       }
     }
     @include MQ(XLplus) {
       width: 900px;
+      max-width: 900px !important;
     }
   }
   .modal-header {
@@ -31,10 +33,13 @@
       margin-bottom: 0.15em;
     }
     .supertitle {
-      background-color: $brand-primary;
+      //background-color: $brand-primary;
     }
   }
 }
 .modal-backdrop{
   position:relative;
+}
+.modal{
+  background: rgba(0,0,0,0.7);
 }
