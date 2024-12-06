@@ -1,9 +1,0 @@
-uuid: d6446322-58d7-4c04-8ace-aaae65395d25
-langcode: en
-status: true
-dependencies: {  }
-id: leeduser_basic_member
-label: 'LEEDuser Basic Member'
-weight: 8
-is_admin: null
-permissions: {  }

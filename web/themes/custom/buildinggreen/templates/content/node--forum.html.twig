@@ -80,6 +80,7 @@
         {% endif %}
           <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'credit_id':content.title_forum['#credit_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
       </div>
+      <a class="mt10 mb10 btn btn-wrap wide btn-midtone text-left btn-icon" style="padding: 10px 15px;" href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}"><i class="glyphicon glyphicon-leaf"></i> <div>See LEEDuser&rsquo;s guidance on {{ content.title_forum['#text'] }}>&nbsp;&raquo;</div></a>
 
     {% elseif content.title_forum['#tipsheet'] %}
       <div class="spotlight btn-group-vertical wide text-left mt05" role="group" class="wide" aria-label="...">
@@ -92,6 +93,7 @@
         {% endif %}
         <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'tipsheet_id':content.title_forum['#tipsheet_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
       </div>
+      <a class="mt10 btn btn-lg btn-wrap wide btn-success text-left btn-icon" style="padding: 10px 15px;" href="/node/{{ content.title_forum['#tipsheet_id'] }}"><i class="glyphicon glyphicon-leaf"></i> <div>View <strong><em>{{ content.title_forum['#text'] }}</em></strong>&nbsp;&raquo;</div></a>
 
     {% else %}
       <div class="spotlight btn-group-vertical wide text-left mt05" role="group" class="wide" aria-label="...">
