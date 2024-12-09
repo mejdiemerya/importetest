@@ -35,6 +35,15 @@ events:
         id: Activity_05kur45
         condition: Flow_00gc5rd
 conditions:
+  Flow_0hgfrzy:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: '[mail]'
+      right: '1'
+      operator: greaterthan
+      type: numeric
   Flow_00gc5rd:
     plugin: eca_entity_field_value
     configuration:
@@ -45,15 +54,6 @@ conditions:
       operator: equal
       type: value
       entity: comment
-  Flow_0hgfrzy:
-    plugin: eca_count
-    configuration:
-      negate: false
-      case: false
-      left: '[mail]'
-      right: '1'
-      operator: greaterthan
-      type: numeric
 gateways:
   Gateway_0spfbys:
     type: 0

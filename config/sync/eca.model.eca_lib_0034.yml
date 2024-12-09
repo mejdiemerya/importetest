@@ -15,34 +15,6 @@ modeldata: |
   <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
     <bpmn2:process id="eca_lib_0034" name="Notifiction post level" isExecutable="true" camunda:versionTag="v1">
       <bpmn2:extensionElements />
-      <bpmn2:sequenceFlow id="Flow_00gc5rd" camunda:modelerTemplate="org.drupal.condition.eca_entity_field_value" sourceRef="Event_0j9qs8u" targetRef="Activity_05kur45">
-        <bpmn2:extensionElements>
-          <camunda:properties>
-            <camunda:property name="pluginid" value="eca_entity_field_value" />
-          </camunda:properties>
-          <camunda:field name="field_name">
-            <camunda:string>status</camunda:string>
-          </camunda:field>
-          <camunda:field name="operator">
-            <camunda:string>equal</camunda:string>
-          </camunda:field>
-          <camunda:field name="expected_value">
-            <camunda:string>1</camunda:string>
-          </camunda:field>
-          <camunda:field name="type">
-            <camunda:string>value</camunda:string>
-          </camunda:field>
-          <camunda:field name="case">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-          <camunda:field name="negate">
-            <camunda:string>no</camunda:string>
-          </camunda:field>
-          <camunda:field name="entity">
-            <camunda:string>comment</camunda:string>
-          </camunda:field>
-        </bpmn2:extensionElements>
-      </bpmn2:sequenceFlow>
       <bpmn2:task id="Activity_05kur45" name="view of user that flagged the node" camunda:modelerTemplate="org.drupal.action.eca_render_views:views">
         <bpmn2:extensionElements>
           <camunda:properties>
@@ -70,8 +42,8 @@ modeldata: |
             <camunda:string>append</camunda:string>
           </camunda:field>
         </bpmn2:extensionElements>
-        <bpmn2:incoming>Flow_00gc5rd</bpmn2:incoming>
         <bpmn2:incoming>Flow_1kw6a95</bpmn2:incoming>
+        <bpmn2:incoming>Flow_00gc5rd</bpmn2:incoming>
         <bpmn2:outgoing>Flow_0pba4di</bpmn2:outgoing>
       </bpmn2:task>
       <bpmn2:task id="Activity_0mz7evk" name="strip tag" camunda:modelerTemplate="org.drupal.action.eca_tamper:strip_tags">
@@ -208,6 +180,34 @@ modeldata: |
         </bpmn2:extensionElements>
       </bpmn2:sequenceFlow>
       <bpmn2:sequenceFlow id="Flow_0f151ta" sourceRef="Activity_0vxmhif" targetRef="Gateway_0spfbys" />
+      <bpmn2:sequenceFlow id="Flow_00gc5rd" camunda:modelerTemplate="org.drupal.condition.eca_entity_field_value" sourceRef="Event_0j9qs8u" targetRef="Activity_05kur45">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_entity_field_value" />
+          </camunda:properties>
+          <camunda:field name="field_name">
+            <camunda:string>status</camunda:string>
+          </camunda:field>
+          <camunda:field name="operator">
+            <camunda:string>equal</camunda:string>
+          </camunda:field>
+          <camunda:field name="expected_value">
+            <camunda:string>1</camunda:string>
+          </camunda:field>
+          <camunda:field name="type">
+            <camunda:string>value</camunda:string>
+          </camunda:field>
+          <camunda:field name="case">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="negate">
+            <camunda:string>no</camunda:string>
+          </camunda:field>
+          <camunda:field name="entity">
+            <camunda:string>comment</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+      </bpmn2:sequenceFlow>
     </bpmn2:process>
     <bpmndi:BPMNDiagram id="sid-d41da86e-2609-4878-b41a-6db0c012ee72">
       <bpmndi:BPMNPlane id="sid-daa05561-102b-4750-b900-a7a04005548c" bpmnElement="eca_lib_0034">

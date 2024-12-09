@@ -51,6 +51,7 @@ class TopicForm extends FormBase {
       '#type' => 'select',
       '#empty_option' => t('Rating system (optional)'),
       '#options' =>  [],
+      '#attributes' => ['disabled' => 'disabled'],
       '#ajax' => [
         'callback' => '::updateCreditCategoriesModal',
         'wrapper' => 'credit_category_modal',
@@ -62,6 +63,7 @@ class TopicForm extends FormBase {
       '#type' => 'select',
       '#empty_option' =>  t('Credit category (optional)'),
       '#options' => [],
+      '#attributes' => ['disabled' => 'disabled'],
       '#ajax' => [
         'callback' => '::updateCreditsModal',
         'wrapper' => 'credit_modal',
@@ -74,6 +76,7 @@ class TopicForm extends FormBase {
       '#suffix' => '</div>',
       '#empty_option' =>  t('Credit (optional)'),
       '#options' =>[],
+      '#attributes' => ['disabled' => 'disabled'],
       '#ajax' => [
         'callback' =>'::ajaxSubmitCallback',
         'event' => 'change',
@@ -92,14 +95,20 @@ class TopicForm extends FormBase {
     $leed_version = $form_state->getValue('leed_version_modal');
     if (!empty($leed_version)) {
       $form['modal']['rating_system_modal']['#options'] = $this->getRatingSystems($leed_version);
+      unset($form['modal']['rating_system_modal']['#attributes']['disabled']);
+
     }
     $rating_system = $form_state->getValue('rating_system_modal');
     if (!empty($rating_system)) {
       $form['modal']['credit_category_modal']['#options'] = $this->getCreditCategories($rating_system);
+      unset($form['modal']['credit_category_modal']['#attributes']['disabled']);
+
     }
     $credit_category = $form_state->getValue('credit_category_modal');
     if (!empty($credit_category)) {
       $form['modal']['credit_modal']['#options'] = $this->getCredits($credit_category);
+      unset($form['modal']['credit_modal']['#attributes']['disabled']);
+
     }
 
 

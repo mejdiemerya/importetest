@@ -37,17 +37,8 @@ events:
       type: 'node forum'
     successors:
       -
-        id: Gateway_0r5svti
-        condition: Flow_1wb4rd4
-  Event_0j9qs8u:
-    plugin: 'content_entity:insert'
-    label: 'add topic'
-    configuration:
-      type: 'node forum'
-    successors:
-      -
-        id: Gateway_0r5svti
-        condition: Flow_17uwwn5
+        id: Gateway_0c2lcx9
+        condition: Flow_1o8do7v
 conditions:
   Flow_0hgfrzy:
     plugin: eca_count
@@ -58,7 +49,7 @@ conditions:
       right: '1'
       operator: greaterthan
       type: numeric
-  Flow_17uwwn5:
+  Flow_1o8do7v:
     plugin: eca_entity_field_value
     configuration:
       negate: false
@@ -68,15 +59,11 @@ conditions:
       operator: equal
       type: value
       entity: node
-  Flow_1wb4rd4:
-    plugin: eca_entity_field_value
+  Flow_0doa7q6:
+    plugin: eca_entity_field_value_empty
     configuration:
       negate: false
-      case: false
-      expected_value: '1'
-      field_name: status
-      operator: equal
-      type: value
+      field_name: field_last_comment_author
       entity: node
 gateways:
   Gateway_0spfbys:
@@ -103,6 +90,12 @@ gateways:
       -
         id: Activity_132bfct
         condition: ''
+  Gateway_0c2lcx9:
+    type: 0
+    successors:
+      -
+        id: Gateway_0r5svti
+        condition: Flow_0doa7q6
 actions:
   Activity_05kur45:
     plugin: 'eca_render_views:views'
