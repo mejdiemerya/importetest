@@ -203,6 +203,7 @@ class LeeduserSearchForm extends FormBase {
       '#type' => 'select',
       '#empty_option' => t('Rating system (optional)'),
       '#options' =>  [],
+      '#attributes' => ['disabled' => 'disabled'],
       '#ajax' => [
         'callback' => '::updateCreditCategories',
         'wrapper' => 'credit_category',
@@ -214,6 +215,7 @@ class LeeduserSearchForm extends FormBase {
       '#type' => 'select',
       '#empty_option' =>  t('Credit category (optional)'),
       '#options' => [],
+      '#attributes' => ['disabled' => 'disabled'],
       '#ajax' => [
         'callback' => '::updateCredits',
         'wrapper' => 'credit',
@@ -226,6 +228,7 @@ class LeeduserSearchForm extends FormBase {
       '#suffix' => '</div>',
       '#empty_option' =>  t('Credit (optional)'),
       '#options' =>[],
+      '#attributes' => ['disabled' => 'disabled'],
     );
 
     $form['location_filter_fieldset'] = array(
@@ -253,6 +256,7 @@ class LeeduserSearchForm extends FormBase {
       '#prefix' => '<div id="location_country">',
       '#suffix' => '</div>',
       '#options' => [],
+      '#attributes' => ['disabled' => 'disabled'],
     );
     $form['show_results'] = [
       '#type' => 'submit',
@@ -268,18 +272,26 @@ class LeeduserSearchForm extends FormBase {
     $selected_region = $form_state->getValue('location_region');
     if (!empty($selected_region)) {
       $form['location_filter_fieldset']['location_country']['#options'] = $this->getCountriesByRegion($selected_region);
+      unset($form['location_filter_fieldset']['location_country']['#attributes']['disabled']);
+
     }
     $leed_version = $form_state->getValue('leed_version');
     if (!empty($leed_version)) {
       $form['credit_filter_fieldset']['rating_system']['#options'] = $this->getRatingSystems($leed_version);
+      unset($form['credit_filter_fieldset']['rating_system']['#attributes']['disabled']);
+
     }
     $rating_system = $form_state->getValue('rating_system');
     if (!empty($rating_system)) {
       $form['credit_filter_fieldset']['credit_category']['#options'] = $this->getCreditCategories($rating_system);
+      unset($form['credit_filter_fieldset']['credit_category']['#attributes']['disabled']);
+
     }
     $credit_category = $form_state->getValue('credit_category');
     if (!empty($credit_category)) {
       $form['credit_filter_fieldset']['credit']['#options'] = $this->getCredits($credit_category);
+      unset($form['credit_filter_fieldset']['credit']['#attributes']['disabled']);
+
     }
     return $form;
   }

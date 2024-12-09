@@ -5,6 +5,7 @@ use Drupal\comment\Entity\Comment;
 use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
 use Drupal\flag\FlaggingInterface;
 use Drupal\node\Entity\Node;
@@ -340,6 +341,7 @@ function custom_forums_entity_delete(EntityInterface $entity) {
 
 function custom_forums_form_alter(&$form, &$form_state, $form_id)
 {
+  $current_user = \Drupal::currentUser();
 
   if ($form_id == 'comment_comment_forum_form') {
     $comment = $form_state->getFormObject()->getEntity();
@@ -347,7 +349,6 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
 
 //$node=Node::load($entity_id);
     // Load the current user.
-    $current_user = \Drupal::currentUser();
     $form['title'] = [
       '#type' => 'markup',
       '#markup' => '<h2 class="title comment-form">' . t('Post a reply ') . '</h2>',
@@ -381,7 +382,13 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
     if (isset($form['actions']['preview'])) {
       unset($form['actions']['preview']);
     }
+    if (!$current_user->hasPermission('administer site configuration')) {
+      if (isset($form['comment_body']['widget'])) {
+        $form['comment_body']['widget']['#after_build'][] = '_allowed_formats_remove_textarea_help';
+      }
+    }
   }
+
   if ($form_id == 'node_forum_form' || $form_id == 'node_forum_edit_form') {
     // Remove the Preview button if it exists.
     if (isset($form['actions']['preview'])) {
@@ -466,8 +473,25 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
       }
 
     }
-
+    if (!$current_user->hasPermission('administer site configuration')) {
+      if (isset($form['field_question']['widget'])) {
+        $form['field_question']['widget']['#after_build'][] = '_allowed_formats_remove_textarea_help';
+      }
+    }
   }
+}
+function _allowed_formats_remove_textarea_help($form_element, FormStateInterface $form_state) {
+
+  if (isset($form_element[0]['format'])) {
+    // All this stuff is needed to hide the help text.
+    unset($form_element[0]['format']['guidelines']);
+    unset($form_element[0]['format']['help']);
+    unset($form_element[0]['format']['#type']);
+    unset($form_element[0]['format']['#theme_wrappers']);
+    $form_element[0]['format']['format']['#access'] = FALSE;
+  }
+
+  return $form_element;
 }
 
 function custom_forums_flagging_presave(FlaggingInterface $flagging) {
