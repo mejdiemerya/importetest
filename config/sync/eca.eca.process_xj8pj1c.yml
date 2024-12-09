@@ -70,7 +70,7 @@ gateways:
     type: 0
     successors:
       -
-        id: Activity_0fsbqbf
+        id: Activity_02afs5e
         condition: Flow_0hgfrzy
   Gateway_1scpnr2:
     type: 0
@@ -139,7 +139,7 @@ actions:
     plugin: action_send_email_action
     label: 'send email'
     configuration:
-      recipient: '[topic]'
+      recipient: '[topic_1]'
       subject: 'New Question'
       message: |-
         From: [node:author:display-name]
@@ -150,7 +150,10 @@ actions:
 
         Post a reply: <a href="/node/[node:nid]">[node:title]</a>
       replace_tokens: true
-    successors: {  }
+    successors:
+      -
+        id: Gateway_0spfbys
+        condition: ''
   Activity_0vxmhif:
     plugin: 'eca_tamper:array_filter'
     label: filter
@@ -190,4 +193,17 @@ actions:
     successors:
       -
         id: Gateway_1scpnr2
+        condition: ''
+  Activity_02afs5e:
+    plugin: eca_list_remove
+    label: 'list remove item'
+    configuration:
+      value: ''
+      token_name: topic_1
+      method: first
+      index: ''
+      list_token: topic
+    successors:
+      -
+        id: Activity_0fsbqbf
         condition: ''

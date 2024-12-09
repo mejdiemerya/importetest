@@ -35,15 +35,6 @@ events:
         id: Activity_05kur45
         condition: Flow_00gc5rd
 conditions:
-  Flow_0hgfrzy:
-    plugin: eca_count
-    configuration:
-      negate: false
-      case: false
-      left: '[mail]'
-      right: '1'
-      operator: greaterthan
-      type: numeric
   Flow_00gc5rd:
     plugin: eca_entity_field_value
     configuration:
@@ -54,13 +45,22 @@ conditions:
       operator: equal
       type: value
       entity: comment
+  Flow_0n1ecol:
+    plugin: eca_count
+    configuration:
+      negate: false
+      case: false
+      left: '[mail]'
+      right: '1'
+      operator: greaterthan
+      type: numeric
 gateways:
   Gateway_0spfbys:
     type: 0
     successors:
       -
-        id: Activity_0fsbqbf
-        condition: Flow_0hgfrzy
+        id: Activity_1s80m3z
+        condition: Flow_0n1ecol
 actions:
   Activity_05kur45:
     plugin: 'eca_render_views:views'
@@ -104,7 +104,7 @@ actions:
     plugin: action_send_email_action
     label: 'send email'
     configuration:
-      recipient: '[mail]'
+      recipient: '[mail_1]'
       subject: 'New Comment'
       message: |-
         From: [comment:author]
@@ -112,7 +112,10 @@ actions:
         [comment:body]
         Post a reply: <a href="/node/[comment:entity:nid]">[comment:entity]</a>
       replace_tokens: true
-    successors: {  }
+    successors:
+      -
+        id: Gateway_0spfbys
+        condition: ''
   Activity_0vxmhif:
     plugin: 'eca_tamper:array_filter'
     label: filter
@@ -122,4 +125,17 @@ actions:
     successors:
       -
         id: Gateway_0spfbys
+        condition: ''
+  Activity_1s80m3z:
+    plugin: eca_list_remove
+    label: 'list remove'
+    configuration:
+      value: ''
+      token_name: mail_1
+      method: first
+      index: ''
+      list_token: mail
+    successors:
+      -
+        id: Activity_0fsbqbf
         condition: ''

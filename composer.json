@@ -48,6 +48,7 @@
         "drupal/facets": "^2.0",
         "drupal/flag": "^4.0@beta",
         "drupal/forum": "^1.0",
+        "drupal/mailsystem": "^4.5",
         "drupal/paragraphs": "^1.18",
         "drupal/quick_links": "^2.0",
         "drupal/search_api": "^1.37",
