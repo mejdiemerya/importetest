@@ -16,6 +16,12 @@ use Drupal\user\Entity\Role;
 
 function custom_forums_entity_extra_field_info() {
   $extra = [];
+  $extra['node']['blog']['display']['read_more_comment_links'] = [
+    'label' => t('Read More and Comments Links'),
+    'description' => t('Displays the "Read more" and "Comment comments" links.'),
+    'weight' => 0,
+    'visible' => TRUE,
+  ];
 // Define an extra field for the last comment author role.
   $extra['user']['user']['display']['roles'] = [
     'label' => t('User Role'),
@@ -283,6 +289,42 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
           '</a></strong></div>',
       ];
     }
+  }
+  if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'blog') {
+    // Check if the extra field should be displayed.
+    if (isset($build['#view_mode']) && $build['#view_mode'] === $view_mode) {
+
+      // Prepare the "Read more" link.
+      $read_more_link = [
+        '#type' => 'link',
+        '#title' => t('Read more »'),
+        '#url' => $entity->toUrl('canonical'),
+        '#attributes' => ['class' => ['read-more-link']],
+
+      ];
+
+      // Prepare the "Comments" link if there are comments.
+      $comment_count = $entity->get('comment')->comment_count ?? 0;
+      $comments_link = NULL;
+      if ($comment_count > 0) {
+        $comments_link = [
+          '#type' => 'link',
+          '#title' => t('[@count comments]', ['@count' => $comment_count]),
+          '#url' => $entity->toUrl('canonical')->setOption('fragment', 'comments'),
+          '#attributes' => ['class' => ['comments-link']],
+
+        ];
+      }
+// Use the renderer service to render the links.
+      $renderer = \Drupal::service('renderer');
+      $read_more_markup = $renderer->render($read_more_link);
+      $comments_markup = $comments_link ? $renderer->render($comments_link) : '';
+      // Add the links to the render array.
+     if($display->getComponent('read_more_comment_links')){
+      $build['read_more_comment_links'] = [
+        '#markup' =>$comments_markup . ' ' . $read_more_markup,
+      ];
+    }}
   }
 }
 

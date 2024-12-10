@@ -24,16 +24,17 @@ content:
       view_mode: default
       pager_id: 0
     third_party_settings: {  }
-    weight: 2
+    weight: 0
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 1
     region: content
 hidden:
   body: true
   field_author: true
   field_dek: true
+  read_more_comment_links: true
   search_api_excerpt: true
   uid: true

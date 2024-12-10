@@ -39,12 +39,13 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
-  links:
+  read_more_comment_links:
     settings: {  }
     third_party_settings: {  }
     weight: 3
     region: content
 hidden:
   comment: true
+  links: true
   search_api_excerpt: true
   uid: true
