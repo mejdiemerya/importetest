@@ -10,6 +10,7 @@ module.exports = function () {
         "default-composant",
         "hero-composant",
         "forum-composant",
+        "blog-composant",
       ],
       quality: ["src/scss/**/*.scss"],
       dest: "./dist/assets/composant/",

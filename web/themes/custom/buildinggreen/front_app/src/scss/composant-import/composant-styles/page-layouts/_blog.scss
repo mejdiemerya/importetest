@@ -1,0 +1,20 @@
+.node-type-blog {
+  .field-name-field-author .field-items .field-item {
+    font-style: italic;
+    &::before {
+      content: "by ";
+    }
+    margin-bottom: 1em;
+  }
+  .field-name-field-date-published {
+    margin-bottom: 1em;
+  }
+  //.print_html { // Hide printer friendly link
+  //  display: none;
+  //}
+  @include MQ(Lneg) {
+    h1.page-header {
+      margin-bottom: 0;
+    }
+  }
+}
