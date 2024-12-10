@@ -1,0 +1,29 @@
+uuid: dec93238-63f2-40cb-a7a1-bff66c26cce6
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.blog
+  module:
+    - system
+    - views
+  theme:
+    - buildinggreen
+id: buildinggreen_views_block__blog_block_1
+theme: buildinggreen
+region: sidebar_second
+weight: 0
+provider: null
+plugin: 'views_block:blog-block_1'
+settings:
+  id: 'views_block:blog-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /blog
