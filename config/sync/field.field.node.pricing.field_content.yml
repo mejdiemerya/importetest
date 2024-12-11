@@ -1,0 +1,34 @@
+uuid: 26090def-6c51-493a-8624-c54d5472cb64
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.pricing
+    - paragraphs.paragraphs_type.hero_pricing
+  module:
+    - entity_reference_revisions
+id: node.pricing.field_content
+field_name: field_content
+entity_type: node
+bundle: pricing
+label: Content
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      hero_pricing: hero_pricing
+    negate: 0
+    target_bundles_drag_drop:
+      hero:
+        weight: 2
+        enabled: false
+      hero_pricing:
+        weight: 4
+        enabled: true
+field_type: entity_reference_revisions
