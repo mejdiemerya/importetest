@@ -8,6 +8,7 @@ dependencies:
   module:
     - node
     - user
+    - views_load_more
 id: blog
 label: Blog
 module: views
@@ -135,8 +136,7 @@ display:
       style:
         type: default
         options:
-          grouping: {  }
-          row_class: ''
+          row_class: border-dotted-bottom
           default_row_class: true
           uses_fields: false
       row:
@@ -153,7 +153,21 @@ display:
           replica: false
           query_tags: {  }
       relationships: {  }
-      header: {  }
+      css_class: ''
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<h1 class="page-header">Blog</h1>'
+            format: basic_html
+          tokenize: false
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -257,10 +271,27 @@ display:
           separator: ''
           hide_empty: false
       defaults:
+        css_class: false
         pager: false
         style: false
         row: false
         fields: false
+        header: false
+      css_class: well
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<h2 class="block-title">Recent blog posts</h2>'
+            format: full_html
+          tokenize: false
       display_extenders: {  }
     cache_metadata:
       max-age: -1
@@ -277,18 +308,13 @@ display:
     position: 1
     display_options:
       pager:
-        type: full
+        type: load_more
         options:
           offset: 0
           pagination_heading_level: h4
           items_per_page: 15
           total_pages: null
           id: 0
-          tags:
-            next: 'Next ›'
-            previous: '‹ Previous'
-            first: '« First'
-            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -297,9 +323,31 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          quantity: 9
+          more_button_text: 'Load more'
+          end_text: ''
+          advanced:
+            content_selector: ''
+            pager_selector: ''
+          effects:
+            type: ''
+            speed: slow
       defaults:
         pager: false
+        header: false
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: false
+          content:
+            value: '<h1 class="page-header">Blog</h1>'
+            format: full_html
+          tokenize: false
       display_extenders: {  }
       path: blog
     cache_metadata:

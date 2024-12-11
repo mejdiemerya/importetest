@@ -1,4 +1,4 @@
-uuid: 59d4e8e3-6fb3-431a-b006-4215c2cfb478
+uuid: e376a9d7-54c3-4b6f-9ce4-7d68b62b293a
 langcode: en
 status: true
 dependencies:
@@ -9,8 +9,8 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
-name: 'Blog post'
-type: blog
+name: Pricing
+type: pricing
 description: null
 help: null
 new_revision: true

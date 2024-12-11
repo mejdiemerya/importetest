@@ -159,6 +159,12 @@ $link-transition-off: all 400ms ease-out;
   //@include bi-font-family(Poppins);
   //@include font-size(36px);
   //font-weight: 400;
+  color: #4d4d4d;
+  font-weight: 300;
+  font-size: 40px;
+  margin-top: 25px;
+  margin-bottom: 12.5px;
+  line-height: 1.1;
 }
 
 @mixin h3() {
@@ -168,6 +174,7 @@ $link-transition-off: all 400ms ease-out;
   color: #2D5751;
   margin-top: 25px;
   margin-bottom: 12.5px;
+  font-weight: 600;
 }
 
 @mixin h5() {

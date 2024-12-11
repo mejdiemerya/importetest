@@ -1,0 +1,27 @@
+uuid: 96ff1e97-aff9-4778-95fc-71c7744b8b2c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.pricing.field_content
+    - node.type.pricing
+  module:
+    - entity_reference_revisions
+id: node.pricing.default
+targetEntityType: node
+bundle: pricing
+mode: default
+content:
+  field_content:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  links: true
+  search_api_excerpt: true
+  uid: true

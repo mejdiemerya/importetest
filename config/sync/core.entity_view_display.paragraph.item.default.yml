@@ -1,0 +1,50 @@
+uuid: 662a595e-a97f-4d6c-9bff-ca243b19016d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.item.field_description_item
+    - field.field.paragraph.item.field_price
+    - field.field.paragraph.item.field_title_item
+    - paragraphs.paragraphs_type.item
+  module:
+    - text
+    - text_field_formatter
+id: paragraph.item.default
+targetEntityType: paragraph
+bundle: item
+mode: default
+content:
+  field_description_item:
+    type: text_field_formatter
+    label: hidden
+    settings:
+      wrap_tag: div
+      wrap_class: pb-2
+      wrap_attributes: ''
+      override_link_label: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_price:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title_item:
+    type: text_field_formatter
+    label: hidden
+    settings:
+      wrap_tag: h2
+      wrap_class: ''
+      wrap_attributes: ''
+      override_link_label: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true
