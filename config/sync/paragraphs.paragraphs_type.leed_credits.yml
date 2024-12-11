@@ -1,0 +1,10 @@
+uuid: 63ec801e-f96a-449d-8c03-1f0794d17ed3
+langcode: en
+status: true
+dependencies: {  }
+id: leed_credits
+label: 'LEED Credits'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

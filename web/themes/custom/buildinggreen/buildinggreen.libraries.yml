@@ -32,3 +32,8 @@ basic-page:
   css:
     theme:
       front_app/dist/assets/composant/basic-page-composant/basic-page-composant.min.css: { minified: true }
+
+credits-composant:
+  css:
+    theme:
+      front_app/dist/assets/composant/credits-composant/credits-composant.min.css: { minified: true }

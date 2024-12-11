@@ -13,6 +13,7 @@ module.exports = function () {
         "forum-composant",
         "blog-composant",
         "basic-page-composant",
+        "credits-composant",
       ],
       quality: ["src/scss/**/*.scss"],
       dest: "./dist/assets/composant/",

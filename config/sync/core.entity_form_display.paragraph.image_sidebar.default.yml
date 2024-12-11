@@ -3,25 +3,23 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.paragraph.image_sidebar.field_image
+    - field.field.paragraph.image_sidebar.field_image_phara
     - field.field.paragraph.image_sidebar.field_lien
-    - image.style.thumbnail
     - paragraphs.paragraphs_type.image_sidebar
   module:
-    - image
     - link
+    - media_library
 id: paragraph.image_sidebar.default
 targetEntityType: paragraph
 bundle: image_sidebar
 mode: default
 content:
-  field_image:
-    type: image_image
-    weight: 0
+  field_image_phara:
+    type: media_library_widget
+    weight: 2
     region: content
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
+      media_types: {  }
     third_party_settings: {  }
   field_lien:
     type: link_default
