@@ -1,19 +1,18 @@
-uuid: 26090def-6c51-493a-8624-c54d5472cb64
+uuid: 63985900-4549-479a-8f96-1c35eccf2342
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_content
-    - node.type.pricing
-    - paragraphs.paragraphs_type.hero_pricing
+    - field.storage.paragraph.field_item
+    - paragraphs.paragraphs_type.item
     - paragraphs.paragraphs_type.tribox_global
   module:
     - entity_reference_revisions
-id: node.pricing.field_content
-field_name: field_content
-entity_type: node
-bundle: pricing
-label: Content
+id: paragraph.tribox_global.field_item
+field_name: field_item
+entity_type: paragraph
+bundle: tribox_global
+label: Item
 description: ''
 required: false
 translatable: false
@@ -23,20 +22,19 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      hero_pricing: hero_pricing
-      tribox_global: tribox_global
+      item: item
     negate: 0
     target_bundles_drag_drop:
       hero:
-        weight: 2
+        weight: 4
         enabled: false
       hero_pricing:
-        weight: 4
-        enabled: true
+        weight: 5
+        enabled: false
       item:
         weight: 7
-        enabled: false
-      tribox_global:
-        weight: 8
         enabled: true
+      tribox_global:
+        weight: 6
+        enabled: false
 field_type: entity_reference_revisions
