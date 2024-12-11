@@ -1,0 +1,32 @@
+uuid: 28aafc67-285a-4c54-bc13-0b5fa5bb999f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.descriptions_sidebar.field_descriptions
+    - field.field.paragraph.descriptions_sidebar.field_titre
+    - paragraphs.paragraphs_type.descriptions_sidebar
+  module:
+    - text
+id: paragraph.descriptions_sidebar.default
+targetEntityType: paragraph
+bundle: descriptions_sidebar
+mode: default
+content:
+  field_descriptions:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_titre:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

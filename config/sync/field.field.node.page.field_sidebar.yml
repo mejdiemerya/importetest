@@ -1,0 +1,39 @@
+uuid: 81aaabae-5365-4beb-aa95-7b7fc963e0e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sidebar
+    - node.type.page
+    - paragraphs.paragraphs_type.descriptions_sidebar
+    - paragraphs.paragraphs_type.image_sidebar
+  module:
+    - entity_reference_revisions
+id: node.page.field_sidebar
+field_name: field_sidebar
+entity_type: node
+bundle: page
+label: Sidebar
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      descriptions_sidebar: descriptions_sidebar
+      image_sidebar: image_sidebar
+    negate: 0
+    target_bundles_drag_drop:
+      descriptions_sidebar:
+        weight: 4
+        enabled: true
+      hero:
+        weight: 5
+        enabled: false
+      image_sidebar:
+        weight: 6
+        enabled: true
+field_type: entity_reference_revisions

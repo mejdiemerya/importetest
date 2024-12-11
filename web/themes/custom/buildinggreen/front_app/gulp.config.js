@@ -11,6 +11,7 @@ module.exports = function () {
         "hero-composant",
         "forum-composant",
         "blog-composant",
+        "basic-page-composant",
       ],
       quality: ["src/scss/**/*.scss"],
       dest: "./dist/assets/composant/",

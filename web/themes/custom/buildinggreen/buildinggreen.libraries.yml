@@ -19,3 +19,8 @@ forum:
   css:
     theme:
       front_app/dist/assets/composant/forum-composant/forum-composant.min.css: { minified: true }
+
+basic-page:
+  css:
+    theme:
+      front_app/dist/assets/composant/basic-page-composant/basic-page-composant.min.css: { minified: true }
