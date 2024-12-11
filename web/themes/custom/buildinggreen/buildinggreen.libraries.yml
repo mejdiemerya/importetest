@@ -15,6 +15,10 @@ hero:
   css:
     theme:
       front_app/dist/assets/composant/hero-composant/hero-composant.min.css: { minified: true }
+hero-pricing-composant:
+  css:
+    theme:
+      front_app/dist/assets/composant/hero-pricing-composant/hero-pricing-composant.min.css: { minified: true }
 forum:
   css:
     theme:

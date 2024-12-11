@@ -9,6 +9,7 @@ module.exports = function () {
       composant: [
         "default-composant",
         "hero-composant",
+        "hero-pricing-composant",
         "forum-composant",
         "blog-composant",
       ],
