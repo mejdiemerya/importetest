@@ -99,14 +99,20 @@
   {% endif %}
 
   <div{{ content_attributes.addClass('node__content row') }}>
-    <section class="col-sm-8 col-lg-9">
+    <section class="{% if content.field_sidebar.0 %} col-sm-8 col-lg-9 {% else %} col-12 {% endif %}">
       <h1>{{ label }}</h1>
       {{ content.body }}
-      {{ content.field_cards }}
     </section>
+    {% if content.field_sidebar.0 is not null %}
     <aside class="col-sm-4 col-lg-3">
       {{ content.field_sidebar }}
     </aside>
+    {% endif %}
+  </div>
+  <div{{ content_attributes.addClass('node__content row mt-3') }}>
+    <section class="col-12">
+      {{ content.field_cards }}
+    </section>
   </div>
 
 </div>
