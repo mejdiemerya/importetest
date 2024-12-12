@@ -1,0 +1,49 @@
+uuid: 65fbc2cd-7d25-40db-b53b-e6fdf77f59f1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_cards
+    - node.type.page
+    - paragraphs.paragraphs_type.leed_credits
+  module:
+    - entity_reference_revisions
+id: node.page.field_cards
+field_name: field_cards
+entity_type: node
+bundle: page
+label: Cards
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      leed_credits: leed_credits
+    negate: 0
+    target_bundles_drag_drop:
+      descriptions_sidebar:
+        weight: 8
+        enabled: false
+      hero:
+        weight: 9
+        enabled: false
+      hero_pricing:
+        weight: 10
+        enabled: false
+      image_sidebar:
+        weight: 11
+        enabled: false
+      item:
+        weight: 12
+        enabled: false
+      leed_credits:
+        weight: 13
+        enabled: true
+      tribox_global:
+        weight: 14
+        enabled: false
+field_type: entity_reference_revisions

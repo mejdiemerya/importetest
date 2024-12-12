@@ -1,0 +1,67 @@
+.credit-list {
+  margin-top: -1.5em;
+  h3 {
+    margin-top: 1em;
+  }
+  h4 {
+    font-size: 20px;
+    font-weight: 400;
+    border-top: 1px dotted gray;
+    padding: 0.5em 0;
+    margin: 0;
+    a {
+      padding: 3px 5px;
+      text-decoration: none !important;
+      padding-right: 1.4em;
+      display: block;
+      &:before {
+        font-family: "Glyphicons Halflings";
+        float: left;
+        width: 1.4em;
+        content: '\e259';
+        font-size: 12px;
+        padding-top: 4px;
+        color: #6972aa;
+      }
+      &.collapsed:before {
+        content: '\e258';
+      }
+    }
+  }
+  h5 {
+    background-color: #C9D3BC;
+    padding: 2px 4px;
+    &:first-of-type { // prevents little hop when a rating system is expanded
+      margin-top: 0;
+    }
+  }
+  div.collapse.in {
+    margin-bottom: 1.25em;
+  }
+  .col-sm-6 {
+    margin-left: -15px; // kludge to left-align left column
+    margin-right: 15px; // more spacing between columns
+  }
+  table, h5 {
+    margin-left: 1.4em;
+  }
+  tr {
+    border-bottom: 1px dotted #a6a6a6;
+  }
+  tr:last-of-type {
+    border-bottom: none;
+  }
+  td {
+    padding: 0.5em 1em 0.5em 0;
+    line-height: 1.2;
+    &.credit-id {
+      font-weight: 600;
+    }
+    &.credit-description {
+      font-style: italic;
+      a {
+        text-decoration: underline !important;
+      }
+    }
+  }
+}

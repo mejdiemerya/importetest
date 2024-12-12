@@ -47,3 +47,8 @@ testimonials-composant:
   css:
     theme:
       front_app/dist/assets/composant/testimonials-composant/testimonials-composant.min.css: { minified: true }
+
+credits-composant:
+  css:
+    theme:
+      front_app/dist/assets/composant/credits-composant/credits-composant.min.css: { minified: true }

@@ -16,6 +16,7 @@ module.exports = function () {
         "tribox-global-composant",
         "membership-composant",
         "testimonials-composant",
+        "credits-composant",
       ],
       quality: ["src/scss/**/*.scss"],
       dest: "./dist/assets/composant/",
