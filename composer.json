@@ -40,6 +40,7 @@
         "drupal/core-composer-scaffold": "^11.0",
         "drupal/core-project-message": "^11.0",
         "drupal/core-recommended": "^11.0",
+        "drupal/ctools": "^4.1",
         "drupal/devel": "^5.3",
         "drupal/eca": "^2.0",
         "drupal/eca_cm": "^1.0",

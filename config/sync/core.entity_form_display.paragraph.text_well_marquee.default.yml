@@ -1,0 +1,25 @@
+uuid: b46fb5aa-1f74-45c9-8f2b-d16aacea4815
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.text_well_marquee.field_text
+    - paragraphs.paragraphs_type.text_well_marquee
+  module:
+    - text
+id: paragraph.text_well_marquee.default
+targetEntityType: paragraph
+bundle: text_well_marquee
+mode: default
+content:
+  field_text:
+    type: text_textarea
+    weight: 0
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true
