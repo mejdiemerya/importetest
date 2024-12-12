@@ -1,9 +1,9 @@
-uuid: ceca54ce-8dae-44d5-9a6b-c24e2f19a143
+uuid: 5aad43c5-fa48-4ab7-b920-589387990980
 langcode: en
 status: true
 dependencies: {  }
-id: membership
-label: membership
+id: text_well_marquee
+label: 'Text well-marquee'
 icon_uuid: null
 icon_default: null
 description: ''

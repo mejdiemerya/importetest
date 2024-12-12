@@ -17,6 +17,7 @@ module:
   contact: 0
   content_moderation: 0
   contextual: 0
+  ctools: 0
   custom_forums: 0
   datetime: 0
   dblog: 0
@@ -57,6 +58,7 @@ module:
   help: 0
   history: 0
   image: 0
+  leeduser_tour: 0
   link: 0
   mailsystem: 0
   media: 0

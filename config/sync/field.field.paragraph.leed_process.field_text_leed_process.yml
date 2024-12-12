@@ -1,0 +1,24 @@
+uuid: 6354989c-a938-416f-97f9-18d53f8019a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_text_leed_process
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.leed_process
+  module:
+    - text
+id: paragraph.leed_process.field_text_leed_process
+field_name: field_text_leed_process
+entity_type: paragraph
+bundle: leed_process
+label: 'Text LEED Process'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text_long

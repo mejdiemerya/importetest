@@ -1,18 +1,16 @@
-uuid: b5a3fe60-cdd4-4294-b0ed-887b1caf38b7
+uuid: 341d78d6-e2a2-498b-b54a-14151f076326
 langcode: en
 status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.field_auteur
-field_name: field_auteur
+    - text
+id: paragraph.field_text_leed_process
+field_name: field_text_leed_process
 entity_type: paragraph
-type: string
-settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
-module: core
+type: text_long
+settings: {  }
+module: text
 locked: false
 cardinality: 1
 translatable: true

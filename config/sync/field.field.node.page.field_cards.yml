@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_cards
     - node.type.page
     - paragraphs.paragraphs_type.leed_credits
+    - paragraphs.paragraphs_type.leed_process
+    - paragraphs.paragraphs_type.text_well_marquee
   module:
     - entity_reference_revisions
 id: node.page.field_cards
@@ -23,6 +25,8 @@ settings:
   handler_settings:
     target_bundles:
       leed_credits: leed_credits
+      leed_process: leed_process
+      text_well_marquee: text_well_marquee
     negate: 0
     target_bundles_drag_drop:
       descriptions_sidebar:
@@ -42,6 +46,12 @@ settings:
         enabled: false
       leed_credits:
         weight: 13
+        enabled: true
+      leed_process:
+        weight: 15
+        enabled: true
+      text_well_marquee:
+        weight: 17
         enabled: true
       tribox_global:
         weight: 14
