@@ -1,0 +1,7 @@
+name: 'Leeduser Tour'
+type: module
+description: 'Provides a custom page at /leeduser-tour.'
+core_version_requirement: ^10 || ^11
+package: Custom
+dependencies:
+  - drupal:node

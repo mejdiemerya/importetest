@@ -1,0 +1,7 @@
+leeduser_tour.page:
+  path: '/leeduser-tour'
+  defaults:
+    _controller: '\Drupal\leeduser_tour\Controller\LeeduserTourController::content'
+    _title: 'Leeduser Tour'
+  requirements:
+    _permission: 'access content'

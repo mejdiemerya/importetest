@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * Implements hook_theme().
+ */
+function leeduser_tour_theme() {
+  return [
+    'leeduser_tour_template' => [
+      'variables' => [
+        'title' => '',
+        'content' => '',
+        'additional_data' => '',
+      ],
+      'template' => 'leeduser-tour-template', // Correspond au fichier Twig.
+    ],
+  ];
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for leeduser_tour_template.
+ */
+function leeduser_tour_preprocess_leeduser_tour_template(&$variables) {
+  // Ajouter des données supplémentaires à transmettre au template Twig.
+  $variables['additional_data'] = 'This is additional data passed from the preprocess function.';
+}
