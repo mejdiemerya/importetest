@@ -1,0 +1,46 @@
+.paragraph--type--testimonials {
+  padding-bottom: 40px;
+  .field--name-field-title {
+    h1 {
+      font-family: $CONST-FONT-SourceSansPro;
+      margin-top: 2em !important;
+      font-weight: 300;
+      font-size: 40px;
+      text-align: center !important;
+      padding: 0.5em 2em;
+      background-image: linear-gradient(to bottom, #b5cdd1 0%, #dae6e8 100%);
+      background-repeat: repeat-x;
+      margin-left: -20px;
+      margin-right: -20px;
+      font-style: italic;
+    }
+  }
+  .field--name-field-testimonials {
+
+    @include media-breakpoint-up(xl) {
+      padding: 0 10%;
+    }
+    .paragraph--type--testimonials-item {
+      padding: 12.5px 25px;
+      margin: 0 0 25px;
+      font-size: 20px;
+      .field--name-field-descriptions {
+       p{
+         font-size: 20px;
+         font-style: italic;
+       }
+      }
+      .field--name-field-auteur {
+        text-align: right;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #a6a6a6;
+        position: relative;
+        &::before {
+          content: "— ";
+        }
+      }
+    }
+  }
+
+}

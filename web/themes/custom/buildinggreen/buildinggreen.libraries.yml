@@ -32,3 +32,18 @@ basic-page:
   css:
     theme:
       front_app/dist/assets/composant/basic-page-composant/basic-page-composant.min.css: { minified: true }
+
+tribox-global:
+  css:
+    theme:
+      front_app/dist/assets/composant/tribox-global-composant/tribox-global-composant.min.css: { minified: true }
+
+membership-composant:
+  css:
+    theme:
+      front_app/dist/assets/composant/membership-composant/membership-composant.min.css: { minified: true }
+
+testimonials-composant:
+  css:
+    theme:
+      front_app/dist/assets/composant/testimonials-composant/testimonials-composant.min.css: { minified: true }
