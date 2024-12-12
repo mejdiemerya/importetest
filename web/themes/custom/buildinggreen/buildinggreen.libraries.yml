@@ -52,3 +52,8 @@ credits-composant:
   css:
     theme:
       front_app/dist/assets/composant/credits-composant/credits-composant.min.css: { minified: true }
+
+leeduser-tour:
+  css:
+    theme:
+      front_app/dist/assets/composant/leeduser-tour/leeduser-tour.min.css: { minified: true }
