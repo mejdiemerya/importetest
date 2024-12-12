@@ -1,0 +1,18 @@
+uuid: 5f79a37d-402b-41e4-9fd2-ec0ce3a93c84
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.author
+id: node.author.title
+field_name: title
+entity_type: node
+bundle: author
+label: Title
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,10 @@
+uuid: 491f0111-75e6-438c-916e-815ff23ea7b4
+langcode: en
+status: true
+dependencies: {  }
+id: descriptions_sidebar
+label: 'Descriptions Sidebar'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

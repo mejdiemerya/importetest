@@ -39,6 +39,13 @@
   dom_id ? 'js-view-dom-id-' ~ dom_id,
 ]
 %}
+<div id="forum-heading" class="large" data-gtm-vis-has-fired7025260_75="1">
+  <span class="text-highlight-reverse" data-gtm-vis-has-fired7025260_75="1">Forum</span>		</div>
+<div class="small d-flex flex-wrap">
+  <div class="col-12 col-lg-8" style="background-color: #e6e6e6;padding: 2px 12px;"><div class="w-100">{{ 'Topic'|t }}</div></div>
+  <div class="col-12 col-lg-1" style="background-color: #e6e6e6;padding: 2px 12px;"><div class="w-100">{{ 'Replies'|t }}</div></div>
+  <div class="col-12 col-lg-3" style="background-color: #e6e6e6;padding: 2px 12px;"><div class="w-100 tr-bg">{{ 'Recent'|t }}</div></div>
+</div>
 <div{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
   {% if title %}

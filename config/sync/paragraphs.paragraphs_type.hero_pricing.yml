@@ -1,0 +1,10 @@
+uuid: 4ae03a89-b27b-42be-b9a6-9a149489495a
+langcode: en
+status: true
+dependencies: {  }
+id: hero_pricing
+label: 'Hero pricing'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

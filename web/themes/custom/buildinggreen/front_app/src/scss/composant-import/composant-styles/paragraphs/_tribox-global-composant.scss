@@ -1,0 +1,60 @@
+.paragraph--type--tribox-global {
+  .field--name-field-title-global {
+    h2 {
+      font-family: $CONST-FONT-SourceSansPro;
+    }
+  }
+  .field--name-field-item {
+    margin-top:-23px;
+  }
+  .paragraph--type--item {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    border: 0;
+    border-top: 1px solid #e6e6e6;
+    @include media-breakpoint-up(sm) {
+      min-height: 230px;
+      border: 1px solid gray;
+      background-image: linear-gradient(to bottom, #b5cdd1 0%, white 100%);
+      background-repeat: repeat-x;
+      margin-bottom: 1em;
+      padding: 0 8%;
+    }
+    .field--name-field-title-item {
+      h2 {
+        font-family: $CONST-FONT-SourceSansPro;
+        font-weight: normal;
+        font-size: 32px;
+        margin-top: 0.5em;
+        margin-bottom: 1em;
+        color: #111;
+      }
+    }
+    .field--name-field-price {
+      margin-bottom: 15px;
+      .price {
+        font-family: $CONST-FONT-SourceSansPro;
+        font-size: 48px;
+        font-weight: 200;
+        line-height: 1.25;
+      }
+
+      sup {
+        vertical-align: super;
+        font-size: 16px;
+        font-weight: 400;
+        top: 0;
+      }
+      .term {
+        font-size: 13px;
+        vertical-align: baseline;
+        font-weight: 400;
+      }
+    }
+    .field--name-field-description-item {
+      line-height: 1.25 !important;
+      padding-bottom: 10px;
+    }
+  }
+}

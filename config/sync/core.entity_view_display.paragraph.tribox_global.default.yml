@@ -1,0 +1,39 @@
+uuid: 76f71fca-7c0e-4799-9f6f-38c2b28b26ef
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.tribox_global.field_item
+    - field.field.paragraph.tribox_global.field_title_global
+    - paragraphs.paragraphs_type.tribox_global
+  module:
+    - entity_reference_revisions
+    - text_field_formatter
+id: paragraph.tribox_global.default
+targetEntityType: paragraph
+bundle: tribox_global
+mode: default
+content:
+  field_item:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title_global:
+    type: text_field_formatter
+    label: hidden
+    settings:
+      wrap_tag: h2
+      wrap_class: 'text-center h1'
+      wrap_attributes: ''
+      override_link_label: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

@@ -1,0 +1,51 @@
+uuid: 45206b76-d4e1-47c1-bf64-8b9547660510
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.hero_pricing.field_image
+    - field.field.paragraph.hero_pricing.field_sous_titre
+    - field.field.paragraph.hero_pricing.field_title
+    - paragraphs.paragraphs_type.hero_pricing
+  module:
+    - text_field_formatter
+id: paragraph.hero_pricing.default
+targetEntityType: paragraph
+bundle: hero_pricing
+mode: default
+content:
+  field_image:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_sous_titre:
+    type: text_field_formatter
+    label: hidden
+    settings:
+      wrap_tag: h2
+      wrap_class: ''
+      wrap_attributes: ''
+      override_link_label: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: text_field_formatter
+    label: hidden
+    settings:
+      wrap_tag: h1
+      wrap_class: text-left
+      wrap_attributes: ''
+      override_link_label: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

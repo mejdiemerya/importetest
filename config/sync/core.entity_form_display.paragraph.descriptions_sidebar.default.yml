@@ -1,0 +1,34 @@
+uuid: ebbbc45f-8ca0-41f3-ab89-5c0b3cff8e9b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.descriptions_sidebar.field_descriptions
+    - field.field.paragraph.descriptions_sidebar.field_titre
+    - paragraphs.paragraphs_type.descriptions_sidebar
+  module:
+    - text
+id: paragraph.descriptions_sidebar.default
+targetEntityType: paragraph
+bundle: descriptions_sidebar
+mode: default
+content:
+  field_descriptions:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_titre:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

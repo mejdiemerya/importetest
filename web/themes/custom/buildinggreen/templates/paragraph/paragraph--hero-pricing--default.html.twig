@@ -1,0 +1,22 @@
+{%
+  set classes = [
+  'paragraph megapic2',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished'
+]
+%}
+{{ attach_library('buildinggreen/hero-pricing-composant') }}
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+      <div class="img-responsive">
+        {{ content.field_image }}
+      </div>
+      <div class="pictext">
+        {{ content.field_sous_titre }}
+        {{ content.field_title }}
+      </div>
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

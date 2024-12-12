@@ -1,0 +1,40 @@
+uuid: cc454039-82c3-4b90-b452-767a7467a68d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.comment.comment.default
+    - core.entity_view_mode.node.search_index
+    - field.field.node.blog.body
+    - field.field.node.blog.comment
+    - field.field.node.blog.field_author
+    - field.field.node.blog.field_dek
+    - node.type.blog
+  module:
+    - comment
+id: node.blog.search_index
+targetEntityType: node
+bundle: blog
+mode: search_index
+content:
+  comment:
+    type: comment_default
+    label: hidden
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  body: true
+  field_author: true
+  field_dek: true
+  read_more_comment_links: true
+  search_api_excerpt: true
+  uid: true

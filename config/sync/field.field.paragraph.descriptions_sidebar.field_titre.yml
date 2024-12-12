@@ -1,0 +1,19 @@
+uuid: c1378cb2-d5cf-4399-9234-b43441cb0c77
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_titre
+    - paragraphs.paragraphs_type.descriptions_sidebar
+id: paragraph.descriptions_sidebar.field_titre
+field_name: field_titre
+entity_type: paragraph
+bundle: descriptions_sidebar
+label: Titre
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,24 @@
+uuid: 3596f87f-61b3-45b3-965c-50c069073e6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_price
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.item
+  module:
+    - text
+id: paragraph.item.field_price
+field_name: field_price
+entity_type: paragraph
+bundle: item
+label: Price
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text

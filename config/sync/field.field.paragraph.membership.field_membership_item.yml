@@ -1,0 +1,52 @@
+uuid: e7463db7-caab-4cec-ae14-e95e95731da4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_membership_item
+    - paragraphs.paragraphs_type.membership
+    - paragraphs.paragraphs_type.membership_item
+  module:
+    - entity_reference_revisions
+id: paragraph.membership.field_membership_item
+field_name: field_membership_item
+entity_type: paragraph
+bundle: membership
+label: 'membership item'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      membership_item: membership_item
+    negate: 0
+    target_bundles_drag_drop:
+      descriptions_sidebar:
+        weight: 9
+        enabled: false
+      hero:
+        weight: 10
+        enabled: false
+      hero_pricing:
+        weight: 11
+        enabled: false
+      image_sidebar:
+        weight: 12
+        enabled: false
+      item:
+        weight: 13
+        enabled: false
+      membership:
+        weight: 14
+        enabled: false
+      membership_item:
+        weight: 15
+        enabled: true
+      tribox_global:
+        weight: 16
+        enabled: false
+field_type: entity_reference_revisions

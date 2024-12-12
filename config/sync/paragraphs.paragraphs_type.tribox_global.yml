@@ -1,0 +1,10 @@
+uuid: 108421f3-7147-48d3-911e-06874946b517
+langcode: en
+status: true
+dependencies: {  }
+id: tribox_global
+label: 'Tribox global'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

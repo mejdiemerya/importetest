@@ -5,10 +5,11 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.page.body
+    - field.field.node.page.field_cards
+    - field.field.node.page.field_sidebar
     - node.type.page
   module:
     - text
-    - user
 _core:
   default_config_hash: 8BgdRtLbtQ0F__o0FHSH0Mx5fvXOra9tfT1GmNKbRYw
 id: node.page.teaser
@@ -28,4 +29,7 @@ content:
     weight: 101
     region: content
 hidden:
+  field_cards: true
+  field_sidebar: true
+  search_api_excerpt: true
   uid: true

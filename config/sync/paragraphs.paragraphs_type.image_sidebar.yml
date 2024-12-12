@@ -1,0 +1,10 @@
+uuid: 0cd36261-14ba-477e-b9bd-be3671c2978a
+langcode: en
+status: true
+dependencies: {  }
+id: image_sidebar
+label: 'Image Sidebar'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

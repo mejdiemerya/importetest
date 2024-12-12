@@ -15,7 +15,40 @@ hero:
   css:
     theme:
       front_app/dist/assets/composant/hero-composant/hero-composant.min.css: { minified: true }
+hero-pricing-composant:
+  css:
+    theme:
+      front_app/dist/assets/composant/hero-pricing-composant/hero-pricing-composant.min.css: { minified: true }
 forum:
   css:
     theme:
       front_app/dist/assets/composant/forum-composant/forum-composant.min.css: { minified: true }
+blog:
+  css:
+    theme:
+      front_app/dist/assets/composant/blog-composant/blog-composant.min.css: { minified: true }
+
+basic-page:
+  css:
+    theme:
+      front_app/dist/assets/composant/basic-page-composant/basic-page-composant.min.css: { minified: true }
+
+tribox-global:
+  css:
+    theme:
+      front_app/dist/assets/composant/tribox-global-composant/tribox-global-composant.min.css: { minified: true }
+
+membership-composant:
+  css:
+    theme:
+      front_app/dist/assets/composant/membership-composant/membership-composant.min.css: { minified: true }
+
+testimonials-composant:
+  css:
+    theme:
+      front_app/dist/assets/composant/testimonials-composant/testimonials-composant.min.css: { minified: true }
+
+credits-composant:
+  css:
+    theme:
+      front_app/dist/assets/composant/credits-composant/credits-composant.min.css: { minified: true }

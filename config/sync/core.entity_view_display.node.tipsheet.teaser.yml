@@ -23,6 +23,11 @@ content:
     third_party_settings: {  }
     weight: 101
     region: content
+  flag_subscription_tipsheet:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
@@ -31,4 +36,5 @@ content:
 hidden:
   field_credits: true
   field_guest_expert: true
+  search_api_excerpt: true
   uid: true

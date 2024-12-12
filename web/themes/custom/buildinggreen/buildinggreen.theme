@@ -10,3 +10,10 @@ function buildinggreen_theme_suggestions_page_alter(array &$suggestions, array $
     $suggestions[] = 'page__'.$content_type;
   }
 }
+function buildinggreen_preprocess_node(&$variables) {
+  $node = $variables['node'];
+  //check content type
+  if ($node->getType() == 'blog') {
+    $variables['#attached']['library'][] = 'buildinggreen/blog';
+  }
+}
