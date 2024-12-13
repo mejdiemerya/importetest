@@ -27,20 +27,26 @@ class CreditSelectorForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $form['#attached']['library'][] = 'core/drupal.ajax';
     $form['#attached']['library'][] = 'core/jquery';
-
+    // Initialize variables
+    $leed_version = $form_state->getValue('leed_version');  // Ensure the variable is initialized
+    $rating_system = $form_state->getValue('rating_system');
+    $credit_category =  $form_state->getValue('credit_category');
+    $credit= NULL;
     // Extract the taxonomy term ID from the URL
     $route_match = \Drupal::routeMatch();
-    $term = $route_match->getParameter('taxonomy_term');
+    if ($route_match->getParameter('taxonomy_term')) {
+      $term = $route_match->getParameter('taxonomy_term');
 
 
+      // Validate the term and set default values
+      $credit = $term instanceof \Drupal\taxonomy\Entity\Term ? $term->id() : NULL;
+      $hierarchy = !empty($credit) ? $this->loadAllParentsModal($credit) : [];
 
-    $credit = $term->id();
-    $hierarchy = $this->loadAllParentsModal($credit);
+      $leed_version = isset($hierarchy[3]) ? $hierarchy[3]->id() : NULL;
+      $rating_system = isset($hierarchy[2]) ? $hierarchy[2]->id() : NULL;
+      $credit_category = isset($hierarchy[1]) ? $hierarchy[1]->id() : NULL;
 
-    $leed_version = isset($hierarchy[3]) ? $hierarchy[3]->id() : NULL;
-    $rating_system = isset($hierarchy[2]) ? $hierarchy[2]->id() : NULL;
-    $credit_category = isset($hierarchy[1]) ? $hierarchy[1]->id() : NULL;
-
+    }
     $form['credit_selector'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['credit-selector']],
@@ -66,7 +72,7 @@ class CreditSelectorForm extends FormBase {
 
     $leed_version_data = $this->getTermNameAndDescription($leed_version);
     $form['credit_selector']['leed_version_description'] = [
-      '#markup' => '<div id="leed-version-label"><span class="description">LEED ' . $leed_version_data['name'] . ': ' . $leed_version_data['description'] . '</span></div>',
+      '#markup' => '<div id="leed-version-label"><span class="description">LEED ' . $leed_version_data['name'] .  '</span></div>',
     ];
 
     // Rating System Selector
@@ -223,7 +229,7 @@ class CreditSelectorForm extends FormBase {
     // Update the LEED version description.
     $leed_version_data = $this->getTermNameAndDescription($selected_leed_version);
     $form['credit_selector']['leed_version_description'] = [
-      '#markup' => '<div id="leed-version-label"><span class="description">LEED ' . $leed_version_data['name'] . ': ' . $leed_version_data['description'] . '</span></div>',
+      '#markup' => '<div id="leed-version-label"><span class="description">LEED ' . $leed_version_data['name'] .'</span></div>',
     ];
     $form['credit_selector']['rating_system_description'] = [
       '#markup' => '<div id="rating-system-label"><span class="description">Choose one</span></div>',
@@ -409,6 +415,9 @@ class CreditSelectorForm extends FormBase {
     return !empty($tids) ? reset($tids) : null;
   }
   protected function getTermNameAndDescription($tid) {
+    if($tid){
+
+
     // Load the taxonomy term entity by its ID.
     $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($tid);
 
@@ -427,6 +436,12 @@ class CreditSelectorForm extends FormBase {
       } else {
         $term_data['description'] = '';
       }
+    }
+    }
+    else{
+      $term_data['name']='--';
+      $term_data['description'] = '--';
+
     }
 
     // Return the term data with name and description.
