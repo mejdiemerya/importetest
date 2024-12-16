@@ -53,9 +53,25 @@ class CreditSelectorForm extends FormBase {
       '#prefix' => '<div id="credit-selector-wrapper">',
       '#suffix' => '</div>',
     ];
+    $form['credit_selector']['browser_group_1'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['browser-group']],
+    ];
+    $form['credit_selector']['browser_group_2'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['browser-group']],
+    ];
+    $form['credit_selector']['browser_group_3'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['browser-group']],
+    ];
+    $form['credit_selector']['browser_group_4'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['browser-group']],
+    ];
 
     // LEED Version Selector
-    $form['credit_selector']['leed_version'] = [
+    $form['credit_selector']['browser_group_1']['leed_version'] = [
       '#type' => 'select',
       '#title' => $this->t('LEED version'),
       '#empty_option' => $this->t('--'),
@@ -71,12 +87,12 @@ class CreditSelectorForm extends FormBase {
     ];
 
     $leed_version_data = $this->getTermNameAndDescription($leed_version);
-    $form['credit_selector']['leed_version_description'] = [
+    $form['credit_selector']['browser_group_1']['leed_version_description'] = [
       '#markup' => '<div id="leed-version-label"><span class="description">LEED ' . $leed_version_data['name'] .  '</span></div>',
     ];
 
     // Rating System Selector
-    $form['credit_selector']['rating_system'] = [
+    $form['credit_selector']['browser_group_2']['rating_system'] = [
       '#prefix' => '<div id="rating_system">',
       '#suffix' => '</div>',
       '#type' => 'select',
@@ -93,12 +109,12 @@ class CreditSelectorForm extends FormBase {
     ];
 
     $rating_system_data = $this->getTermNameAndDescription($rating_system);
-    $form['credit_selector']['rating_system_description'] = [
+    $form['credit_selector']['browser_group_2']['rating_system_description'] = [
       '#markup' => '<div id="rating-system-label"><span class="description">' . $rating_system_data['description'] . '</span></div>',
     ];
 
     // Credit Category Selector
-    $form['credit_selector']['credit_category'] = [
+    $form['credit_selector']['browser_group_3']['credit_category'] = [
       '#prefix' => '<div id="credit_category">',
       '#suffix' => '</div>',
       '#type' => 'select',
@@ -115,12 +131,12 @@ class CreditSelectorForm extends FormBase {
     ];
 
     $credit_category_data = $this->getTermNameAndDescription($credit_category);
-    $form['credit_selector']['credit_category_description'] = [
+    $form['credit_selector']['browser_group_3']['credit_category_description'] = [
       '#markup' => '<div id="credit-category-label"><span class="description">' . $credit_category_data['description'] . '</span></div>',
     ];
 
     // Credit Selector
-    $form['credit_selector']['credit'] = [
+    $form['credit_selector']['browser_group_4']['credit'] = [
       '#prefix' => '<div id="credit">',
       '#suffix' => '</div>',
       '#type' => 'select',
@@ -139,27 +155,27 @@ class CreditSelectorForm extends FormBase {
     ];
 
     $credit_data = $this->getTermNameAndDescription($credit);
-    $form['credit_selector']['credit_description'] = [
+    $form['credit_selector']['browser_group_4']['credit_description'] = [
       '#markup' => '<div id="credit-label"><span class="description">' . $credit_data['description'] . '</span></div>',
     ];
 
     // Dynamically populate options and remove 'disabled' if values exist in form_state or tempstore
     $leed_version = $form_state->getValue('leed_version') ?? $leed_version;
     if (!empty($leed_version)) {
-      $form['credit_selector']['rating_system']['#options'] = $this->getRatingSystems($leed_version);
-      unset($form['credit_selector']['rating_system']['#attributes']['disabled']);
+      $form['credit_selector']['browser_group_2']['rating_system']['#options'] = $this->getRatingSystems($leed_version);
+      unset($form['credit_selector']['browser_group_2']['rating_system']['#attributes']['disabled']);
     }
 
     $rating_system = $form_state->getValue('rating_system') ?? $rating_system;
     if (!empty($rating_system)) {
-      $form['credit_selector']['credit_category']['#options'] = $this->getCreditCategories($rating_system);
-      unset($form['credit_selector']['credit_category']['#attributes']['disabled']);
+      $form['credit_selector']['browser_group_3']['credit_category']['#options'] = $this->getCreditCategories($rating_system);
+      unset($form['credit_selector']['browser_group_3']['credit_category']['#attributes']['disabled']);
     }
 
     $credit_category = $form_state->getValue('credit_category') ?? $credit_category;
     if (!empty($credit_category)) {
-      $form['credit_selector']['credit']['#options'] = $this->getCredits($credit_category);
-      unset($form['credit_selector']['credit']['#attributes']['disabled']);
+      $form['credit_selector']['browser_group_4']['credit']['#options'] = $this->getCredits($credit_category);
+      unset($form['credit_selector']['browser_group_4']['credit']['#attributes']['disabled']);
     }
     return $form;
 
@@ -176,17 +192,17 @@ class CreditSelectorForm extends FormBase {
     $credit_categories = $this->getCreditCategories($selected_rating_system);
 
     // Set the options for the credit category select list.
-    $form['credit_selector']['credit_category']['#options'] =[''=>t('--')] + $credit_categories;
-    $form['credit_selector']['credit']['#options'] = ['' => t('--')]; // Reset the options
-    $form['credit_selector']['credit']['#attributes']['disabled'] = 'disabled';
+    $form['credit_selector']['browser_group_3']['credit_category']['#options'] =[''=>t('--')] + $credit_categories;
+   $form['credit_selector']['browser_group_4']['credit']['#options'] = ['' => t('--')]; // Reset the options
+   $form['credit_selector']['browser_group_4']['credit']['#attributes']['disabled'] = 'disabled';
     $rating_system_data = $this->getTermNameAndDescription($selected_rating_system);
-    $form['credit_selector']['rating_system_description'] = [
+   $form['credit_selector']['browser_group_2']['rating_system_description'] = [
       '#markup' => '<div id="rating-system-label"><span class="description">' . $rating_system_data['description'] . '</span></div>',
     ];
-    $form['credit_selector']['credit_category_description'] = [
+    $form['credit_selector']['browser_group_3']['credit_category_description'] = [
       '#markup' => '<div id="credit-category-label"><span class="description">--</span></div>',
     ];
-    $form['credit_selector']['credit_description'] = [
+    $form['credit_selector']['browser_group_4']['credit_description'] = [
       '#markup' => '<div id="credit-label"><span class="description">--</span></div>',
     ];
     $form_state->setRebuild(TRUE);
@@ -201,13 +217,13 @@ class CreditSelectorForm extends FormBase {
       // Fetch the corresponding credits.
       $credits = $this->getCredits($selected_credit_category);
       // Set the options for the credit select list.
-      $form['credit_selector']['credit']['#options'] =[''=>t('--')] + $credits;
+     $form['credit_selector']['browser_group_4']['credit']['#options'] =[''=>t('--')] + $credits;
 
     $credit_category_data = $this->getTermNameAndDescription($selected_credit_category);
-    $form['credit_selector']['credit_category_description'] = [
+   $form['credit_selector']['browser_group_3']['credit_category_description'] = [
       '#markup' => '<div id="credit-category-label"><span class="description">' . $credit_category_data['description'] . '</span></div>',
     ];
-    $form['credit_selector']['credit_description'] = [
+    $form['credit_selector']['browser_group_4']['credit_description'] = [
       '#markup' => '<div id="credit-label"><span class="description">--</span></div>',
     ];
     $form_state->setRebuild(TRUE);
@@ -221,23 +237,23 @@ class CreditSelectorForm extends FormBase {
     // Fetch the rating systems based on selected LEED version.
     $rating_systems = $this->getRatingSystems($selected_leed_version);
 
-    $form['credit_selector']['rating_system']['#options'] =['' => t('--')] +  $rating_systems;
-    $form['credit_selector']['credit_category']['#options'] = ['' => t('--')]; // Reset the options
-    $form['credit_selector']['credit_category']['#attributes']['disabled'] = 'disabled';
-    $form['credit_selector']['credit']['#options'] = ['' => t('--')]; // Reset the options
-    $form['credit_selector']['credit']['#attributes']['disabled'] = 'disabled';
+    $form['credit_selector']['browser_group_2']['rating_system']['#options'] =['' => t('--')] +  $rating_systems;
+    $form['credit_selector']['browser_group_3']['credit_category']['#options'] = ['' => t('--')]; // Reset the options
+    $form['credit_selector']['browser_group_3']['credit_category']['#attributes']['disabled'] = 'disabled';
+   $form['credit_selector']['browser_group_4']['credit']['#options'] = ['' => t('--')]; // Reset the options
+   $form['credit_selector']['browser_group_4']['credit']['#attributes']['disabled'] = 'disabled';
     // Update the LEED version description.
     $leed_version_data = $this->getTermNameAndDescription($selected_leed_version);
-    $form['credit_selector']['leed_version_description'] = [
+    $form['credit_selector']['browser_group_1']['leed_version_description'] = [
       '#markup' => '<div id="leed-version-label"><span class="description">LEED ' . $leed_version_data['name'] .'</span></div>',
     ];
-    $form['credit_selector']['rating_system_description'] = [
+   $form['credit_selector']['browser_group_2']['rating_system_description'] = [
       '#markup' => '<div id="rating-system-label"><span class="description">Choose one</span></div>',
     ];
-    $form['credit_selector']['credit_category_description'] = [
+   $form['credit_selector']['browser_group_3']['credit_category_description'] = [
       '#markup' => '<div id="credit-category-label"><span class="description">--</span></div>',
     ];
-    $form['credit_selector']['credit_description'] = [
+    $form['credit_selector']['browser_group_4']['credit_description'] = [
       '#markup' => '<div id="credit-label"><span class="description">--</span></div>',
     ];
     $form_state->setRebuild(TRUE);
@@ -252,7 +268,7 @@ class CreditSelectorForm extends FormBase {
     $selected_credit_id = $form_state->getValue('credit');
 
     $credit_data = $this->getTermNameAndDescription($selected_credit_id);
-    $form['credit_selector']['credit_description'] = [
+    $form['credit_selector']['browser_group_4']['credit_description'] = [
       '#markup' => '<div id="credit-label"><span class="description">' . $credit_data['description'] . '</span></div>',
     ];
 
