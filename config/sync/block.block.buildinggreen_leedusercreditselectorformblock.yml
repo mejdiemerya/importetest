@@ -1,0 +1,28 @@
+uuid: 8d8f8f20-a24a-4433-84e0-2901d109158e
+langcode: en
+status: true
+dependencies:
+  module:
+    - custom_forums
+    - node
+  theme:
+    - buildinggreen
+id: buildinggreen_leedusercreditselectorformblock
+theme: buildinggreen
+region: sidebar_first
+weight: 0
+provider: null
+plugin: leeduser_credit_selector_form_block
+settings:
+  id: leeduser_credit_selector_form_block
+  label: 'Leeduser Credit Selector Form Block'
+  label_display: '0'
+  provider: custom_forums
+visibility:
+  'entity_bundle:node':
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      accueil: accueil
