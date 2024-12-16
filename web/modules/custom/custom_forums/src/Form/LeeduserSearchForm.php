@@ -69,8 +69,9 @@ class LeeduserSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
-
+    $store = $this->tempStoreFactory->get('leeduser_search'); // Adjust namespace as needed.
+    // Attempt to retrieve saved values if they exist.
+    $saved_values = $store->get('saved_values') ?: [];
     $form['#attached']['library'][] = 'core/drupal.ajax';
     $form['#attached']['library'][] = 'core/jquery';
     $form['#attached']['library'][]='core/drupal.dialog';
@@ -166,19 +167,90 @@ class LeeduserSearchForm extends FormBase {
         '#suffix' => '</a>',
         '#markup' => t('Post a question or comment'),
       ];
-
-
     }
+    $form['clear_search'] = array(
+      '#type' => 'submit',
+      '#name' => 'clear_search',
+      '#description' => t('Clear search'),
+      '#title' => t('Clear search '),
+      '#title_display' => 'invisible',
+      '#submit' => ['::clearSearch'],
+      '#prefix' => '<div id="clear-search">',
+      '#suffix' => '</div>',
+      '#value' => "\xC3\x97",
+    );
     $form['keyword_search'] = [
       '#type' => 'textfield',
       '#title' => t('Search Forums'),
-      '#default_value' => '',
+      '#default_value' => isset($saved_values['keyword_search']) ? $saved_values['keyword_search'] : '',
       '#attributes' => [
         'placeholder' => t('Search within forums'),
       ],
       '#prefix' => '<div id="keyword-search">',
       '#suffix' => '</div>',
     ];
+    // Display active location filters if they exist.
+    if (!empty($saved_values['location'])) {
+      $form['active_location_filter_fieldset'] = [
+        '#type' => 'fieldset',
+        '#prefix' => '<div id="active_location_filter_fieldset">',
+        '#suffix' => '</div>',
+      ];
+      $form['active_location_filter_fieldset']['clear_location'] = array(
+        '#type' => 'submit',
+        '#name' => 'clear_location',
+        '#description' => t('Immediately clear all location filters'),
+        '#title' => t('Immediately clear all location filters'),
+        '#submit' => ['::clearLocation'], // Use a clear handler.
+        '#value' => "\xC3\x97",
+      );
+      $form['active_location_filter_fieldset']['location_queries'] = array(
+        '#type' => 'fieldset',
+        '#prefix' => '<div id="active_location_filter_fieldset_location_queries">',
+        '#suffix' => '</div>',
+        '#title' => t('Location Filters'),
+      );
+      // Assuming $filter contains term IDs, considering normalization if necessary.
+      $term_id = $saved_values['location'];
+
+      // Load all terms based on the IDs to create user-friendly descriptions.
+      $term = Term::load($term_id);
+        $form['active_location_filter_fieldset']['location_queries']['saved_query_location_' . $term->id()] = [
+          '#type' => 'checkbox',
+          '#title' => $term->getName(),
+          '#description' => $term->getDescription(),
+          '#default_value' => 1,
+          '#prefix' => sprintf('<div id="saved_query_location_%d">', $term->id()),
+          '#suffix' => '</div>',
+        ];
+    }
+    if (!empty(($saved_values['credits']))) {
+      $form['active_credit_filter_fieldset']['clear_credits'] = array(
+        '#type' => 'submit',
+        '#name' => 'clear_credits',
+        '#description' => t('Immediately clear all credit filters'),
+        '#title' => t('Immediately clear all credit filters'),
+        '#title_display' => 'invisible',
+        '#submit' => ['::clearCredits'],
+        '#value' => "\xC3\x97",
+      );
+      $form['active_credit_filter_fieldset']['queries'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Credit Filters'),
+      );
+     $credit_id = $saved_values['credits'];
+        if ($term = Term::load($credit_id)) {
+          $label = getCreditFilterLabel($credit_id);
+          $form['active_credit_filter_fieldset']['queries']['saved_query_credit_' . $credit_id] = array(
+            '#type' => 'checkbox',
+            '#title' => $label['title'],
+            '#suffix' => '<div class="credit-query-description">' . htmlspecialchars($label['description'], ENT_QUOTES, 'UTF-8') . '</div>',
+            '#default_value' => 1,
+          );
+        }
+
+    }
+
     $form['credit_filter_fieldset'] = array(
       '#type' => 'fieldset',
       '#title' =>  t('Filter by LEED Credit'),
@@ -349,6 +421,147 @@ class LeeduserSearchForm extends FormBase {
 
     return $form['location_filter_fieldset']['location_country'];
   }
+  /**
+   * Submit handler to clear credit filters.
+   */
+  public function clearCredits(array &$form, FormStateInterface $form_state) {
+    // Access the TempStore instance for the current user.
+    $store = $this->tempStoreFactory->get('leeduser_search');
+
+    // Retrieve and modify the current values in TempStore.
+    $current_values = $store->get('saved_values') ?: [];
+
+    // Check if there are credit-related values to clear and remove them.
+    if (isset($current_values['credits'])) {
+      unset($current_values['credits']);
+
+      // Update TempStore with the modified values.
+      $store->set('saved_values', $current_values);
+    }
+
+    // Optional: Clear other related data or session state if needed.
+
+    // Retrieve the current URI and query parameters.
+    $current_uri = \Drupal::service('path.current')->getPath();
+    $current_query = \Drupal::request()->query->all();
+
+    // Check and remove credit-related parts in the 'f' query parameter or other queries.
+    if (isset($current_query['f']) && is_array($current_query['f'])) {
+      foreach ($current_query['f'] as $key => $value) {
+        if (strpos($value, 'credit:') === 0) {
+          unset($current_query['f'][$key]);
+        }
+      }
+
+      // Clean up the 'f' array, if empty.
+      if (empty($current_query['f'])) {
+        unset($current_query['f']);
+      }
+    }
+
+    // Create a new URL without the cleared 'credit' parameters and redirect.
+    $url = \Drupal\Core\Url::fromUserInput($current_uri, ['query' => $current_query]);
+    $response = new RedirectResponse($url->toString());
+    $response->send();
+
+    // Ensure no further form processing happens after redirection.
+    $form_state->setRebuild(FALSE);
+  }
+  /**
+   * Submit handler to clear location filters.
+   */
+  public function clearLocation(array &$form, FormStateInterface $form_state) {
+    $store = $this->tempStoreFactory->get('leeduser_search');
+
+    // Clear location-related entries in TempStore.
+    $current_values = $store->get('saved_values') ?: [];
+    $location_values_cleared = false;
+
+    if (isset($current_values['country'])) {
+      unset($current_values['country']);
+      $location_values_cleared = true;
+    }
+
+    if (isset($current_values['region'])) {
+      unset($current_values['region']);
+      $location_values_cleared = true;
+    }
+
+    if ($location_values_cleared) {
+      $store->set('saved_values', $current_values);
+    }
+
+    // Retrieve the current URI and query parameters to clean the location filter.
+    $current_uri = \Drupal::service('path.current')->getPath();
+    $current_query = \Drupal::request()->query->all();
+
+    // Check and remove location-related parts in the 'f' query parameter or other location-specific queries.
+    if (isset($current_query['f']) && is_array($current_query['f'])) {
+      foreach ($current_query['f'] as $key => $value) {
+        if (strpos($value, 'location:') === 0) {
+          unset($current_query['f'][$key]);
+        }
+      }
+
+      // Clean up if the 'f' array is empty after removing.
+      if (empty($current_query['f'])) {
+        unset($current_query['f']);
+      }
+    }
+
+    // Recreate the URL without the cleared 'location' parameters.
+    $url = \Drupal\Core\Url::fromUserInput($current_uri, ['query' => $current_query]);
+
+    // Redirect to the cleaned URL.
+    $response = new RedirectResponse($url->toString());
+    $response->send();
+
+    // Prevent further form processing since we redirect.
+    $form_state->setRebuild(FALSE);
+  }
+
+  /**
+   * Handler to clear the keyword search field and reset the URL.
+   */
+  public function clearSearch(array &$form, FormStateInterface $form_state) {
+    $store = $this->tempStoreFactory->get('leeduser_search');
+
+    // Clear the specific entry for keyword_search in TempStore.
+    $current_values = $store->get('saved_values') ?: [];
+    if (isset($current_values['keyword_search'])) {
+      unset($current_values['keyword_search']);
+      $store->set('saved_values', $current_values);
+    }
+
+    // Retrieve the current URI and query parameters.
+    $current_uri = \Drupal::service('path.current')->getPath();
+    $current_query = \Drupal::request()->query->all();
+
+    // Check for 'f' parameter and clean up the 'combined:aluminum'.
+    if (isset($current_query['f']) && is_array($current_query['f'])) {
+      // Iterate through the array and unset the matching value.
+      foreach ($current_query['f'] as $key => $value) {
+        if (strpos($value, 'combined:') === 0) {
+          unset($current_query['f'][$key]);
+        }
+      }
+
+      // Clean up if the 'f' array is empty after removing.
+      if (empty($current_query['f'])) {
+        unset($current_query['f']);
+      }
+    }
+
+    // Recreate the URL without the cleaned 'f[0]' parameter.
+    $url = \Drupal\Core\Url::fromUserInput($current_uri, ['query' => $current_query]);
+
+    // Redirect to the cleaned URL.
+    $response = new RedirectResponse($url->toString());
+    $response->send();
+
+    // Regardless of rebuild since we're redirecting.
+    $form_state->setRebuild(FALSE);
+  }
   protected function getCreditCategories($rating_system_tid) {
     // Load terms corresponding to the selected rating system.
     $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery();
@@ -398,18 +611,30 @@ class LeeduserSearchForm extends FormBase {
 
     $query->condition('parent', $leed_version_tid); // Fetch child terms.
     $tids = $query->execute();
-    \Drupal::logger('custom_module')->notice('Form state values2: @values', ['@values' => $tids]);
+    $rating_systems_with_children = [];
 
-    $rating_systems = [];
     if (!empty($tids)) {
-      $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadMultiple($tids);
-      foreach ($terms as $term) {
-        $rating_systems[$term->id()] = $term->getName();
+      $child_terms = Term::loadMultiple($tids);
+      // Step 2: Check each child term to see if it has further children.
+      foreach ($child_terms as $child_term) {
+        // Create a query to check for children of this child term.
+        $sub_child_query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery();
+        $sub_child_query->condition('parent', $child_term->id())->accessCheck(false);;
+        $sub_child_tids = $sub_child_query->execute();
+
+        // If this child term has its own children, add it to the result array.
+        if (!empty($sub_child_tids)) {
+          $rating_systems_with_children[$child_term->id()] = $child_term->getName();
+        }
       }
     }
 
-    return $rating_systems;
+    // Log the resultant terms for debugging purposes.
+    \Drupal::logger('custom_module')->notice('Rating systems with children: @values', ['@values' => $rating_systems_with_children]);
+
+    return $rating_systems_with_children;
   }
+
 
   /**
    * Returns a list of taxonomy terms for the location regions.
@@ -511,6 +736,33 @@ class LeeduserSearchForm extends FormBase {
     // Return the first TID found, or NULL if none found.
     return !empty($tids) ? reset($tids) : null;
   }
+  function getCreditFilterLabel($tid) {
+    $parents = $this->loadAllParents($tid);
+    \Drupal::logger('custom_module')->notice('Form state parents: @values', ['@values' => $tid]);
+    $count = count($parents);
+    $data = array('title' => '', 'description' => '');
+    switch ($count) {
+      case 1:
+        // Only one item means we are looking at LEED Version.
+        $data['title'] = strip_tags($parents[0]->name->value);
+        break;
+
+      case 2:
+        $data['title'] = strip_tags($parents[0]->name->value);
+        break;
+
+      case 3:
+        $data['title'] = strip_tags(sprintf('%s %s', $parents[1]->name->value, $parents[0]->name->value));
+        $data['description'] = strip_tags($parents[0]->description->value);
+        break;
+
+      case 4:
+        $data['title'] = strip_tags(sprintf('%s %s', $parents[2]->name->value, $parents[0]->name->value));
+        $data['description'] = strip_tags($parents[0]->description->value);
+        break;
+    }
+    return $data;
+  }
 
   /**
    * {@inheritdoc}
@@ -520,52 +772,71 @@ class LeeduserSearchForm extends FormBase {
   }
 
 
-  public function submitForm(array &$form, FormStateInterface $form_state)
-  {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $store = $this->tempStoreFactory->get('leeduser_search');
 
     // Initialize the 'f' query parameter as an array.
     $filters = [];
+
+    // Initialize credit variable.
+    $credit = null;
+    $location= null;
     $keyword_search = $form_state->getValue('keyword_search');
     if (!empty($keyword_search)) {
       $filters[] = 'combined:' . $keyword_search;
     }
+
     // LEED version.
     $leed_version = $form_state->getValue('leed_version');
     if (!empty($leed_version)) {
       $filters[] = 'credit:' . $leed_version;
+      $credit = $leed_version; // Assign credit here if version is not empty
     }
 
     // Rating system.
     $rating_system = $form_state->getValue('rating_system');
     if (!empty($rating_system)) {
       $filters[] = 'credit:' . $rating_system;
+      $credit = $rating_system; // Override previous credit assignment if not empty
     }
 
     // Credit category.
     $credit_category = $form_state->getValue('credit_category');
     if (!empty($credit_category)) {
       $filters[] = 'credit:' . $credit_category;
+      $credit = $credit_category; // Override again if category is not empty
     }
 
-    // Credit.
-    $credit = $form_state->getValue('credit');
-    if (!empty($credit)) {
-      $filters[] = 'credit:' . $credit;
+    // Actual Credit.
+    $credit_value = $form_state->getValue('credit');
+    if (!empty($credit_value)) {
+      $filters[] = 'credit:' . $credit_value;
+      $credit = $credit_value; // Final hierarchy level, final override
     }
 
     // Location: region.
     $location_region = $form_state->getValue('location_region');
     if (!empty($location_region)) {
       $filters[] = 'location:' . $location_region;
+      $location=$location_region;
     }
 
     // Location: country.
     $location_country = $form_state->getValue('location_country');
     if (!empty($location_country)) {
       $filters[] = 'location:' . $location_country;
+      $location=$location_country;
+
     }
+
+    // Save the form values to the TempStore.
+    $values_to_save = [
+      'location' => $location,
+      'keyword_search' => $keyword_search,
+      'credits' => $credit, // Store the last assigned credit value
+    ];
+    $store->set('saved_values', $values_to_save);
 
     // Redirect with the filters appended to the URL.
     $form_state->setRedirect('<current>', [], ['query' => ['f' => $filters]]);
-  }
-}
+  }}

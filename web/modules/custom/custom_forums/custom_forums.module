@@ -209,26 +209,6 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
             'title' => $user_picture_item->get('title')->getValue() ?? '',
           ],
         ];
-      } else {
-        // If no user picture exists, use the default image from the field settings.
-        $field = \Drupal\field\Entity\FieldConfig::loadByName('user', 'user', 'user_picture');
-        $default_image = $field->getSetting('default_image');
-        // Load the default image by its UUID.
-        $file = \Drupal::service('entity.repository')->loadEntityByUuid('file', $default_image['uuid']);
-
-        if ($file) {
-          // Build the render array for the default image.
-          $build['user_picture'] = [
-            '#theme' => 'image',
-            '#uri' => $file->getFileUri(),
-            '#attributes' => [
-              'width' => '100',
-              'height' => '100',
-              'alt' => $default_image['default_image']['alt'] ?? '',
-              'title' => $default_image['default_image']['title'] ?? '',
-            ],
-          ];
-        }
       }
     }
   }
@@ -256,9 +236,9 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
     // Load the user roles.
     $roles = $entity->getRoles();
 
-    // Filter out 'authenticated' and 'anonymous' roles.
+    // Filter to include only 'lu_premium' and 'lu_guest_expert'.
     $roles = array_filter($roles, function ($role_id) {
-      return $role_id !== 'authenticated' && $role_id !== 'anonymous' && $role_id !== 'administrator';
+      return in_array($role_id, ['lu_premium', 'lu_guest_expert']);
     });
 
     // Load role entities for the remaining role IDs.
