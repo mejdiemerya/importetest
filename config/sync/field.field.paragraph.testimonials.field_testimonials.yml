@@ -1,21 +1,18 @@
-uuid: 26090def-6c51-493a-8624-c54d5472cb64
+uuid: 25dc051d-542d-4d7a-a7c9-d9b70bf3cb9a
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_content
-    - node.type.pricing
-    - paragraphs.paragraphs_type.hero_pricing
-    - paragraphs.paragraphs_type.membership
+    - field.storage.paragraph.field_testimonials
     - paragraphs.paragraphs_type.testimonials
-    - paragraphs.paragraphs_type.tribox_global
+    - paragraphs.paragraphs_type.testimonials_item
   module:
     - entity_reference_revisions
-id: node.pricing.field_content
-field_name: field_content
-entity_type: node
-bundle: pricing
-label: Content
+id: paragraph.testimonials.field_testimonials
+field_name: field_testimonials
+entity_type: paragraph
+bundle: testimonials
+label: testimonials
 description: ''
 required: false
 translatable: false
@@ -25,26 +22,23 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      hero_pricing: hero_pricing
-      tribox_global: tribox_global
-      membership: membership
-      testimonials: testimonials
+      testimonials_item: testimonials_item
     negate: 0
     target_bundles_drag_drop:
       descriptions_sidebar:
         weight: 14
         enabled: false
       hero:
-        weight: 2
+        weight: 15
         enabled: false
       hero_pricing:
-        weight: 4
-        enabled: true
+        weight: 16
+        enabled: false
       image_sidebar:
         weight: 17
         enabled: false
       item:
-        weight: 7
+        weight: 18
         enabled: false
       leed_credits:
         weight: 19
@@ -54,20 +48,20 @@ settings:
         enabled: false
       membership:
         weight: 21
-        enabled: true
+        enabled: false
       membership_item:
         weight: 22
         enabled: false
       testimonials:
         weight: 23
-        enabled: true
+        enabled: false
       testimonials_item:
         weight: 24
-        enabled: false
+        enabled: true
       text_well_marquee:
         weight: 25
         enabled: false
       tribox_global:
-        weight: 8
-        enabled: true
+        weight: 26
+        enabled: false
 field_type: entity_reference_revisions
