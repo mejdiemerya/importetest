@@ -407,17 +407,28 @@ class CreditSelectorForm extends FormBase {
 
     $query->condition('parent', $rating_systemn_tid); // Fetch child terms.
     $tids = $query->execute();
-    \Drupal::logger('custom_module')->notice('Form state values2: @values', ['@values' => $tids]);
+    $rating_systems_with_children = [];
 
-    $rating_systems = [];
     if (!empty($tids)) {
-      $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadMultiple($tids);
-      foreach ($terms as $term) {
-        $rating_systems[$term->id()] = $term->getName();
+      $child_terms = Term::loadMultiple($tids);
+      // Step 2: Check each child term to see if it has further children.
+      foreach ($child_terms as $child_term) {
+        // Create a query to check for children of this child term.
+        $sub_child_query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery();
+        $sub_child_query->condition('parent', $child_term->id())->accessCheck(false);;
+        $sub_child_tids = $sub_child_query->execute();
+
+        // If this child term has its own children, add it to the result array.
+        if (!empty($sub_child_tids)) {
+          $rating_systems_with_children[$child_term->id()] = $child_term->getName();
+        }
       }
     }
 
-    return $rating_systems;
+    // Log the resultant terms for debugging purposes.
+    \Drupal::logger('custom_module')->notice('Rating systems with children: @values', ['@values' => $rating_systems_with_children]);
+
+    return $rating_systems_with_children;
   }
   protected function getLeedVersion() {
     $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('credit', 0, 1); // Level 1 terms.
