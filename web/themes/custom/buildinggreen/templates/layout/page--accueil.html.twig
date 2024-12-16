@@ -103,21 +103,27 @@
   %}
 
 
-  <div class="{{ b5_top_container }}"> 
+  <div class="{{ b5_top_container }}">
     {% if page.breadcrumb %}
       {{ page.breadcrumb }}
     {% endif %}
-    <div class="row g-0 m-0">
+    <div class="row g-0">
+      <div class="order-1 order-lg-2 col-12">
+        {{ page.content }}
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="container container-fluid-cuctom">
+    <div class="row g-5 mb-4">
       {% if page.sidebar_first %}
-        <div class="order-2 order-lg-1 {{ sidebar_first_classes }}">
+        <div class="col-sm-6 border-end">
           {{ page.sidebar_first }}
         </div>
       {% endif %}
-      <div class="order-1 order-lg-2 {{ content_classes }}">
-        {{ page.content }}
-      </div>
+
       {% if page.sidebar_second %}
-        <div class="order-3 {{ sidebar_second_classes }}">
+        <div class="col-sm-6">
           {{ page.sidebar_second }}
         </div>
       {% endif %}

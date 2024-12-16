@@ -27,5 +27,16 @@ class LeeduserSearchBlock extends BlockBase {
   public function build() {
     return \Drupal::formBuilder()->getForm('Drupal\custom_forums\Form\LeeduserSearchForm');
   }
+  public function getCacheMaxAge() {
+    // If you need to redefine the Max Age for that block
+    return 0;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return ['url.path', 'url.query_args'];
+  }
 
 }
