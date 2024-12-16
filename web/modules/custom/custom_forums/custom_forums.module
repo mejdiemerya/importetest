@@ -517,39 +517,66 @@ function _allowed_formats_remove_textarea_help($form_element, FormStateInterface
 }
 
 function custom_forums_flagging_presave(FlaggingInterface $flagging) {
-  // Check if the flagging is for a taxonomy term.
+  // Get the flagged entity.
   $flagged_entity = $flagging->getFlaggable();
-  $related_nodes=[];
   $entity_type_manager = \Drupal::entityTypeManager();
+  $related_nids = [];
 
+  // Determine the bundle and load related nodes.
   if ($flagged_entity instanceof Term) {
-
+    $term_id = $flagged_entity->id();
     if ($flagged_entity->bundle() == 'forums') {
-      $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['taxonomy_forums' => $flagged_entity->id()]);
+      $related_nids = $entity_type_manager->getStorage('node')->getQuery()
+        ->condition('taxonomy_forums', $term_id)->accessCheck(false)
+        ->execute();
+    }
+    elseif ($flagged_entity->bundle() == 'credit') {
+      $related_nids = $entity_type_manager->getStorage('node')->getQuery()
+        ->condition('field_credits', $term_id)->accessCheck(false)
+        ->execute();
+    }
+  }
+  elseif ($flagged_entity instanceof Node) {
+    if ($flagged_entity->bundle() == 'tipsheet') {
+      $related_nids = $entity_type_manager->getStorage('node')->getQuery()
+        ->condition('field_tipsheet', $flagged_entity->id())->accessCheck(false)
+        ->execute();
+    }
+  }
 
-    } elseif ($flagged_entity->bundle() == 'credit') {
-      $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['field_credits' => $flagged_entity->id()]);
-    }
+  if (empty($related_nids)) {
+    return; // No related nodes found, exit early.
   }
-  if ($flagged_entity instanceof Node) {
-    if($flagged_entity->bundle() == 'tipsheet'){
-      $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['field_tipsheet' => $flagged_entity->id()]);
-    }
+
+  // Load the flag service.
+  $flag_service = \Drupal::service('flag');
+  $flag = $flag_service->getFlagById('notification');
+  $account = \Drupal::currentUser();
+
+  if (!$flag) {
+    // Log a warning if the flag is not found and exit early.
+    \Drupal::logger('custom_forums')->warning('Notification flag not found.');
+    return;
   }
-    // Load the flag service and check if the node is already flagged.
-    $flag_service = \Drupal::service('flag');
-    $flag = $flag_service->getFlagById('notification');
-    $account = \Drupal::currentUser();
-    // Flag each related node if it's not already flagged.
-    foreach ($related_nodes as $node) {
+
+  // Process nodes in batches.
+  $batch_size = 50;
+  $related_nid_batches = array_chunk($related_nids, $batch_size);
+
+  foreach ($related_nid_batches as $batch) {
+    $nodes = $entity_type_manager->getStorage('node')->loadMultiple($batch);
+    foreach ($nodes as $node) {
+      // Only flag if the flag is applicable and not already flagged.
       if ($flag && !$flag_service->getFlagging($flag, $node, $account)) {
-        // Flag the node if not already flagged.
-        $flag_service->flag($flag, $node);
+        try {
+          $flag_service->flag($flag, $node);
+        } catch (\Exception $e) {
+          \Drupal::logger('custom_forums')->error('Failed to flag node ID @nid: @message', ['@nid' => $node->id(), '@message' => $e->getMessage()]);
+        }
       }
     }
-
+  }
 }
-
 
 function custom_forums_flagging_delete(FlaggingInterface $flagging) {
   // Check if the flagging is for a taxonomy term.
