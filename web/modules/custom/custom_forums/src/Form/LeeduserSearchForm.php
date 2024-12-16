@@ -239,7 +239,7 @@ class LeeduserSearchForm extends FormBase {
         '#title' => t('Credit Filters'),
       );
      $credit_id = $saved_values['credits'];
-        if ($term = Term::load($credit_id)) {
+        if (($credit_id)) {
           $label = getCreditFilterLabel($credit_id);
           $form['active_credit_filter_fieldset']['queries']['saved_query_credit_' . $credit_id] = array(
             '#type' => 'checkbox',
@@ -475,20 +475,11 @@ class LeeduserSearchForm extends FormBase {
 
     // Clear location-related entries in TempStore.
     $current_values = $store->get('saved_values') ?: [];
-    $location_values_cleared = false;
 
-    if (isset($current_values['country'])) {
-      unset($current_values['country']);
-      $location_values_cleared = true;
-    }
-
-    if (isset($current_values['region'])) {
-      unset($current_values['region']);
-      $location_values_cleared = true;
-    }
-
-    if ($location_values_cleared) {
+    if (isset($current_values['location'])) {
+      unset($current_values['location']);
       $store->set('saved_values', $current_values);
+
     }
 
     // Retrieve the current URI and query parameters to clean the location filter.
