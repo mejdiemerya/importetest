@@ -55,7 +55,7 @@ class CreditSelectorForm extends FormBase {
     ];
     $form['credit_selector']['browser_group_1'] = [
       '#type' => 'container',
-      '#attributes' => ['class' => ['browser-group']],
+      '#attributes' => ['class' => ['browser-group','active']],
     ];
     $form['credit_selector']['browser_group_2'] = [
       '#type' => 'container',
@@ -164,18 +164,30 @@ class CreditSelectorForm extends FormBase {
     if (!empty($leed_version)) {
       $form['credit_selector']['browser_group_2']['rating_system']['#options'] = $this->getRatingSystems($leed_version);
       unset($form['credit_selector']['browser_group_2']['rating_system']['#attributes']['disabled']);
+
+      unset($form['credit_selector']['browser_group_1']['#attributes']['class']['active']);
+      $form['credit_selector']['browser_group_1']['#attributes']['class'][]='complete';
+      $form['credit_selector']['browser_group_2']['#attributes']['class'][]='active';
     }
 
     $rating_system = $form_state->getValue('rating_system') ?? $rating_system;
     if (!empty($rating_system)) {
       $form['credit_selector']['browser_group_3']['credit_category']['#options'] = $this->getCreditCategories($rating_system);
       unset($form['credit_selector']['browser_group_3']['credit_category']['#attributes']['disabled']);
+
+      unset($form['credit_selector']['browser_group_2']['#attributes']['class']['active']);
+      $form['credit_selector']['browser_group_2']['#attributes']['class'][]='complete';
+      $form['credit_selector']['browser_group_3']['#attributes']['class'][]='active';
     }
 
     $credit_category = $form_state->getValue('credit_category') ?? $credit_category;
     if (!empty($credit_category)) {
       $form['credit_selector']['browser_group_4']['credit']['#options'] = $this->getCredits($credit_category);
       unset($form['credit_selector']['browser_group_4']['credit']['#attributes']['disabled']);
+
+      unset($form['credit_selector']['browser_group_3']['#attributes']['class']['active']);
+      $form['credit_selector']['browser_group_3']['#attributes']['class'][]='complete';
+      $form['credit_selector']['browser_group_4']['#attributes']['class'][]='active';
     }
     return $form;
 
