@@ -1,4 +1,4 @@
-uuid: 483660b2-372a-495c-aea2-538bc8f23ba3
+uuid: 097afcdb-3017-4c61-9e18-0a9dd2235859
 langcode: en
 status: true
 dependencies:
@@ -12,7 +12,7 @@ entity_type: user
 bundle: user
 label: 'First name'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

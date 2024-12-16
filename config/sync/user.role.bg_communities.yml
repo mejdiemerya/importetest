@@ -1,0 +1,9 @@
+uuid: 12e2196a-e22d-4e61-b869-0e8dfe0f6bda
+langcode: en
+status: true
+dependencies: {  }
+id: bg_communities
+label: bg_communities
+weight: 21
+is_admin: null
+permissions: {  }

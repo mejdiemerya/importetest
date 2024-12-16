@@ -1,0 +1,22 @@
+uuid: 00aa0e9a-6365-410e-aeb2-3e6ca945cfa6
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_regional_coordinator
+  module:
+    - user
+id: user.user.field_regional_coordinator
+field_name: field_regional_coordinator
+entity_type: user
+bundle: user
+label: 'Regional coordinator'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Activé
+  off_label: Désactivé
+field_type: boolean

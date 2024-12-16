@@ -6,7 +6,7 @@ dependencies:
     - custom_forums
 id: lu_premium
 label: 'LEEDuser Premium Member'
-weight: 10
+weight: 28
 is_admin: null
 permissions:
   - 'access leeduser premium content'

@@ -1,0 +1,14 @@
+uuid: 39d49362-6255-4914-9b28-8f7ada52f95c
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.lu_premium_og
+  module:
+    - user
+id: user_add_role_action.lu_premium_og
+label: 'Add the lu_premium_og role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: lu_premium_og

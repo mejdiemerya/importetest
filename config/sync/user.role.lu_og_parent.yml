@@ -1,0 +1,9 @@
+uuid: fd2f5898-de28-4706-8a6a-f4ce9e58a022
+langcode: en
+status: true
+dependencies: {  }
+id: lu_og_parent
+label: lu_og_parent
+weight: 32
+is_admin: null
+permissions: {  }

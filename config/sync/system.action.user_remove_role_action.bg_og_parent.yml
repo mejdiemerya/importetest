@@ -1,0 +1,14 @@
+uuid: 7de30398-1d4d-4f70-83fb-9e186c441716
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.bg_og_parent
+  module:
+    - user
+id: user_remove_role_action.bg_og_parent
+label: 'Remove the bg_og_parent role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: bg_og_parent

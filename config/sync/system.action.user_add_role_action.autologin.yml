@@ -1,0 +1,14 @@
+uuid: fd7a315e-d72d-4cc2-9582-0e4a9d83a1dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.autologin
+  module:
+    - user
+id: user_add_role_action.autologin
+label: 'Add the autologin role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: autologin

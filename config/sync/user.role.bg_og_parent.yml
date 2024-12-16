@@ -1,0 +1,9 @@
+uuid: eb420952-9eca-4390-8827-248a00b5726e
+langcode: en
+status: true
+dependencies: {  }
+id: bg_og_parent
+label: bg_og_parent
+weight: 27
+is_admin: null
+permissions: {  }

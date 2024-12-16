@@ -1,11 +1,99 @@
 uuid: e345464c-2306-47cc-a2dd-e113f0e8a3c4
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  config:
+    - filter.format.full_html
+    - node.type.article
+    - node.type.forum
+    - node.type.page
+  module:
+    - announcements_feed
+    - block
+    - comment
+    - contact
+    - contextual
+    - draggableviews
+    - facets
+    - filter
+    - forum
+    - image
+    - node
+    - path
+    - search
+    - shortcut
+    - system
+    - taxonomy
+    - views_ui
+    - votingapi
 _core:
   default_config_hash: OeKGIkmZA_c-t6QLH81WNQx8gDCc1MRmxaTuQgxBByU
 id: administrator
-label: Administrator
-weight: 3
+label: administrator
+weight: 20
 is_admin: true
-permissions: {  }
+permissions:
+  - 'access administration pages'
+  - 'access announcements'
+  - 'access comments'
+  - 'access content'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access draggableviews'
+  - 'access site in maintenance mode'
+  - 'access site reports'
+  - 'access site-wide contact form'
+  - 'access user contact forms'
+  - 'access user profiles'
+  - 'administer actions'
+  - 'administer blocks'
+  - 'administer comments'
+  - 'administer contact forms'
+  - 'administer content types'
+  - 'administer facets'
+  - 'administer filters'
+  - 'administer forums'
+  - 'administer image styles'
+  - 'administer menu'
+  - 'administer modules'
+  - 'administer nodes'
+  - 'administer permissions'
+  - 'administer search'
+  - 'administer shortcuts'
+  - 'administer site configuration'
+  - 'administer software updates'
+  - 'administer taxonomy'
+  - 'administer themes'
+  - 'administer url aliases'
+  - 'administer users'
+  - 'administer views'
+  - 'administer voting api'
+  - 'bypass node access'
+  - 'cancel account'
+  - 'change own username'
+  - 'create article content'
+  - 'create page content'
+  - 'create url aliases'
+  - 'customize shortcut links'
+  - 'delete any article content'
+  - 'delete any forum content'
+  - 'delete any page content'
+  - 'delete own article content'
+  - 'delete own forum content'
+  - 'delete own page content'
+  - 'edit any article content'
+  - 'edit any forum content'
+  - 'edit any page content'
+  - 'edit own article content'
+  - 'edit own comments'
+  - 'edit own forum content'
+  - 'edit own page content'
+  - 'post comments'
+  - 'search content'
+  - 'select account cancellation method'
+  - 'skip comment approval'
+  - 'switch shortcut sets'
+  - 'use advanced search'
+  - 'use text format full_html'
+  - 'view own unpublished content'
+  - 'view the administration theme'

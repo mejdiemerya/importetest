@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 id: lu_guest_expert
 label: 'LEEDuser Experts'
-weight: 9
+weight: 33
 is_admin: null
 permissions: {  }

@@ -1,0 +1,21 @@
+uuid: d621b4d1-492c-4f7f-9774-5812771e1ff3
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_last_mailchimp_sync_date
+  module:
+    - datetime
+    - user
+id: user.user.field_last_mailchimp_sync_date
+field_name: field_last_mailchimp_sync_date
+entity_type: user
+bundle: user
+label: 'Last MailChimp Sync Date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

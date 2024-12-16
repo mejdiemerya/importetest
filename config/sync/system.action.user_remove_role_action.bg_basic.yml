@@ -1,0 +1,14 @@
+uuid: 5042f9e1-ffbf-4510-9dd0-34089d764fe7
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.bg_basic
+  module:
+    - user
+id: user_remove_role_action.bg_basic
+label: 'Remove the bg_basic role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: bg_basic

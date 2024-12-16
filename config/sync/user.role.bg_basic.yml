@@ -1,0 +1,9 @@
+uuid: 10087505-4c83-42ae-9893-c903c45c20ad
+langcode: en
+status: true
+dependencies: {  }
+id: bg_basic
+label: bg_basic
+weight: 35
+is_admin: null
+permissions: {  }
