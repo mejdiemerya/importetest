@@ -5,6 +5,18 @@ $border-radius-base:        4px;
 $font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
 $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
 #block-buildinggreen-leedusersearchblock {
+  #edit-clear-location,
+  #edit-clear-credits,
+  #edit-clear-search{
+    float: right;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 120%;
+    margin-top: -1px;
+    color: #000;
+  }
   @include MQ(SMneg) {
     min-height: 20px;
     padding: 15px;

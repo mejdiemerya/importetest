@@ -168,7 +168,11 @@ class LeeduserSearchForm extends FormBase {
         '#markup' => t('Post a question or comment'),
       ];
     }
-    $form['clear_search'] = array(
+    $form['container_search'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['search-group', 'position-relative']],
+    ];
+    $form['container_search']['clear_search'] = array(
       '#type' => 'submit',
       '#name' => 'clear_search',
       '#description' => t('Clear search'),
@@ -179,7 +183,7 @@ class LeeduserSearchForm extends FormBase {
       '#suffix' => '</div>',
       '#value' => "\xC3\x97",
     );
-    $form['keyword_search'] = [
+    $form['container_search']['keyword_search'] = [
       '#type' => 'textfield',
       '#title' => t('Search Forums'),
       '#default_value' => isset($saved_values['keyword_search']) ? $saved_values['keyword_search'] : '',
