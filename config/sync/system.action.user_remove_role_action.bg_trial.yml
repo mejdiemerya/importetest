@@ -1,0 +1,14 @@
+uuid: 2f6ef6fd-ebb0-4613-b432-c62de7a2655e
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.bg_trial
+  module:
+    - user
+id: user_remove_role_action.bg_trial
+label: 'Remove the bg_trial role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: bg_trial

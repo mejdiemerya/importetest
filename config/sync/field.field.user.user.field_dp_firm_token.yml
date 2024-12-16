@@ -1,0 +1,20 @@
+uuid: b1939e22-e4e2-4a2e-a307-998eb1446dfe
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_dp_firm_token
+  module:
+    - user
+id: user.user.field_dp_firm_token
+field_name: field_dp_firm_token
+entity_type: user
+bundle: user
+label: 'Firm token'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

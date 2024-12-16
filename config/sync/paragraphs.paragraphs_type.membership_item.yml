@@ -1,0 +1,10 @@
+uuid: 45803960-67b7-4d46-b296-1471c786438a
+langcode: en
+status: true
+dependencies: {  }
+id: membership_item
+label: 'membership item'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

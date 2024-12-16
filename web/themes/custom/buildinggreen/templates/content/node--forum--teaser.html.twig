@@ -77,11 +77,16 @@
     <div class="py-3 border-bottom">
       <div class="row">
         <!-- First Column -->
-
         <div class="content-column col-12 col-lg-8 forum-topic">
-          <div class="float-start me-2 mb-2">
-            <div class="user-picture">{{ content.user_picture }}</div>
-          </div>
+            <div class="float-start me-2 mb-2">
+              {% if content.user_picture  %}
+              <a href="{{ path('entity.user.canonical', {'user': node.uid.target_id}) }}"> <div class="user-picture">{{ content.user_picture }}</div> </a>
+              {% else %}
+                <div class="user-picture">
+                  <a href="{{ path('entity.user.canonical', {'user': node.uid.target_id}) }}"> <img class=" img-rounded border" src="/sites/default/files/images/default-avatar.png" alt="Default Avatar"></a>
+                </div>
+              {% endif %}
+            </div>
           <h4><a href="{{ url }}" rel="bookmark">{{ label }}</a></h4>
           {% if content.title_forum['#credit'] %}
             {{ content.title_forum }}
@@ -94,9 +99,8 @@
               <div> {{ content.title_forum['#text'] }}</div>
             </a>
           {% endif %}
-
           <h6>
-            <em class="pr05">{{ 'posted by'|t }} <a href="users/" class="OP"><strong>{{ author_name }}</strong></a>
+            <em class="pr05">{{ 'posted by'|t }} <a href="{{ path('entity.user.canonical', {'user': node.uid.target_id}) }}" class="OP"><strong>{{ author_name }}</strong></a>
               on {{ date }} </em>
           </h6>
 

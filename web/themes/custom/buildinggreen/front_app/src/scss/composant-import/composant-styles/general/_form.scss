@@ -5,6 +5,18 @@ $border-radius-base:        4px;
 $font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
 $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
 #block-buildinggreen-leedusersearchblock {
+  #edit-clear-location,
+  #edit-clear-credits,
+  #edit-clear-search{
+    float: right;
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    font-weight: 600;
+    font-size: 120%;
+    margin-top: -1px;
+    color: #000;
+  }
   @include MQ(SMneg) {
     min-height: 20px;
     padding: 15px;
@@ -148,4 +160,146 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
     margin-bottom: 1em;
   }
 
+}
+.credit-selector {
+  margin-bottom: 1.5em;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  .form-item, .form-actions {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  @include MQ(SMtoM) {
+    width: 65%;
+  }
+  div.browser-group,
+  div.selector-group {
+    padding: 5px 15px 10px;
+    background-color: #eee;
+    margin-bottom: 1px;
+    label {
+      color: $gray;
+    }
+    @include MQ(Mneg) {
+      &:first-of-type {
+        @include border-top-radius(6px);
+      }
+      &:last-of-type {
+        @include border-bottom-radius(6px);
+        border-right: none;
+      }
+    }
+    @include MQ(Splus) {
+      padding: 10px 15px;
+    }
+    @include MQ(Mplus){
+      float: left;
+      border-right: 1px solid #cccccc;
+      label {
+        color: #fff;
+      }
+      margin-bottom: 0;
+      @include gradient-vertical($gray-light, $gray-lighter, 0%, 100%);
+      &:first-of-type {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+      }
+      &:last-of-type {
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        border-right: none;
+      }
+    }
+    &.active {
+      background-color: $brand-success;
+      @include MQ(Mplus){
+        @include gradient-vertical(shade($brand-success, 20%), tint($brand-success, 20%), 0%, 100%);
+      }
+      label {
+        color: rgba(255,255,255,0.7);
+      }
+      .description {
+        color: white;
+      }
+    }
+    &.complete {
+      background-color: $gray-dark;
+      @include MQ(Mplus){
+        @include gradient-vertical($gray-dark, $gray, 0%, 100%);
+      }
+      label {
+        color: rgba(255,255,255,0.7);
+      }
+      .description {
+        color: white;
+      }
+    }
+  }
+  a { text-decoration: none; }
+  a:hover {
+    text-decoration: none;
+    color: #000;
+  }
+  .ui-selectmenu-status, a.ui-selectmenu-status {
+    //font-family: $font-family-sans-serif;
+    padding-left: 0.5em; // Same value as #leed-version-menu etc. below
+    color: #fff;
+  }
+  #leed-version-button {
+    min-width: 7em;
+  }
+  .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background-color: transparent !important;
+    background-image: none !important;
+    border-color: rgba(255,255,255,0.5);
+  }
+  label {
+    display: block;
+    font-size: $font-size-xsmall;
+    line-height: 1.1;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: normal;
+    padding-top: 0.5em;
+    @include MQ(StoM) {
+      float: left;
+      width: 8em;
+      margin-right: 0.5em;
+    }
+    @include MQ(SMplus) {
+      font-size: $font-size-small;
+    }
+  }
+  .description {
+    display: block;
+    color: #000;
+    font-size: $font-size-small;
+    font-style: italic;
+    margin-top: 5px;
+    @include MQ(Mneg){
+      display: none;
+    }
+  }
+  select {
+    background-color: rgba(255,255,255,0.1);
+    @include border-radius(0);
+    color: white;
+    font-size: $font-size-large;
+    min-width: 200px;
+    @include MQ(Mneg){
+      font-size: $font-size-base;
+    }
+  }
+  .instructions {
+    margin: 1px 0 0 10px;
+    display: inline-block;
+    padding: 3px 10px;
+    background-color: tint($brand-midtone, 80%);
+    font-size: $font-size-small;
+    @include border-bottom-radius($border-radius-base);
+  }
+  .ui-state-default .ui-icon {
+    //background-image: url(/sites/all/modules/jquery_update/replace/ui/themes/base/minified/images/ui-icons_454545_256x240.png);
+  }
 }

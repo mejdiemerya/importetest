@@ -6,6 +6,8 @@ dependencies:
     - field.storage.node.field_content
     - node.type.pricing
     - paragraphs.paragraphs_type.hero_pricing
+    - paragraphs.paragraphs_type.membership
+    - paragraphs.paragraphs_type.testimonials
     - paragraphs.paragraphs_type.tribox_global
   module:
     - entity_reference_revisions
@@ -25,16 +27,45 @@ settings:
     target_bundles:
       hero_pricing: hero_pricing
       tribox_global: tribox_global
+      membership: membership
+      testimonials: testimonials
     negate: 0
     target_bundles_drag_drop:
+      descriptions_sidebar:
+        weight: 14
+        enabled: false
       hero:
         weight: 2
         enabled: false
       hero_pricing:
         weight: 4
         enabled: true
+      image_sidebar:
+        weight: 17
+        enabled: false
       item:
         weight: 7
+        enabled: false
+      leed_credits:
+        weight: 19
+        enabled: false
+      leed_process:
+        weight: 20
+        enabled: false
+      membership:
+        weight: 21
+        enabled: true
+      membership_item:
+        weight: 22
+        enabled: false
+      testimonials:
+        weight: 23
+        enabled: true
+      testimonials_item:
+        weight: 24
+        enabled: false
+      text_well_marquee:
+        weight: 25
         enabled: false
       tribox_global:
         weight: 8

@@ -1,0 +1,14 @@
+uuid: b438dbf3-b197-4c61-8b00-d6d3ba5c4951
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.lu_trial
+  module:
+    - user
+id: user_remove_role_action.lu_trial
+label: 'Remove the lu_trial role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: lu_trial

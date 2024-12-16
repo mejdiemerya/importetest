@@ -1,0 +1,14 @@
+uuid: 0d651a59-7312-46c1-bbf6-fdaa024d76a4
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.bg_premium_og
+  module:
+    - user
+id: user_add_role_action.bg_premium_og
+label: 'Add the bg_premium_og role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: bg_premium_og

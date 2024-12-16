@@ -17,7 +17,15 @@
  */
 #}
 <article{{ attributes.addClass('profile small') }}>
+  {% if content.user_picture['#items'] %}
+    {{ content.user_picture }}
+  {% else %}
+    <div class="user-picture">
+      <img class=" img-rounded border" src="/sites/default/files/images/default-avatar.png" alt="Default Avatar">
+    </div>
+  {% endif %}
+
   {% if content %}
-    {{- content -}}
+    {{- content|without('user_picture') -}}
   {% endif %}
 </article>

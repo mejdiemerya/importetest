@@ -1,0 +1,19 @@
+uuid: 493be47d-2e1b-4b8c-b211-525042504a68
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_titre_membership_item
+    - paragraphs.paragraphs_type.membership_item
+id: paragraph.membership_item.field_titre_membership_item
+field_name: field_titre_membership_item
+entity_type: paragraph
+bundle: membership_item
+label: 'titre membership item'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

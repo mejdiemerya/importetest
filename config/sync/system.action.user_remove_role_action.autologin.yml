@@ -1,0 +1,14 @@
+uuid: b807a3f3-bcbc-4450-9fc2-81b33d208dda
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.autologin
+  module:
+    - user
+id: user_remove_role_action.autologin
+label: 'Remove the autologin role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: autologin

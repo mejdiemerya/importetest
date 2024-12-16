@@ -1,0 +1,22 @@
+uuid: 81b5c7a1-9e85-4549-9b57-3332cd4d1e71
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_bulletin_opt_in
+  module:
+    - user
+id: user.user.field_bulletin_opt_in
+field_name: field_bulletin_opt_in
+entity_type: user
+bundle: user
+label: 'Bulletin Opt-In'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Activé
+  off_label: Désactivé
+field_type: boolean

@@ -1,0 +1,45 @@
+uuid: 1173cef1-3923-41e5-9f77-0b9c862f4488
+langcode: fr
+status: true
+dependencies:
+  module:
+    - options
+    - user
+id: user.field_region
+field_name: field_region
+entity_type: user
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: balsa
+      label: 'BALSA (SF Bay Area)'
+    -
+      value: cascadia
+      label: Cascadia
+    -
+      value: mid-atlantic
+      label: Mid-Atlantic
+    -
+      value: midwest
+      label: Midwest
+    -
+      value: new-york
+      label: 'New York'
+    -
+      value: northeast
+      label: Northeast
+    -
+      value: south
+      label: South
+    -
+      value: southwest
+      label: Southwest
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

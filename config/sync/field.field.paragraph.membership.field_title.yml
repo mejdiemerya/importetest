@@ -1,0 +1,19 @@
+uuid: d2575c71-7ee4-436d-96f4-48cd2b2b7dd1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.membership
+id: paragraph.membership.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: membership
+label: Titre
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

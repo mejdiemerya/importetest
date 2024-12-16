@@ -1,0 +1,14 @@
+uuid: 51925109-310b-4571-bdf6-011898909ed8
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.bg_premium
+  module:
+    - user
+id: user_remove_role_action.bg_premium
+label: 'Remove the bg_premium role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: bg_premium

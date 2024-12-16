@@ -1,0 +1,14 @@
+uuid: ced4bd40-002c-47b1-a1c7-7da88a5b5f8c
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.lu_og_multiuser
+  module:
+    - user
+id: user_remove_role_action.lu_og_multiuser
+label: 'Remove the lu_og_multiuser role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: lu_og_multiuser

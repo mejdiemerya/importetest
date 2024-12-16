@@ -1,0 +1,14 @@
+uuid: 6788c868-bcb9-4e02-91a8-f013e87624aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.lu_og_multiuser
+  module:
+    - user
+id: user_add_role_action.lu_og_multiuser
+label: 'Add the lu_og_multiuser role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: lu_og_multiuser

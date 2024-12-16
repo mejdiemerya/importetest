@@ -1,0 +1,14 @@
+uuid: 544b566c-5492-463c-92f0-5a92e2e887aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.pre_authorized
+  module:
+    - user
+id: user_add_role_action.pre_authorized
+label: 'Add the pre-authorized role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: pre_authorized

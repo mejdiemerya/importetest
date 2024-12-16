@@ -13,6 +13,17 @@
   border: 1px solid #e3e3e3;
   border-radius: 4px;
   @include box-shadow(inset 0 1px 1px rgba(0,0,0,.05));
+  &-marquee {
+    background-color: tint($brand-success, 90%);
+    border: none;
+    border-top: 1px dotted $gray-light;
+    border-bottom: 1px dotted $gray-light;
+    border-radius: 0;
+    @include MQ(Mneg){
+      margin-left: -15px;
+      margin-right: -15px;
+    }
+  }
   blockquote {
     border-color: #ddd;
     border-color: rgba(0,0,0,.15);

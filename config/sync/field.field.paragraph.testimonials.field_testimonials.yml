@@ -1,0 +1,67 @@
+uuid: 25dc051d-542d-4d7a-a7c9-d9b70bf3cb9a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_testimonials
+    - paragraphs.paragraphs_type.testimonials
+    - paragraphs.paragraphs_type.testimonials_item
+  module:
+    - entity_reference_revisions
+id: paragraph.testimonials.field_testimonials
+field_name: field_testimonials
+entity_type: paragraph
+bundle: testimonials
+label: testimonials
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      testimonials_item: testimonials_item
+    negate: 0
+    target_bundles_drag_drop:
+      descriptions_sidebar:
+        weight: 14
+        enabled: false
+      hero:
+        weight: 15
+        enabled: false
+      hero_pricing:
+        weight: 16
+        enabled: false
+      image_sidebar:
+        weight: 17
+        enabled: false
+      item:
+        weight: 18
+        enabled: false
+      leed_credits:
+        weight: 19
+        enabled: false
+      leed_process:
+        weight: 20
+        enabled: false
+      membership:
+        weight: 21
+        enabled: false
+      membership_item:
+        weight: 22
+        enabled: false
+      testimonials:
+        weight: 23
+        enabled: false
+      testimonials_item:
+        weight: 24
+        enabled: true
+      text_well_marquee:
+        weight: 25
+        enabled: false
+      tribox_global:
+        weight: 26
+        enabled: false
+field_type: entity_reference_revisions

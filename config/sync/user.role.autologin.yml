@@ -1,0 +1,9 @@
+uuid: 04ae431e-b9a4-423b-b97e-5479224b6983
+langcode: en
+status: true
+dependencies: {  }
+id: autologin
+label: autologin
+weight: 26
+is_admin: null
+permissions: {  }

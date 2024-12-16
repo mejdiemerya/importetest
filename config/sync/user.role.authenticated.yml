@@ -26,8 +26,8 @@ dependencies:
 _core:
   default_config_hash: cFrlqjtkTfvY3RGccjJkPf1SGIfJ942IrxTLWAO4mgA
 id: authenticated
-label: 'Authenticated user'
-weight: 1
+label: 'authenticated user'
+weight: 19
 is_admin: false
 permissions:
   - 'access comments'

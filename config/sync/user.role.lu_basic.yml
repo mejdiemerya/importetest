@@ -1,0 +1,9 @@
+uuid: 0fc8a741-bdfc-49f4-b91b-9a3ba7941d17
+langcode: en
+status: true
+dependencies: {  }
+id: lu_basic
+label: lu_basic
+weight: 36
+is_admin: null
+permissions: {  }

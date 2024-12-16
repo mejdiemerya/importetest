@@ -1,0 +1,14 @@
+uuid: a37b7827-52ed-426a-bc16-5cb8447bb365
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.bg_communities
+  module:
+    - user
+id: user_remove_role_action.bg_communities
+label: 'Remove the bg_communities role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: bg_communities

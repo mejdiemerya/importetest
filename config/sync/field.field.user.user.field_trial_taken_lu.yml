@@ -1,0 +1,22 @@
+uuid: 3d60f2b7-b0d3-46d1-b48a-aa0eb78095a6
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_trial_taken_lu
+  module:
+    - user
+id: user.user.field_trial_taken_lu
+field_name: field_trial_taken_lu
+entity_type: user
+bundle: user
+label: 'Trial taken - LU'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Activé
+  off_label: Désactivé
+field_type: boolean

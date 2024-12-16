@@ -1,0 +1,21 @@
+uuid: 412792f6-2e6c-4c4a-8c57-732c235d5889
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_region
+  module:
+    - options
+    - user
+id: user.user.field_region
+field_name: field_region
+entity_type: user
+bundle: user
+label: Region
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

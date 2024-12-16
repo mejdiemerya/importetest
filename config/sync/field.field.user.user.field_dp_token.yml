@@ -1,0 +1,20 @@
+uuid: bfd1e28e-49cb-42b5-afac-54bd32a3555b
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_dp_token
+  module:
+    - user
+id: user.user.field_dp_token
+field_name: field_dp_token
+entity_type: user
+bundle: user
+label: 'User token'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

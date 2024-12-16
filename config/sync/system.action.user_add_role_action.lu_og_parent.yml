@@ -1,0 +1,14 @@
+uuid: 8de31f25-c0e5-4900-bdc3-c077fc440866
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.lu_og_parent
+  module:
+    - user
+id: user_add_role_action.lu_og_parent
+label: 'Add the lu_og_parent role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: lu_og_parent

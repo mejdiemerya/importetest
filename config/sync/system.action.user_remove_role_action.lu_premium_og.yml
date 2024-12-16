@@ -1,0 +1,14 @@
+uuid: 4f1a1cbf-f954-4a74-aad5-ee2fbd2d885d
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.lu_premium_og
+  module:
+    - user
+id: user_remove_role_action.lu_premium_og
+label: 'Remove the lu_premium_og role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: lu_premium_og

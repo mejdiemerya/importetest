@@ -1,0 +1,18 @@
+uuid: 54ab1e1e-f027-484b-b954-93a811dce08d
+langcode: fr
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_sub_notification_last
+field_name: field_sub_notification_last
+entity_type: user
+type: timestamp
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,18 @@
+uuid: 1f329bd7-be8b-4c18-a78d-7cdebe69ad2c
+langcode: fr
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_bulletin_opt_in
+field_name: field_bulletin_opt_in
+entity_type: user
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

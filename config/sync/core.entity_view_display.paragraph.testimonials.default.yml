@@ -1,0 +1,39 @@
+uuid: 1ae62932-a80f-4cf2-aef4-02c11622aef9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.testimonials.field_testimonials
+    - field.field.paragraph.testimonials.field_title
+    - paragraphs.paragraphs_type.testimonials
+  module:
+    - entity_reference_revisions
+    - text_field_formatter
+id: paragraph.testimonials.default
+targetEntityType: paragraph
+bundle: testimonials
+mode: default
+content:
+  field_testimonials:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: text_field_formatter
+    label: hidden
+    settings:
+      wrap_tag: h1
+      wrap_class: text-left
+      wrap_attributes: ''
+      override_link_label: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

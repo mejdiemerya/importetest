@@ -1,0 +1,20 @@
+uuid: ecf66626-4b8c-4c98-aad0-b37001fe1a69
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_accreditations
+  module:
+    - user
+id: user.user.field_accreditations
+field_name: field_accreditations
+entity_type: user
+bundle: user
+label: Accreditations
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

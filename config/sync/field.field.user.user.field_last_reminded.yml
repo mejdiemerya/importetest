@@ -1,0 +1,20 @@
+uuid: 0edc1592-99d5-4935-98d3-6dd93462e026
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_last_reminded
+  module:
+    - user
+id: user.user.field_last_reminded
+field_name: field_last_reminded
+entity_type: user
+bundle: user
+label: 'Last reminded'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

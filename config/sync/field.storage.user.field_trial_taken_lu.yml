@@ -1,0 +1,18 @@
+uuid: c28427c2-f59b-40d4-a950-59c06b1d951c
+langcode: fr
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_trial_taken_lu
+field_name: field_trial_taken_lu
+entity_type: user
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
