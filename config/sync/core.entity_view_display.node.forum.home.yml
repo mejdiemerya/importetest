@@ -1,0 +1,54 @@
+uuid: 1f0426d2-ca8a-4f68-b3ea-9736b62db368
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.home
+    - field.field.node.forum.comment_forum
+    - field.field.node.forum.field_credits
+    - field.field.node.forum.field_last_comment_author
+    - field.field.node.forum.field_project_location
+    - field.field.node.forum.field_question
+    - field.field.node.forum.field_tipsheet
+    - field.field.node.forum.taxonomy_forums
+    - node.type.forum
+_core:
+  default_config_hash: ipzVP57UiuSE3ixt_lV1XzR2l-hqw_tGClp8eHN7zbw
+id: node.forum.home
+targetEntityType: node
+bundle: forum
+mode: home
+content:
+  taxonomy_forums:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  title_forum:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  author_picture: true
+  comment_button: true
+  comment_count: true
+  comment_forum: true
+  content_moderation_control: true
+  field_credits: true
+  field_last_comment_author: true
+  field_project_location: true
+  field_question: true
+  field_tipsheet: true
+  flag_notification: true
+  last_comment_author_image: true
+  last_comment_author_role: true
+  last_comment_date: true
+  links: true
+  rate_rate: true
+  search_api_excerpt: true
+  uid: true
+  user_picture: true

@@ -1,0 +1,10 @@
+uuid: 2b363ebb-53af-43e7-b8db-1b5211ad9795
+langcode: en
+status: true
+dependencies: {  }
+id: home_forme
+label: Home-forme
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

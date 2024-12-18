@@ -1,0 +1,37 @@
+uuid: 4b259447-cc91-42de-8299-f05ec4d8b59d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.home_forme.field_homedescriptions
+    - field.field.paragraph.home_forme.field_hometitle
+    - paragraphs.paragraphs_type.home_forme
+  module:
+    - text
+    - text_field_formatter
+id: paragraph.home_forme.default
+targetEntityType: paragraph
+bundle: home_forme
+mode: default
+content:
+  field_homedescriptions:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_hometitle:
+    type: text_field_formatter
+    label: hidden
+    settings:
+      wrap_tag: h2
+      wrap_class: ''
+      wrap_attributes: ''
+      override_link_label: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

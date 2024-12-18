@@ -1,0 +1,23 @@
+uuid: 408b71d6-5003-478d-9e49-41076578459f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.storage.field_link
+    - storage.storage_type.leeduser_recommends
+  module:
+    - link
+id: storage.leeduser_recommends.field_link
+field_name: field_link
+entity_type: storage
+bundle: leeduser_recommends
+label: Link
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 0
+  link_type: 17
+field_type: link

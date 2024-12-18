@@ -1,0 +1,37 @@
+uuid: 3233a9c6-fdda-4e74-9f4f-e42c6f2c0b43
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.storage.leeduser_recommends.field_link
+    - storage.storage_type.leeduser_recommends
+  module:
+    - link
+id: storage.leeduser_recommends.default
+targetEntityType: storage
+bundle: leeduser_recommends
+mode: default
+content:
+  field_link:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: -5
+    region: content
+hidden:
+  search_api_excerpt: true
+  user_id: true

@@ -1,0 +1,8 @@
+uuid: faffa4ff-34df-453f-b211-74e78b418805
+langcode: en
+status: true
+dependencies: {  }
+id: ago
+label: ago
+locked: false
+pattern: 'Y-m-d H:i:s'

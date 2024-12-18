@@ -1,0 +1,34 @@
+uuid: 7c138b94-eef4-49ae-b431-535359b02701
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.home_forme.field_homedescriptions
+    - field.field.paragraph.home_forme.field_hometitle
+    - paragraphs.paragraphs_type.home_forme
+  module:
+    - text
+id: paragraph.home_forme.default
+targetEntityType: paragraph
+bundle: home_forme
+mode: default
+content:
+  field_homedescriptions:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_hometitle:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

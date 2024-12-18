@@ -1,0 +1,11 @@
+uuid: 28a77be9-8f4f-4a1c-9c32-1af396541b29
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.home
+label: Home
+description: ''
+targetEntityType: node
+cache: true

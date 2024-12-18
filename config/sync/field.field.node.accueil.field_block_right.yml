@@ -1,18 +1,19 @@
-uuid: 91f1683f-30b2-444f-bdda-3444d3d940df
+uuid: 8e6ec1a2-ef21-40b5-8ba9-88237379e975
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_bloc
+    - field.storage.node.field_block_right
     - node.type.accueil
-    - paragraphs.paragraphs_type.hero
+    - paragraphs.paragraphs_type.leeduser_recommends
+    - paragraphs.paragraphs_type.views_recent_posts
   module:
     - entity_reference_revisions
-id: node.accueil.field_bloc
-field_name: field_bloc
+id: node.accueil.field_block_right
+field_name: field_block_right
 entity_type: node
 bundle: accueil
-label: Block
+label: 'Block right'
 description: ''
 required: false
 translatable: false
@@ -22,15 +23,16 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      hero: hero
+      leeduser_recommends: leeduser_recommends
+      views_recent_posts: views_recent_posts
     negate: 0
     target_bundles_drag_drop:
       descriptions_sidebar:
         weight: 15
         enabled: false
       hero:
-        weight: 2
-        enabled: true
+        weight: 16
+        enabled: false
       hero_pricing:
         weight: 17
         enabled: false
@@ -49,6 +51,9 @@ settings:
       leed_process:
         weight: 22
         enabled: false
+      leeduser_recommends:
+        weight: 23
+        enabled: true
       membership:
         weight: 23
         enabled: false
@@ -67,4 +72,7 @@ settings:
       tribox_global:
         weight: 28
         enabled: false
+      views_recent_posts:
+        weight: 30
+        enabled: true
 field_type: entity_reference_revisions

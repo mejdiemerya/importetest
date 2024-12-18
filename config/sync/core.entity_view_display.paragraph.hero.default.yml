@@ -54,7 +54,7 @@ content:
     label: hidden
     settings:
       wrap_tag: h1
-      wrap_class: text-left
+      wrap_class: 'text-left m-0'
       wrap_attributes: ''
       override_link_label: ''
       link_to_entity: false
@@ -70,4 +70,5 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-hidden: {  }
+hidden:
+  search_api_excerpt: true

@@ -1,0 +1,26 @@
+
+{%
+  set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished'
+]
+%}
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+      {{ content.field_hometitle }}
+      <div class="my-3">{{ content.field_homedescriptions }}</div>
+
+      <div class="clearfix"></div>
+      <p class="supertitle mb-4">Recent posts:</p>
+      {{ drupal_view('recent_posts', 'block_1') }}
+
+      <a href="/forums" class="btn btn-lg btn-midtone text-left mt05 mb-5" >
+        Visit the forum »
+      </a>
+
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

@@ -1,0 +1,24 @@
+uuid: e7a43bb9-4039-425c-bb76-75e521632c21
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_homedescriptions
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.views_recent_posts
+  module:
+    - text
+id: paragraph.views_recent_posts.field_homedescriptions
+field_name: field_homedescriptions
+entity_type: paragraph
+bundle: views_recent_posts
+label: Descriptions
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text_long
