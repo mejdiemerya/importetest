@@ -1,0 +1,37 @@
+uuid: c5e0fee6-7249-4d73-bea5-bd89aae98f36
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.leeduser_recommends.field_homedescriptions
+    - field.field.paragraph.leeduser_recommends.field_hometitle
+    - paragraphs.paragraphs_type.leeduser_recommends
+  module:
+    - text
+    - text_field_formatter
+id: paragraph.leeduser_recommends.default
+targetEntityType: paragraph
+bundle: leeduser_recommends
+mode: default
+content:
+  field_homedescriptions:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_hometitle:
+    type: text_field_formatter
+    label: hidden
+    settings:
+      wrap_tag: h2
+      wrap_class: ''
+      wrap_attributes: ''
+      override_link_label: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

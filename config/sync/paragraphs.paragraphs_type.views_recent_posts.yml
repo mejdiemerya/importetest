@@ -1,0 +1,10 @@
+uuid: c1a2d1c2-7eff-4679-831f-05e91659a452
+langcode: en
+status: true
+dependencies: {  }
+id: views_recent_posts
+label: 'Views Recent posts'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

@@ -1,0 +1,24 @@
+uuid: 10598f17-c00c-443f-8587-1d8688d216db
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_homedescriptions
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.home_forme
+  module:
+    - text
+id: paragraph.home_forme.field_homedescriptions
+field_name: field_homedescriptions
+entity_type: paragraph
+bundle: home_forme
+label: Descriptions
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text_long

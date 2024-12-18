@@ -1,18 +1,18 @@
-uuid: 91f1683f-30b2-444f-bdda-3444d3d940df
+uuid: 42d92790-41e3-4e78-848e-4012cdaa6a67
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_bloc
+    - field.storage.node.field_block_left
     - node.type.accueil
-    - paragraphs.paragraphs_type.hero
+    - paragraphs.paragraphs_type.home_forme
   module:
     - entity_reference_revisions
-id: node.accueil.field_bloc
-field_name: field_bloc
+id: node.accueil.field_block_left
+field_name: field_block_left
 entity_type: node
 bundle: accueil
-label: Block
+label: 'Block left'
 description: ''
 required: false
 translatable: false
@@ -22,21 +22,21 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      hero: hero
+      home_forme: home_forme
     negate: 0
     target_bundles_drag_drop:
       descriptions_sidebar:
         weight: 15
         enabled: false
       hero:
-        weight: 2
-        enabled: true
+        weight: 16
+        enabled: false
       hero_pricing:
         weight: 17
         enabled: false
       home_forme:
         weight: 18
-        enabled: false
+        enabled: true
       image_sidebar:
         weight: 19
         enabled: false

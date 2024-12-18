@@ -1,0 +1,24 @@
+uuid: 7b1b62a7-29fd-4c2c-a0b1-c59a7077abf1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_homedescriptions
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.leeduser_recommends
+  module:
+    - text
+id: paragraph.leeduser_recommends.field_homedescriptions
+field_name: field_homedescriptions
+entity_type: paragraph
+bundle: leeduser_recommends
+label: Descriptions
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text_long

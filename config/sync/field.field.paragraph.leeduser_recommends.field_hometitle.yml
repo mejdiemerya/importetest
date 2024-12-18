@@ -1,0 +1,19 @@
+uuid: 12f7954b-9f86-4a48-8ea2-7f7b52346e95
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_hometitle
+    - paragraphs.paragraphs_type.leeduser_recommends
+id: paragraph.leeduser_recommends.field_hometitle
+field_name: field_hometitle
+entity_type: paragraph
+bundle: leeduser_recommends
+label: Title
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

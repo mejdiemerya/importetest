@@ -124,3 +124,19 @@ a#post-question, a#forum-filter {
 a#post-question {
   @include button-variant($btn-success-color, $btn-success-bg, $btn-success-border);
 }
+.btn-lg, .btn-group-lg > .btn {
+  padding: 10px 16px;
+  font-size: 20px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
+.btn-midtone {
+  color: #fff;
+  background-color: #46828C;
+  border-color: #3e727b;
+}
+.path-frontpage .btn-midtone {
+  color: black;
+  background-color: #c0d5d8;
+  border-color: #c0d5d8;
+}

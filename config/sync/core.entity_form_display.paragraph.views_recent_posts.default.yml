@@ -1,0 +1,34 @@
+uuid: db224db8-765d-457b-b2b7-f580e1db2885
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.views_recent_posts.field_homedescriptions
+    - field.field.paragraph.views_recent_posts.field_hometitle
+    - paragraphs.paragraphs_type.views_recent_posts
+  module:
+    - text
+id: paragraph.views_recent_posts.default
+targetEntityType: paragraph
+bundle: views_recent_posts
+mode: default
+content:
+  field_homedescriptions:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_hometitle:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

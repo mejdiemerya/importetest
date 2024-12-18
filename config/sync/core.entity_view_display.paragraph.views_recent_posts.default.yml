@@ -1,0 +1,37 @@
+uuid: c231bb2d-88ab-46fb-b668-4e32e12521e1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.views_recent_posts.field_homedescriptions
+    - field.field.paragraph.views_recent_posts.field_hometitle
+    - paragraphs.paragraphs_type.views_recent_posts
+  module:
+    - text
+    - text_field_formatter
+id: paragraph.views_recent_posts.default
+targetEntityType: paragraph
+bundle: views_recent_posts
+mode: default
+content:
+  field_homedescriptions:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_hometitle:
+    type: text_field_formatter
+    label: hidden
+    settings:
+      wrap_tag: h2
+      wrap_class: ''
+      wrap_attributes: ''
+      override_link_label: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true

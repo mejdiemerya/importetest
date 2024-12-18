@@ -1,0 +1,18 @@
+{%
+  set classes = [
+  'paragraph',
+  'paragraph--type--' ~ paragraph.bundle|clean_class,
+  view_mode ? 'paragraph--view-mode--' ~ view_mode|clean_class,
+  not paragraph.isPublished() ? 'paragraph--unpublished'
+]
+%}
+{% block paragraph %}
+  <div{{ attributes.addClass(classes) }}>
+    {% block content %}
+      {{ content }}
+      <div class="clearfix mb-4"></div>
+      {{ drupal_view('leeduser_recommends', 'block_1') }}
+      <div class="clearfix"></div>
+    {% endblock %}
+  </div>
+{% endblock paragraph %}

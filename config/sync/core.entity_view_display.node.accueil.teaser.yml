@@ -5,6 +5,8 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.accueil.field_bloc
+    - field.field.node.accueil.field_block_left
+    - field.field.node.accueil.field_block_right
     - node.type.accueil
 id: node.accueil.teaser
 targetEntityType: node
@@ -18,4 +20,7 @@ content:
     region: content
 hidden:
   field_bloc: true
+  field_block_left: true
+  field_block_right: true
+  search_api_excerpt: true
   uid: true
