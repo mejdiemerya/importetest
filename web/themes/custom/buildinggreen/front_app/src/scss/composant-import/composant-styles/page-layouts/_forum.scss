@@ -51,6 +51,8 @@
     position: absolute;
     object-fit: cover;
     object-position: center;
+    left: 0;
+    top: 0;
   }
 }
 /************************/
@@ -131,9 +133,9 @@
       text-align: center;
     }
     .post-author img {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto;
+      //width: 80px;
+      //height: 80px;
+      //margin: 0 auto;
     }
     .post-author .credentials,
     .post-author .lu-role,
