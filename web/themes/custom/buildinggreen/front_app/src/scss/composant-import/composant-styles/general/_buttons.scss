@@ -139,4 +139,9 @@ a#post-question {
   color: black;
   background-color: #c0d5d8;
   border-color: #c0d5d8;
+  &:hover{
+    color: black;
+    background-color: #a1c0c5;
+    border-color: #9abcc1;
+  }
 }
