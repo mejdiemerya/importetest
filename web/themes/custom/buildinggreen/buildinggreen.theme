@@ -1,5 +1,5 @@
 <?php
-
+use Drupal\Core\Datetime\DateFormatterInterface;
 /**
  * @file
  * buildinggreen theme file.
@@ -16,4 +16,12 @@ function buildinggreen_preprocess_node(&$variables) {
   if ($node->getType() == 'blog') {
     $variables['#attached']['library'][] = 'buildinggreen/blog';
   }
+  // Obtenir le timestamp de création du contenu.
+  $timestamp = $node->getCreatedTime();
+
+  // Formater la date en "time ago".
+  $date_formatter = \Drupal::service('date.formatter');
+  $variables['time_ago'] = $date_formatter->formatTimeDiffSince($timestamp);
 }
+
+
