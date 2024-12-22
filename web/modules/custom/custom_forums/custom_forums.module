@@ -6,6 +6,7 @@ use Drupal\Core\Cache\CacheableMetadata;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
 use Drupal\flag\FlaggingInterface;
 use Drupal\node\Entity\Node;
@@ -55,6 +56,54 @@ function custom_forums_entity_extra_field_info() {
     'description' => t('title forum.'),
     'weight' => 10,
   ];
+  $extra['taxonomy_term']['credit']['display']['title_forum'] = [
+    'label' => t('title forum'),
+    'description' => t('title forum.'),
+    'weight' => 10,
+    'visible' => FALSE,
+  ];
+  $extra['taxonomy_term']['credit']['display']['credit_resources'] = [
+    'label' => t('Credit resources'),
+    'description' => t('Credit resources.'),
+    'weight' => 10,
+    'visible' => FALSE,
+  ];
+  $extra['taxonomy_term']['credit']['display']['credit_documentation_section'] = [
+    'label' => t('Credit documentation section'),
+    'description' => t('Credit documentation section.'),
+    'weight' => 10,
+    'visible' => FALSE,
+  ];
+  $extra['taxonomy_term']['credit']['display']['cost_guidance'] = [
+    'label' => t('Cost Guidance'),
+    'description' => t('Cost Guidance.'),
+    'weight' => 10,
+    'visible' => FALSE,
+  ];
+  $extra['taxonomy_term']['credit']['display']['credit_bev'] = [
+    'label' => t('LEEDuser’s viewpoint'),
+    'description' => t('LEEDuser’s viewpoint.'),
+    'weight' => 10,
+    'visible' => FALSE,
+  ];
+  $extra['taxonomy_term']['credit']['display']['credit_addenda'] = [
+    'label' => t('Credit addenda'),
+    'description' => t('Credit addenda.'),
+    'weight' => 10,
+    'visible' => FALSE,
+  ];
+  $extra['taxonomy_term']['credit']['display']['credit_faq'] = [
+    'label' => t('Credit - FAQs'),
+    'description' => t('Credit - FAQs'),
+    'weight' => 10,
+    'visible' => FALSE,
+  ];
+  $extra['taxonomy_term']['credit']['display']['credit_checklists'] = [
+    'label' => t('Checklists'),
+    'description' => t('Checklists'),
+    'weight' => 10,
+    'visible' => FALSE,
+  ];
   $extra['node']['forum']['display']['comment_button'] = [
     'label' => t('Comment button'),
     'description' => t('A button that links to the comment form on the same page.'),
@@ -74,13 +123,14 @@ function custom_forums_entity_extra_field_info() {
 function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
   // Check if the entity is a node and is of type "article".
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'forum') {
-    if ($display->getComponent('title')) {
+    if ($display->getComponent('title_forum')) {
       $result = [
         'markup' => '',
         'url' => '',
         'credit' => false,
         'tipsheet' => false,
         'text' => '', // Placeholder for text
+        'title' => '',
       ];
       // Initialize credit and tipsheet IDs.
       $credit_id = NULL;
@@ -108,6 +158,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
           $result['url'] = $link;
           $result['credit'] = true; // Set credit to true.
           $result['text'] = $label['title'];// Add text.
+          $result['title']=$label['title'].':' .$label['description'];
 
         }
       }
@@ -136,6 +187,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
         '#credit' => $result['credit'], // Include the credit flag.
         '#tipsheet' => $result['tipsheet'], // Include the tipsheet flag.
         '#text' => $result['text'], // Include the text.
+        '#title'=>$result['title']
 
       ];
     }
@@ -308,6 +360,184 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       ];
     }}
   }
+  if ($entity->getEntityTypeId() == 'taxonomy_term' && $entity->bundle()=='credit') {
+    if ($display->getComponent('title_forum')) {
+
+      $label = getCreditFilterLabel($entity->id());
+      $build['title_forum'] = [
+        '#markup' =>'<strong>' .$label['title'].'</strong>', // Include the text.
+      ];
+    }
+    if ($display->getComponent('credit_checklists')) {
+
+      $checklist_phases=_get_checklist_by_taxonomy_tid($entity->id());
+      $checklists_output = '';
+      $rendered_phases = []; // Array to store the names of rendered project phases
+
+      if (!empty($checklist_phases)){
+        foreach ($checklist_phases as $checklist_phase)
+        {
+          $project_phases=$checklist_phase->get('field_project_phase')->referencedEntities();
+          $project_phase = reset($project_phases); // Get the first referenced entity
+
+          // Ensure project_phase is valid before proceeding
+          if ($project_phase) {
+            $phase_name = $project_phase->getName();
+
+            // Check if the project phase has already been rendered
+            if (!in_array($phase_name, $rendered_phases)) {
+              // Add the phase name to the rendered list
+              $rendered_phases[] = $phase_name;
+
+              // Render the view for the project phase
+              $view = \Drupal\views\Views::getView('credit_page_tab_content');
+              $view->setDisplay('credit_checklist');
+              $view->setArguments([$entity->id(), $project_phase->id()]); // Combine the arguments into one array
+              $view->execute();
+              $credit_checklists = $view->render();
+
+              // Build the output for this phase
+              $checklists_output .= '<h3>' . $phase_name . '</h3>';
+              $checklists_output .= '<ul class="credit-checklist">';
+              $checklists_output .= \Drupal::service('renderer')->render($credit_checklists);
+              $checklists_output .= '</ul>';
+            }
+          }
+        }
+        // Embed the view programmatically.
+        $build['credit_checklists'] = [
+          '#markup' =>$checklists_output,
+          '#cache' => [
+            '#max-age' => 0,
+          ]
+        ];
+      }
+
+
+    }
+    if ($display->getComponent('credit_bev')) {
+
+      // Generate a link with the 'hide sorting' label and a fragment.
+      $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+        t('hide sorting'),
+        \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-bev'])
+      )->toString();
+      $view = \Drupal\views\Views::getView('credit_page_tab_content');
+      $view->setDisplay('credit_bev');
+      $view->setArguments([$entity->id()]);
+      $view->execute();
+      $credit_bev=$view->render();
+      // Embed the view programmatically.
+      $build['credit_bev'] = [
+        '#markup' => \Drupal::service('renderer')->render($credit_bev),
+        '#cache' => [
+          '#max-age' => 0,
+        ]
+      ];
+    }
+    if ($display->getComponent('credit_faq')) {
+
+      // Generate a link with the 'hide sorting' label and a fragment.
+      $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+        t('hide sorting'),
+        \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-bev'])
+      )->toString();
+      $view = \Drupal\views\Views::getView('credit_page_tab_content');
+      $view->setDisplay('credit_faq');
+      $view->setArguments([$entity->id()]);
+      $view->execute();
+      $credit_faq=$view->render();
+      // Embed the view programmatically.
+      $build['credit_faq'] = [
+        '#markup' => \Drupal::service('renderer')->render($credit_faq),
+        '#cache' => [
+          '#max-age' => 0,
+        ]
+      ];
+    }
+    if ($display->getComponent('credit_documentation_section')) {
+
+      // Generate a link with the 'hide sorting' label and a fragment.
+      $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+        t('hide sorting'),
+        \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-bev'])
+      )->toString();
+      $view = \Drupal\views\Views::getView('credit_page_tab_content');
+      $view->setDisplay('credit_documentation_section');
+      $view->setArguments([$entity->id()]);
+      $view->execute();
+      $credit_documentation_section=$view->render();
+      // Embed the view programmatically.
+      $build['credit_documentation_section'] = [
+        '#markup' => \Drupal::service('renderer')->render($credit_documentation_section),
+        '#cache' => [
+          '#max-age' => 0,
+        ]
+      ];
+    }
+    if ($display->getComponent('credit_resources')) {
+
+      // Generate a link with the 'hide sorting' label and a fragment.
+      $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+        t('hide sorting'),
+        \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-bev'])
+      )->toString();
+      $view = \Drupal\views\Views::getView('credit_page_tab_content');
+      $view->setDisplay('credit_resources');
+      $view->setArguments([$entity->id()]);
+      $view->execute();
+      $credit_resources=$view->render();
+      // Embed the view programmatically.
+      $build['credit_resources'] = [
+        '#markup' => \Drupal::service('renderer')->render($credit_resources),
+        '#cache' => [
+          '#max-age' => 0,
+        ]
+      ];
+    }
+    if ($display->getComponent('credit_addenda')) {
+
+      // Generate a link with the 'hide sorting' label and a fragment.
+      $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+        t('hide sorting'),
+        \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-bev'])
+      )->toString();
+      $view = \Drupal\views\Views::getView('credit_page_tab_content');
+      $view->setDisplay('credit_addenda');
+      $view->setArguments([$entity->id()]);
+      $view->execute();
+      $credit_addenda=$view->render();
+      // Embed the view programmatically.
+      $build['credit_addenda'] = [
+        '#markup' => \Drupal::service('renderer')->render($credit_addenda),
+        '#cache' => [
+          '#max-age' => 0,
+        ]
+      ];
+    }
+    if ($display->getComponent('cost_guidance')) {
+
+      // Generate a link with the 'hide sorting' label and a fragment.
+      $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+        t('hide sorting'),
+        \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-bev'])
+      )->toString();
+      $view = \Drupal\views\Views::getView('credit_page_tab_content');
+      $view->setDisplay('cost_guidance');
+      $view->setArguments([$entity->id()]);
+      $view->execute();
+      $cost_guidance=$view->render();
+      // Embed the view programmatically.
+      $build['cost_guidance'] = [
+        '#markup' => \Drupal::service('renderer')->render($cost_guidance),
+        '#cache' => [
+          '#max-age' => 0,
+        ]
+      ];
+    }
+
+  }
+
 }
 
 function custom_forums_entity_insert(EntityInterface $entity)
@@ -770,6 +1000,12 @@ function custom_forums_theme($existing, $type, $theme, $path) {
     'membership_promo_block' => [
       'variables' => [],
     ],
+    'doc_toolkit_tab'=>[
+      'variables' => [
+        'documentation' => NULL,
+        'resources'=>NULL,
+      ],
+    ]
   ];
 }
 function getCreditFilterLabel($tid) {
@@ -852,4 +1088,139 @@ function getTermIdByName($term_name, $vocabulary) {
 
   // Return the first TID found, or NULL if none found.
   return !empty($tids) ? reset($tids) : null;
+}
+function custom_forums_pathauto_alias_alter(&$alias, &$context){
+  //for individual credit pages make the path /credit/[rating-system]/[credit]
+  if ($context['bundle'] == 'credit' && isset($context['data']['term']))
+  {
+
+    $credit_term = $context['data']['term']->id();
+
+    $parents = loadAllParentsModal($credit_term);
+
+
+    $new_alias = '/credit';
+
+    //put parents in reverse order
+    $parents = array_reverse($parents);
+    $i = 0;
+    foreach ($parents as $parent)
+    {
+
+      if (count($parents) == 4)
+      {
+        if ($i != 0 && $i != 2)
+        {
+
+          $new_alias .= '/' . $parent->name->value;
+
+        }
+      }
+      $i++;
+    }
+    $alias = $new_alias;
+  }
+}
+/**
+ * Implementation of hook_preprocess_taxonomy_term()
+ */
+function custom_forums_preprocess_taxonomy_term(&$variables){
+  $term = $variables['term'];
+  //credit terms
+  if ($term->bundle() === 'credit') {
+    if (strpos($variables['content']['credit_bev']['#markup'], 'no LEEDuser summary') !== FALSE)
+    {
+      $variables['has_credit_bev'] = FALSE;
+    }else{
+      $variables['has_credit_bev'] = TRUE;
+    }
+
+    if (strpos($variables['content']['credit_faq']['#markup'], 'No results found') !== FALSE)
+    {
+      $variables['credit_faq'] = FALSE;
+    }else{
+      $variables['credit_faq'] = TRUE;
+    }
+    if (strpos($variables['content']['cost_guidance']['#markup'], 'No results found') !== FALSE)
+    {
+      $variables['cost_guidance_tab'] = FALSE;
+    }else{
+      $variables['cost_guidance_tab'] = TRUE;
+    }
+    $variables['show_doc_tab'] = TRUE;
+
+    if (strpos($variables['content']['credit_documentation_section']['#markup'], 'No results found') !== FALSE&& strpos($variables['content']['credit_resources']['#markup'], 'No results found') !== FALSE)
+    {
+      $variables['show_doc_tab'] = FALSE;
+    }
+    if (strpos($variables['content']['credit_documentation_section']['#markup'], 'No results found') !== FALSE) {
+      $variables['content']['credit_documentation_section']['#markup'] = '';
+    }
+
+    if (strpos($variables['content']['credit_resources']['#markup'], 'No results found') !== FALSE) {
+      $variables['content']['credit_resources']['#markup'] = '';
+    }
+
+    if (strpos($variables['content']['credit_addenda']['#markup'], 'No results found') !== FALSE)
+    {
+      $variables['addenda_tab'] = FALSE;
+    }else{
+      $variables['addenda_tab'] = TRUE;
+    }
+// Prepare the variables for the template.
+    $theme_variables = [
+      'documentation' => isset($variables['content']['credit_documentation_section']['#markup'])
+        ? $variables['content']['credit_documentation_section']['#markup']
+        : '',
+      'resources' => isset($variables['content']['credit_resources']['#markup'])
+        ? $variables['content']['credit_resources']['#markup']
+        : '',
+    ];
+// Render the docs_tab template (assuming 'doc_toolkit_tab' is a defined theme hook or Twig template).
+    $docs_tab = [
+      '#theme' => 'doc_toolkit_tab',
+      '#documentation' => ['#markup' => $theme_variables['documentation']],
+      '#resources' => ['#markup' => $theme_variables['resources']],
+    ];
+    $variables['docs_tab'] = \Drupal::service('renderer')->render($docs_tab);
+    //credit points
+    $variables['credit_points'] = FALSE;
+
+    if (substr($term->name->value, 0, 3) == 'MPR'
+      || substr(preg_replace("/\d/", '', $term->name->value), -1) == 'p'
+      || (isset($term->field_credit_meta_points) && !empty($term->field_credit_meta_points->value))) {
+
+      // Exploding the value of field_credit_meta_points into an array
+      $points = !empty($term->field_credit_meta_points->value) ? explode('-', $term->field_credit_meta_points->value) : [];
+
+      if (substr($term->name->value, 0, 3) == 'MPR' || substr(preg_replace("/\d/", '', $term->name->value), -1) == 'p') {
+        $variables['credit_points'] = 'Required';
+      } elseif (count($points) == 1 && $points[0] == 1) {
+        $variables['credit_points'] = $points[0] . ' point';
+      } elseif (!empty($points)) {
+        $variables['credit_points'] = $term->field_credit_meta_points->value . ' points';
+      }
+    }
+
+
+
+    //credit language
+    $variables['show_credit_language_tab'] = TRUE;
+  }
+}
+function _get_checklist_by_taxonomy_tid($tid) {
+  $query = \Drupal::entityQuery('node')
+    ->condition('type', 'credit_checklist') // Filter by content type 'checklist'
+    ->condition('field_credits', $tid, 'CONTAINS') // Match the taxonomy term ID in the multiple field 'field_credits'
+    ->accessCheck(TRUE); // Ensure proper access control
+
+  $nids = $query->execute(); // Get an array of matching node IDs
+  if (!empty($nids)) {
+    // Load the nodes if any results are found
+    $nodes = Node::loadMultiple($nids);
+
+    return $nodes;
+  }
+
+  return []; // Return an empty array if no results
 }

@@ -1,0 +1,26 @@
+uuid: 723c6d20-d011-4e1c-9053-334eb61ab388
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - filter.format.full_html
+    - node.type.credit_checklist
+  module:
+    - text
+id: node.credit_checklist.body
+field_name: body
+entity_type: node
+bundle: credit_checklist
+label: 'Bullet Text'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats:
+    - full_html
+field_type: text_with_summary

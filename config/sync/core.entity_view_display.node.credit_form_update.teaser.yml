@@ -1,0 +1,43 @@
+uuid: f17201d4-5086-4dc4-875f-4e96fa4c8564
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.credit_form_update.body
+    - field.field.node.credit_form_update.field_campus_applicable
+    - field.field.node.credit_form_update.field_credits
+    - field.field.node.credit_form_update.field_date
+    - field.field.node.credit_form_update.field_internationally_applicable
+    - field.field.node.credit_form_update.field_pre_v4_ref_guide_name
+    - field.field.node.credit_form_update.field_updated_date
+    - node.type.credit_form_update
+  module:
+    - text
+id: node.credit_form_update.teaser
+targetEntityType: node
+bundle: credit_form_update
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_campus_applicable: true
+  field_credits: true
+  field_date: true
+  field_internationally_applicable: true
+  field_pre_v4_ref_guide_name: true
+  field_updated_date: true
+  search_api_excerpt: true
+  uid: true

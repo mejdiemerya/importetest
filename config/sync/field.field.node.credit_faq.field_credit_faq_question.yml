@@ -1,0 +1,19 @@
+uuid: 28fe35ed-38d4-437b-8096-190a83d75c04
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_credit_faq_question
+    - node.type.credit_faq
+id: node.credit_faq.field_credit_faq_question
+field_name: field_credit_faq_question
+entity_type: node
+bundle: credit_faq
+label: Question
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

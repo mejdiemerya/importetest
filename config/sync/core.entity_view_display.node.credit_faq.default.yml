@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.node.credit_faq.body
+    - field.field.node.credit_faq.field_credit_faq_question
+    - field.field.node.credit_faq.field_credit_labels
     - field.field.node.credit_faq.field_credits
     - node.type.credit_faq
   module:
@@ -18,7 +20,22 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 101
+    weight: 3
+    region: content
+  field_credit_faq_question:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_credit_labels:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 104
     region: content
   field_credits:
     type: entity_reference_label
@@ -26,12 +43,13 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 10
+    weight: 0
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 1
     region: content
 hidden:
+  search_api_excerpt: true
   uid: true

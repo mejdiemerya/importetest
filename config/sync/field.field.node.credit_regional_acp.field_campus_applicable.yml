@@ -1,0 +1,21 @@
+uuid: 4fdb74e3-ad9e-4e16-a209-0339b5abc884
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_campus_applicable
+    - node.type.credit_regional_acp
+id: node.credit_regional_acp.field_campus_applicable
+field_name: field_campus_applicable
+entity_type: node
+bundle: credit_regional_acp
+label: 'Campus Applicable'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

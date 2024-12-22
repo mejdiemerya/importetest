@@ -1,0 +1,24 @@
+uuid: fcc1e8d4-d530-4594-9e2c-9229cb3515ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.credit_rating_system_correction
+  module:
+    - text
+id: node.credit_rating_system_correction.body
+field_name: body
+entity_type: node
+bundle: credit_rating_system_correction
+label: 'Description of change'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

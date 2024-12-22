@@ -1,0 +1,29 @@
+uuid: 871b9ccc-89f8-4f7f-b2f4-c6fdc664c7c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_credit_labels
+    - node.type.credit_documentation_section
+    - taxonomy.vocabulary.credit_labels
+id: node.credit_documentation_section.field_credit_labels
+field_name: field_credit_labels
+entity_type: node
+bundle: credit_documentation_section
+label: "Credit labels\t"
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      credit_labels: credit_labels
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

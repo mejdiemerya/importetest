@@ -1,0 +1,9 @@
+uuid: da359e87-cacf-44ac-99fd-7036604d4723
+langcode: en
+status: true
+dependencies: {  }
+name: 'Credit Options'
+vid: credit_options
+description: null
+weight: 0
+new_revision: false

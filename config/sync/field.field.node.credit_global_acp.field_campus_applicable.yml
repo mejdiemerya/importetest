@@ -1,0 +1,21 @@
+uuid: d485eef6-430c-45b2-9e3a-de8ae1ca211a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_campus_applicable
+    - node.type.credit_global_acp
+id: node.credit_global_acp.field_campus_applicable
+field_name: field_campus_applicable
+entity_type: node
+bundle: credit_global_acp
+label: 'Campus Applicable'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

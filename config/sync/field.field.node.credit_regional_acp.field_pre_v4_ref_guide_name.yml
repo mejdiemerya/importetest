@@ -1,0 +1,19 @@
+uuid: 4472fbfb-cd25-4fca-881a-066a62eea46e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pre_v4_ref_guide_name
+    - node.type.credit_regional_acp
+id: node.credit_regional_acp.field_pre_v4_ref_guide_name
+field_name: field_pre_v4_ref_guide_name
+entity_type: node
+bundle: credit_regional_acp
+label: 'Ref Guide Name and Edition Pre-v4'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

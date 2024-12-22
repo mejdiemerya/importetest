@@ -1,0 +1,26 @@
+uuid: fcd5cb1d-18fe-4f0d-9208-9f762d531974
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - filter.format.full_html
+    - node.type.credit_documentation_section
+  module:
+    - text
+id: node.credit_documentation_section.body
+field_name: body
+entity_type: node
+bundle: credit_documentation_section
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats:
+    - full_html
+field_type: text_with_summary

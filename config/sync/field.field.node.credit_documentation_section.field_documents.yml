@@ -1,0 +1,29 @@
+uuid: 98d5435e-689e-4311-b3fb-a453d7045f80
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_documents
+    - node.type.credit_documentation_entry
+    - node.type.credit_documentation_section
+id: node.credit_documentation_section.field_documents
+field_name: field_documents
+entity_type: node
+bundle: credit_documentation_section
+label: Documents
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      credit_documentation_entry: credit_documentation_entry
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,9 @@
+uuid: bba82907-a7f3-4066-8038-b934019331b9
+langcode: en
+status: true
+dependencies: {  }
+name: 'Credit tip types'
+vid: credit_tip_types
+description: null
+weight: 0
+new_revision: false

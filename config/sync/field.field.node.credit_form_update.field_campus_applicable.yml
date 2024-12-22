@@ -1,0 +1,21 @@
+uuid: dcdec206-5809-472d-b97d-3439c45dccf2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_campus_applicable
+    - node.type.credit_form_update
+id: node.credit_form_update.field_campus_applicable
+field_name: field_campus_applicable
+entity_type: node
+bundle: credit_form_update
+label: 'Campus Applicable'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

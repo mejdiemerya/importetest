@@ -1,0 +1,156 @@
+uuid: 56c4d497-aa3a-406b-ac9c-e5ab8c56175e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.credit_checklist.body
+    - field.field.node.credit_checklist.field_credit_labels
+    - field.field.node.credit_checklist.field_credit_tip_type
+    - field.field.node.credit_checklist.field_credits
+    - field.field.node.credit_checklist.field_image_landscape
+    - field.field.node.credit_checklist.field_image_portrait
+    - field.field.node.credit_checklist.field_project_phase
+    - field.field.node.credit_checklist.field_who_does_it
+    - node.type.credit_checklist
+  module:
+    - content_moderation
+    - media_library
+    - path
+    - text
+id: node.credit_checklist.default
+targetEntityType: node
+bundle: credit_checklist
+mode: default
+content:
+  body:
+    type: text_textarea_with_summary
+    weight: 8
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_credit_labels:
+    type: entity_reference_autocomplete
+    weight: 124
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_credit_tip_type:
+    type: entity_reference_autocomplete
+    weight: 27
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_credits:
+    type: entity_reference_autocomplete
+    weight: 9
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_image_landscape:
+    type: media_library_widget
+    weight: 126
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_image_portrait:
+    type: media_library_widget
+    weight: 125
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_project_phase:
+    type: entity_reference_autocomplete
+    weight: 26
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_who_does_it:
+    type: entity_reference_autocomplete
+    weight: 127
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  moderation_state:
+    type: moderation_state_default
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 7
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

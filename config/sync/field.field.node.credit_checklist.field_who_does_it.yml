@@ -1,0 +1,29 @@
+uuid: 10a39232-7e6f-4af5-8683-474d3a04e34a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_who_does_it
+    - node.type.credit_checklist
+    - taxonomy.vocabulary.who_does_it
+id: node.credit_checklist.field_who_does_it
+field_name: field_who_does_it
+entity_type: node
+bundle: credit_checklist
+label: 'Who does it'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      who_does_it: who_does_it
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

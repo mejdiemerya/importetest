@@ -9,6 +9,10 @@ function buildinggreen_theme_suggestions_page_alter(array &$suggestions, array $
     $content_type = $node->bundle();
     $suggestions[] = 'page__'.$content_type;
   }
+  if ($term =  \Drupal::routeMatch()->getParameter('taxonomy_term')) {
+      $content_type = $term->bundle();
+      $suggestions[] = 'page__taxonomy__'.$content_type;
+    }
 }
 function buildinggreen_preprocess_node(&$variables) {
   $node = $variables['node'];

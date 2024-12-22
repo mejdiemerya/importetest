@@ -1,0 +1,28 @@
+uuid: 1ae20055-528a-49bf-ac33-6afbebb5dd11
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.credit_bev_image.field_credit_labels
+    - field.field.node.credit_bev_image.field_credits
+    - field.field.node.credit_bev_image.field_image_landscape
+    - field.field.node.credit_bev_image.field_image_portrait
+    - node.type.credit_bev_image
+id: node.credit_bev_image.teaser
+targetEntityType: node
+bundle: credit_bev_image
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_credit_labels: true
+  field_credits: true
+  field_image_landscape: true
+  field_image_portrait: true
+  search_api_excerpt: true
+  uid: true

@@ -1,0 +1,29 @@
+uuid: 362a2bb7-3acf-44df-b9cc-6ef2784461f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_image_landscape
+    - media.type.image
+    - node.type.credit_checklist
+id: node.credit_checklist.field_image_landscape
+field_name: field_image_landscape
+entity_type: node
+bundle: credit_checklist
+label: 'Image (landscape)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

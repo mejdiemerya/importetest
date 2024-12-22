@@ -1,0 +1,21 @@
+uuid: c66e2205-aa4a-47d9-94db-9813cf452fe5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - node.type.credit_rating_system_correction
+  module:
+    - datetime
+id: node.credit_rating_system_correction.field_date
+field_name: field_date
+entity_type: node
+bundle: credit_rating_system_correction
+label: Date
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

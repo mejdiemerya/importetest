@@ -1,0 +1,29 @@
+uuid: e87451aa-d547-449a-8ece-ec9f492a81e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_project_phase
+    - node.type.credit_checklist
+    - taxonomy.vocabulary.project_phase
+id: node.credit_checklist.field_project_phase
+field_name: field_project_phase
+entity_type: node
+bundle: credit_checklist
+label: 'Project phase'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      project_phase: project_phase
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,11 @@
+uuid: 8f7fedc0-9eaf-41a9-aa30-cee247d57d49
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.user_expert
+label: 'User expert'
+description: ''
+targetEntityType: user
+cache: true

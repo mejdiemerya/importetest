@@ -1,0 +1,19 @@
+uuid: c3424ce0-0d43-41d1-8661-5773051fcf67
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.field_credit_faq_question
+field_name: field_credit_faq_question
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

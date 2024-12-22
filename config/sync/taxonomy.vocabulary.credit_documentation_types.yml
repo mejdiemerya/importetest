@@ -1,0 +1,9 @@
+uuid: 917dc4db-7128-437d-a6ca-aeb0840ef4f1
+langcode: en
+status: true
+dependencies: {  }
+name: 'Credit - Documentation Types'
+vid: credit_documentation_types
+description: null
+weight: 0
+new_revision: false

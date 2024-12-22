@@ -1,0 +1,21 @@
+uuid: 228c0ba4-b8fc-4775-baa7-6cf58d8bba3a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_updated_date
+    - node.type.credit_rating_system_correction
+  module:
+    - datetime
+id: node.credit_rating_system_correction.field_updated_date
+field_name: field_updated_date
+entity_type: node
+bundle: credit_rating_system_correction
+label: "Updated date\t"
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

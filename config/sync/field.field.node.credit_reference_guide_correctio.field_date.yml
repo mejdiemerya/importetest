@@ -1,0 +1,21 @@
+uuid: 4d600ac0-83c9-4745-8e56-3a35f94b0b7b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - node.type.credit_reference_guide_correctio
+  module:
+    - datetime
+id: node.credit_reference_guide_correctio.field_date
+field_name: field_date
+entity_type: node
+bundle: credit_reference_guide_correctio
+label: Date
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,43 @@
+uuid: ba34951f-8592-4683-932d-3f4545b830a9
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.credit_global_acp.body
+    - field.field.node.credit_global_acp.field_campus_applicable
+    - field.field.node.credit_global_acp.field_credits
+    - field.field.node.credit_global_acp.field_date
+    - field.field.node.credit_global_acp.field_internationally_applicable
+    - field.field.node.credit_global_acp.field_pre_v4_ref_guide_name
+    - field.field.node.credit_global_acp.field_updated_date
+    - node.type.credit_global_acp
+  module:
+    - text
+id: node.credit_global_acp.teaser
+targetEntityType: node
+bundle: credit_global_acp
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_campus_applicable: true
+  field_credits: true
+  field_date: true
+  field_internationally_applicable: true
+  field_pre_v4_ref_guide_name: true
+  field_updated_date: true
+  search_api_excerpt: true
+  uid: true

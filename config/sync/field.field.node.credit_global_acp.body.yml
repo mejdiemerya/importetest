@@ -1,0 +1,24 @@
+uuid: e932a87f-6d2f-46ec-b987-4a4a65f44374
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.credit_global_acp
+  module:
+    - text
+id: node.credit_global_acp.body
+field_name: body
+entity_type: node
+bundle: credit_global_acp
+label: 'Description of change'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

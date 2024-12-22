@@ -1,0 +1,213 @@
+{#
+/**
+ * @file
+ * Theme override to display a taxonomy term.
+ *
+ * Available variables:
+ * - url: URL of the current term.
+ * - name: (optional) Name of the current term.
+ * - content: Items for the content of the term (fields and description).
+ *   Use 'content' to print them all, or print a subset such as
+ *   'content.description'. Use the following code to exclude the
+ *   printing of a given child element:
+ *   @code
+ *   {{ content|without('description') }}
+ *   @endcode
+ * - attributes: HTML attributes for the wrapper.
+ * - page: Flag for the full page state.
+ * - term: The taxonomy term entity, including:
+ *   - id: The ID of the taxonomy term.
+ *   - bundle: Machine name of the current vocabulary.
+ * - view_mode: View mode, e.g. 'full', 'teaser', etc.
+ *
+ * @see template_preprocess_taxonomy_term()
+ */
+#}
+{%
+  set classes = [
+  'taxonomy-term',
+  'vocabulary-' ~ term.bundle|clean_class,
+]
+%}
+<div{{ attributes.setAttribute('id', 'taxonomy-term-' ~ term.id).addClass(classes) }}>
+  {{ title_prefix }}
+  {% if name and not page %}
+    <h2><a href="{{ url }}">{{ name }}</a></h2>
+  {% endif %}
+  {{ title_suffix }}
+  <div class="content">
+    <p class="page-header" >{{ content.title_forum}}: <em >{{ content.description }}</em> <span class="label" >{{ credit_points }}</span></p>
+    <div class="content">
+      <div class="visible-md-block visible-lg-block visible-xl-block">
+        <div class="row">
+          <div class="col-sm-3 col-lg-2">
+            <ul class="nav nav-pills nav-stacked credit-page-nav">
+             {% if has_credit_bev %}
+              <li role="presentation" class="active"><a data-toggle="pill" href="#bev">LEEDuser&rsquo;s viewpoint</a></li>
+              {% endif %}
+              {% if show_credit_language_tab %}
+                <li role="presentation" class="{% if not has_credit_bev %}active{% endif %}">
+                  <a data-toggle="pill" href="#credit-language">Credit language</a>
+                </li>
+              {% endif %}
+              {% if cost_guidance_tab %}
+              <li role="presentation"><a data-toggle="pill" href="#cost">What does it cost?</a></li>
+              {% endif %}
+              {% if content.credit_checklists['#markup'] is not empty  %}
+              <li role="presentation"><a data-toggle="pill" href="#checklists">Checklists</a></li>
+              {% endif %}
+
+              {% if show_doc_tab %}
+              <li role="presentation"><a data-toggle="pill" href="#docs">Documentation toolkit</a></li>
+              {% endif %}
+
+              {% if credit_faq %}
+              <li role="presentation"><a data-toggle="pill" href="#faq">FAQ</a></li>
+              {% endif %}
+
+              {% if addenda_tab %}
+              <li role="presentation"><a data-toggle="pill" href="#addenda">Addenda</a></li>
+              {% endif %}
+
+            </ul>
+            <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap btn-left mt10"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+
+            <div type="button" class="btn btn-light btn-wrap btn-left btn-sm mt10"> {{ content.flag_subscription_credit }}</div>
+            {% if '/v4' in request_uri %}
+              <!-- COST OF LEED AD -->
+              <div class="hidden-md mt15">
+                <p class="small mb0 text-muted">SPECIAL REPORT</p>
+                <a href="/continuing-education/cost-leed-v4">
+                  <img class="img-responsive border" src="/sites/default/files/styles/report_retina/public/report_images/COLv4_cover_0.png" />
+                </a>
+              </div>
+            {% endif %}
+
+          </div>
+          <div class="col-sm-9 col-md-8 col-lg-7 magnify">
+            <div class="tab-content">
+              <div class="tab-pane active" id="overview">
+                <p class="supertitle mb0">LEEDuser overview</p>
+                {% if     membership_promo_block  %}
+                  {{membership_promo_block}}
+                <paywall></paywall>
+                {% else  %}
+                  <div class="tab-pane " id="bev">
+                    {{ content.credit_bev }}
+                    <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap btn-left mt10"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+
+                  </div>
+                {% endif  %}
+              </div><!-- end tab-pane -->
+
+              <div class="tab-pane" id="credit-language">
+                <p class="supertitle">Credit language</p>
+                <div class="well well-sm">
+                  <div class="media">
+                    <div class="media-left media-middle">
+                      <img class="media-object" src="/sites/all/themes/leeduser/images/usgbc_170.png" width="85" alt="USGBC logo">
+                    </div>
+                    <div class="media-body">
+                      <p class="xsmall mt05">&copy; Copyright U.S. Green Building Council, Inc. All rights reserved.</p>
+                    </div>
+                  </div>
+                </div>
+                {% if content.field_intent['#items'] is not empty %}
+                <h4>Intent</h4>
+                  {{ content.field_intent }}
+                {% endif %}
+                {% if content.field_credit_requirement_text['#items'] is not empty %}
+                  <h4>Requirements</h4>
+                  {{ content.field_credit_requirement_text }}
+                {% endif %}
+                <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap btn-left mt10"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+
+              </div><!-- end tab-pane -->
+
+              <div class="tab-pane" id="faq">
+                <p class="supertitle mb0">Frequently asked questions</p>
+                {{ content.credit_faq }}
+                <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap btn-left mt10"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+
+              </div><!-- end tab-pane -->
+              <div class="tab-pane" id="cost">
+                {{ content.cost_guidance }}
+                <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap btn-left mt10"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+
+              </div>
+              <div class="tab-pane" id="checklists">
+                <p class="supertitle">Checklists</p>
+                <div class="checklist">
+                  {% if     membership_promo_block  %}
+                  <paywall></paywall>
+                  {% else  %}
+                  <table class="legend nullify">
+                    <tr>
+                      <td><strong>LEGEND:</strong></td>
+                      <td><span class="glyphicon glyphicon-ok" style="color: #4f85da;"></span> Action steps</td>
+                      <td><span class="glyphicon glyphicon-thumbs-up" style="color: #577974;"></span> Best practices</td>
+                      <td><span class="glyphicon glyphicon-piggy-bank" style="color: #eaa0ad;"></span> Cost tip</td>
+                      <td><span class="glyphicon glyphicon-flash" style="color: #f66;"></span> Hot tip</td>
+                    </tr>
+                  </table>
+                    {{ content.credit_checklists }}
+                    <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap btn-left mt10"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+
+                  {% endif %}
+                </div><!-- end checklist -->
+              </div><!-- end tab-pane -->
+
+              <div class="tab-pane nullify" id="docs">
+                <p class="supertitle">Documentation toolkit</p>
+                {% if     membership_promo_block  %}
+                <paywall></paywall>
+                {% else  %}
+                {{ docs_tab }}
+                  <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap btn-left mt10"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+
+                {% endif %}
+                <hr>
+              </div><!-- end tab-pane -->
+              <div class="tab-pane" id="addenda">
+                <p class="supertitle mb0">Addenda</p>
+                {{ content.credit_addenda }}
+                <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap btn-left mt10"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+
+              </div>
+
+            </div><!-- end tab-content -->
+
+
+          </div><!-- end col -->
+          <div class="col-lg-3 hidden-md">
+
+          {{ content.field_guest_expert }}
+          </div>
+        </div>
+      </div>
+      </div><!-- end visible-sm etc. -->
+
+    </div>
+
+
+
+</div><!-- end .content -->
+
+{% block javascript %}
+<script src="/core/assets/vendor/jquery/jquery.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+    console.log('hekk');
+    $('.nav-pills a').click(function (e) {
+      e.preventDefault();
+      $('.nav-pills li').removeClass('active');
+      $('.tab-pane').removeClass('active');
+      $(this).parent().addClass('active');
+      $($(this).attr('href')).addClass('active');
+    });
+  });
+</script>
+{% endblock %}
+
+

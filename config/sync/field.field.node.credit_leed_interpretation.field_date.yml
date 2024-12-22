@@ -1,0 +1,21 @@
+uuid: 0c4e60d6-79c5-4042-9946-372800cb2085
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - node.type.credit_leed_interpretation
+  module:
+    - datetime
+id: node.credit_leed_interpretation.field_date
+field_name: field_date
+entity_type: node
+bundle: credit_leed_interpretation
+label: Date
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

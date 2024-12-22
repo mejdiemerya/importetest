@@ -1,0 +1,19 @@
+uuid: f6cc0878-4e2f-4978-b271-ef35bfba8fee
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pre_v4_ref_guide_name
+    - node.type.credit_rating_system_correction
+id: node.credit_rating_system_correction.field_pre_v4_ref_guide_name
+field_name: field_pre_v4_ref_guide_name
+entity_type: node
+bundle: credit_rating_system_correction
+label: 'Ref Guide Name and Edition Pre-v4'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long
