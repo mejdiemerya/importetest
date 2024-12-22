@@ -73,12 +73,13 @@
             <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap btn-left mt10"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
 
             <div type="button" class="btn btn-light btn-wrap btn-left btn-sm mt10"> {{ content.flag_subscription_credit }}</div>
-            {% if '/v4' in request_uri %}
+
+            {% if 'v4/' in url %}
               <!-- COST OF LEED AD -->
-              <div class="hidden-md mt15">
-                <p class="small mb0 text-muted">SPECIAL REPORT</p>
+              <div class="visible-md-block">
+                <p class="mt0 small mb0 text-muted">SPECIAL REPORT</p>
                 <a href="/continuing-education/cost-leed-v4">
-                  <img class="img-responsive border" src="/sites/default/files/styles/report_retina/public/report_images/COLv4_cover_0.png" />
+                  <img class="img-responsive border" src="/sites/default/files/styles/report_retina/public/report_images/COLv4_cover_0.png" alt="Cost of LEED v4" />
                 </a>
               </div>
             {% endif %}
