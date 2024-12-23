@@ -17,6 +17,9 @@
   zoom: 1;
   overflow: hidden;
 }
+.media-left, .media > .pull-left {
+  padding-right: 10px;
+}
 .page--credit {
   h1.page-header {
     font-weight: 400;
