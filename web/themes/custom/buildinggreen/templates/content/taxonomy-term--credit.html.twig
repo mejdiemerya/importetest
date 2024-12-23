@@ -125,7 +125,7 @@
                 </div>
                 {% if content.field_intent['#items'] is not empty %}
                   <h4>Intent</h4>
-                  {{ content.field_intent|raw }}
+                  {{ content.field_intent.0['#text']|raw }}
                 {% endif %}
                 {% if content.field_credit_requirement_text['#items'] is not empty %}
                   <h4>Requirements</h4>
