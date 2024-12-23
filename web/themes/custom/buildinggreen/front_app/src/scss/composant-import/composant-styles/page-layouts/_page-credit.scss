@@ -1,0 +1,232 @@
+/*
+/* CREDIT PAGES */
+.page-header {
+  padding-bottom: 11.5px;
+  margin: 50px 0 25px;
+  border-bottom: 1px solid #e6e6e6;
+}
+.media-left, .media-right, .media-body {
+  display: table-cell;
+  vertical-align: top;
+}
+
+.media-body {
+  width: 10000px;
+}
+.media, .media-body {
+  zoom: 1;
+  overflow: hidden;
+}
+.page--credit {
+  h1.page-header {
+    font-weight: 400;
+    letter-spacing: 0;
+    @include font-size($h3-font-sizes);
+    @include MQ(Mneg){
+      border-bottom: 0;
+      margin-bottom: 0.3em;
+    }
+    em {
+      margin-right: 0.15em; // spacing before points label
+    }
+    .label {
+      display: inline;
+      padding: 0.2em 0.6em 0.3em;
+      font-weight: bold;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      border-radius: 0.25em;
+      background-color: transparent;
+      color: #555;
+      border: 1px solid  lighten(#000, 46.7%) ; // #777
+      font-size: 11px;
+      vertical-align: middle;
+    }
+  }
+  .supertitle {
+    /*text-transform: none;*/
+    background-color: #eee;
+    border: 1px solid #ccc;
+    color: $gray-darker;
+    padding: 3px 8px;
+    font-weight: 600;
+    margin: 0 0 12.5px;
+    @include MQ(XStoM) {
+      display: none; // Credit pages
+    }
+  }
+  .views-table {
+    .views-row-first td {
+      border-top: none;
+      padding-top: 0;
+    }
+    td{
+      //padding-left: 0;
+    }
+  }
+  .view-display-id-credit_bev td {
+    border-top: none;
+    padding-top: 0;
+  }
+  .table-responsive {
+    border: 0;
+    >.table>tbody>tr>td {
+      white-space: normal; // overrides responsive table scrolling
+    }
+  }
+  .lu-expert {
+    @include MQ(StoM) {
+      width: 49%;
+      margin-right: 2%;
+      float: left;
+    }
+  }
+
+  a.btn {
+    @include MQ(StoM) {
+      width: 49%;
+    }
+  }
+
+  .lu-expert .media {
+    @include MQ(MtoXL) {
+      text-align: center;
+      .media-left {
+        display: block;
+        padding-right: 0;
+      }
+      .media-object {
+        margin: 0 auto 0.75em;
+        border: 1px solid $gray-light;
+      }
+      .media-body em {
+        display: block;
+        line-height: 1.3;
+      }
+    }
+  }
+
+  #mobile-credits {
+    @include MQ(Mplus) {
+      display: block !important;
+      height: auto !important;
+    }
+  }
+
+  a#mobile-credit-selector {
+    background-color: #8c8c8c;
+    color: #fff;
+    border-radius: 2px;
+    font-size: 13px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 1px 8px 0;
+    &:before {
+      font-family: "Glyphicons Halflings";
+      color: rgba(255,255,255,0.8);
+      padding-right: 4px;
+      font-size: 11px;
+      content: "\e114";
+    }
+    &.collapsed:before {
+      content: "\e080";
+    }
+  }
+
+  h3.panel-title {
+    @include MQ(MtoXL) {
+      text-align: center;
+    }
+  }
+  .nav-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    > li {
+      a {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        border-radius: 4px;
+        text-decoration: none;
+        background-color: $gray-lighter;
+        color: $gray-darker;
+        line-height: 1.2;
+        &:hover {
+          background-color: tint($brand-success, 50%);
+          color: $gray-darker;
+        }
+      }
+      .active a {
+        background-color: tint($brand-success, 30%);
+        color: $gray-darker;
+        font-weight: 600;
+      }
+    }
+  }
+
+
+  .nav-pills li.active a {
+    background-color: tint($brand-success, 30%);
+    color: $gray-darker;
+    font-weight: 600;
+  }
+}
+.view-display-id-credit_addenda .views-row {
+  border-top: 1px dotted $gray;
+  padding: 10px 0;
+  &:first-of-type {
+    border-top: none;
+  }
+  br {
+    display: block;
+    content: " ";
+    margin: 0.75em 0;
+  }
+  @include MQ(Splus){
+    .views-field-type {
+      float: right;
+      color: $gray;
+      font-weight: 600;
+    }
+    .views-field-field-date {
+      float: left;
+      padding: 0 3px;
+      background-color: $gray-lighter;
+    }
+    .views-field-body, .views-field-field-inquiry, .views-field-field-updated-date {
+      clear: both;
+      padding: 0.5em 0;
+    }
+  }
+  .views-label-body, .views-label-field-inquiry, .views-label-field-ruling {
+    font-weight: bold;
+  }
+}
+.field--name-field-guest-expert{
+  margin-bottom: 25px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  > .field__label{
+    color: #4d4d4d;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-bottom: 1px solid transparent;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+  }
+  > .field__item{
+    padding: 15px;
+    .user-picture{
+      float: left;
+      margin: 0 10px 10px 0;
+    }
+  }
+}

@@ -18,6 +18,7 @@ module.exports = function () {
         "testimonials-composant",
         "credits-composant",
         'leeduser-tour',
+        'page-credit-composant',
       ],
       quality: ["src/scss/**/*.scss"],
       dest: "./dist/assets/composant/",
