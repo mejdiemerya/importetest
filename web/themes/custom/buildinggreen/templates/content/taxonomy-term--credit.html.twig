@@ -79,12 +79,11 @@
               <div class="mt-4">{{ content.flag_subscription_credit }}</div>{% endif %}
 
             {% if 'v4/' in url %}
-              <!-- COST OF LEED AD -->
               <div class="visible-md-block mt-4">
                 <p class="mt-0 small mb-0 text-muted">SPECIAL REPORT</p>
                 <a href="/continuing-education/cost-leed-v4">
-                  <img class="img-responsive border"
-                       src="/sites/default/files/styles/report_retina/public/report_images/COLv4_cover_0.png"
+                  <img class="img-fluid"
+                       src="/themes/custom/buildinggreen/front_app/dist/assets/images/COLv4_cover_0.png"
                        alt="Cost of LEED v4"/>
                 </a>
               </div>
@@ -93,17 +92,21 @@
           </div>
           <div class="col-sm-9 col-md-8 col-lg-7 magnify">
             <div class="tab-content">
-              <div class="tab-pane active" id="overview">
-                <p class="supertitle mb0">LEEDuser overview</p>
+
+              <div class="tab-pane" id="overview">
+                <p class="supertitle mb-0">LEEDuser overview</p>
                 {% if membership_promo_block %}
                   {{ membership_promo_block }}
-                {% else %}
-                  <div class="tab-pane " id="bev">
-                    {{ content.credit_bev }}
-                    <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
-                       class="btn btn-midtone btn-wrap btn-left btn-xl mt-5"><strong>See all forum discussions about this
-                        credit&nbsp;&raquo;</strong></a>
-                  </div>
+                {% endif %}
+              </div><!-- end tab-pane -->
+
+              <div class="tab-pane active" id="bev">
+                <p class="supertitle mb-0">LEEDuser overview</p>
+                {% if not membership_promo_block %}
+                  {{ content.credit_bev }}
+                  <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
+                     class="btn btn-midtone btn-wrap btn-left btn-xl mt-5"><strong>See all forum discussions about this
+                      credit&nbsp;&raquo;</strong></a>
                 {% endif %}
               </div><!-- end tab-pane -->
 
@@ -112,7 +115,7 @@
                 <div class="well well-sm">
                   <div class="media">
                     <div class="media-left media-middle">
-                      <img class="media-object" src="/sites/all/themes/leeduser/images/usgbc_170.png" width="85"
+                      <img class="media-object" src="/themes/custom/buildinggreen/front_app/dist/assets/images/usgbc_170.png" width="85"
                            alt="USGBC logo">
                     </div>
                     <div class="media-body">
