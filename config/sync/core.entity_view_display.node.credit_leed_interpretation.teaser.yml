@@ -1,0 +1,32 @@
+uuid: aa097b0b-05e1-41a3-8d7e-1134abb6843b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.credit_leed_interpretation.field_campus_applicable
+    - field.field.node.credit_leed_interpretation.field_credits
+    - field.field.node.credit_leed_interpretation.field_date
+    - field.field.node.credit_leed_interpretation.field_inquiry
+    - field.field.node.credit_leed_interpretation.field_internationally_applicable
+    - field.field.node.credit_leed_interpretation.field_ruling
+    - node.type.credit_leed_interpretation
+id: node.credit_leed_interpretation.teaser
+targetEntityType: node
+bundle: credit_leed_interpretation
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_campus_applicable: true
+  field_credits: true
+  field_date: true
+  field_inquiry: true
+  field_internationally_applicable: true
+  field_ruling: true
+  search_api_excerpt: true
+  uid: true

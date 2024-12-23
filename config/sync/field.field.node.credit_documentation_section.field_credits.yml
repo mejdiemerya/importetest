@@ -1,0 +1,29 @@
+uuid: ed454bfb-a062-4282-9b63-c7ce437677c7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_credits
+    - node.type.credit_documentation_section
+    - taxonomy.vocabulary.credit
+id: node.credit_documentation_section.field_credits
+field_name: field_credits
+entity_type: node
+bundle: credit_documentation_section
+label: Credits
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      credit: credit
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

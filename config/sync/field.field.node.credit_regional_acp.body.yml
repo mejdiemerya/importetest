@@ -1,0 +1,24 @@
+uuid: 54129e3c-f81e-402e-a142-c4cec8cc16c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.credit_regional_acp
+  module:
+    - text
+id: node.credit_regional_acp.body
+field_name: body
+entity_type: node
+bundle: credit_regional_acp
+label: 'Description of change'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

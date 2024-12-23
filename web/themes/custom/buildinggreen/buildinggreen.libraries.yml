@@ -57,3 +57,11 @@ leeduser-tour:
   css:
     theme:
       front_app/dist/assets/composant/leeduser-tour/leeduser-tour.min.css: { minified: true }
+
+page-credit:
+  css:
+    theme:
+      front_app/dist/assets/composant/page-credit-composant/page-credit-composant.min.css: { minified: true }
+  dependencies:
+    - core/jquery
+    - core/drupal

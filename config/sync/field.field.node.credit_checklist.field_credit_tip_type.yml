@@ -1,0 +1,29 @@
+uuid: 60fce42a-9eaa-4a76-adc0-0eca9798ebd9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_credit_tip_type
+    - node.type.credit_checklist
+    - taxonomy.vocabulary.credit_tip_types
+id: node.credit_checklist.field_credit_tip_type
+field_name: field_credit_tip_type
+entity_type: node
+bundle: credit_checklist
+label: 'Credit tip type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      credit_tip_types: credit_tip_types
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

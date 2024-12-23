@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.node.credit_faq.body
+    - field.field.node.credit_faq.field_credit_faq_question
+    - field.field.node.credit_faq.field_credit_labels
     - field.field.node.credit_faq.field_credits
     - node.type.credit_faq
   module:
@@ -30,6 +32,24 @@ content:
     weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_credit_faq_question:
+    type: string_textarea
+    weight: 122
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_credit_labels:
+    type: entity_reference_autocomplete
+    weight: 124
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_credits:
     type: entity_reference_autocomplete

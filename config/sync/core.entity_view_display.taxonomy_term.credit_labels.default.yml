@@ -1,0 +1,32 @@
+uuid: a3b216ea-e18b-49b5-b9ad-3632350d37b3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.credit_labels.field_credits
+    - taxonomy.vocabulary.credit_labels
+  module:
+    - text
+id: taxonomy_term.credit_labels.default
+targetEntityType: taxonomy_term
+bundle: credit_labels
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_credits:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  feeds_item: true
+  search_api_excerpt: true

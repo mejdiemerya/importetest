@@ -1,0 +1,36 @@
+uuid: ce2065e3-6dda-4c7d-ad13-800928f79d6c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_index
+    - field.field.node.credit_checklist.body
+    - field.field.node.credit_checklist.field_credit_labels
+    - field.field.node.credit_checklist.field_credit_tip_type
+    - field.field.node.credit_checklist.field_credits
+    - field.field.node.credit_checklist.field_image_landscape
+    - field.field.node.credit_checklist.field_image_portrait
+    - field.field.node.credit_checklist.field_project_phase
+    - field.field.node.credit_checklist.field_who_does_it
+    - node.type.credit_checklist
+id: node.credit_checklist.search_index
+targetEntityType: node
+bundle: credit_checklist
+mode: search_index
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  body: true
+  field_credit_labels: true
+  field_credit_tip_type: true
+  field_credits: true
+  field_image_landscape: true
+  field_image_portrait: true
+  field_project_phase: true
+  field_who_does_it: true
+  search_api_excerpt: true
+  uid: true

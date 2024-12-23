@@ -1,0 +1,29 @@
+uuid: 9a24e4a1-933a-40a3-b57e-7c7942e27f6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_credits
+    - node.type.credit_checklist
+    - taxonomy.vocabulary.credit
+id: node.credit_checklist.field_credits
+field_name: field_credits
+entity_type: node
+bundle: credit_checklist
+label: Credits
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      credit: credit
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

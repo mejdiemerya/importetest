@@ -5,6 +5,8 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.credit_faq.body
+    - field.field.node.credit_faq.field_credit_faq_question
+    - field.field.node.credit_faq.field_credit_labels
     - field.field.node.credit_faq.field_credits
     - node.type.credit_faq
   module:
@@ -28,5 +30,8 @@ content:
     weight: 100
     region: content
 hidden:
+  field_credit_faq_question: true
+  field_credit_labels: true
   field_credits: true
+  search_api_excerpt: true
   uid: true

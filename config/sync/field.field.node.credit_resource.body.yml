@@ -1,0 +1,24 @@
+uuid: 85951c5c-b9f5-46e4-993b-97c40172b982
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.credit_resource
+  module:
+    - text
+id: node.credit_resource.body
+field_name: body
+entity_type: node
+bundle: credit_resource
+label: Description
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

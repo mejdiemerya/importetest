@@ -1,0 +1,19 @@
+uuid: e30e2a8f-901a-4fdb-bec7-d5ab00a97b31
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_pre_v4_ref_guide_name
+    - node.type.credit_global_acp
+id: node.credit_global_acp.field_pre_v4_ref_guide_name
+field_name: field_pre_v4_ref_guide_name
+entity_type: node
+bundle: credit_global_acp
+label: 'Ref Guide Name and Edition Pre-v4'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

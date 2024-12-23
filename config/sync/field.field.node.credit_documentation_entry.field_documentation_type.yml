@@ -1,0 +1,29 @@
+uuid: 3f7e5ec1-2d4f-443f-9087-c1c8bad4df15
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_documentation_type
+    - node.type.credit_documentation_entry
+    - taxonomy.vocabulary.credit_documentation_types
+id: node.credit_documentation_entry.field_documentation_type
+field_name: field_documentation_type
+entity_type: node
+bundle: credit_documentation_entry
+label: Type
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      credit_documentation_types: credit_documentation_types
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

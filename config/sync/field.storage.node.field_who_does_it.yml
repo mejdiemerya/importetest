@@ -1,0 +1,20 @@
+uuid: 0303599b-29c7-4c2d-a13a-4bfd53997587
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - taxonomy
+id: node.field_who_does_it
+field_name: field_who_does_it
+entity_type: node
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

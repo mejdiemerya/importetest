@@ -1,0 +1,21 @@
+uuid: 938c807d-f06d-4d3f-8fbf-7b8fbae430a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - node.type.credit_regional_acp
+  module:
+    - datetime
+id: node.credit_regional_acp.field_date
+field_name: field_date
+entity_type: node
+bundle: credit_regional_acp
+label: Date
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

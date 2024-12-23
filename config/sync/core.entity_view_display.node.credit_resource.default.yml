@@ -1,0 +1,65 @@
+uuid: 7237d049-0bef-452f-818c-291bef877388
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.credit_resource.body
+    - field.field.node.credit_resource.field_credit_labels
+    - field.field.node.credit_resource.field_credits
+    - field.field.node.credit_resource.field_resource_type
+    - field.field.node.credit_resource.field_sources
+    - node.type.credit_resource
+  module:
+    - text
+id: node.credit_resource.default
+targetEntityType: node
+bundle: credit_resource
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_credit_labels:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 104
+    region: content
+  field_credits:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_resource_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 105
+    region: content
+  field_sources:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 106
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  search_api_excerpt: true
+  uid: true

@@ -1,0 +1,21 @@
+uuid: e3bca69e-e2e5-4149-9f9e-eb852c51442e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_date
+    - node.type.credit_form_update
+  module:
+    - datetime
+id: node.credit_form_update.field_date
+field_name: field_date
+entity_type: node
+bundle: credit_form_update
+label: Date
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

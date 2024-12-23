@@ -4,8 +4,18 @@ status: true
 dependencies:
   config:
     - field.field.node.credit_bev.field_credits
+    - field.field.node.credit_bev_image.field_credits
+    - field.field.node.credit_checklist.field_credits
     - field.field.node.credit_cost_guidance.field_credits
+    - field.field.node.credit_documentation_section.field_credits
     - field.field.node.credit_faq.field_credits
+    - field.field.node.credit_form_update.field_credits
+    - field.field.node.credit_global_acp.field_credits
+    - field.field.node.credit_leed_interpretation.field_credits
+    - field.field.node.credit_rating_system_correction.field_credits
+    - field.field.node.credit_reference_guide_correctio.field_credits
+    - field.field.node.credit_regional_acp.field_credits
+    - field.field.node.credit_resource.field_credits
     - field.field.node.forum.field_credits
     - field.field.node.forum.field_question
     - field.field.node.forum.field_tipsheet

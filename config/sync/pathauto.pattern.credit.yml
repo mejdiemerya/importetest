@@ -1,0 +1,22 @@
+uuid: 7c067cb0-6fba-4902-9a09-73ba6ad41c4c
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: credit
+label: credit
+type: 'canonical_entities:taxonomy_term'
+pattern: '[term:vocabulary]/[term:name]'
+selection_criteria:
+  45a9b6b5-8d03-49eb-874c-21c48a82a4c3:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 45a9b6b5-8d03-49eb-874c-21c48a82a4c3
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      credit: credit
+selection_logic: and
+weight: -5
+relationships: {  }

@@ -1,0 +1,9 @@
+uuid: 53c72c17-f010-4cff-b26a-42e08e225431
+langcode: en
+status: true
+dependencies: {  }
+name: 'Credit labels'
+vid: credit_labels
+description: null
+weight: 0
+new_revision: false

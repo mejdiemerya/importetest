@@ -1,0 +1,29 @@
+uuid: 5683e655-f1b0-4d9a-b282-b0a218677cec
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_credits
+    - taxonomy.vocabulary.credit
+    - taxonomy.vocabulary.credit_labels
+id: taxonomy_term.credit_labels.field_credits
+field_name: field_credits
+entity_type: taxonomy_term
+bundle: credit_labels
+label: Credits
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      credit: credit
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

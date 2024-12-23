@@ -1,0 +1,21 @@
+uuid: 36dc359b-8b07-4ef1-8078-824a69bb1238
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_campus_applicable
+    - node.type.credit_leed_interpretation
+id: node.credit_leed_interpretation.field_campus_applicable
+field_name: field_campus_applicable
+entity_type: node
+bundle: credit_leed_interpretation
+label: 'Campus Applicable'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

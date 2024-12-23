@@ -1,0 +1,22 @@
+uuid: ca697a38-95ff-4def-91d2-7c88cc4d499d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_inquiry
+    - node.type.credit_leed_interpretation
+  module:
+    - text
+id: node.credit_leed_interpretation.field_inquiry
+field_name: field_inquiry
+entity_type: node
+bundle: credit_leed_interpretation
+label: Inquiry
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

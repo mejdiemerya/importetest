@@ -1,0 +1,24 @@
+uuid: 768c2ceb-cd2a-4662-9fcb-c8bac852033a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.credit_reference_guide_correctio
+  module:
+    - text
+id: node.credit_reference_guide_correctio.body
+field_name: body
+entity_type: node
+bundle: credit_reference_guide_correctio
+label: 'Description of change'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

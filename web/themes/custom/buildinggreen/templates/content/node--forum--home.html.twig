@@ -101,7 +101,7 @@
         <p class="m-0"><a href="{{ url }}" rel="bookmark"><strong>{{ label }}</strong></a></p>
 
           {% if content.title_forum['#markup'] is not empty %}
-            <p class="topic-credit nullify m-0"><em>{{ content.title_forum['#text'] }}</em></p>
+            <p class="topic-credit nullify m-0"><em>{{ content.title_forum['#title'] }}</em></p>
           {% else %}
 
             <p class="topic-credit nullify m-0"><em>{{ content.taxonomy_forums.0['#title'] }}</em></p>

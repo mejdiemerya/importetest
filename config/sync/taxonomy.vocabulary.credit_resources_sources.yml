@@ -1,0 +1,9 @@
+uuid: 22192fab-3eee-4d9c-ada7-3e043924afef
+langcode: en
+status: true
+dependencies: {  }
+name: 'Credit Resources - Sources'
+vid: credit_resources_sources
+description: null
+weight: 0
+new_revision: false

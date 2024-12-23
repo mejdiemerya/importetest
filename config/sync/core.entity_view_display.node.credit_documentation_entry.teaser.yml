@@ -1,0 +1,34 @@
+uuid: 8c19edce-22e5-4750-86b4-964ebfa5c867
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.credit_documentation_entry.field_documentation_file
+    - field.field.node.credit_documentation_entry.field_documentation_type
+    - node.type.credit_documentation_entry
+id: node.credit_documentation_entry.teaser
+targetEntityType: node
+bundle: credit_documentation_entry
+mode: teaser
+content:
+  field_documentation_file:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_documentation_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  links: true
+  search_api_excerpt: true
+  uid: true

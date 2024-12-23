@@ -1,0 +1,21 @@
+uuid: 05118e41-d157-4edd-9fac-e1d3b8dc9ef0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_internationally_applicable
+    - node.type.credit_leed_interpretation
+id: node.credit_leed_interpretation.field_internationally_applicable
+field_name: field_internationally_applicable
+entity_type: node
+bundle: credit_leed_interpretation
+label: 'Internationally Applicable'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

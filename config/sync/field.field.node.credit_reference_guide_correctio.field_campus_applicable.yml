@@ -1,0 +1,21 @@
+uuid: ead06ca6-527e-4615-a1d9-3f408fb14e04
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_campus_applicable
+    - node.type.credit_reference_guide_correctio
+id: node.credit_reference_guide_correctio.field_campus_applicable
+field_name: field_campus_applicable
+entity_type: node
+bundle: credit_reference_guide_correctio
+label: 'Campus Applicable'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.taxonomy_term.credit.field_credit_meta_points
+    - field.field.taxonomy_term.credit.field_credit_requirement_points
     - field.field.taxonomy_term.credit.field_credit_requirement_text
     - field.field.taxonomy_term.credit.field_guest_expert
     - field.field.taxonomy_term.credit.field_intent
@@ -27,6 +28,14 @@ content:
   field_credit_meta_points:
     type: string_textfield
     weight: 26
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_credit_requirement_points:
+    type: string_textfield
+    weight: 28
     region: content
     settings:
       size: 60

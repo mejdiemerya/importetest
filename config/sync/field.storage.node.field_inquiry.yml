@@ -1,0 +1,19 @@
+uuid: 68ec5f6a-ac69-45c6-82a8-b17d6689a810
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - text
+id: node.field_inquiry
+field_name: field_inquiry
+entity_type: node
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

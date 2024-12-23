@@ -1,0 +1,22 @@
+uuid: a47d40f6-4acc-4574-a2f2-fade66cf87de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ruling
+    - node.type.credit_leed_interpretation
+  module:
+    - text
+id: node.credit_leed_interpretation.field_ruling
+field_name: field_ruling
+entity_type: node
+bundle: credit_leed_interpretation
+label: Ruling
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long
