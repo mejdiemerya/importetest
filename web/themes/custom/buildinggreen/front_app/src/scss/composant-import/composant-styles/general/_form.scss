@@ -1,13 +1,15 @@
-$well-bg:                     #f5f5f5 ;
-$well-border:                 darken($well-bg, 7%) ;
-$border-radius-base:        4px;
+$well-bg: #f5f5f5;
+$well-border: darken($well-bg, 7%);
+$border-radius-base: 4px;
 
-$font-size-large:         ceil(($font-size-base * 1.25)); // ~18px
-$font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
+$font-size-large: ceil(($font-size-base * 1.25)); // ~18px
+$font-size-small: ceil(($font-size-base * 0.85)); // ~12px
+
 #block-buildinggreen-leedusersearchblock {
+
   #edit-clear-location,
   #edit-clear-credits,
-  #edit-clear-search{
+  #edit-clear-search {
     float: right;
     border: none;
     padding: 0;
@@ -17,6 +19,7 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
     margin-top: -1px;
     color: #000;
   }
+
   @include MQ(SMneg) {
     min-height: 20px;
     padding: 15px;
@@ -25,6 +28,7 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
     border: 1px solid $well-border;
     border-radius: $border-radius-base;
   }
+
   @include MQ(Mplus) {
     min-height: 20px;
     padding: 15px;
@@ -34,16 +38,21 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
     border-radius: $border-radius-base;
     margin-right: -15px;
   }
+
   @include MQ(Mplus) {
     margin-right: 0;
   }
+
   margin-bottom: 2em;
-  label[for=edit-keyword-search], .panel-title {
+
+  label[for=edit-keyword-search],
+  .panel-title {
     text-transform: uppercase;
     text-decoration: none;
     font-size: ($font-size-base * 0.9);
     font-weight: 600;
   }
+
   .panel-heading,
   .panel-title,
   .panel-body {
@@ -65,13 +74,15 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
 
   #show-results {
     margin-top: 0.5em;
-    .btn-primary{
+
+    .btn-primary {
       color: #333;
       background-color: #fff;
       border-color: #ccc;
+
       &.focus,
       &:focus,
-      &:hover{
+      &:hover {
         color: #333;
         background-color: #e6e6e6;
         border-color: #adadad;
@@ -85,13 +96,16 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
     background-color: transparent;
     @include box-shadow(none);
     margin-bottom: 0.5em;
+
     &#edit-location-filter-fieldset,
     &#edit-credit-filter-fieldset {
       margin-bottom: 0.5em;
+
       &.collapsed {
         margin-bottom: 0.5em;
       }
     }
+
     &#edit-location-queries {
       margin-bottom: 0;
     }
@@ -105,6 +119,7 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
   #edit-credit-filter-fieldset .panel-body,
   #edit-location-filter-fieldset .panel-body {
     font-size: $font-size-xsmall;
+
     a {
       text-decoration: none;
     }
@@ -135,6 +150,7 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
   .form-item-search-scope {
     float: left;
     margin: 0.1em 0 0;
+
     &:first-of-type {
       padding-right: 1em;
     }
@@ -161,99 +177,134 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
   }
 
 }
+
 .credit-selector {
   margin-bottom: 1.5em;
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  .form-item, .form-actions {
+
+  .form-item,
+  .form-actions {
     margin-top: 0;
     margin-bottom: 0;
   }
+
   @include MQ(SMtoM) {
     width: 65%;
   }
+
   div.browser-group,
   div.selector-group {
     padding: 5px 15px 10px;
     background-color: #eee;
     margin-bottom: 1px;
+
     label {
       color: $gray;
     }
+
     @include MQ(Mneg) {
       &:first-of-type {
         @include border-top-radius(6px);
       }
+
       &:last-of-type {
         @include border-bottom-radius(6px);
         border-right: none;
       }
     }
+
     @include MQ(Splus) {
       padding: 10px 15px;
     }
-    @include MQ(Mplus){
+
+    @include MQ(Mplus) {
       float: left;
       border-right: 1px solid #cccccc;
+
       label {
         color: #fff;
       }
+
       margin-bottom: 0;
       @include gradient-vertical($gray-light, $gray-lighter, 0%, 100%);
+
       &:first-of-type {
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
       }
+
       &:last-of-type {
         border-top-right-radius: 8px;
         border-bottom-right-radius: 8px;
         border-right: none;
       }
     }
+
     &.active {
       background-color: $brand-success;
-      @include MQ(Mplus){
+
+      @include MQ(Mplus) {
         @include gradient-vertical(shade($brand-success, 20%), tint($brand-success, 20%), 0%, 100%);
       }
+
       label {
-        color: rgba(255,255,255,0.7);
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 5px;
       }
+
       .description {
         color: white;
       }
     }
+
     &.complete {
       background-color: $gray-dark;
-      @include MQ(Mplus){
+
+      @include MQ(Mplus) {
         @include gradient-vertical($gray-dark, $gray, 0%, 100%);
       }
+
       label {
-        color: rgba(255,255,255,0.7);
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 5px;
       }
+
       .description {
         color: white;
       }
     }
   }
-  a { text-decoration: none; }
+
+  a {
+    text-decoration: none;
+  }
+
   a:hover {
     text-decoration: none;
     color: #000;
   }
-  .ui-selectmenu-status, a.ui-selectmenu-status {
+
+  .ui-selectmenu-status,
+  a.ui-selectmenu-status {
     //font-family: $font-family-sans-serif;
     padding-left: 0.5em; // Same value as #leed-version-menu etc. below
     color: #fff;
   }
+
   #leed-version-button {
     min-width: 7em;
   }
-  .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+
+  .ui-state-default,
+  .ui-widget-content .ui-state-default,
+  .ui-widget-header .ui-state-default {
     background-color: transparent !important;
     background-image: none !important;
-    border-color: rgba(255,255,255,0.5);
+    border-color: rgba(255, 255, 255, 0.5);
   }
+
   label {
     display: block;
     font-size: $font-size-xsmall;
@@ -262,35 +313,42 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
     text-transform: uppercase;
     font-weight: normal;
     padding-top: 0.5em;
+
     @include MQ(StoM) {
       float: left;
       width: 8em;
       margin-right: 0.5em;
     }
+
     @include MQ(SMplus) {
       font-size: $font-size-small;
     }
   }
+
   .description {
     display: block;
     color: #000;
     font-size: $font-size-small;
     font-style: italic;
     margin-top: 5px;
-    @include MQ(Mneg){
+
+    @include MQ(Mneg) {
       display: none;
     }
   }
+
   select {
-    background-color: rgba(255,255,255,0.1);
-    @include border-radius(0);
+    background-color: rgba(255, 255, 255, 0.1);
+    @include border-radius(4px);
     color: white;
     font-size: $font-size-large;
     min-width: 200px;
-    @include MQ(Mneg){
+
+    @include MQ(Mneg) {
       font-size: $font-size-base;
     }
   }
+
   .instructions {
     margin: 1px 0 0 10px;
     display: inline-block;
@@ -299,38 +357,50 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
     font-size: $font-size-small;
     @include border-bottom-radius($border-radius-base);
   }
+
   .ui-state-default .ui-icon {
     //background-image: url(/sites/all/modules/jquery_update/replace/ui/themes/base/minified/images/ui-icons_454545_256x240.png);
   }
 }
-.page-node-type-accueil{
-  .credit-selector{
+
+.page-node-type-accueil {
+  .credit-selector {
     flex-direction: column;
-    .form-item, .form-actions {
+
+    .form-item,
+    .form-actions {
       display: flex;
       align-items: center;
-      > label{
+
+      >label {
         margin-right: 12px;
       }
     }
   }
+
   .credit-selector {
     margin-bottom: 1.5em;
+
     @media only screen and (min-width: 600px) {
       width: 90%;
     }
+
     @media only screen and (min-width: 700px) {
       width: 80%;
     }
+
     @include MQ(SMtoL) {
       width: 100%;
     }
-    @include MQ(Lplus){
+
+    @include MQ(Lplus) {
       width: 90%;
     }
+
     @include MQ(XLplus) {
       width: 70%;
     }
+
     div.browser-group,
     div.selector-group {
       float: none;
@@ -338,44 +408,56 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
       background-color: $gray-lighter !important;
       background-image: none !important;
       margin-bottom: 1px;
+
       label {
         color: $gray-dark;
       }
+
       border-right: none;
       clear: left;
+
       &:first-of-type {
         border-top-right-radius: 6px;
         border-top-left-radius: 6px;
         border-bottom-left-radius: 0;
       }
+
       &:last-of-type {
         border-bottom-right-radius: 8px;
         border-bottom-left-radius: 8px;
         border-top-right-radius: 0;
       }
+
       padding: 10px 15px;
+
       &.active {
         background-color: $brand-success !important;
         background-image: none !important;
+
         label {
           color: white;
         }
       }
+
       &.complete {
         background-color: $gray-dark !important;
         background-image: none !important;
+
         label {
-          color: rgba(255,255,255,0.7);
+          color: rgba(255, 255, 255, 0.7);
         }
+
         .description {
           color: white;
         }
-        select{
+
+        select {
           color: white !important;
           background-color: rgb(51, 51, 51);
         }
       }
     }
+
     label {
       display: block;
       font-size: $font-size-xsmall;
@@ -385,6 +467,7 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
       font-weight: normal;
       padding-top: 0;
     }
+
     @media only screen and (min-width: 480px) {
       label {
         font-size: $font-size-small;
@@ -394,23 +477,27 @@ $font-size-small:         ceil(($font-size-base * 0.85)); // ~12px
         padding-top: 0.5em;
       }
     }
+
     @media only screen and (min-width: 769px) {
       label {
         float: none;
         padding-top: 0;
       }
     }
+
     @media only screen and (min-width: 850px) {
       label {
         float: left;
         padding-top: 0.5em;
       }
     }
+
     .description {
       display: none;
     }
+
     select {
-      background-color: rgba(255,255,255,0.1);
+      background-color: rgba(255, 255, 255, 0.1);
       @include border-radius(0);
       color: #023b4a;
       font-size: $font-size-base;
