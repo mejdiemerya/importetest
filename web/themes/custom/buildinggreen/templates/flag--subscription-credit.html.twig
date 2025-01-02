@@ -38,5 +38,5 @@
   {# Set nofollow to prevent search bots from crawling anonymous flag links #}
   {% set attributes = attributes.setAttribute('rel', 'nofollow') %}
 
-  <div class="{{classes|join(' ')}}"><a{{ attributes.addClass('btn btn-success btn-wrap text-start') }}>{{ title }}</a></div>
+  <div class="{{classes|join(' ')}}"><a{{ attributes.addClass('btn btn-success btn-wrap text-start') }}>{{ title }} {{ title_forum }}</a></div>
 {% endapply %}

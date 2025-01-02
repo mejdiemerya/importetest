@@ -75,9 +75,16 @@
             </ul>
             <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap text-start mt-4"><strong>See
                 all forum discussions about this credit&nbsp;&raquo;</strong></a>
-            {% if content.flag_subscription_credit %}
-              <div class="mt-4">{{ content.flag_subscription_credit }}</div>{% endif %}
+            {% if v4_credit_url %}
+              <a href="{{ v4_credit_url }}" class="btn btn-success btn-wrap btn-left mt05"><strong>View the LEED v4 version of this credit&nbsp;&raquo;</strong></a>
 
+            {% endif %}
+            {% if v41_credit_url %}
+              <a href="{{ v41_credit_url}}" class="btn btn-success btn-wrap btn-left mt05"><strong>View the LEED v4.1 version of this credit&nbsp;&raquo;</strong></a>
+            {% endif %}
+            {% if content.flag_subscription_credit %}
+              <div class="mt-4">{{ content.flag_subscription_credit }}</div>
+            {% endif %}
             {% if 'v4/' in url %}
               <div class="visible-md-block mt-4">
                 <p class="mt-0 small mb-0 text-muted">SPECIAL REPORT</p>
@@ -93,16 +100,18 @@
           <div class="col-sm-9 col-md-8 col-lg-7 magnify">
             <div class="tab-content">
 
-              <div class="tab-pane" id="overview">
+              <div class="tab-pane {% if  has_credit_bev %}active{% endif %}" id="bev">
                 <p class="supertitle mb-0">LEEDuser overview</p>
-                {% if membership_promo_block %}
-                  {{ membership_promo_block }}
-                {% endif %}
-              </div><!-- end tab-pane -->
+                {% if not can_access_leeduser_content and has_credit_bev %}
+                  <h3>Frank advice from LEED experts</h3>
+                  <p class="mb15">LEED is changing all the time, and every project is unique. Even seasoned professionals can miss a critical detail and lose a credit or even a prerequisite at the last minute. Our expert advice guides our LEEDuser Premium members and saves you valuable time.</p>
+                  {{ membership_content_block }}
 
-              <div class="tab-pane active" id="bev">
-                <p class="supertitle mb-0">LEEDuser overview</p>
-                {% if not membership_promo_block %}
+                {% elseif not can_access_leeduser_content and not has_credit_bev   %}
+                    <h4 class="mt10">Explore this LEED credit</h4>
+                    <p>Post your questions on this credit in the <a href="/forums/?f[0]=credit:{{ term.tid.value }}">forum</a>, and click on the credit language tab to review to the LEED requirements.</p>
+
+                  {% else %}
                   {{ content.credit_bev }}
                   <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
                      class="btn btn-midtone btn-wrap btn-left btn-xl mt-5"><strong>See all forum discussions about this
@@ -152,8 +161,11 @@
               <div class="tab-pane" id="checklists">
                 <p class="supertitle">Checklists</p>
                 <div class="checklist">
-                  {% if     membership_promo_block %}
-                    <paywall></paywall>
+                  {% if  not can_access_leeduser_content %}
+                    <h3>Step by step to LEED certification</h3>
+                    <p class="mb15">LEEDuser&rsquo;s checklists walk you through the key action steps you need to earn a credit, including how to avoid common pitfalls and save money.</p>
+                    {{ membership_content_block }}
+
                   {% else %}
                     <table class="legend nullify">
                       <tr>
@@ -176,8 +188,13 @@
 
               <div class="tab-pane nullify" id="docs">
                 <p class="supertitle">Documentation toolkit</p>
-                {% if membership_promo_block %}
-                  <paywall></paywall>
+                {% if  not can_access_leeduser_content  %}
+                  <div class="magnify">
+                    <h3>The motherlode of cheat sheets</h3>
+                    <p class="mb15">LEEDuser’s Documentation Toolkit is loaded with calculators to help assess credit compliance, tracking spreadsheets for materials, sample templates to help guide your narratives and LEED Online submissions, and examples of actual submissions from certified LEED projects for you to check your work against. To get your plaque, start with the right toolkit.</p>
+                  </div>
+                  {{ membership_content_block }}
+
                 {% else %}
                   {{ docs_tab }}
                   <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
@@ -196,9 +213,33 @@
 
             </div><!-- end tab-content -->
 
-
           </div><!-- end col -->
           <div class="col-lg-3 hidden-md">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Credit achievement rate</h3>
+              </div>
+              <div class="panel-body center-block">
+                <div class="gbig">
+                  <p class="xlarge pr10">
+                    {% if not can_access_leeduser_content %}
+                    <span class="label label-warning">XX%</span>
+                   {% else %}
+                    <span class="label label-info">%</span>
+                    {% endif %}
+                  </p>
+                  <p class="small line-snug">
+                    {% if  not logged_in %}
+                    Upgrade to <strong>LEEDuser Premium</strong> to see how many projects achieved this credit. <strong><a href="/trial?destination=<?php print drupal_get_destination()['destination'];?>" class="line">Try it free</a>&nbsp;&raquo;</strong>
+                    {% elseif not can_access_leeduser_content %}
+                    Upgrade to <strong>LEEDuser Premium</strong> to see how many projects achieved this credit. <strong><a href="/pricing" class="line">Sign up now</a>&nbsp;&raquo;</strong>
+                    {% else %}
+                    <strong> of </strong> certified projects in this rating system earned this credit
+                   {% endif %}
+                  </p>
+                </div>
+              </div>
+            </div>
             {{ content.field_guest_expert }}
           </div>
         </div>

@@ -1000,6 +1000,9 @@ function custom_forums_theme($existing, $type, $theme, $path) {
     'membership_promo_block' => [
       'variables' => [],
     ],
+    'membership_content_block' => [
+      'variables' => [],
+    ],
     'doc_toolkit_tab'=>[
       'variables' => [
         'documentation' => NULL,
@@ -1202,8 +1205,36 @@ function custom_forums_preprocess_taxonomy_term(&$variables){
       }
     }
 
+    $aliasManager = \Drupal::service('path_alias.manager');
+    $currentPath = \Drupal::service('path.current');
 
+// Get the current path alias.
+    $alias = $aliasManager->getAliasByPath($currentPath->getPath());
 
+// Initialize variables.
+    $variables['v41_credit_url'] = FALSE;
+    $variables['v4_credit_url'] = FALSE;
+    // Check and set updated URLs based on alias conditions.
+    // Check for v4 or v4.1 and set updated URLs accordingly.
+    if (strpos($alias, 'v4/') !== FALSE) {
+      // If the alias is 'v4/', update to 'v4.1/'.
+      $variables['v41_credit_url'] = _get_updated_url($alias, 'v4.1');
+    }
+
+    if (strpos($alias, 'v4.1/') !== FALSE) {
+      // If the alias is 'v4.1/', update to 'v4/'.
+      $variables['v4_credit_url'] = _get_updated_url($alias, 'v4');
+    }
+    $variables['can_access_leeduser_content'] = \Drupal::currentUser()->hasPermission('access leeduser premium content');
+    $currentUser = \Drupal::currentUser();
+    if ($currentUser->isAnonymous() ||!\Drupal::currentUser()->hasPermission('access leeduser premium content')){
+
+      $membership_content_block = [
+        '#theme' => 'membership_content_block',
+      ];
+
+      $variables['membership_content_block'] = \Drupal::service('renderer')->render($membership_content_block);
+    }
     //credit language
     $variables['show_credit_language_tab'] = TRUE;
   }
@@ -1223,4 +1254,72 @@ function _get_checklist_by_taxonomy_tid($tid) {
   }
 
   return []; // Return an empty array if no results
+}
+function _get_updated_url($alias, $replacement) {
+  // Check if the alias contains 'v4/' or 'v4.1/'.
+  if (strpos($alias, 'v4/') !== FALSE || strpos($alias, 'v4.1/') !== FALSE) {
+    // Replace 'v4/' or 'v4.1/' with the replacement value.
+    if (strpos($alias, 'v4/') !== FALSE) {
+      $updated_alias = str_replace('v4/', "$replacement/", $alias);
+    } else {
+      $updated_alias = str_replace('v4.1/', "$replacement/", $alias);
+    }
+
+    // Check if the updated alias is associated with a taxonomy term.
+    if (is_taxonomy_term_from_alias($updated_alias)) {
+      // Return the updated URL.
+      return Url::fromUserInput('/' . ltrim($updated_alias, '/'))->toString();
+    }
+  }
+
+  // Return FALSE if no match was found or no taxonomy term is associated with the alias.
+  return FALSE;
+}
+function is_taxonomy_term_from_alias($alias) {
+  // Remove the '/credit' prefix and split alias into segments.
+  $segments = explode('/', trim($alias, '/'));
+
+  // Proceed if the alias has enough segments.
+  if (count($segments) >= 3) {
+    $rating_system = $segments[1];  // 'Mid-Rise-v4'
+    $credit_term_name = $segments[2]; // 'MPR1'
+
+    // Query for the taxonomy term by name.
+    $parent_term_query = \Drupal::entityQuery('taxonomy_term')
+      ->condition('name', $credit_term_name)
+      ->accessCheck(FALSE)
+      ->execute();
+
+    foreach ($parent_term_query as $parent_term) {
+      // Load all parent terms.
+      $parents = array_reverse(loadAllParentsModal($parent_term));
+
+      // Check if we have the expected number of parents.
+      if (count($parents) == 4) {
+        // Check the specific conditions for parent terms.
+        foreach ($parents as $i => $parent) {
+          if ($i != 0 && $i != 2 && $i != 3 && $parent->name->value == $rating_system) {
+            return TRUE;
+          }
+        }
+      }
+    }
+  }
+
+  // Return false if no match is found.
+  return FALSE;
+}
+
+function custom_forums_preprocess_views_view_field__credit_page_tab_content__credit_faq__body(&$variables){
+  $variables['can_access_leeduser_content'] = \Drupal::currentUser()->hasPermission('access leeduser premium content');
+}
+function custom_forums_preprocess_flag__subscription_credit(&$variables){
+  $entity=$variables['flaggable'];
+  $label = getCreditFilterLabel($entity->id());
+
+  $variables['title_forum']=
+    ['#markup'=>$label['title']
+    ];// Include the text.
+
+
 }

@@ -1,0 +1,14 @@
+
+<h3>{{row._entity.title.value}}</h3>
+
+{% if  not can_access_leeduser_content %}
+
+<p class="nullify line-snug mb05">
+  The answer to this question is available to LEEDuser premium members. <a href="/trial?destination=<?php print drupal_get_destination()['destination'];?>">Start a free trial</a>&nbsp;&raquo;</p>
+<p class="nullify small mt0"><em>(If you're already a premium member, <a href="#" data-toggle="modal" data-target="#login-modal">log in here</a>.)</em></p>
+  {% else %}
+    {{row._entity.body.value}}
+
+{% endif %}
+
+
