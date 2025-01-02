@@ -310,3 +310,118 @@
     }
   }
 }
+
+.checklist {
+  .legend td {
+    border: 1px solid #cccccc;
+    padding: 5px 10px;
+    line-height: 1.1;
+    text-align: center;
+    @include MQ(SMplus) {
+      &:first-of-type {
+        background-color: #cccccc;
+      }
+    }
+    .glyphicon {
+      @include MQ(SMneg) {
+        display: block;
+        text-align: center;
+      }
+      @include MQ(SMplus) {
+        padding-right: 5px;
+      }
+    }
+  }
+  h3 {
+    color: #333;
+  }
+}
+$brand-primary:         darken(#428bca, 6.5%) ; // #337ab7
+ul.credit-checklist {
+  list-style-type: none;
+  @include MQ(SMneg){
+    padding-left: 1.4em;
+  }
+  ul {
+    list-style-type: initial;
+    ul {
+      list-style-type: circle;
+      margin-top: 0.5em;
+    }
+  }
+  li {
+    margin-bottom: 0.5em;
+    text-indent: -1.4em;
+    li, h3, figcaption { // for lists, headings, and image captions within checklists
+      text-indent: 0;
+    }
+    h3 {
+      margin-left: -1em;
+      color: $gray-dark;
+      font-style: italic;
+    }
+    p {
+      display: inline;
+    }
+    &:before {
+      font-family: "Glyphicons Halflings";
+      float: left;
+      width: 1.4em;
+    }
+    &.action-steps:before {
+      content: "\e013";
+      color: #4f85da;
+    }
+    &.cost-tip:before {
+      content: "\e225";
+      color: #eaa0ad;
+    }
+    &.best-practices:before {
+      content: "\e125";
+      color: tint($brand-primary, 20%);
+    }
+    &.hot-tip:before {
+      content: "\e162";
+      color: tint(red, 40%);
+    }
+  }
+}
+.gbig {
+  display: table;
+  p {
+    display: table-cell;
+    @include MQ(Mplus) {
+      vertical-align: top;
+      &:last-of-type {
+        padding-top: 2px;
+      }
+    }
+  }
+
+}
+.card{
+  .panel-heading{
+    > *{
+      font-size: 18px;
+      color: #4d4d4d;
+    }
+  }
+}
+.label {
+  display: inline;
+  padding: 0.2em 0.6em 0.3em;
+  font-size: 75%;
+  font-weight: bold;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25em;
+}
+.label-info {
+  background-color: #70B2BE;
+}
+.label-info[href]:hover, .label-info[href]:focus {
+  background-color: #4e9ead;
+}

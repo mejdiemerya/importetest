@@ -76,11 +76,11 @@
             <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap text-start mt-4"><strong>See
                 all forum discussions about this credit&nbsp;&raquo;</strong></a>
             {% if v4_credit_url %}
-              <a href="{{ v4_credit_url }}" class="btn btn-success btn-wrap btn-left mt05"><strong>View the LEED v4 version of this credit&nbsp;&raquo;</strong></a>
+              <a href="{{ v4_credit_url }}" class="btn btn-light btn-wrap btn-left mt-3"><strong>View the LEED v4 version of this credit&nbsp;&raquo;</strong></a>
 
             {% endif %}
             {% if v41_credit_url %}
-              <a href="{{ v41_credit_url}}" class="btn btn-success btn-wrap btn-left mt05"><strong>View the LEED v4.1 version of this credit&nbsp;&raquo;</strong></a>
+              <a href="{{ v41_credit_url}}" class="btn btn-success btn-wrap btn-left mt-3"><strong>View the LEED v4.1 version of this credit&nbsp;&raquo;</strong></a>
             {% endif %}
             {% if content.flag_subscription_credit %}
               <div class="mt-4">{{ content.flag_subscription_credit }}</div>
@@ -215,17 +215,17 @@
 
           </div><!-- end col -->
           <div class="col-lg-3 hidden-md">
-            <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Credit achievement rate</h3>
+            <div class="card panel panel-default mb-3">
+              <div class="card-header panel-heading">
+                <h3 class="panel-title m-0 p-0">Credit achievement rate</h3>
               </div>
-              <div class="panel-body center-block">
+              <div class="card-body panel-body center-block">
                 <div class="gbig">
-                  <p class="xlarge pr10">
+                  <p class="xlarge pe-2">
                     {% if not can_access_leeduser_content %}
                     <span class="label label-warning">XX%</span>
                    {% else %}
-                    <span class="label label-info">%</span>
+                    <span class="label label-info">100%</span>
                     {% endif %}
                   </p>
                   <p class="small line-snug">
