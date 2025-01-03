@@ -228,7 +228,7 @@ class LeeduserSearchForm extends FormBase {
           '#suffix' => '</div>',
         ];
     }
-    if (!empty(($saved_values['credits'] || !empty($credit_id)))) {
+    if (!empty(($saved_values['credits'])) || !empty($credit_id)) {
       $form['active_credit_filter_fieldset']['clear_credits'] = array(
         '#type' => 'submit',
         '#name' => 'clear_credits',
@@ -242,16 +242,18 @@ class LeeduserSearchForm extends FormBase {
         '#type' => 'fieldset',
         '#title' => t('Credit Filters'),
       );
-     $credit_id_filter = $saved_values['credits'];
-        if (($credit_id_filter)) {
-          $label = getCreditFilterLabel($credit_id_filter);
-          $form['active_credit_filter_fieldset']['queries']['saved_query_credit_' . $credit_id_filter] = array(
-            '#type' => 'checkbox',
-            '#title' => $label['title'],
-            '#suffix' => '<div class="credit-query-description">' . htmlspecialchars($label['description'], ENT_QUOTES, 'UTF-8') . '</div>',
-            '#default_value' => 1,
-          );
-        }
+      if(!empty(($saved_values['credits']))){
+      $credit_id_filter = $saved_values['credits'];
+      if (($credit_id_filter)) {
+        $label = getCreditFilterLabel($credit_id_filter);
+        $form['active_credit_filter_fieldset']['queries']['saved_query_credit_' . $credit_id_filter] = array(
+          '#type' => 'checkbox',
+          '#title' => $label['title'],
+          '#suffix' => '<div class="credit-query-description">' . htmlspecialchars($label['description'], ENT_QUOTES, 'UTF-8') . '</div>',
+          '#default_value' => 1,
+        );
+      }
+      }
       if (($credit_id)) {
         $label = getCreditFilterLabel($credit_id);
         $form['active_credit_filter_fieldset']['queries']['saved_query_credit_' . $credit_id] = array(
