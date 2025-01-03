@@ -1,0 +1,14 @@
+<div class="paywall nullify">
+
+  <div data-ng-show="!(premium && spotlight)">
+    <h3>For full access, sign up now for <strong>LEEDuser&nbsp;Premium</strong></h3>
+
+    <div>
+      or
+      <a data-ng-show="current_domain.id == 'LU'" class="btn btn-lg btn-success condensed nofade" href="" buy="77">Get a Monthly Subscription for <price id="77"></price></a>
+    </div>
+    <a data-toggle="modal" data-target="#group-link-modal" href="#" class="btn btn-default btn-wrap" data-ng-show="uid == 0">Firm or campus members &ndash; click here &raquo;</a>
+    <p data-ng-show="uid == 0">Already a premium member? <a href="#" data-toggle="modal" data-target="#login-modal">Log in now</a></p>
+  </div>
+
+</div>
