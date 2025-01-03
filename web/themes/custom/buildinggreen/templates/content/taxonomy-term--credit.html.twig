@@ -85,7 +85,7 @@
             {% if content.flag_subscription_credit %}
               <div class="mt-4">{{ content.flag_subscription_credit }}</div>
             {% endif %}
-            {% if 'v4/' in url %}
+            {% if 'v4' in url %}
               <div class="visible-md-block mt-4">
                 <p class="mt-0 small mb-0 text-muted">SPECIAL REPORT</p>
                 <a href="/continuing-education/cost-leed-v4">
@@ -119,7 +119,7 @@
                 {% endif %}
               </div><!-- end tab-pane -->
 
-              <div class="tab-pane" id="credit-language">
+              <div class="tab-pane {% if not has_credit_bev %}active{% endif %}" id="credit-language">
                 <p class="supertitle">Credit language</p>
                 <div class="well well-sm">
                   <div class="media">
@@ -215,7 +215,7 @@
 
           </div><!-- end col -->
           <div class="col-lg-3 hidden-md">
-            <div class="card panel panel-default mb-3">
+            <div class="card panel panel-default mb-3" style="display: none">
               <div class="card-header panel-heading">
                 <h3 class="panel-title m-0 p-0">Credit achievement rate</h3>
               </div>
@@ -230,7 +230,7 @@
                   </p>
                   <p class="small line-snug">
                     {% if  not logged_in %}
-                    Upgrade to <strong>LEEDuser Premium</strong> to see how many projects achieved this credit. <strong><a href="/trial?destination=<?php print drupal_get_destination()['destination'];?>" class="line">Try it free</a>&nbsp;&raquo;</strong>
+                    Upgrade to <strong>LEEDuser Premium</strong> to see how many projects achieved this credit. <strong><a href="#" class="line">Try it free</a>&nbsp;&raquo;</strong>
                     {% elseif not can_access_leeduser_content %}
                     Upgrade to <strong>LEEDuser Premium</strong> to see how many projects achieved this credit. <strong><a href="/pricing" class="line">Sign up now</a>&nbsp;&raquo;</strong>
                     {% else %}

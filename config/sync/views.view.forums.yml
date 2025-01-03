@@ -132,7 +132,20 @@ display:
       cache:
         type: search_api_none
         options: {  }
-      empty: {  }
+      empty:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: text
+          empty: true
+          content:
+            value: "<h3>Your search did not match any results</h3>\r\n<ul> <li>Make sure all words are spelled correctly.</li>\r\n<li>Try removing filters.</li>\r\n<li>Use terms like 'and' and 'or' to refine your search results.</li>\r\n<li>Or, be the first to <a  href=\"#\" data-bs-toggle=\"modal\" data-bs-target=\"#post-question-modal\"  >Post a question or comment </a> on this topic on LEEDuser!</li></ul>\r\n"
+            format: full_html
+          tokenize: false
       sorts:
         created:
           id: created

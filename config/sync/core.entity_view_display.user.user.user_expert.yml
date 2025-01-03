@@ -44,7 +44,7 @@ mode: user_expert
 content:
   field_accreditations:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -52,7 +52,7 @@ content:
     region: content
   field_organization:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
@@ -60,7 +60,7 @@ content:
     region: content
   field_title:
     type: string
-    label: above
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
