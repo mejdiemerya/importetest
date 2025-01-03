@@ -8,7 +8,7 @@
       <a data-ng-show="current_domain.id == 'LU'" class="btn btn-lg btn-success condensed nofade" href="" buy="77">Get a Monthly Subscription for <price id="77"></price></a>
     </div>
     <a data-toggle="modal" data-target="#group-link-modal" href="#" class="btn btn-default btn-wrap" data-ng-show="uid == 0">Firm or campus members &ndash; click here &raquo;</a>
-    <p data-ng-show="uid == 0">Already a premium member? <a href="#" data-toggle="modal" data-target="#login-modal">Log in now</a></p>
+    <p data-ng-show="uid == 0">Already a premium member? <a href="{{ path('user.login') }}" data-toggle="modal" data-target="#login-modal">Log in now</a></p>
   </div>
 
 </div>
