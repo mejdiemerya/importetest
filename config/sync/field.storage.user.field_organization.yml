@@ -1,0 +1,21 @@
+uuid: e3a79535-ff5f-4ce1-a84a-67b38aa56e96
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_organization
+field_name: field_organization
+entity_type: user
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: string
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

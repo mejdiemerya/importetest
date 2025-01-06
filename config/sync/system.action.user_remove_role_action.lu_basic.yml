@@ -1,0 +1,14 @@
+uuid: cd7faf8f-7f3d-4c5c-bc25-3d6c5d85dafb
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.lu_basic
+  module:
+    - user
+id: user_remove_role_action.lu_basic
+label: 'Enlever le rôle lu_basic des utilisateurs sélectionnés'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: lu_basic

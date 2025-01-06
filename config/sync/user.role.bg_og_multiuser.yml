@@ -1,0 +1,9 @@
+uuid: 5f8274ee-ad27-4eb7-a63f-4fa59b74bc25
+langcode: fr
+status: true
+dependencies: {  }
+id: bg_og_multiuser
+label: bg_og_multiuser
+weight: 25
+is_admin: null
+permissions: {  }

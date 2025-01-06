@@ -1,12 +1,9 @@
-uuid: 4cf49ca1-847d-4aa0-84bb-8060606dad8c
-langcode: en
+uuid: 2ced41c4-2f4a-4c45-8266-38a37b861c6c
+langcode: fr
 status: true
-dependencies:
-  module:
-    - custom_forums
+dependencies: {  }
 id: lu_premium
-label: 'LEEDuser Premium Member'
-weight: 10
+label: lu_premium
+weight: 28
 is_admin: null
-permissions:
-  - 'access leeduser premium content'
+permissions: {  }

@@ -1,0 +1,14 @@
+uuid: 3bc1902e-2684-483e-94a8-70175aaf514e
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.lu_premium_og
+  module:
+    - user
+id: user_add_role_action.lu_premium_og
+label: 'Ajouter le rôle lu_premium_og aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: lu_premium_og

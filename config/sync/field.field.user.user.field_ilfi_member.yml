@@ -1,0 +1,22 @@
+uuid: 90232976-b776-44a0-91b1-a53d5d9e4b5b
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_ilfi_member
+  module:
+    - user
+id: user.user.field_ilfi_member
+field_name: field_ilfi_member
+entity_type: user
+bundle: user
+label: 'Check to enable automated CEU reporting to ILFI'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Activé
+  off_label: Désactivé
+field_type: boolean

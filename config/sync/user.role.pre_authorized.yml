@@ -1,0 +1,9 @@
+uuid: d0b8632c-89ac-4c97-876a-7bdb09a00c5e
+langcode: fr
+status: true
+dependencies: {  }
+id: pre_authorized
+label: pre-authorized
+weight: 17
+is_admin: null
+permissions: {  }

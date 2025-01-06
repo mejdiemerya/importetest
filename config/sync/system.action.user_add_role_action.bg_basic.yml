@@ -1,0 +1,14 @@
+uuid: ccbabdcc-aab6-400a-b714-74b642a057ec
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.bg_basic
+  module:
+    - user
+id: user_add_role_action.bg_basic
+label: 'Ajouter le rôle bg_basic aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: bg_basic

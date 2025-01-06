@@ -1,0 +1,19 @@
+uuid: baab77eb-ad40-44a5-b410-cbee85b2a0ec
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - link
+id: commerce_product.field_registration_link
+field_name: field_registration_link
+entity_type: commerce_product
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

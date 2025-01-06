@@ -1,8 +1,0 @@
-uuid: 88be015c-0f71-470f-be4e-9fa2538c877e
-langcode: en
-status: true
-dependencies: {  }
-id: menu-a-gauche
-label: 'Go to BuildingGreen.com'
-description: ''
-locked: false

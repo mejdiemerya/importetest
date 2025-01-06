@@ -1,0 +1,11 @@
+uuid: eec2c6eb-781d-41de-be46-7ea5df759773
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.reports_courses_study_guides_web
+id: commerce_product.reports_courses_study_guides_web
+target_entity_type_id: commerce_product
+target_bundle: reports_courses_study_guides_web
+default_langcode: site_default
+language_alterable: false

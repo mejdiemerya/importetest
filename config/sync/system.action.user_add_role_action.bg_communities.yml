@@ -1,0 +1,14 @@
+uuid: 71ad8c2f-5880-47d0-8671-77a143333d72
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.bg_communities
+  module:
+    - user
+id: user_add_role_action.bg_communities
+label: 'Ajouter le rôle bg_communities aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: bg_communities

@@ -1,0 +1,9 @@
+uuid: d620d6f9-6f5d-420f-95a6-5fbde0fc3b36
+langcode: fr
+status: true
+dependencies: {  }
+id: lu_premium_og
+label: lu_premium_og
+weight: 29
+is_admin: null
+permissions: {  }

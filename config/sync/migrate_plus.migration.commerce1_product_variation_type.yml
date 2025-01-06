@@ -1,0 +1,37 @@
+uuid: e74d2168-7604-49fd-99dc-a8768c6443e1
+langcode: en
+status: true
+dependencies: {  }
+id: commerce1_product_variation_type
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Commerce
+  - Configuration
+migration_group: null
+label: 'Commerce product variation type'
+source:
+  plugin: commerce1_product_display_type
+  constants:
+    generate_title: false
+    line_item_type: product_variation
+    order_item_type: default
+process:
+  id: type
+  revision: revision
+  type: type
+  label: name
+  description: description
+  help: help
+  generateTitle: constants/generate_title
+  lineItemType: constants/line_item_type
+  orderItemType:
+    plugin: default_value
+    source: line_item_type
+    default_value: default
+destination:
+  plugin: 'entity:commerce_product_variation_type'
+  destination_module: commerce_product
+migration_dependencies: null

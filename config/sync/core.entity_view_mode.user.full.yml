@@ -1,5 +1,5 @@
-uuid: dbc055d3-a222-4383-b9b1-c55a2c2dfa5a
-langcode: en
+uuid: c373ea00-6aab-41d4-a518-e20f297e3275
+langcode: fr
 status: false
 dependencies:
   module:
@@ -7,7 +7,7 @@ dependencies:
 _core:
   default_config_hash: ZbXunWS_xAvMZXFfinyvClDAb_RCVLt7gAzE3v16E-Q
 id: user.full
-label: 'User account'
+label: 'Compte utilisateur'
 description: ''
 targetEntityType: user
 cache: true

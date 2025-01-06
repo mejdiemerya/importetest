@@ -1,0 +1,69 @@
+uuid: e47e41ac-c422-490e-a83d-86d5017062d0
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.file_download
+    - field.field.commerce_product_variation.file_download.field_commerce_license_duration
+    - field.field.commerce_product_variation.file_download.field_commerce_license_type
+    - field.field.commerce_product_variation.file_download.field_license_billing_cycle_type
+    - field.field.commerce_product_variation.file_download.field_license_billing_type
+  module:
+    - commerce_price
+    - options
+id: commerce_product_variation.file_download.default
+targetEntityType: commerce_product_variation
+bundle: file_download
+mode: default
+content:
+  field_commerce_license_duration:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 18
+    region: content
+  field_commerce_license_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_license_billing_cycle_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 19
+    region: content
+  field_license_billing_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  list_price:
+    type: commerce_price_default
+    label: above
+    settings:
+      strip_trailing_zeroes: false
+      currency_display: symbol
+    third_party_settings: {  }
+    weight: -1
+    region: content
+  price:
+    type: commerce_price_default
+    label: above
+    settings:
+      strip_trailing_zeroes: false
+      currency_display: symbol
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  langcode: true
+  product_id: true
+  sku: true
+  title: true

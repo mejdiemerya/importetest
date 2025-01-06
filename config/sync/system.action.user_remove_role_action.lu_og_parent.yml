@@ -1,0 +1,14 @@
+uuid: 5f281326-6d03-428f-901f-bce1dcce6d9f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.lu_og_parent
+  module:
+    - user
+id: user_remove_role_action.lu_og_parent
+label: 'Enlever le rôle lu_og_parent des utilisateurs sélectionnés'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: lu_og_parent

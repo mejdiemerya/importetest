@@ -1,0 +1,21 @@
+uuid: 50f9ca7e-4771-46c5-aa36-79b43fc7d63a
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.membership
+    - field.storage.commerce_product_variation.field_commerce_license_type
+  module:
+    - options
+id: commerce_product_variation.membership.field_commerce_license_type
+field_name: field_commerce_license_type
+entity_type: commerce_product_variation
+bundle: membership
+label: 'License type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

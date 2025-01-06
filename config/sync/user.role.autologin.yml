@@ -1,0 +1,9 @@
+uuid: 5f34e350-0e8c-41aa-895a-8bae6b6ffb03
+langcode: fr
+status: true
+dependencies: {  }
+id: autologin
+label: autologin
+weight: 26
+is_admin: null
+permissions: {  }

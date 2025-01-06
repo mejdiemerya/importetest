@@ -1,0 +1,9 @@
+uuid: 382370d3-3274-4ec0-9315-3cd2160e561b
+langcode: fr
+status: true
+dependencies: {  }
+id: bg_communities
+label: bg_communities
+weight: 21
+is_admin: null
+permissions: {  }

@@ -1,0 +1,9 @@
+uuid: 5af6bfa1-7d56-4199-a480-bd1e4e700b17
+langcode: fr
+status: true
+dependencies: {  }
+id: lu_og_multiuser
+label: lu_og_multiuser
+weight: 31
+is_admin: null
+permissions: {  }

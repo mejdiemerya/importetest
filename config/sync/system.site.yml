@@ -1,9 +1,9 @@
 _core:
   default_config_hash: ijfbzDTN4CbE7Sr-6ubWzy_t1vH4OtU1doNCLssVz-4
-langcode: en
-uuid: 3f142edc-6b0d-4b5c-a2dc-427e2478cd4e
-name: 'Drush Site-Install'
-mail: admin@example.com
+langcode: fr
+uuid: 79859a92-4c56-4b7c-a716-ffcf92737095
+name: 'BuildGreen D11'
+mail: hh@hh.fr
 slogan: ''
 page:
   403: ''
@@ -11,5 +11,5 @@ page:
   front: /node
 admin_compact_mode: false
 weight_select_max: 100
-default_langcode: en
+default_langcode: fr
 mail_notification: null

@@ -1,0 +1,23 @@
+uuid: 2daa53a8-73c7-4658-ae6d-a76da46b14a2
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_renewal_instance
+    - paragraphs.paragraphs_type.renewal_price
+id: paragraph.renewal_price.field_renewal_instance
+field_name: field_renewal_instance
+entity_type: paragraph
+bundle: renewal_price
+label: 'Renewal instance'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

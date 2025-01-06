@@ -1,0 +1,14 @@
+uuid: 83bc97e4-ef00-4af7-ae15-457f23472b50
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.bg_premium_og
+  module:
+    - user
+id: user_add_role_action.bg_premium_og
+label: 'Ajouter le rôle bg_premium_og aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: bg_premium_og

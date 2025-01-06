@@ -1,0 +1,20 @@
+uuid: 1cd33ca8-7e86-4dab-ae6a-309f87d3e65b
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_gbci_email
+  module:
+    - user
+id: user.user.field_gbci_email
+field_name: field_gbci_email
+entity_type: user
+bundle: user
+label: 'Email address associated with GBCI'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: email

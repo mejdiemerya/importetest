@@ -1,0 +1,18 @@
+uuid: 5fe39ce8-f332-4db0-8388-627382309bbd
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: commerce_product.field_ceu_available
+field_name: field_ceu_available
+entity_type: commerce_product
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

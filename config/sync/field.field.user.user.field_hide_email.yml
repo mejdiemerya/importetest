@@ -1,0 +1,22 @@
+uuid: 8050e04e-722b-4767-a396-22fd6fcf60e9
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_hide_email
+  module:
+    - user
+id: user.user.field_hide_email
+field_name: field_hide_email
+entity_type: user
+bundle: user
+label: 'Hide my email address from private Communities member list'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Activé
+  off_label: Désactivé
+field_type: boolean

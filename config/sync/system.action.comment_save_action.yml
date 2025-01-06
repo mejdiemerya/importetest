@@ -1,5 +1,5 @@
-uuid: 9cfb08d3-0d13-42d6-a8fd-a7d022877dde
-langcode: en
+uuid: 2e780162-1422-479d-97cb-6d69b3261dc7
+langcode: fr
 status: true
 dependencies:
   module:
@@ -7,7 +7,7 @@ dependencies:
 _core:
   default_config_hash: lfyE_snmvfg_EQ3VDyhUtGAXgmqtEiqa46I3bTMg8DU
 id: comment_save_action
-label: 'Save comment'
+label: 'Enregistrer le commentaire'
 type: comment
 plugin: 'entity:save_action:comment'
 configuration: {  }

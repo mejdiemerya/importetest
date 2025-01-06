@@ -1,5 +1,5 @@
-uuid: a5dafe09-2c9e-43b4-b752-fda57351de10
-langcode: en
+uuid: 693d129b-827c-4dee-8131-a8dd77f7d1ac
+langcode: fr
 status: true
 dependencies:
   module:
@@ -7,7 +7,7 @@ dependencies:
 _core:
   default_config_hash: RZ-bcSekNSsAbIPLW7Gmyd3uUjIOSrPvnb8RCCZYJm8
 id: help_search
-label: Help
+label: Aide
 path: help
 weight: 0
 plugin: help_search

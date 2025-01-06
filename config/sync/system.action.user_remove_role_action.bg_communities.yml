@@ -1,0 +1,14 @@
+uuid: 9d10b6d9-ef6d-45bf-94cc-9b275ce49cf3
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.bg_communities
+  module:
+    - user
+id: user_remove_role_action.bg_communities
+label: 'Enlever le rôle bg_communities des utilisateurs sélectionnés'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: bg_communities

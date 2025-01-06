@@ -1,9 +1,9 @@
-uuid: 3270a2cd-71db-488c-afc5-cd6e119d5c55
-langcode: en
+uuid: 7a926470-6a24-4493-8eb5-47b2619ec10a
+langcode: fr
 status: true
 dependencies: {  }
 id: lu_guest_expert
-label: 'LEEDuser Experts'
-weight: 9
+label: lu_guest_expert
+weight: 33
 is_admin: null
 permissions: {  }

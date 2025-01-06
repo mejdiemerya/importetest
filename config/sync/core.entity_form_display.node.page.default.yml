@@ -1,4 +1,4 @@
-uuid: db71c1f4-0e9b-49f6-8bf4-42ae5c6e46b6
+uuid: 51a2fbf8-78b4-4194-bb2b-1361ae5688ea
 langcode: en
 status: true
 dependencies:
@@ -31,11 +31,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  moderation_state:
-    type: moderation_state_default
-    weight: 100
+  langcode:
+    type: language_select
+    weight: 2
     region: content
-    settings: {  }
+    settings:
+      include_locked: true
     third_party_settings: {  }
   path:
     type: path

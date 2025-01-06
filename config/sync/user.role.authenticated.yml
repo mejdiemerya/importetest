@@ -1,63 +1,32 @@
-uuid: afba50f4-14ef-4a94-9b85-c2da0682a5f9
-langcode: en
+uuid: 938aeb43-2112-41c2-b0fc-7ba2ee2b924d
+langcode: fr
 status: true
 dependencies:
-  config:
-    - filter.format.basic_html
-    - node.type.forum
-    - storage.storage_type.modal_list_forums
-    - storage.storage_type.other_rating_systems
-    - storage.storage_type.quick_link
-    - workflows.workflow.editorial
   module:
     - comment
+    - commerce_checkout
+    - commerce_order
+    - commerce_payment
+    - commerce_product
     - contact
-    - content_moderation
-    - file
-    - filter
-    - flag
-    - media
-    - node
-    - rate
     - search
-    - shortcut
-    - storage
     - system
 _core:
   default_config_hash: cFrlqjtkTfvY3RGccjJkPf1SGIfJ942IrxTLWAO4mgA
 id: authenticated
-label: 'Authenticated user'
-weight: 1
+label: 'authenticated user'
+weight: 19
 is_admin: false
 permissions:
+  - 'access checkout'
   - 'access comments'
   - 'access content'
-  - 'access shortcuts'
   - 'access site-wide contact form'
   - 'access user profiles'
-  - 'cast rate vote on comment_forum on node of forum'
-  - 'cast rate vote on node of forum'
-  - 'create forum content'
-  - 'delete own files'
-  - 'edit any forum content'
   - 'edit own comments'
-  - 'edit own forum content'
-  - 'flag forum_notification'
-  - 'flag notification'
-  - 'flag subscription_credit'
-  - 'flag subscription_tipsheet'
+  - 'manage own commerce_payment_method'
   - 'post comments'
   - 'search content'
   - 'skip comment approval'
-  - 'unflag forum_notification'
-  - 'unflag notification'
-  - 'unflag subscription_credit'
-  - 'unflag subscription_tipsheet'
-  - 'use editorial transition create_new_draft'
-  - 'use text format basic_html'
-  - 'view media'
-  - 'view published modal_list_forums storage entities'
-  - 'view published other_rating_systems storage entities'
-  - 'view published quick_link storage entities'
-  - 'view published storage entities'
-  - 'view user email addresses'
+  - 'view commerce_product'
+  - 'view own commerce_order'

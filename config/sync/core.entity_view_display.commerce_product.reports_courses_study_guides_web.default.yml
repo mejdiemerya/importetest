@@ -1,0 +1,189 @@
+uuid: f7b37caa-0834-4f21-8b6b-f3a846805bc8
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.reports_courses_study_guides_web
+    - field.field.commerce_product.reports_courses_study_guides_web.body
+    - field.field.commerce_product.reports_courses_study_guides_web.field_body_purchased
+    - field.field.commerce_product.reports_courses_study_guides_web.field_button_label
+    - field.field.commerce_product.reports_courses_study_guides_web.field_buy_button_label_override
+    - field.field.commerce_product.reports_courses_study_guides_web.field_ceu_available
+    - field.field.commerce_product.reports_courses_study_guides_web.field_coupon
+    - field.field.commerce_product.reports_courses_study_guides_web.field_free_to_pn_members
+    - field.field.commerce_product.reports_courses_study_guides_web.field_free_to_premium_users
+    - field.field.commerce_product.reports_courses_study_guides_web.field_hide_buy_button
+    - field.field.commerce_product.reports_courses_study_guides_web.field_image_portrait
+    - field.field.commerce_product.reports_courses_study_guides_web.field_navigation_category
+    - field.field.commerce_product.reports_courses_study_guides_web.field_promo_image
+    - field.field.commerce_product.reports_courses_study_guides_web.field_registration_link
+    - field.field.commerce_product.reports_courses_study_guides_web.field_related_products
+    - field.field.commerce_product.reports_courses_study_guides_web.field_report_page_button_label
+  module:
+    - commerce_product
+    - image
+    - link
+    - text
+id: commerce_product.reports_courses_study_guides_web.default
+targetEntityType: commerce_product
+bundle: reports_courses_study_guides_web
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_body_purchased:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_button_label:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_buy_button_label_override:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_ceu_available:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_coupon:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_free_to_pn_members:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_free_to_premium_users:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_hide_buy_button:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_image_portrait:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  field_navigation_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  field_promo_image:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_registration_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_related_products:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: cart
+      link: false
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_report_page_button_label:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  variations:
+    type: commerce_add_to_cart
+    label: above
+    settings:
+      combine: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  created: true
+  langcode: true
+  stores: true
+  uid: true

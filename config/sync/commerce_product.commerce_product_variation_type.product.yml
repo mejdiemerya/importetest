@@ -1,0 +1,11 @@
+uuid: 6f2da56e-d8f2-4252-be64-fb6d72222221
+langcode: fr
+status: true
+dependencies: {  }
+id: product
+label: Product
+traits:
+  - purchasable_entity_subscription
+locked: false
+orderItemType: default
+generateTitle: false

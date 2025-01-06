@@ -1,0 +1,10 @@
+uuid: 4c462965-8bd4-4142-86d8-67cc0e28dce5
+langcode: fr
+status: true
+dependencies: {  }
+id: per_node_access
+label: 'Per-node access'
+traits: {  }
+locked: false
+orderItemType: default
+generateTitle: null

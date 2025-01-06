@@ -1,4 +1,4 @@
-uuid: 7072116c-a766-4365-b990-42c58e8a819f
+uuid: 850163a7-5e65-4f1a-b0ca-322f81c0beea
 langcode: en
 status: true
 dependencies:
@@ -12,10 +12,10 @@ settings:
   max_length: 255
   case_sensitive: false
   is_ascii: false
-module: core
+module: string
 locked: false
 cardinality: 1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

@@ -1,0 +1,27 @@
+uuid: a4b51350-9b06-42d6-b578-8c542f1f8de5
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - options
+id: commerce_product_variation.field_license_billing_type
+field_name: field_license_billing_type
+entity_type: commerce_product_variation
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: prepaid
+      label: Prepaid
+    -
+      value: postpaid
+      label: Postpaid
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

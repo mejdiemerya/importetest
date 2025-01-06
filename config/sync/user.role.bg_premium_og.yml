@@ -1,0 +1,12 @@
+uuid: 105f4ecc-58b2-450c-a029-56e2f8dab34f
+langcode: fr
+status: true
+dependencies:
+  module:
+    - comment
+id: bg_premium_og
+label: bg_premium_og
+weight: 23
+is_admin: null
+permissions:
+  - 'skip comment approval'

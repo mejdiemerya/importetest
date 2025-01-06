@@ -1,0 +1,19 @@
+uuid: e66bf4ef-cdff-4347-983d-29c4d0ae1604
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - text
+id: commerce_product.field_body_purchased
+field_name: field_body_purchased
+entity_type: commerce_product
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

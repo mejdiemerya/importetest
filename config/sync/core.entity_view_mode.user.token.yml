@@ -1,11 +1,11 @@
-uuid: dc38ef90-48e9-4ea3-a52f-2be5fbc09d0d
-langcode: en
+uuid: ac5f98f6-5071-4af1-a9f0-632b18f4cbad
+langcode: fr
 status: true
 dependencies:
   module:
     - user
 id: user.token
-label: Token
+label: 'Jeton (token)'
 description: null
 targetEntityType: user
 cache: true

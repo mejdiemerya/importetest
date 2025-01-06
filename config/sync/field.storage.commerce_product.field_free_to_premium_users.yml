@@ -1,0 +1,18 @@
+uuid: 6f8b47b1-f8ae-4730-a9d3-0865f311e3ac
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: commerce_product.field_free_to_premium_users
+field_name: field_free_to_premium_users
+entity_type: commerce_product
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

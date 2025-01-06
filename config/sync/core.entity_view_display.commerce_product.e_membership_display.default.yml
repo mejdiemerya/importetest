@@ -1,0 +1,43 @@
+uuid: f7acb217-0bc8-4e3e-a303-ef743babbadf
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.e_membership_display
+    - field.field.commerce_product.e_membership_display.body
+  module:
+    - commerce_product
+    - text
+id: commerce_product.e_membership_display.default
+targetEntityType: commerce_product
+bundle: e_membership_display
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: -5
+    region: content
+  variations:
+    type: commerce_add_to_cart
+    label: above
+    settings:
+      combine: true
+    third_party_settings: {  }
+    weight: 10
+    region: content
+hidden:
+  created: true
+  langcode: true
+  stores: true
+  uid: true

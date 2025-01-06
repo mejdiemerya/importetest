@@ -1,0 +1,14 @@
+uuid: f223642f-2acf-488e-9055-3faf863ce951
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.lu_trial
+  module:
+    - user
+id: user_add_role_action.lu_trial
+label: 'Ajouter le rôle lu_trial aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: lu_trial

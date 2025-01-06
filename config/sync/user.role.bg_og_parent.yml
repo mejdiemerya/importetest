@@ -1,0 +1,9 @@
+uuid: 1ab51626-85e1-4382-bf67-128b11ba66f9
+langcode: fr
+status: true
+dependencies: {  }
+id: bg_og_parent
+label: bg_og_parent
+weight: 27
+is_admin: null
+permissions: {  }

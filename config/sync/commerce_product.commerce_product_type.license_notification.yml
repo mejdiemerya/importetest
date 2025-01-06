@@ -1,0 +1,13 @@
+uuid: b6a466de-a669-4ff7-84a9-c2ae3a47439a
+langcode: fr
+status: true
+dependencies: {  }
+id: license_notification
+label: 'License Notification'
+traits: {  }
+locked: false
+description: ''
+variationTypes:
+  - default
+multipleVariations: true
+injectVariationFields: true

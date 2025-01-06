@@ -1,0 +1,14 @@
+uuid: fce90991-6bab-46de-bd83-1633371177a8
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.autologin
+  module:
+    - user
+id: user_add_role_action.autologin
+label: 'Ajouter le rôle autologin aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: autologin

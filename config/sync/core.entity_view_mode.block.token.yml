@@ -1,11 +1,11 @@
-uuid: f19ca41e-da3a-427f-9ca0-9e9d54908aac
-langcode: en
+uuid: 0fbe6f07-ab07-4877-afda-1f41a46953d0
+langcode: fr
 status: true
 dependencies:
   module:
     - block
 id: block.token
-label: Token
+label: 'Jeton (token)'
 description: null
 targetEntityType: block
 cache: true

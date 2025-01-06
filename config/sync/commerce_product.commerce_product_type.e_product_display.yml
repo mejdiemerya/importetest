@@ -1,0 +1,13 @@
+uuid: 7f8a0f35-7c25-46e0-9d7b-cb58dcdae814
+langcode: fr
+status: true
+dependencies: {  }
+id: e_product_display
+label: 'E-Product Display'
+traits: {  }
+locked: false
+description: ''
+variationTypes:
+  - product
+multipleVariations: true
+injectVariationFields: true

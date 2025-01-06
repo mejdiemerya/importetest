@@ -1,0 +1,14 @@
+uuid: 266e9a05-205d-44fa-a61b-5a743635a88c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.bg_og_parent
+  module:
+    - user
+id: user_add_role_action.bg_og_parent
+label: 'Ajouter le rôle bg_og_parent aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: bg_og_parent

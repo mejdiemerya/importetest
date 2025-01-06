@@ -1,0 +1,10 @@
+uuid: 8efc24ac-da00-4eca-b3fb-b3596ba56005
+langcode: fr
+status: true
+dependencies: {  }
+id: membership
+label: Membership
+traits: {  }
+locked: false
+orderItemType: default
+generateTitle: null

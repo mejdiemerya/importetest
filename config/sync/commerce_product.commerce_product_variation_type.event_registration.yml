@@ -1,0 +1,10 @@
+uuid: c9f08fd2-c16d-46e7-a9eb-1eb6eaaa08eb
+langcode: fr
+status: true
+dependencies: {  }
+id: event_registration
+label: 'Event registration'
+traits: {  }
+locked: false
+orderItemType: default
+generateTitle: null

@@ -1,15 +1,248 @@
-uuid: 26b878ba-86fa-40d6-834f-e152c00dfae3
-langcode: en
+uuid: ca9f7676-17fb-40df-8c15-f4ca1e65aa4c
+langcode: fr
 status: true
 dependencies:
   config:
+    - field.field.user.user.commerce_remote_id
+    - field.field.user.user.field_accreditations
+    - field.field.user.user.field_admin_notes
+    - field.field.user.user.field_aia_number
+    - field.field.user.user.field_bio
+    - field.field.user.user.field_bpi_number
+    - field.field.user.user.field_bulletin_opt_in
+    - field.field.user.user.field_dp_firm_token
+    - field.field.user.user.field_dp_token
+    - field.field.user.user.field_expert_notification_last
     - field.field.user.user.field_first_name
+    - field.field.user.user.field_gbci_email
+    - field.field.user.user.field_gbci_number
+    - field.field.user.user.field_hide_email
+    - field.field.user.user.field_ilfi_member
+    - field.field.user.user.field_last_mailchimp_sync_date
     - field.field.user.user.field_last_name
+    - field.field.user.user.field_last_reminded
+    - field.field.user.user.field_nari_member
+    - field.field.user.user.field_organization
+    - field.field.user.user.field_region
+    - field.field.user.user.field_regional_coordinator
+    - field.field.user.user.field_sub_notification_last
+    - field.field.user.user.field_title
+    - field.field.user.user.field_trial_taken
+    - field.field.user.user.field_trial_taken_lu
+    - field.field.user.user.field_website
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
+    - datetime
+    - field_group
     - image
+    - text
     - user
+third_party_settings:
+  field_group:
+    group_administrative:
+      children:
+        - field_admin_notes
+        - field_trial_taken
+        - field_trial_taken_lu
+        - field_last_reminded
+        - field_last_mailchimp_sync_date
+        - field_expert_notification_last
+        - field_sub_notification_last
+        - field_bulletin_opt_in
+        - group_peer_networks
+        - group_designerpages
+      label: Administrative
+      region: content
+      parent_name: ''
+      weight: 8
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+        direction: horizontal
+        width_breakpoint: 640
+    group_personal_information:
+      children:
+        - field_first_name
+        - field_last_name
+        - field_organization
+        - field_title
+        - field_accreditations
+        - field_bio
+        - user_picture
+        - field_website
+      label: 'Personal information'
+      region: content
+      parent_name: ''
+      weight: 1
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_email_password:
+      children:
+        - account
+        - field_hide_email
+        - language
+        - contact
+        - timezone
+      label: 'Email & password'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: open
+        description: ''
+        required_fields: true
+    group_aia_american_institute_of:
+      children:
+        - field_aia_number
+        - group_gbci_green_building_certif
+      label: 'AIA – American Institute of Architects'
+      region: content
+      parent_name: group_continuing_education_id_nu
+      weight: 3
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+        formatter: closed
+    group_gbci_green_building_certif:
+      children:
+        - field_gbci_number
+        - field_gbci_email
+      label: 'GBCI – Green Building Certification Institute'
+      region: content
+      parent_name: group_aia_american_institute_of
+      weight: 7
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+        formatter: closed
+    group_lfa_living_future_accredit:
+      children:
+        - field_ilfi_member
+      label: 'LFA – Living Future Accreditation'
+      region: content
+      parent_name: group_continuing_education_id_nu
+      weight: 4
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+        formatter: closed
+    group_bpi_building_performance_i:
+      children:
+        - field_bpi_number
+      label: 'BPI – Building Performance Institute'
+      region: content
+      parent_name: group_continuing_education_id_nu
+      weight: 5
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+        formatter: closed
+    group_nari_national_association:
+      children:
+        - field_nari_member
+      label: 'NARI – National Association of the Remodeling Industry'
+      region: content
+      parent_name: group_continuing_education_id_nu
+      weight: 6
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+        formatter: closed
+    group_peer_networks:
+      children:
+        - field_region
+        - field_regional_coordinator
+      label: 'Peer Networks'
+      region: content
+      parent_name: group_administrative
+      weight: 37
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+    group_designerpages:
+      children:
+        - field_dp_token
+        - field_dp_firm_token
+      label: DesignerPages
+      region: content
+      parent_name: group_administrative
+      weight: 38
+      format_type: fieldset
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        description: ''
+        required_fields: true
+    group_continuing_education_id_nu:
+      children:
+        - group_aia_american_institute_of
+        - group_lfa_living_future_accredit
+        - group_bpi_building_performance_i
+        - group_nari_national_association
+      label: 'Continuing education ID numbers'
+      region: content
+      parent_name: ''
+      weight: 2
+      format_type: tab
+      format_settings:
+        classes: ''
+        show_empty_fields: false
+        id: ''
+        label_as_html: false
+        formatter: closed
+        description: ''
+        required_fields: true
 _core:
   default_config_hash: FaQ9Ptcpxpg30AtiqRDtl_8zbJArHP1LPfug_s59TOA
 id: user.user.default
@@ -18,47 +251,225 @@ bundle: user
 mode: default
 content:
   account:
-    weight: 2
+    weight: 1
     region: content
     settings: {  }
     third_party_settings: {  }
   contact:
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_first_name:
+  field_accreditations:
     type: string_textfield
-    weight: 0
+    weight: 6
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  field_admin_notes:
+    type: text_textarea
+    weight: 29
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_aia_number:
+    type: string_textfield
+    weight: 6
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_bio:
+    type: text_textarea
+    weight: 7
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_bpi_number:
+    type: string_textfield
+    weight: 9
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_bulletin_opt_in:
+    type: boolean_checkbox
+    weight: 36
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_dp_firm_token:
+    type: string_textfield
+    weight: 13
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_dp_token:
+    type: string_textfield
+    weight: 12
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_expert_notification_last:
+    type: datetime_timestamp
+    weight: 34
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_first_name:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_gbci_email:
+    type: email_default
+    weight: 8
+    region: content
+    settings:
+      placeholder: ''
+      size: 60
+    third_party_settings: {  }
+  field_gbci_number:
+    type: string_textfield
+    weight: 7
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_hide_email:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_ilfi_member:
+    type: boolean_checkbox
+    weight: 8
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_last_mailchimp_sync_date:
+    type: datetime_default
+    weight: 33
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_last_name:
     type: string_textfield
-    weight: 1
+    weight: 3
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_last_reminded:
+    type: datetime_timestamp
+    weight: 32
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_nari_member:
+    type: boolean_checkbox
+    weight: 10
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_organization:
+    type: string_textfield
+    weight: 4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_region:
+    type: options_select
+    weight: 12
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_regional_coordinator:
+    type: boolean_checkbox
+    weight: 13
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_sub_notification_last:
+    type: datetime_timestamp
+    weight: 35
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_trial_taken:
+    type: boolean_checkbox
+    weight: 30
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_trial_taken_lu:
+    type: boolean_checkbox
+    weight: 31
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_website:
+    type: string_textfield
+    weight: 9
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
   language:
-    weight: 4
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   timezone:
-    weight: 6
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
   user_picture:
     type: image_image
-    weight: 3
+    weight: 8
     region: content
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  commerce_remote_id: true
+  customer_profiles: true
+  langcode: true

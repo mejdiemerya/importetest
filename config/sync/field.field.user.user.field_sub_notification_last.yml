@@ -1,0 +1,20 @@
+uuid: b89a9dd4-0fee-48aa-84fe-dd0bf3fd2e43
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_sub_notification_last
+  module:
+    - user
+id: user.user.field_sub_notification_last
+field_name: field_sub_notification_last
+entity_type: user
+bundle: user
+label: 'Subscription notification last'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

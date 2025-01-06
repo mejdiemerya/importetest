@@ -1,0 +1,21 @@
+uuid: d5852e81-761f-4e4e-8ec8-cc6f371e8f82
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.membership
+    - field.storage.commerce_product_variation.field_test
+  module:
+    - commerce
+id: commerce_product_variation.membership.field_test
+field_name: field_test
+entity_type: commerce_product_variation
+bundle: membership
+label: test
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: 'commerce_plugin_item:commerce_license_period'

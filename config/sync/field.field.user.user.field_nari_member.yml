@@ -1,0 +1,22 @@
+uuid: f3276a23-ee28-4e75-a3f5-de287e5125c3
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_nari_member
+  module:
+    - user
+id: user.user.field_nari_member
+field_name: field_nari_member
+entity_type: user
+bundle: user
+label: 'Check to enable automated CEU reporting to NARI'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Activé
+  off_label: Désactivé
+field_type: boolean

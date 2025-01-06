@@ -1,0 +1,18 @@
+uuid: 311dedba-3a62-4f67-913e-26af43d676a9
+langcode: fr
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_last_reminded
+field_name: field_last_reminded
+entity_type: user
+type: timestamp
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

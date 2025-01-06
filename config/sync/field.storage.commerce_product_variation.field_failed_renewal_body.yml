@@ -1,0 +1,19 @@
+uuid: d40cd522-eae4-4784-9532-2a4931c957f0
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - text
+id: commerce_product_variation.field_failed_renewal_body
+field_name: field_failed_renewal_body
+entity_type: commerce_product_variation
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

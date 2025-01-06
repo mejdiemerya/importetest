@@ -1,0 +1,14 @@
+uuid: 4d53337f-5016-4910-a55e-1e45fac164bb
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.bg_og_multiuser
+  module:
+    - user
+id: user_add_role_action.bg_og_multiuser
+label: 'Ajouter le rôle bg_og_multiuser aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: bg_og_multiuser

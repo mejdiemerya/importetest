@@ -1,0 +1,14 @@
+uuid: cec8499f-473b-462b-99f2-88080c1752be
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.bg_basic
+  module:
+    - user
+id: user_remove_role_action.bg_basic
+label: 'Enlever le rôle bg_basic des utilisateurs sélectionnés'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: bg_basic

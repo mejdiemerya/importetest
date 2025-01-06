@@ -1,0 +1,19 @@
+uuid: c83e4112-0909-45c5-82eb-540db31454a2
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.commerce_node_checkout
+    - field.storage.commerce_product_variation.field_failed_renewal_subject
+id: commerce_product_variation.commerce_node_checkout.field_failed_renewal_subject
+field_name: field_failed_renewal_subject
+entity_type: commerce_product_variation
+bundle: commerce_node_checkout
+label: 'Failed renewal subject'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

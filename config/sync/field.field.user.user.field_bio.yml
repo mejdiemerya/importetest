@@ -1,0 +1,27 @@
+uuid: 03555fe9-75e9-4568-b8eb-b17de7499cdb
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_bio
+    - filter.format.basic_html
+    - filter.format.full_html
+    - filter.format.restricted_html
+  module:
+    - text
+id: user.user.field_bio
+field_name: field_bio
+entity_type: user
+bundle: user
+label: Bio
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - basic_html
+    - restricted_html
+    - full_html
+field_type: text_long

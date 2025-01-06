@@ -1,5 +1,5 @@
-uuid: cf8f8438-a08f-4e66-b4b7-ec773612d57a
-langcode: en
+uuid: 16c493eb-2004-487d-a772-ee19732e36b0
+langcode: fr
 status: true
 dependencies:
   config:
@@ -7,7 +7,7 @@ dependencies:
   module:
     - user
 id: user_add_role_action.lu_premium
-label: 'Add the LEEDuser Premium Member role to the selected user(s)'
+label: 'Ajouter le rôle lu_premium aux utilisateurs sélectionnés'
 type: user
 plugin: user_add_role_action
 configuration:

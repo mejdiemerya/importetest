@@ -1,0 +1,20 @@
+uuid: e8290cef-e772-4cfc-82e9-dc277e4d11cf
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_expert_notification_last
+  module:
+    - user
+id: user.user.field_expert_notification_last
+field_name: field_expert_notification_last
+entity_type: user
+bundle: user
+label: 'Guest expert notification last'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: timestamp

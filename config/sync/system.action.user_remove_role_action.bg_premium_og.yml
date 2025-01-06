@@ -1,0 +1,14 @@
+uuid: 20869ab7-97f6-46c3-8baf-358d498dd94d
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.bg_premium_og
+  module:
+    - user
+id: user_remove_role_action.bg_premium_og
+label: 'Enlever le rôle bg_premium_og des utilisateurs sélectionnés'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: bg_premium_og

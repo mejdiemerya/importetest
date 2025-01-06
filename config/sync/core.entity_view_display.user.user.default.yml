@@ -1,14 +1,42 @@
-uuid: d3c5e10e-c4c2-44a6-b2a9-1dd26cf28fab
+uuid: b2980231-ab37-4b8b-9896-c7ce2e310875
 langcode: en
 status: true
 dependencies:
   config:
+    - field.field.user.user.commerce_remote_id
+    - field.field.user.user.field_accreditations
+    - field.field.user.user.field_admin_notes
+    - field.field.user.user.field_aia_number
+    - field.field.user.user.field_bio
+    - field.field.user.user.field_bpi_number
+    - field.field.user.user.field_bulletin_opt_in
+    - field.field.user.user.field_dp_firm_token
+    - field.field.user.user.field_dp_token
+    - field.field.user.user.field_expert_notification_last
     - field.field.user.user.field_first_name
+    - field.field.user.user.field_gbci_email
+    - field.field.user.user.field_gbci_number
+    - field.field.user.user.field_hide_email
+    - field.field.user.user.field_ilfi_member
+    - field.field.user.user.field_last_mailchimp_sync_date
     - field.field.user.user.field_last_name
+    - field.field.user.user.field_last_reminded
+    - field.field.user.user.field_nari_member
+    - field.field.user.user.field_organization
+    - field.field.user.user.field_region
+    - field.field.user.user.field_regional_coordinator
+    - field.field.user.user.field_sub_notification_last
+    - field.field.user.user.field_title
+    - field.field.user.user.field_trial_taken
+    - field.field.user.user.field_trial_taken_lu
+    - field.field.user.user.field_website
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
+    - datetime
     - image
+    - options
+    - text
     - user
 _core:
   default_config_hash: mZLyuWM9CQx2ZJVqFGSbzgFnHzudVbHBYmdU256A5Wk
@@ -17,10 +45,205 @@ targetEntityType: user
 bundle: user
 mode: default
 content:
-  user_name:
+  field_admin_notes:
+    type: text_default
+    label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 13
+    region: content
+  field_aia_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_bpi_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_bulletin_opt_in:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 21
+    region: content
+  field_dp_firm_token:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 25
+    region: content
+  field_dp_token:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 24
+    region: content
+  field_expert_notification_last:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
+    third_party_settings: {  }
+    weight: 19
+    region: content
+  field_gbci_email:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_gbci_number:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_hide_email:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_ilfi_member:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 10
+    region: content
+  field_last_mailchimp_sync_date:
+    type: datetime_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings: {  }
+    weight: 17
+    region: content
+  field_last_reminded:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  field_nari_member:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 12
+    region: content
+  field_region:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 22
+    region: content
+  field_regional_coordinator:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 23
+    region: content
+  field_sub_notification_last:
+    type: timestamp
+    label: above
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
+    third_party_settings: {  }
+    weight: 20
+    region: content
+  field_trial_taken:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 14
+    region: content
+  field_trial_taken_lu:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 15
+    region: content
+  member_for:
+    weight: 5
     region: content
   user_picture:
     type: image
@@ -34,8 +257,13 @@ content:
     weight: 0
     region: content
 hidden:
+  commerce_remote_id: true
+  customer_profiles: true
+  field_accreditations: true
+  field_bio: true
   field_first_name: true
   field_last_name: true
-  member_for: true
-  roles: true
-  search_api_excerpt: true
+  field_organization: true
+  field_title: true
+  field_website: true
+  langcode: true

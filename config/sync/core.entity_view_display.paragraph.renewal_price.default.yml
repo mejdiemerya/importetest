@@ -1,0 +1,34 @@
+uuid: d9b75742-b4ee-40b2-af3b-6de456b3f542
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.renewal_price.field_renewal_instance
+    - field.field.paragraph.renewal_price.field_renewal_price
+    - paragraphs.paragraphs_type.renewal_price
+  module:
+    - commerce_price
+id: paragraph.renewal_price.default
+targetEntityType: paragraph
+bundle: renewal_price
+mode: default
+content:
+  field_renewal_instance:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_renewal_price:
+    type: commerce_price_default
+    label: above
+    settings:
+      strip_trailing_zeroes: false
+      currency_display: symbol
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden: {  }

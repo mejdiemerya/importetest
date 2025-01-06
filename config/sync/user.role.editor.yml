@@ -1,0 +1,42 @@
+uuid: 0193aa91-d59f-468f-831e-991d4816ac68
+langcode: fr
+status: true
+dependencies:
+  config:
+    - filter.format.full_html
+  module:
+    - block
+    - comment
+    - filter
+    - node
+    - path
+    - search
+    - shortcut
+    - system
+    - taxonomy
+id: editor
+label: editor
+weight: 34
+is_admin: null
+permissions:
+  - 'access administration pages'
+  - 'access comments'
+  - 'access content'
+  - 'access content overview'
+  - 'access user profiles'
+  - 'administer blocks'
+  - 'administer comments'
+  - 'administer content types'
+  - 'administer nodes'
+  - 'administer permissions'
+  - 'administer shortcuts'
+  - 'administer taxonomy'
+  - 'administer users'
+  - 'bypass node access'
+  - 'create url aliases'
+  - 'edit own comments'
+  - 'post comments'
+  - 'search content'
+  - 'skip comment approval'
+  - 'use text format full_html'
+  - 'view the administration theme'

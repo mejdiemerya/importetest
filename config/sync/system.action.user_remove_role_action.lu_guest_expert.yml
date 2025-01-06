@@ -1,5 +1,5 @@
-uuid: ccd364c1-f76f-4d17-98d5-d4e566d63f61
-langcode: en
+uuid: 25c7b785-a9a4-4512-b362-25736b9da983
+langcode: fr
 status: true
 dependencies:
   config:
@@ -7,7 +7,7 @@ dependencies:
   module:
     - user
 id: user_remove_role_action.lu_guest_expert
-label: 'Remove the LEEDuser Experts role from the selected user(s)'
+label: 'Enlever le rôle lu_guest_expert des utilisateurs sélectionnés'
 type: user
 plugin: user_remove_role_action
 configuration:

@@ -1,0 +1,21 @@
+uuid: afa42465-ce2d-40ad-b193-85393e81a18d
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: commerce_product.field_buy_button_label_override
+field_name: field_buy_button_label_override
+entity_type: commerce_product
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,9 @@
+uuid: 5ca6634a-42ce-443d-9038-a78c1f36afa1
+langcode: fr
+status: true
+dependencies: {  }
+id: lu_trial
+label: lu_trial
+weight: 30
+is_admin: null
+permissions: {  }

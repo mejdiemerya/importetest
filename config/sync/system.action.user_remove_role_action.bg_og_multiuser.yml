@@ -1,0 +1,14 @@
+uuid: 8e131796-b104-40c5-a32d-65f50dcdd0a2
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.bg_og_multiuser
+  module:
+    - user
+id: user_remove_role_action.bg_og_multiuser
+label: 'Enlever le rôle bg_og_multiuser des utilisateurs sélectionnés'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: bg_og_multiuser

@@ -1,0 +1,14 @@
+uuid: 5df0ec5b-4068-4fd5-8114-214cc93a4cb1
+langcode: fr
+status: true
+dependencies:
+  config:
+    - user.role.bg_trial
+  module:
+    - user
+id: user_add_role_action.bg_trial
+label: 'Ajouter le rôle bg_trial aux utilisateurs sélectionnés'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: bg_trial

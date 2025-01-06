@@ -1,0 +1,19 @@
+uuid: ba212b7e-431c-4594-921c-65fd5ce7222d
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce
+    - commerce_product
+id: commerce_product_variation.field_test
+field_name: field_test
+entity_type: commerce_product_variation
+type: 'commerce_plugin_item:commerce_license_period'
+settings: {  }
+module: commerce
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

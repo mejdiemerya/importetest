@@ -1,0 +1,23 @@
+uuid: f5fd70f9-2137-4bdc-a5e2-1a769d00ed06
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.event_registration
+    - field.storage.commerce_product_variation.field_event_type
+  module:
+    - options
+id: commerce_product_variation.event_registration.field_event_type
+field_name: field_event_type
+entity_type: commerce_product_variation
+bundle: event_registration
+label: 'Event type'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: virtual
+default_value_callback: ''
+settings: {  }
+field_type: list_string

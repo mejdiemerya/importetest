@@ -1,0 +1,18 @@
+uuid: 504301ee-3715-483c-9f88-12168e7a6ec0
+langcode: fr
+status: true
+dependencies:
+  module:
+    - user
+id: user.field_regional_coordinator
+field_name: field_regional_coordinator
+entity_type: user
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
