@@ -179,52 +179,52 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       }
     }
 
-
-    if ($display->getComponent('user_picture')) {
-
-      // Get the author (user entity).
-      $author = $entity->getOwner();
-
-      // Retrieve the user_picture field value.
-      $user_picture_item = $author->get('user_picture')->first();
-
-      // If the user has a profile picture.
-      if ($user_picture_item && $user_picture_item->entity) {
-        $user_picture_file = $user_picture_item->entity;
-
-        // Build the render array for the user picture.
-        $build['user_picture'] = [
-          '#theme' => 'image',
-          '#uri' => $user_picture_file->getFileUri(),
-          '#attributes' => [
-            'width' => '100',
-            'height' => '100',
-            'alt' => $user_picture_item->get('alt')->getValue() ?? '',
-            'title' => $user_picture_item->get('title')->getValue() ?? '',
-          ],
-        ];
-      } else {
-        // If no user picture exists, use the default image from the field settings.
-        $field = \Drupal\field\Entity\FieldConfig::loadByName('user', 'user', 'user_picture');
-        $default_image = $field->getSetting('default_image');
-        // Load the default image by its UUID.
-        $file = \Drupal::service('entity.repository')->loadEntityByUuid('file', $default_image['uuid']);
-
-        if ($file) {
-          // Build the render array for the default image.
-          $build['user_picture'] = [
-            '#theme' => 'image',
-            '#uri' => $file->getFileUri(),
-            '#attributes' => [
-              'width' => '100',
-              'height' => '100',
-              'alt' => $default_image['default_image']['alt'] ?? '',
-              'title' => $default_image['default_image']['title'] ?? '',
-            ],
-          ];
-        }
-      }
-    }
+//
+//    if ($display->getComponent('user_picture')) {
+//
+//      // Get the author (user entity).
+//      $author = $entity->getOwner();
+//
+//      // Retrieve the user_picture field value.
+//      $user_picture_item = $author->get('user_picture')->first();
+//
+//      // If the user has a profile picture.
+//      if ($user_picture_item && $user_picture_item->entity) {
+//        $user_picture_file = $user_picture_item->entity;
+//
+//        // Build the render array for the user picture.
+//        $build['user_picture'] = [
+//          '#theme' => 'image',
+//          '#uri' => $user_picture_file->getFileUri(),
+//          '#attributes' => [
+//            'width' => '100',
+//            'height' => '100',
+//            'alt' => $user_picture_item->get('alt')->getValue() ?? '',
+//            'title' => $user_picture_item->get('title')->getValue() ?? '',
+//          ],
+//        ];
+//      } else {
+//        // If no user picture exists, use the default image from the field settings.
+//        $field = \Drupal\field\Entity\FieldConfig::loadByName('user', 'user', 'user_picture');
+//        $default_image = $field->getSetting('default_image');
+//        // Load the default image by its UUID.
+//        $file = \Drupal::service('entity.repository')->loadEntityByUuid('file', $default_image['uuid']);
+//
+//        if ($file) {
+//          // Build the render array for the default image.
+//          $build['user_picture'] = [
+//            '#theme' => 'image',
+//            '#uri' => $file->getFileUri(),
+//            '#attributes' => [
+//              'width' => '100',
+//              'height' => '100',
+//              'alt' => $default_image['default_image']['alt'] ?? '',
+//              'title' => $default_image['default_image']['title'] ?? '',
+//            ],
+//          ];
+//        }
+//      }
+//    }
   }
   if ($entity->getEntityTypeId() === 'comment' ) {
 

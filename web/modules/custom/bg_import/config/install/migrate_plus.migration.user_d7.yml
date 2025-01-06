@@ -1,0 +1,186 @@
+# Migration configuration for user accounts. We've described most of what goes
+# into migration configuration in migrate_plus.migration.beer_term.yml, so won't
+# repeat that here.
+id: user_d7
+label: d7 users
+migration_group: user_import_d7
+migration_tags:
+  - d7 field user
+source:
+  plugin: UserD7
+destination:
+  plugin: entity:user
+process:
+  uid: uid
+  pass: pass
+  mail: mail
+  init: init
+  status: status
+  timezone: timezone
+  roles:
+    plugin: static_map
+    bypass: true
+    source: roles
+    map:
+      3: administrator
+      1: 'anonymous user'
+      2: 'authenticated user'
+      8: autologin
+      19: bg_basic
+      16: bg_communities
+      7: bg_og_multiuser
+      9: bg_og_parent
+      4: bg_premium
+      5: bg_premium_og
+      6: bg_trial
+      17: editor
+      20: lu_basic
+      15: lu_guest_expert
+      13: lu_og_multiuser
+      14: lu_og_parent
+      10: lu_premium
+      11: lu_premium_og
+      12: lu_trial
+      18: pre-authorized
+
+  # Here's a new process plugin - make_unique_entity_field. Our source site allowed there
+  # to be multiple user accounts with the same username, but Drupal wants
+  # usernames to be unique. This plugin allows us to automatically generate
+  # unique usernames when we detect collisions.
+  name:
+    plugin: make_unique_entity_field
+    # The name of the source field containing the username.
+    source: name
+    # These next two settings identify the destination-side field to check for
+    # duplicates. They say "see if the incoming 'name' matches any existing
+    # 'name' field in any 'user' entity".
+    entity_type: user
+    field: name
+    # Finally, this specifies a string to use between the original value and the
+    # sequence number appended to make the value unique. Thus, the first 'alice'
+    # account gets the name 'alice' in Drupal, and the second one gets the name
+    # 'alice_1'.
+    postfix: _
+
+  # Another new process plugin - callback. This allows us to filter an incoming
+  # source value through an arbitrary PHP function. The function called must
+  # have one required argument.
+  created:
+    plugin: callback
+    # The 'registered' timestamp in the source data is a string of the form
+    # 'yyyy-mm-dd hh:mm:ss', but Drupal wants a UNIX timestamp for 'created'.
+    source: registered
+    callable: strtotime
+
+  # Our source data only has a single timestamp value, 'registered', which we
+  # want to use for all four of Drupal's user timestamp fields. We could
+  # duplicate the callback plugin we used for 'created' above - but we have a
+  # shortcut. Putting an @ sign at the beginning of the source value indicates
+  # that it is to be interpreted as a *destination* field name instead of a
+  # *source* field name. Thus, if a value we need in more than one place
+  # requires some processing beyond simply copying it directly, we can perform
+  # that processing a single time and use the result in multiple places.
+  changed: '@created'
+  access: '@created'
+  login: '@created'
+
+  # Yet another new process plugin - static_map. We're making a transformation
+  # in how we represent gender data - formerly it was integer values 0 for male
+  # and 1 for female, but in our modern Drupal site we will be making this a
+  # free-form text field, so we want to replace the obscure integers with
+  # simple strings.
+  field_first_name:
+    plugin: get
+    source: field_first_name
+  field_last_name:
+    plugin: get
+    source: field_last_name
+  field_accreditations:
+    plugin: get
+    source: field_accreditations
+  field_bio:
+    plugin: get
+    source: field_bio
+  field_organization:
+    plugin: get
+    source: field_organization
+  field_title:
+    plugin: get
+    source: field_title
+  field_website:
+    plugin: get
+    source: field_website
+  user_picture:
+    plugin: get
+    source: picture
+  #    alt: alt
+  #    title: title
+  #    height: height
+  #    width: width
+  field_bpi_number:
+    plugin: get
+    source: field_bpi_number
+  field_bulletin_opt_in:
+    plugin: get
+    source: field_bulletin_opt_in
+  field_ilfi_member:
+    plugin: get
+    source: field_ilfi_member
+  field_nari_member:
+    plugin: get
+    source: field_nari_member
+  field_gbci_email:
+    plugin: get
+    source: field_gbci_email
+  field_dp_firm_token:
+    plugin: get
+    source: field_dp_firm_token
+  field_gbci_number:
+    plugin: get
+    source: field_gbci_number
+  field_expert_notification_last:
+    plugin: get
+    source: field_expert_notification_last
+  field_hide_email:
+    plugin: get
+    source: field_hide_email
+  field_last_mailchimp_sync_date:
+    plugin: get
+    source: field_last_mailchimp_sync_date
+  field_last_reminded:
+    plugin: get
+    source: field_last_reminded
+  field_region:
+    plugin: get
+    source: field_region
+  field_regional_coordinator:
+    plugin: get
+    source: field_regional_coordinator
+  field_sub_notification_last:
+    plugin: get
+    source: field_sub_notification_last
+  field_trial_taken:
+    plugin: get
+    source: field_trial_taken
+  field_trial_taken_lu:
+    plugin: get
+    source: field_trial_taken_lu
+  field_dp_token:
+    plugin: get
+    source: field_dp_token
+
+migration_dependencies:
+  required:
+    - d7_user_role
+  optional:
+    - d7_field_instance
+    - language
+    - default_language
+
+# When a module is creating a custom content type it needs to add an
+# enforced dependency to itself, otherwise the content type will persist
+# after the module is disabled. See: https://www.drupal.org/node/2629516.
+dependencies:
+  enforced:
+    module:
+      - migrate_drupal

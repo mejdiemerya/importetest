@@ -1,0 +1,7 @@
+name: 'bg_import_forum'
+type: module
+description: 'Migrer les forum du drupal 7 au drupal 11'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - migrate:migrate

@@ -1,0 +1,37 @@
+# Migration configuration for beer content.
+id: forum_node
+label: nodes forum
+source:
+  plugin: forum_node
+destination:
+  plugin: entity:node
+process:
+  # Hardcode the destination node type (bundle) as 'migrate_example_beer'.
+  type:
+    plugin: default_value
+    default_value: 'forum'
+  title: title
+  nid: nid
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+  field_credits:
+    plugin: get
+    source: field_credits_tid
+  taxonomy_forums:
+    plugin: get
+    source: taxonomy_forums_tid
+  field_project_location:
+    plugin: get
+    source: field_project_location_tid
+  field_tipsheet:
+    plugin: get
+    source: field_tipsheet_target_id
+  'field_question/value':
+    plugin: get
+    source: body_value
+  'field_question/format':
+    plugin: default_value
+    default_value: 'basic_html'
+
