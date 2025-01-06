@@ -173,12 +173,16 @@ class CreditPageButtonBlock extends BlockBase {
 
       case 3:
         $data['title'] = strip_tags(sprintf('%s %s', $parents[1]->name->value, $parents[0]->name->value));
-        $data['description'] = strip_tags($parents[0]->description->value);
+        if (isset($parents[0]->description) && !empty($parents[0]->description->value)) {
+          $data['description'] = strip_tags($parents[0]->description->value);
+        }
         break;
 
       case 4:
         $data['title'] = strip_tags(sprintf('%s %s', $parents[2]->name->value, $parents[0]->name->value));
-        $data['description'] = strip_tags($parents[0]->description->value);
+        if (isset($parents[0]->description) && !empty($parents[0]->description->value)) {
+          $data['description'] = strip_tags($parents[0]->description->value);
+        }
         break;
     }
     return $data;

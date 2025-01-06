@@ -130,8 +130,12 @@ display:
         type: none
         options: {  }
       cache:
-        type: search_api_none
-        options: {  }
+        type: search_api_time
+        options:
+          results_lifespan: 0
+          results_lifespan_custom: 0
+          output_lifespan: 0
+          output_lifespan_custom: 0
       empty:
         area:
           id: area
@@ -306,6 +310,7 @@ display:
           plugin_id: search_api
           required: false
           skip_access: false
+      use_ajax: true
       header: {  }
       footer: {  }
       display_extenders: {  }
@@ -338,5 +343,10 @@ display:
         - url.query_args
         - 'user.node_grants:view'
       tags:
+        - 'config:facets.facet.combined'
+        - 'config:facets.facet.credit'
+        - 'config:facets.facet.forum'
+        - 'config:facets.facet.location'
+        - 'config:facets.facet.tipsheet'
         - 'config:search_api.index.default_index'
         - 'search_api_list:default_index'
