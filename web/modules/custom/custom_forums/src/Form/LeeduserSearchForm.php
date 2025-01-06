@@ -266,12 +266,14 @@ class LeeduserSearchForm extends FormBase {
 
     }
 
+    $leed_version = $form_state->getValue('leed_version');  // Ensure the variable is initialized
+    $rating_system = $form_state->getValue('rating_system');
+    $credit_category =  $form_state->getValue('credit_category');
     $form['credit_filter_fieldset'] = array(
-      '#type' => 'fieldset',
+      '#type' => 'container',
       '#title' =>  t('Filter by LEED Credit'),
-      //'#collapsed' => $has_searched_credits ? TRUE : FALSE,
-      '#collapsed' => FALSE,
-      '#collapsible' => TRUE,
+      '#prefix' => '<div id="credit-filter-wrapper">',
+      '#suffix' => '</div>',
     );
     $form['credit_filter_fieldset']['leed_version'] = [
       '#type' => 'select',
@@ -281,7 +283,7 @@ class LeeduserSearchForm extends FormBase {
       '#suffix' => '</div>',
       '#ajax' => [
         'callback' => '::updateRatingSystems',
-        'wrapper' => 'rating_system',
+        'wrapper' => 'credit-filter-wrapper',
       ],
     ];
     $form['credit_filter_fieldset']['rating_system'] = [
@@ -289,11 +291,11 @@ class LeeduserSearchForm extends FormBase {
       '#suffix' => '</div>',
       '#type' => 'select',
       '#empty_option' => t('Rating system (optional)'),
-      '#options' =>  [],
-      '#attributes' => ['disabled' => 'disabled'],
+      '#options' => !empty($leed_version) ? $this->getRatingSystems($leed_version) : [],
+      '#disabled' => empty($leed_version),
       '#ajax' => [
         'callback' => '::updateCreditCategories',
-        'wrapper' => 'credit_category',
+        'wrapper' => 'credit-filter-wrapper',
       ],
     ];
     $form['credit_filter_fieldset']['credit_category'] = [
@@ -301,11 +303,11 @@ class LeeduserSearchForm extends FormBase {
       '#suffix' => '</div>',
       '#type' => 'select',
       '#empty_option' =>  t('Credit category (optional)'),
-      '#options' => [],
-      '#attributes' => ['disabled' => 'disabled'],
+      '#options' => !empty($rating_system) ? $this->getCreditCategories($rating_system) : [],
+      '#disabled' => empty($rating_system),
       '#ajax' => [
         'callback' => '::updateCredits',
-        'wrapper' => 'credit',
+        'wrapper' => 'credit-filter-wrapper',
       ],
     ];
 
@@ -314,8 +316,8 @@ class LeeduserSearchForm extends FormBase {
       '#prefix' => '<div id="credit">',
       '#suffix' => '</div>',
       '#empty_option' =>  t('Credit (optional)'),
-      '#options' =>[],
-      '#attributes' => ['disabled' => 'disabled'],
+      '#options' => !empty($credit_category) ? $this->getCredits($credit_category) : [],
+      '#disabled' => empty($credit_category),
     );
 
     $form['location_filter_fieldset'] = array(
@@ -391,10 +393,12 @@ class LeeduserSearchForm extends FormBase {
 
     // Set the options for the credit category select list.
     $form['credit_filter_fieldset']['credit_category']['#options'] =[''=>t('Credit category (optional)')] + $credit_categories;
+    $form['credit_filter_fieldset']['credit']['#options'] = ['' => t('Credit(optional)')];
+    $form['credit_filter_fieldset']['credit']['#attributes']['disabled'] = 'disabled';
     $form_state->setRebuild(TRUE);
 
     // Return the updated credit category part of the form.
-    return $form['credit_filter_fieldset']['credit_category'];
+    return $form['credit_filter_fieldset'];
   }
   public function updateCredits(array &$form, FormStateInterface $form_state) {
     // Get the selected credit category.
@@ -408,7 +412,7 @@ class LeeduserSearchForm extends FormBase {
     $form_state->setRebuild(TRUE);
 
     // Return the updated credit part of the form.
-    return $form['credit_filter_fieldset']['credit'];
+    return $form['credit_filter_fieldset'];
   }
   public function updateRatingSystems(array &$form, FormStateInterface $form_state) {
     $selected_leed_version = $form_state->getValue('leed_version');
@@ -417,9 +421,15 @@ class LeeduserSearchForm extends FormBase {
     $rating_systems = $this->getRatingSystems($selected_leed_version);
 
     $form['credit_filter_fieldset']['rating_system']['#options'] =['' => t('Rating system (optional)')] +  $rating_systems;
+    $form['credit_filter_fieldset']['credit_category']['#options'] = ['' => t('Credit category (optional)')];
+    $form['credit_filter_fieldset']['credit_category']['#attributes']['disabled'] = 'disabled';
+    $form['credit_filter_fieldset']['credit']['#options'] = ['' => t('Credit (optional)')];
+
+    $form['credit_filter_fieldset']['credit']['#attributes']['disabled'] = 'disabled';
+
     $form_state->setRebuild(TRUE);
 
-    return $form['credit_filter_fieldset']['rating_system'];
+    return $form['credit_filter_fieldset'];
   }
   /**
    * AJAX callback to update the country field based on selected region.
@@ -569,74 +579,92 @@ class LeeduserSearchForm extends FormBase {
     $form_state->setRebuild(FALSE);
   }
   protected function getCreditCategories($rating_system_tid) {
-    // Load terms corresponding to the selected rating system.
-    $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery();
-    $query->condition('vid', 'credit');
-    $query->condition('parent', $rating_system_tid); // Fetch child terms of the selected rating system.
-    $query->accessCheck(false);
+    // Get the database connection.
+    $connection = \Drupal::database();
 
-    // Execute the query to get taxonomy term IDs of direct children.
-    $tids = $query->execute();
+    // Prepare a select query on the `taxonomy_term__parent` table.
+    $query = $connection->select('taxonomy_term__parent', 'parent');
 
+    // Join with `taxonomy_term_field_data` to get term name.
+    $query->join('taxonomy_term_field_data', 'term_data', 'parent.entity_id = term_data.tid');
+
+    // Select fields.
+    $query->fields('term_data', ['tid', 'name']);
+
+    // Add conditions to the query.
+    $query->condition('parent.parent_target_id', $rating_system_tid);  // Using provided $rating_system_tid.
+    $query->condition('term_data.vid', 'credit');  // Assuming 'credit' is your vocab ID as specified initially.
+
+    // Execute the query and fetch results.
+    $result = $query->execute();
     $credit_categories = [];
-    if (!empty($tids)) {
-      $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadMultiple($tids);
-      foreach ($terms as $term) {
-        // Populate the credit categories array with the term ID and name.
-        $credit_categories[$term->id()] = $term->getName();
-      }
+
+    // Process each record.
+    foreach ($result as $record) {
+      $credit_categories[$record->tid] = $record->name;
     }
 
     return $credit_categories;
   }
   protected function getCredits($credit_category_tid) {
-    // Load terms corresponding to the selected credit category.
-    $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery();
-    $query->condition('vid', 'credit'); // Ensure querying terms from the 'credit' vocabulary.
-    $query->condition('parent', $credit_category_tid); // Fetch child terms directly under the selected credit category.
-    $query->accessCheck(false);
+    // Get the database connection.
+    $connection = \Drupal::database();
 
-    // Execute the query to get taxonomy term IDs of direct children.
-    $tids = $query->execute();
+    // Prepare a select query on the `taxonomy_term__parent` table.
+    $query = $connection->select('taxonomy_term__parent', 'parent');
 
+    // Join with `taxonomy_term_field_data` to get term name.
+    $query->join('taxonomy_term_field_data', 'term_data', 'parent.entity_id = term_data.tid');
+
+    // Select fields.
+    $query->fields('term_data', ['tid', 'name']);
+
+    // Add conditions to the query.
+    $query->condition('parent.parent_target_id', $credit_category_tid); // Using provided $credit_category_tid.
+    $query->condition('term_data.vid', 'credit'); // Assuming 'credit' is your vocabulary ID.
+
+    // Execute the query and fetch results.
+    $result = $query->execute();
     $credits = [];
-    if (!empty($tids)) {
-      $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadMultiple($tids);
-      foreach ($terms as $term) {
-        // Populate the credits array with the term ID and name.
-        $credits[$term->id()] = $term->getName();
-      }
+
+    // Process each record.
+    foreach ($result as $record) {
+      $credits[$record->tid] = $record->name;
     }
 
     return $credits;
   }
   protected function getRatingSystems($leed_version_tid) {
-    // Load terms corresponding to the selected LEED version.
-    $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery();
-    $query->condition('vid', 'credit')->accessCheck(false);
+    // Get the database connection.
+    $connection = \Drupal::database();
 
-    $query->condition('parent', $leed_version_tid); // Fetch child terms.
-    $tids = $query->execute();
+    // Prepare a select query to find child term IDs of the provided LEED version.
+    $query = $connection->select('taxonomy_term__parent', 'parent');
+    $query->addField('parent', 'entity_id', 'child_tid');
+    $query->join('taxonomy_term_field_data', 'term_data', 'parent.entity_id = term_data.tid');
+    $query->fields('term_data', ['name']);
+    $query->condition('parent.parent_target_id', $leed_version_tid);
+    $query->condition('term_data.vid', 'credit');
+
+    // Execute the query and fetch child terms with basic details.
+    $child_terms = $query->execute()->fetchAllAssoc('child_tid');
+
     $rating_systems_with_children = [];
 
-    if (!empty($tids)) {
-      $child_terms = Term::loadMultiple($tids);
-      // Step 2: Check each child term to see if it has further children.
-      foreach ($child_terms as $child_term) {
-        // Create a query to check for children of this child term.
-        $sub_child_query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery();
-        $sub_child_query->condition('parent', $child_term->id())->accessCheck(false);;
-        $sub_child_tids = $sub_child_query->execute();
+    // Prepare another query to check for further children directly.
+    if (!empty($child_terms)) {
+      $query = $connection->select('taxonomy_term__parent', 'sub_parent');
+      $query->fields('sub_parent', ['parent_target_id']);
+      $query->condition('sub_parent.parent_target_id', array_keys($child_terms), 'IN');
 
-        // If this child term has its own children, add it to the result array.
-        if (!empty($sub_child_tids)) {
-          $rating_systems_with_children[$child_term->id()] = $child_term->getName();
-        }
+      // Execute the query to find which of these child terms have children.
+      $sub_child_term_tids = $query->execute()->fetchCol();
+
+      foreach ($sub_child_term_tids as $sub_child_tid) {
+        // Use the sub_child_tid to access the name of the parent child term.
+        $rating_systems_with_children[$sub_child_tid] = $child_terms[$sub_child_tid]->name;
       }
     }
-
-    // Log the resultant terms for debugging purposes.
-    \Drupal::logger('custom_module')->notice('Rating systems with children: @values', ['@values' => $rating_systems_with_children]);
 
     return $rating_systems_with_children;
   }
@@ -649,12 +677,25 @@ class LeeduserSearchForm extends FormBase {
    *   An associative array of region term IDs and names.
    */
   protected function getLocationRegions() {
+    // Load the tree of Level 1 terms (regions).
     $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('location', 0, 1); // Level 1 terms.
-    $regions = [];
-    foreach ($tree as $term) {
-      $regions[$term->tid] = $term->name;
+    $countries_with_children = [];
+
+    // Step 1: Loop through the regions (Level 1 terms).
+    foreach ($tree as $child_term) {
+      // Create a query to check for children of this child term.
+      $sub_child_query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery();
+      $sub_child_query->condition('parent', $child_term->tid)->accessCheck(false);
+      $sub_child_tids = $sub_child_query->execute();
+
+      // If this child term has its own children, load the full term and add it to the result array.
+      if (!empty($sub_child_tids)) {
+        $full_term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($child_term->tid);
+        $countries_with_children[$full_term->id()] = $full_term->getName(); // Get the term name using the full term entity.
+      }
     }
-    return $regions;
+
+    return $countries_with_children;
   }
   protected function getLeedVersion() {
     $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('credit', 0, 1); // Level 1 terms.
@@ -674,19 +715,34 @@ class LeeduserSearchForm extends FormBase {
    *   An associative array of country term IDs and names.
    */
   protected function getCountriesByRegion($region_tid) {
-    $query = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->getQuery();
-    $query->condition('vid', 'location')->accessCheck(false);
+    // Start timing.
+    $start_time = microtime(true);
 
-    $query->condition('parent', $region_tid); // Fetch child terms.
-    $tids = $query->execute();
+    // Your database query logic here.
+    $connection = \Drupal::database();
+    $query = $connection->select('taxonomy_term__parent', 'parent');
+    $query->join('taxonomy_term_field_data', 'term_data', 'parent.entity_id = term_data.tid');
 
+    $query->fields('term_data', ['tid', 'name']);
+    $query->condition('parent.parent_target_id', $region_tid);
+    $query->condition('term_data.vid', 'location');
+
+    $results = $query->execute();
     $countries = [];
-    if (!empty($tids)) {
-      $terms = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadMultiple($tids);
-      foreach ($terms as $term) {
-        $countries[$term->id()] = $term->getName();
-      }
+
+    foreach ($results as $record) {
+      $countries[$record->tid] = $record->name;
     }
+
+    // End timing.
+    $end_time = microtime(true);
+
+    // Calculate the difference.
+    $execution_time = $end_time - $start_time;
+
+    // Log the execution time or print it.
+    \Drupal::logger('custom_module')->notice('Execution time1: ' . $execution_time . ' seconds');
+    // Or: print 'Execution time: ' . $execution_time . ' seconds';
 
     return $countries;
   }
