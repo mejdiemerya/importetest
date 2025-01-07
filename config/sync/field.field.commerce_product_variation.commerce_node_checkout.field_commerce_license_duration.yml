@@ -1,0 +1,21 @@
+uuid: 89c4e28e-c4ae-45fc-8dad-1172e6a90328
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.commerce_node_checkout
+    - field.storage.commerce_product_variation.field_commerce_license_duration
+  module:
+    - options
+id: commerce_product_variation.commerce_node_checkout.field_commerce_license_duration
+field_name: field_commerce_license_duration
+entity_type: commerce_product_variation
+bundle: commerce_node_checkout
+label: 'License duration'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

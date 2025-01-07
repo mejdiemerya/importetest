@@ -1,0 +1,27 @@
+uuid: cf27fb6e-a8bf-417f-b9b5-09804d0748f1
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - options
+id: commerce_product_variation.field_zoom_type
+field_name: field_zoom_type
+entity_type: commerce_product_variation
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: webinar
+      label: Webinar
+    -
+      value: meeting
+      label: Meeting
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

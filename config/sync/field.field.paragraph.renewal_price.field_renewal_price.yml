@@ -1,0 +1,23 @@
+uuid: 9f427c6a-5ab6-4c2e-bb43-13219f7ecbaa
+langcode: fr
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_renewal_price
+    - paragraphs.paragraphs_type.renewal_price
+  module:
+    - commerce_price
+id: paragraph.renewal_price.field_renewal_price
+field_name: field_renewal_price
+entity_type: paragraph
+bundle: renewal_price
+label: 'Renewal price'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_currencies: {  }
+  allow_negative: false
+field_type: commerce_price

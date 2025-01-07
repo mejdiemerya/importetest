@@ -1,0 +1,288 @@
+# Import a product.
+#
+# Import a product with up to 2 taxonomy vocabularies, and single valued and
+# multi valued entity reference fields. The product type is 'default'.
+#
+# If any of the field values do not exist in the source, processing for that
+# item is skipped, the remaining data is still imported.
+#
+# To modify
+#
+# Destination site configuration:
+#   - Same requirements as the taxonomy_term migration.
+#   - Same requirements as the paragraph_tab migration.
+#   - Same requirements as the csv_video migration.
+#   - Same requirements as the csv_product_variation migration.
+#   - Install the Paragraph Module.
+#
+id: csv_example_product
+label: Products
+migration_group: commerce_migrate_csv_example
+migration_tags:
+  - Commerce CSV
+  - Content
+source:
+  # Uses a custom source plugin, based on the CSV source plugin in
+  # migrate_source_csv, that will build an array of product variation ids as
+  # well as trim the input from the source CSV.
+  plugin: csv_example_product
+  # Change the path and filename to match your source CSV file.
+  path: 'public://import/example-products.csv'
+  # Change the enclosure character to suit your source CVS file.
+  enclosure: "\""
+  # Change the number of header rows to suit your source CVS file.
+  header_offset: 0
+  # The key field for this migration. List many column names as needed to create
+  # a unique key for your migration. These keys are also used when a
+  # migration_lookup process is needed with this migration.
+  ids: [title]
+  # Define some constants for use in the process pipeline.
+  constants:
+    video_embed_prefix: '<iframe width="560" height="315" src="'
+    video_embed_suffix: ' frameborder="0" allowfullscreen></iframe>'
+  # Gives each column a field name for use in the process pipeline and a label.
+  # This is a complete list of columns in the example spreadsheet. Each
+  # migration only needs to define the columns that it will use.
+  fields:
+    - name: title
+      label: Title
+    - name: sku
+      label: SKU
+    - name: status
+      label: Status
+    - name: product_type
+      label: Product type
+    - name: description
+      label: Description
+    - name: product_variation_type
+      label: Product variation type
+    - name: sell_price
+      label: Sell price
+    - name: vocabulary_name1
+      label: Vocabulary1
+    - name: term1
+      label: Vocabulary value1
+    - name: vocabulary_name2
+      label: Vocabulary2
+    - name: term2
+      label: Vocabulary value2
+    - name: vocabulary_name3
+      label: Vocabulary3
+    - name: term3
+      label: Vocabulary value3
+    - name: attribute_name1
+      label: Attribute name1
+    - name: attribute_value1
+      label: Attribute value1
+    - name: attribute_name2
+      label: Attribute name2
+    - name: attribute_value2
+      label: Attribute value2
+    - name: attribute_name3
+      label: Attribute name3
+    - name: attribute_value3
+      label: Attribute value3
+    - name: attribute_name4
+      label: Attribute name4
+    - name: attribute_value4
+      label: Attribute value4
+    - name: related1
+      label: SKU of Related item 1
+    - name: related2
+      label: SKU of Related item 2
+    - name: related3
+      label: SKU of Related item 3
+    - name: image1
+      label: Image 1
+    - name: image2
+      label: Image 2
+    - name: image3
+      label: Image 3
+    - name: video1
+      label: Video 1
+    - name: thumbnail1
+      label: Thumbnail 1
+    - name: video2
+      label: Video 2
+    - name: thumbnail2
+      label: Thumbnail 2
+    - name: video3
+      label: Video 3
+    - name: thumbnail3
+      label: Thumbnail 3
+    - name: tab_title1
+      label: Tab title 1
+    - name: tab_content1
+      label: Tab content 1
+    - name: tab_cta1
+      label: Associated tab CTA 1
+    - name: tab_title2
+      label: Tab title 2
+    - name: tab_content2
+      label: Tab content 2
+    - name: tab_cta2
+      label: Associated tab CTA 2
+    - name: cta_title1
+      label: CTA title 1
+    - name: cta_link1
+      label: CTA link 1
+    - name: cta_image1
+      label: CTA product image 1
+    - name: cta_title2
+      label: CTA title 2
+    - name: cta_link2
+      label: CTA link 2
+    - name: cta_image2
+      label: CTA product image 2
+process:
+  # Product type set to 'default'.
+  type:
+    plugin: default_value
+    default_value: default
+  # UID set to 1.
+  uid:
+    plugin: default_value
+    default_value: 1
+  # Use the title provided in the CSV as the title.
+  title: title
+  # Use the description provided in the CSV as the value for the body field.
+  body/value: description
+  # Use status provided in the CSV as the status for this product.
+  status: status
+  # Use store 1 as the default store.
+  stores/target_id:
+    plugin: default_value
+    default_value: 1
+  # Taxonomy vocabulary 'Category'.
+  # Entity reference field, multi-valued.
+  field_category:
+    -
+      plugin: skip_on_empty
+      source: term1
+      method: process
+    -
+      plugin: migration_lookup
+      migration: csv_example_taxonomy_term
+      source:
+        - vocabulary_name1
+        - term1
+  # Taxonomy vocabulary 'Season'.
+  # Entity reference field, multi-valued.
+  field_season:
+    -
+      plugin: skip_on_empty
+      source: term2
+      method: process
+    -
+      plugin: migration_lookup
+      migration: csv_example_taxonomy_term
+      source:
+        - vocabulary_name2
+        - term2
+  # Use a custom process plugin to get all the variations for this product.
+  variations:
+    plugin: migration_lookup
+    migration: csv_example_product_variation
+    source: variation_sku
+  # A list of suggested products is created in two steps. First, get the three possible related items from the source
+  # and use a custom process plugin to build an array of related producs, excluding any empty values.
+  suggested_product:
+    plugin: csv_example_suggested_products
+    source:
+      - related1
+      - related2
+      - related3
+  # Second, use the array created above to populate the suggested products field. The sub_process plugin will execute
+  # the migration_lookup for each value in the array.
+  # Entity reference field, unlimited values.
+  field_suggested_products:
+    plugin: sub_process
+    source: '@suggested_product'
+    process:
+      target_id:
+        plugin: migration_lookup
+        migration: csv_example_product
+        source: '0'
+  # The video field is a single valued entity reference revision field. It requires a target_id and revision_id. These
+  # are obtained by using the migration_lookup process plugin with the input being the title of the video to migrate.
+  # The output from migration_lookup will be the destination id for that migration, in this case, the target_id and the
+  # target_revision_id. These can be extracted from the array and put in the correct field value. And, of course, skip
+  # the processing of the video if the video was not migrated.
+  field_product_video/target_id:
+    -
+      plugin: migration_lookup
+      migration: csv_example_paragraph_product_video
+      no_stub: true
+      source:
+        - title
+    -
+      plugin: skip_on_empty
+      method: process
+    -
+      plugin: extract
+      index:
+        - '0'
+  # See comment above for 'field_product_video/target_id:'
+  field_product_video/target_revision_id:
+    -
+      plugin: migration_lookup
+      migration: csv_example_paragraph_product_video
+      no_stub: true
+      source:
+        - title
+    -
+      plugin: skip_on_empty
+      method: process
+    -
+      plugin: extract
+      index:
+        - '1'
+  combination_tab:
+    plugin: get
+    source:
+      - tab_title1
+      - tab_title2
+  # Paragraph field.
+  field_tab:
+    -
+      plugin: migration_lookup
+      migration: csv_example_paragraph_tab
+      no_stub: true
+      source: '@combination_tab'
+    -
+      plugin: skip_on_empty
+      method: process
+    -
+      plugin: sub_process
+      process:
+        target_id: '0'
+        target_revision_id: '1'
+  combination_cta:
+    plugin: get
+    source:
+      - cta_title1
+      - cta_title2
+  # Paragraph field.
+  # Entity reference revisions, Single value
+  field_desc_cta:
+    -
+      plugin: migration_lookup
+      migration: csv_example_paragraph_cta
+      no_stub: true
+      source: '@combination_cta'
+    -
+      plugin: skip_on_empty
+      method: process
+    -
+      plugin: sub_process
+      process:
+        target_id: '0'
+        target_revision_id: '1'
+destination:
+  plugin: 'entity:commerce_product'
+migration_dependencies:
+  required:
+    - csv_example_taxonomy_term
+    - csv_example_paragraph_with_paragraph_reference
+    - csv_example_video
+    - csv_example_product_variation

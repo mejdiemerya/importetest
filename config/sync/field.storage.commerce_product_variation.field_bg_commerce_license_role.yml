@@ -1,0 +1,20 @@
+uuid: e2cd44a1-7219-491a-aa27-1427cd48a22f
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - user
+id: commerce_product_variation.field_bg_commerce_license_role
+field_name: field_bg_commerce_license_role
+entity_type: commerce_product_variation
+type: entity_reference
+settings:
+  target_type: user_role
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

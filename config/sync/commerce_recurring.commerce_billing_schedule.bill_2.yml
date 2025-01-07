@@ -1,0 +1,24 @@
+uuid: d2f849ed-8341-4c5e-aa79-3fae2e86cc9d
+langcode: fr
+status: true
+dependencies: {  }
+id: bill_2
+label: 'bill 2'
+displayLabel: 'bill 2'
+billingType: prepaid
+combineSubscriptions: false
+retrySchedule:
+  - 1
+  - 3
+  - 5
+unpaidSubscriptionState: canceled
+plugin: fixed
+configuration:
+  trial_interval: {  }
+  interval:
+    number: 1
+    unit: week
+  start_month: 1
+  start_day: 1
+prorater: proportional
+proraterConfiguration: {  }

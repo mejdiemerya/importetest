@@ -1,0 +1,19 @@
+uuid: be156f81-f23b-4638-9c16-94abc3ae7a43
+langcode: fr
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: OvnOAdfIlTBUNwwsKaRCxbpoz2nKFau9I0zH1erhzSM
+id: default
+label: 'Par défaut'
+backend: database
+backend_configuration:
+  lease_time: 300
+processor: cron
+processing_time: 90
+locked: false
+stop_when_empty: true
+threshold:
+  type: 0
+  limit: 0
+  state: all

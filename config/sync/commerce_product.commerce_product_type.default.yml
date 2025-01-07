@@ -1,0 +1,21 @@
+uuid: 85db2620-a5dc-4184-be6e-d4231603c0bb
+langcode: fr
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: _z3gRqT6raSp9842zsMlka4awElMiTaIMS4tZpjP3_E
+id: default
+label: 'Par défaut'
+traits: {  }
+locked: false
+description: ''
+variationTypes:
+  - commerce_node_checkout
+  - default
+  - event_registration
+  - file_download
+  - membership
+  - per_node_access
+  - product
+multipleVariations: true
+injectVariationFields: true

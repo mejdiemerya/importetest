@@ -1,0 +1,21 @@
+uuid: e32bee3b-7113-4b05-a3ee-4f3897c895be
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: commerce_product_variation.field_welcome_email_subject
+field_name: field_welcome_email_subject
+entity_type: commerce_product_variation
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

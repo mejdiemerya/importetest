@@ -1,0 +1,21 @@
+uuid: 918a06e4-1bce-4933-b4a0-6db91c6e7ed9
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.file_download
+    - field.storage.commerce_product_variation.field_license_billing_cycle_type
+  module:
+    - options
+id: commerce_product_variation.file_download.field_license_billing_cycle_type
+field_name: field_license_billing_cycle_type
+entity_type: commerce_product_variation
+bundle: file_download
+label: 'License billing cycle type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

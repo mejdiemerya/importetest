@@ -1,0 +1,7 @@
+uuid: 56f7a807-010a-492b-8ce3-85d515fc280c
+langcode: fr
+status: true
+dependencies: {  }
+id: tt
+label: tt
+elementType: commerce_product_rendered_attribute

@@ -1,0 +1,85 @@
+{
+  "version": "0.2",
+  "language": "en-US",
+  "allowCompoundWords": false,
+  "globRoot": ".",
+  "ignorePaths": [
+    "modules/**/tests/**",
+    "tests/**",
+    "README.md",
+    "web",
+    "vendor",
+    "node_modules",
+    ".git",
+    "**/.*.json",
+    "package.json",
+    "yarn.lock",
+    "phpstan*",
+    ".*ignore",
+    "./composer.lock",
+    "./composer.json",
+    "./modules/woocommerce/composer.json",
+    "./modules/ubercart/composer.json",
+    "./modules/magento/composer.json",
+    "./modules/csv_example/composer.json",
+    "./modules/commerce/composer.json"
+  ],
+  "ignoreRegExpList": [
+    "^msgstr .*",
+    "!!binary .*",
+    "%[0-9][0-9A-F]",
+    "\\Wi18n",
+    "\\x{[0-9A-F]{4,5}}"
+  ],
+  "dictionaries": [
+    "dictionary",
+    "drupal",
+    "companies",
+    "fonts",
+    "html",
+    "php",
+    "softwareTerms",
+    "misc",
+    "typescript",
+    "node",
+    "css",
+    "bash",
+    "filetypes",
+    "npm",
+    "lorem-ipsum",
+    "project-words"
+  ],
+  "dictionaryDefinitions": [
+    {
+      "name": "drupal",
+      "path": "web/core/misc/cspell/drupal-dictionary.txt"
+    },
+    {
+      "name": "dictionary",
+      "path": "web/core/misc/cspell/dictionary.txt"
+    },
+    {
+      "name": "project-words",
+      "path": "./.cspell-project-words.txt",
+      "description": "The project's own custom dictionary (optional)"
+    }
+  ],
+  "flagWords": [
+    "e-mail",
+    "grey",
+    "hte",
+    "ist",
+    "please",
+    "queuing"
+  ],
+  "overrides": [
+    {
+      "filename": "**/{*.engine,*.inc,*.install,*.module,*.profile,*.theme}",
+      "languageId": "php"
+    },
+    {
+      "filename": "**/scripts/{*.php.txt, *.sh}",
+      "languageId": "php"
+    }
+  ]
+}

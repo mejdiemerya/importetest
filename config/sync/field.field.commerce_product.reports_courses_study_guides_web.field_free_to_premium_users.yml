@@ -1,0 +1,21 @@
+uuid: f4b666fb-96ac-451a-8979-3995398f7d2e
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.reports_courses_study_guides_web
+    - field.storage.commerce_product.field_free_to_premium_users
+id: commerce_product.reports_courses_study_guides_web.field_free_to_premium_users
+field_name: field_free_to_premium_users
+entity_type: commerce_product
+bundle: reports_courses_study_guides_web
+label: 'Free to premium users'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Activé
+  off_label: Désactivé
+field_type: boolean

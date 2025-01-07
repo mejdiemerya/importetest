@@ -1,0 +1,21 @@
+uuid: 2b47cece-9294-4945-a9d7-f732fea55788
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.file_download
+    - field.storage.commerce_product_variation.field_commerce_license_type
+  module:
+    - options
+id: commerce_product_variation.file_download.field_commerce_license_type
+field_name: field_commerce_license_type
+entity_type: commerce_product_variation
+bundle: file_download
+label: 'License type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

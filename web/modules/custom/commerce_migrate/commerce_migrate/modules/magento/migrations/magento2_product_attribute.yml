@@ -1,0 +1,153 @@
+id: magento2_product_attribute
+label: Magento 2product attribute
+migration_group: commerce_migrate_magento2
+migration_tags:
+  - Magento 2
+  - Configuration
+source:
+  # Uses a custom source plugin to yield the attributes.
+  plugin: magento2_product_attribute_csv
+  # Change the path and filename to match your source CSV file.
+  path: 'public://import/magento2-catalog_product_20180326_013553.csv'
+  # Change the enclosure character to suit your source CVS file.
+  enclosure: "\""
+  # Change the number of header rows to suit your source CVS file.
+  header_offset: 0
+  # The key fields attribute is set in the row in the source plugin.
+  ids: [attribute]
+  fields:
+    - name: sku
+      label: SKU
+    - name: store_view_code
+      label: Store view code
+    - name: attribute_set_code
+      label: Attribute set code
+    - name: product_type
+      label: Product type
+    - name: categories
+      label: Categories
+    - name: product_websites
+      label: Product websites
+    - name: name
+      label: Name
+    - name: description
+      label: Description
+    - name: short_description
+      label: Short description
+    - name: weight
+      label: Weight
+    - name: product_online
+      label: product_online
+    - name: tax_class_name
+      label: tax_class_name
+    - name: visibility
+      label: visibility
+    - name: price
+      label: Price
+    - name: special_price
+      label: Special price
+    - name: special_price_from_date
+      label: Special price from date
+    - name: special_price_to_date
+      label: Special price to date
+    - name: url_key
+      label: Url key
+    - name: meta_title
+      label: Meta title
+    - name: meta_keywords
+      label: Meta keywords
+    - name: meta_description
+      label: Meta description
+    - name: base_image
+      label: Base image
+    - name: base_image_label
+      label: Base image label
+    - name: small_image
+      label: Small image
+    - name: small_image_label
+      label: Small image label
+    - name: thumbnail_image
+      label: Thumbnail image
+    - name: thumbnail_image_label
+      label: Thumbnail image label
+    - name: swatch_image
+      label: Swatch image
+    - name: swatch_image_label
+      label: Swatch image label
+    - name: created_at
+      label: Created at
+    - name: updated_at
+      label: Updated at
+    - name: new_from_date
+      label: New from date
+    - name: new_to_date
+      label: New to date
+    - name: display_product_options_in
+      label: display product options in
+    - name: map_price
+      label: Map price
+    - name: msrp_price
+      label: MSRP price
+    - name: msrp_price
+      label: msrp_price
+    - name: map_enabled
+      label: map_enabled
+    - name: gift_message_available
+      label: gift_message_available
+    - name: custom_design
+      label: custom_design
+    - name: custom_design_from
+      label: custom_design_from
+    - name: custom_design_to
+      label: custom_design_to
+    - name: custom_layout_update
+      label: custom_layout_update
+    - name: page_layout
+      label: page_layout
+    - name: product_options_container
+      label: product_options_container
+    - name: msrp_display_actual_price_type
+      label: msrp_display_actual_price_type
+    - name: country_of_manufacture
+      label: country_of_manufacture
+    - name: additional_attributes
+      label: additional_attributes
+process:
+  # Commerce prefixes the id with 'attribute_' so truncate the attribute to 22
+  # characters to keep within the 32 character limit. If this needs to be made
+  # unique that number, 22, must be reduced to allow for the extra characters
+  # added by make_unique_entity_field. Reduce by 2 if not using a postfix
+  # character or 3 if your migration uses the postfix configuration option.
+  id:
+    -
+      plugin: machine_name
+      source: attribute
+    -
+      plugin: skip_on_empty
+      method: row
+    -
+      plugin: substr
+      length: 22
+  # Convert the attribute to a more human readable form. Change the underscores
+  # to spaces and capitalize the first character.
+  label:
+    -
+      plugin: skip_on_empty
+      method: row
+      source: attribute
+    -
+      plugin: explode
+      delimiter: _
+    -
+      plugin: concat
+      delimiter: ' '
+    -
+      plugin: callback
+      callable: ucfirst
+  # The element type can be 'text', 'select', 'radios', or 'checkbox'.
+  elementType:
+    plugin: default_value
+    default_value: select
+destination:
+  plugin: entity:commerce_product_attribute
+  destination_module: commerce_product

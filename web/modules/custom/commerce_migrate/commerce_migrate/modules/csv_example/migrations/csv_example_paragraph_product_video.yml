@@ -1,0 +1,118 @@
+# Import video paragraph type.
+#
+# Import one paragraph entity with video information. The paragraph entity has
+# two fields, one field contains an embedded text string and the other a
+# thumbnail image.
+#
+# Destination site configuration:
+#   - Install the Paragraph Module.
+#   - Create a paragraph type with two fields, one for the embedded text and the
+# other for an image field for the thumbnail.
+#
+id: csv_example_paragraph_product_video
+label: Paragraph product video
+migration_group: commerce_migrate_csv_example
+migration_tags:
+  - Commerce CSV
+  - Content
+source:
+  plugin: csv_example_product_video
+  path: 'public://import/example-products.csv'
+  enclosure: "\""
+  header_offset: 0
+  ids: [title]
+  fields:
+    - name: title
+      label: Title
+    - name: sku
+      label: SKU
+    - name: status
+      label: Status
+    - name: product_type
+      label: Product type
+    - name: description
+      label: Description
+    - name: product_variation_type
+      label: Product variation type
+    - name: sell_price
+      label: Sell price
+    - name: vocabulary_name1
+      label: Vocabulary1
+    - name: term1
+      label: Vocabulary value1
+    - name: vocabulary_name2
+      label: Vocabulary2
+    - name: term2
+      label: Vocabulary value2
+    - name: vocabulary_name3
+      label: Vocabulary3
+    - name: term3
+      label: Vocabulary value3
+    - name: attribute_name1
+      label: Attribute name1
+    - name: attribute_value1
+      label: Attribute value1
+    - name: attribute_name2
+      label: Attribute name2
+    - name: attribute_value2
+      label: Attribute value2
+    - name: attribute_name3
+      label: Attribute name3
+    - name: attribute_value3
+      label: Attribute value3
+    - name: attribute_name4
+      label: Attribute name4
+    - name: attribute_value4
+      label: Attribute value4
+    - name: related1
+      label: SKU of Related item 1
+    - name: related2
+      label: SKU of Related item 2
+    - name: related3
+      label: SKU of Related item 3
+    - name: image1
+      label: Image 1
+    - name: image2
+      label: Image 2
+    - name: image3
+      label: Image 3
+    - name: video1
+      label: Video 1
+    - name: thumbnail1
+      label: Thumbnail 1
+    - name: video2
+      label: Video 2
+    - name: thumbnail2
+      label: Thumbnail 2
+    - name: video3
+      label: Video 3
+  constants:
+    video_embed_prefix: '<iframe width="560" height="315" src="'
+    video_embed_suffix: ' frameborder="0" allowfullscreen></iframe>'
+process:
+  # Build a video embed tag, type text (plain, long), in two steps.
+  # First, add the prefix defined in the source constants.
+  field_video_embed_part1:
+    plugin: concat
+    source:
+      - 'constants/video_embed_prefix'
+      - video
+  # Second, add the suffix defined in the source constants.
+  field_video_embed:
+    plugin: concat
+    source:
+      - '@field_video_embed_part1'
+      - 'constants/video_embed_suffix'
+  # A single valued image field. Use migration_lookup to ensure the post migration fid for this file is used.
+  field_video_image:
+    plugin: migration_lookup
+    migration: csv_example_image
+    source:
+      - sku
+      - thumbnail1
+destination:
+  plugin: 'entity_reference_revisions:paragraph'
+  default_bundle: product_carousel_video
+migration_dependencies:
+  required:
+    - csv_example_image

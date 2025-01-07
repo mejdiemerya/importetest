@@ -1,0 +1,21 @@
+uuid: de06b776-a799-434f-b60a-4fab45e29d68
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.per_node_access
+    - field.storage.commerce_product_variation.field_hide_quiz_button_on_report
+id: commerce_product_variation.per_node_access.field_hide_quiz_button_on_report
+field_name: field_hide_quiz_button_on_report
+entity_type: commerce_product_variation
+bundle: per_node_access
+label: 'Hide quiz button on report page'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Activé
+  off_label: Désactivé
+field_type: boolean

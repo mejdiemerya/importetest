@@ -1,0 +1,27 @@
+uuid: 21ffe329-bcb1-400b-adf3-1195dcd48525
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - options
+id: commerce_product_variation.field_commerce_license_type
+field_name: field_commerce_license_type
+entity_type: commerce_product_variation
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: file
+      label: File
+    -
+      value: buildinggreen_license
+      label: 'BuildingGreen License'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

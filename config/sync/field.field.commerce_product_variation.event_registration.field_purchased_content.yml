@@ -1,0 +1,29 @@
+uuid: d4bac10d-97ab-40ae-be76-3bc8ef416087
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.event_registration
+    - field.storage.commerce_product_variation.field_purchased_content
+    - node.type.page
+id: commerce_product_variation.event_registration.field_purchased_content
+field_name: field_purchased_content
+entity_type: commerce_product_variation
+bundle: event_registration
+label: 'Purchased content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      page: page
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,22 @@
+{
+    "name": "drupal/commerce_migrate",
+    "description": "Provides Commerce-specific Migrate handlers.",
+    "type": "drupal-module",
+    "license": "GPL-2.0+",
+    "require": {
+        "drupal/commerce": "^2.0",
+        "drupal/migrate_plus": "^6.0"
+    },
+    "require-dev": {
+        "drupal/coder": "^8",
+        "drupal/migrate_source_csv": "^3.4",
+        "drupal/commerce_shipping": "^2.0",
+        "drupal/paragraphs": "^1.0"
+    },
+    "minimum-stability": "dev",
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/commerce_migrate",
+        "slack": "#migrate",
+        "source": "https://git.drupalcode.org/project/commerce_migrate"
+    }
+}

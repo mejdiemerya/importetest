@@ -1,0 +1,7 @@
+name: 'bg_product_cart'
+type: module
+description: 'Tunnel de payment pour les produits'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - commerce:commerce

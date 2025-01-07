@@ -1,0 +1,42 @@
+finished:
+  6:
+    locale: language
+    node: content_translation
+    uc_attribute:
+      - commerce_product
+      - field
+    uc_flatrate: commerce_shipping
+    uc_order:
+      - commerce_order
+      - profile
+    uc_payment:
+      - commerce_payment
+      - commerce_payment_gateway
+    uc_product:
+      - commerce_product
+      - content_translation
+      - node
+    uc_store:
+      - commerce_price
+      - commerce_store
+    uc_taxes: commerce_tax
+  7:
+    uc_attribute:
+      - commerce_product
+      - field
+    uc_flatrate: commerce_shipping
+    uc_order:
+      - commerce_order
+      - profile
+    uc_payment:
+      - commerce_payment
+      - commerce_payment_gateway
+    uc_product:
+      - commerce_product
+      - commerce_migrate_ubercart
+      - content_translation
+      - node
+    uc_store:
+      - commerce_price
+      - commerce_store
+    uc_taxes: commerce_tax

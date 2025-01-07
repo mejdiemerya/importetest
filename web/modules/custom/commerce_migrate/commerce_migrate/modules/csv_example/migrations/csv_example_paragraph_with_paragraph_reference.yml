@@ -1,0 +1,142 @@
+# Import a paragraph type that references a different paragraph type
+#
+# Import two paragraph entities. The paragraph entity has 3 fields, two single
+# valued text fields and a multi-valued paragraph field.
+#
+# Destination site configuration:
+#   - Install the Paragraph Module.
+#   - Create a paragraph type with three fields, two single values text fields
+# and a multi-value paragraph field for referencing the Call To Action
+# paragraph type.
+#
+id: csv_example_paragraph_with_paragraph_reference
+label: Paragraph with reference to Call To Action paragraph
+migration_group: commerce_migrate_csv_example
+migration_tags:
+  - Commerce CSV
+  - Content
+source:
+  plugin: csv_example_product_tab
+  path: 'public://import/example-products.csv'
+  enclosure: "\""
+  header_offset: 0
+  ids: [tab_title]
+  fields:
+    - name: title
+      label: Title
+    - name: sku
+      label: SKU
+    - name: status
+      label: Status
+    - name: product_type
+      label: Product type
+    - name: description
+      label: Description
+    - name: product_variation_type
+      label: Product variation type
+    - name: sell_price
+      label: Sell price
+    - name: vocabulary_name1
+      label: Vocabulary1
+    - name: term1
+      label: Vocabulary value1
+    - name: vocabulary_name2
+      label: Vocabulary2
+    - name: term2
+      label: Vocabulary value2
+    - name: vocabulary_name3
+      label: Vocabulary3
+    - name: term3
+      label: Vocabulary value3
+    - name: attribute_name1
+      label: Attribute name1
+    - name: attribute_value1
+      label: Attribute value1
+    - name: attribute_name2
+      label: Attribute name2
+    - name: attribute_value2
+      label: Attribute value2
+    - name: attribute_name3
+      label: Attribute name3
+    - name: attribute_value3
+      label: Attribute value3
+    - name: attribute_name4
+      label: Attribute name4
+    - name: attribute_value4
+      label: Attribute value4
+    - name: related1
+      label: SKU of Related item 1
+    - name: related2
+      label: SKU of Related item 2
+    - name: related3
+      label: SKU of Related item 3
+    - name: image1
+      label: Image 1
+    - name: image2
+      label: Image 2
+    - name: image3
+      label: Image 3
+    - name: video1
+      label: Video 1
+    - name: thumbnail1
+      label: Thumbnail 1
+    - name: video2
+      label: Video 2
+    - name: thumbnail2
+      label: Thumbnail 2
+    - name: video3
+      label: Video 3
+    - name: thumbnail3
+      label: Thumbnail 3
+    - name: tab_title1
+      label: Tab title 1
+    - name: tab_content1
+      label: Tab content 1
+    - name: tab_cta1
+      label: Associated tab CTA 1
+    - name: tab_title2
+      label: Tab title 2
+    - name: tab_content2
+      label: Tab content 2
+    - name: tab_cta2
+      label: Associated tab CTA 2
+process:
+  #	Text (plain), single value.
+  field_tab_title: tab_title
+  # Text (formatted, long), single value.
+  field_tab_content: tab_content
+  # Entity reference revisions, Unlimited.
+  field_tab_cta/target_id:
+    -
+      plugin: migration_lookup
+      migration: csv_example_paragraph_cta
+      no_stub: true
+      source:
+        - tab_cta
+    -
+      plugin: skip_on_empty
+      method: process
+    -
+      plugin: extract
+      index:
+        - '0'
+  field_tab_cta/target_revision_id:
+    -
+      plugin: migration_lookup
+      migration: csv_example_paragraph_cta
+      no_stub: true
+      source:
+        - tab_cta
+    -
+      plugin: skip_on_empty
+      method: process
+    -
+      plugin: extract
+      index:
+        - '1'
+destination:
+  plugin: 'entity_reference_revisions:paragraph'
+  default_bundle: tabs
+migration_dependencies:
+  required:
+    - csv_example_paragraph_cta

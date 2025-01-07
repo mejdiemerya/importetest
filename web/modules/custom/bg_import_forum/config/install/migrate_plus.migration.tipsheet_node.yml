@@ -1,0 +1,35 @@
+# Migration configuration for beer content.
+id: tipsheet_node
+label: nodes tipsheet
+source:
+  plugin: tipsheet_node
+destination:
+  plugin: entity:node
+process:
+  # Hardcode the destination node type (bundle) as 'migrate_example_beer'.
+  type:
+    plugin: default_value
+    default_value: 'tipsheet'
+  title: title
+  nid: nid
+  uid: uid
+  status: status
+  field_credits:
+    plugin: get
+    source: field_credits_tid
+  field_guest_expert:
+    plugin: get
+    source: field_guest_expert_target_id
+  body:
+    plugin: get
+    source: body_value
+  'body/value':
+    plugin: get
+    source: body_value
+  'body/summary':
+    plugin: get
+    source: body_summary
+  'body/format':
+    plugin: default_value
+    default_value: 'basic_html'
+

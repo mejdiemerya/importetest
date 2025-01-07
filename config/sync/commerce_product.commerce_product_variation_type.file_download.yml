@@ -1,0 +1,10 @@
+uuid: 0d2b6260-c8ca-497c-82a1-99031556afe6
+langcode: fr
+status: true
+dependencies: {  }
+id: file_download
+label: 'File download'
+traits: {  }
+locked: false
+orderItemType: default
+generateTitle: null

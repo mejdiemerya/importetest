@@ -1,0 +1,11 @@
+uuid: 6aa8c2d5-dd94-4f20-89e5-5bfe38e06500
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.license_notification
+id: commerce_product.license_notification
+target_entity_type_id: commerce_product
+target_bundle: license_notification
+default_langcode: site_default
+language_alterable: false

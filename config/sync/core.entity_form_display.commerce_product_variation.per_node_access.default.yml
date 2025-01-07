@@ -1,0 +1,139 @@
+uuid: 02654703-b735-40e4-a2c0-8c5db1bc6a7d
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.per_node_access
+    - field.field.commerce_product_variation.per_node_access.field_checkout_complete_message
+    - field.field.commerce_product_variation.per_node_access.field_commerce_license_duration
+    - field.field.commerce_product_variation.per_node_access.field_commerce_license_type
+    - field.field.commerce_product_variation.per_node_access.field_hide_button_on_report_page
+    - field.field.commerce_product_variation.per_node_access.field_hide_quiz_button_on_report
+    - field.field.commerce_product_variation.per_node_access.field_license_billing_cycle_type
+    - field.field.commerce_product_variation.per_node_access.field_license_billing_type
+    - field.field.commerce_product_variation.per_node_access.field_purchased_content
+    - field.field.commerce_product_variation.per_node_access.field_zoom_id
+    - field.field.commerce_product_variation.per_node_access.field_zoom_type
+  module:
+    - commerce_price
+    - text
+id: commerce_product_variation.per_node_access.default
+targetEntityType: commerce_product_variation
+bundle: per_node_access
+mode: default
+content:
+  field_checkout_complete_message:
+    type: text_textarea
+    weight: 100
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_commerce_license_duration:
+    type: options_buttons
+    weight: 9
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_commerce_license_type:
+    type: options_select
+    weight: 8
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_hide_button_on_report_page:
+    type: boolean_checkbox
+    weight: 95
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_hide_quiz_button_on_report:
+    type: boolean_checkbox
+    weight: 96
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_license_billing_cycle_type:
+    type: options_select
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_license_billing_type:
+    type: options_buttons
+    weight: 11
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_purchased_content:
+    type: entity_reference_autocomplete
+    weight: 94
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_zoom_id:
+    type: string_textfield
+    weight: 93
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_zoom_type:
+    type: options_select
+    weight: 92
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  list_price:
+    type: commerce_list_price
+    weight: -1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  price:
+    type: commerce_price_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sku:
+    type: string_textfield
+    weight: -4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 90
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  uid: true

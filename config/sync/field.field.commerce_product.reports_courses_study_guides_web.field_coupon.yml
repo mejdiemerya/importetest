@@ -1,0 +1,19 @@
+uuid: 523f1d73-24a1-4c2d-8370-cc56952533b3
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.reports_courses_study_guides_web
+    - field.storage.commerce_product.field_coupon
+id: commerce_product.reports_courses_study_guides_web.field_coupon
+field_name: field_coupon
+entity_type: commerce_product
+bundle: reports_courses_study_guides_web
+label: Coupon
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

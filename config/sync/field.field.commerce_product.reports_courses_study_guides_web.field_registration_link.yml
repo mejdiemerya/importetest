@@ -1,0 +1,23 @@
+uuid: fce2e0c3-124f-4d0a-929c-b9927cbfe794
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.reports_courses_study_guides_web
+    - field.storage.commerce_product.field_registration_link
+  module:
+    - link
+id: commerce_product.reports_courses_study_guides_web.field_registration_link
+field_name: field_registration_link
+entity_type: commerce_product
+bundle: reports_courses_study_guides_web
+label: 'Registration link'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

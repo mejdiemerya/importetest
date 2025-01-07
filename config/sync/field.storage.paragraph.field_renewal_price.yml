@@ -1,0 +1,19 @@
+uuid: 1041a44a-982a-4092-ac43-bad84eac826d
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_price
+    - paragraphs
+id: paragraph.field_renewal_price
+field_name: field_renewal_price
+entity_type: paragraph
+type: commerce_price
+settings: {  }
+module: commerce_price
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

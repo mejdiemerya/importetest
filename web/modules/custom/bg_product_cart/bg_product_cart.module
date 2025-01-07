@@ -1,0 +1,40 @@
+<?php
+
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+
+/**
+ * @file
+ * Primary module hooks for bg_product_cart module.
+ */
+
+function bg_product_cart_preprocess_commerce_product(&$variables) {
+   //dpm($variables['product_entity']->get("field_related_products")->referencedEntities() );
+  //commerce_pricelist_get_user_price
+
+
+  $variables["elements"]["#title"] = false;
+  $variables["elements"]["title"] = false;
+  //dd($variables);
+//dd($variables["elements"]['title']["#printed"] );
+   $tabLinkCartVariations = [];
+   $tabLinkCartRElatedProd = [];
+   foreach ($variables['product_entity']->getVariations() as $variation) {
+   //  dd($variation->get('price'));
+ //dsm($variation->get('list_price'));
+     $variables ['member_price'] = $variation->get('price')->number/100;
+     $variables ['list_price'] = $variation->get('price')->number/100;
+     $tabLinkCartVariations[] = new Link(
+       t('Buy it now for ').$variables['product']['variation_price'][0]["#markup"],
+       Url::fromUserInput(base_path().'product/add/variation-cart/'.$variables['product_entity']->id().'/'.$variation->id())
+     );
+   }
+foreach ($variables['product_entity']->get("field_related_products")->referencedEntities()  as $relatedProd){
+  //dsm($relatedProd->id());
+}
+
+   //$variables['product_entity']->id()
+//$variables['product']['variation_price'][0]["#markup"]
+    $variables ['add_cart_variation'] = $tabLinkCartVariations ;
+
+}

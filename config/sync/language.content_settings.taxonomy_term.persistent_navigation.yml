@@ -1,0 +1,11 @@
+uuid: 329879a3-919b-442d-9dd1-3adb2de41fdf
+langcode: fr
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.persistent_navigation
+id: taxonomy_term.persistent_navigation
+target_entity_type_id: taxonomy_term
+target_bundle: persistent_navigation
+default_langcode: site_default
+language_alterable: false

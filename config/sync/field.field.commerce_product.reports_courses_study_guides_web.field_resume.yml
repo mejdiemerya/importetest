@@ -1,0 +1,26 @@
+uuid: 52d76c65-e708-4ea0-add6-b594a7ea833c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.reports_courses_study_guides_web
+    - field.storage.commerce_product.field_resume
+    - filter.format.basic_html
+    - filter.format.full_html
+  module:
+    - text
+id: commerce_product.reports_courses_study_guides_web.field_resume
+field_name: field_resume
+entity_type: commerce_product
+bundle: reports_courses_study_guides_web
+label: Resumé
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - basic_html
+    - full_html
+field_type: text_long

@@ -1,0 +1,14 @@
+name: Commerce Migrate Shopify
+type: module
+description: Provides migrations for Shopfiy.
+core_version_requirement: '>=9.3 || 10'
+package: Commerce (contrib)
+dependencies:
+  - commerce:commerce
+  - commerce_migrate:commerce_migrate
+  - migrate_source_csv:migrate_source_csv
+
+# Information added by Drupal.org packaging script on 2024-04-27
+version: '4.0.1'
+project: 'commerce_migrate'
+datestamp: 1714195470

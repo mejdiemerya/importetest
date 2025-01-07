@@ -1,0 +1,11 @@
+uuid: 3d742446-ac83-4fe7-9663-ac489c8d4441
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.e_membership_display
+id: commerce_product.e_membership_display
+target_entity_type_id: commerce_product
+target_bundle: e_membership_display
+default_langcode: site_default
+language_alterable: false

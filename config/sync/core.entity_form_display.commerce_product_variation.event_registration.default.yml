@@ -1,0 +1,154 @@
+uuid: a1d4d244-01c2-43cf-b987-d9355328be7b
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.event_registration
+    - field.field.commerce_product_variation.event_registration.attribute_tt
+    - field.field.commerce_product_variation.event_registration.field_checkout_complete_message
+    - field.field.commerce_product_variation.event_registration.field_event_type
+    - field.field.commerce_product_variation.event_registration.field_failed_renewal_body
+    - field.field.commerce_product_variation.event_registration.field_failed_renewal_subject
+    - field.field.commerce_product_variation.event_registration.field_purchased_content
+    - field.field.commerce_product_variation.event_registration.field_salesforce_campaign
+    - field.field.commerce_product_variation.event_registration.field_welcome_email_body
+    - field.field.commerce_product_variation.event_registration.field_welcome_email_subject
+    - field.field.commerce_product_variation.event_registration.field_zoom_id
+    - field.field.commerce_product_variation.event_registration.field_zoom_type
+  module:
+    - commerce_price
+    - text
+id: commerce_product_variation.event_registration.default
+targetEntityType: commerce_product_variation
+bundle: event_registration
+mode: default
+content:
+  attribute_tt:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_checkout_complete_message:
+    type: text_textarea
+    weight: 100
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_event_type:
+    type: options_select
+    weight: 95
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_failed_renewal_body:
+    type: text_textarea
+    weight: 99
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_failed_renewal_subject:
+    type: string_textfield
+    weight: 98
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_purchased_content:
+    type: entity_reference_autocomplete
+    weight: 94
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_salesforce_campaign:
+    type: string_textfield
+    weight: 91
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_welcome_email_body:
+    type: text_textarea
+    weight: 97
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_welcome_email_subject:
+    type: string_textfield
+    weight: 96
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_zoom_id:
+    type: string_textfield
+    weight: 93
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_zoom_type:
+    type: options_select
+    weight: 92
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  list_price:
+    type: commerce_list_price
+    weight: -1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  price:
+    type: commerce_price_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  sku:
+    type: string_textfield
+    weight: -4
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 90
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  uid: true

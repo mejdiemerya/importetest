@@ -1,0 +1,22 @@
+uuid: 97e81186-de04-4822-909a-f2d8578e73f8
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.membership
+    - field.storage.commerce_product_variation.field_welcome_email_body
+  module:
+    - text
+id: commerce_product_variation.membership.field_welcome_email_body
+field_name: field_welcome_email_body
+entity_type: commerce_product_variation
+bundle: membership
+label: 'Welcome email body'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

@@ -1,0 +1,13 @@
+uuid: f24178ea-dd50-4e98-b796-9e7106b9b690
+langcode: fr
+status: true
+dependencies: {  }
+id: e_membership_display
+label: 'E-Membership Display'
+traits: {  }
+locked: false
+description: ''
+variationTypes:
+  - membership
+multipleVariations: true
+injectVariationFields: true

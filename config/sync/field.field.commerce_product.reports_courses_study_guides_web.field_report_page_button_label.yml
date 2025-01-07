@@ -1,0 +1,19 @@
+uuid: 668abd9d-aa06-49d8-b65f-0b849607bc4c
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.reports_courses_study_guides_web
+    - field.storage.commerce_product.field_report_page_button_label
+id: commerce_product.reports_courses_study_guides_web.field_report_page_button_label
+field_name: field_report_page_button_label
+entity_type: commerce_product
+bundle: reports_courses_study_guides_web
+label: 'Report page button label'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

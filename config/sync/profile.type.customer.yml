@@ -1,0 +1,25 @@
+uuid: 06a3fc33-c429-4c9d-aec6-9bdc21b81504
+langcode: fr
+status: true
+dependencies:
+  enforced:
+    module:
+      - commerce_order
+third_party_settings:
+  commerce_order:
+    customer_profile_type: true
+_core:
+  default_config_hash: I3_fH4tUQVejPgxvJzH1-mGg9A9OaY4Hm5iN2G2Fz20
+id: customer
+label: Client
+display_label: 'Informations sur le client'
+multiple: true
+registration: false
+roles:
+  content_editor: content_editor
+  pre_authorized: pre_authorized
+  authenticated: authenticated
+  administrator: administrator
+  bg_communities: bg_communities
+allow_revisions: false
+new_revision: false

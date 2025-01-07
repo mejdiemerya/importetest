@@ -1,0 +1,19 @@
+uuid: e3d37b79-cbdf-4f00-91a4-23b2d29ac88f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.reports_courses_study_guides_web
+    - field.storage.commerce_product.field_buy_button_label_override
+id: commerce_product.reports_courses_study_guides_web.field_buy_button_label_override
+field_name: field_buy_button_label_override
+entity_type: commerce_product
+bundle: reports_courses_study_guides_web
+label: 'Buy button label override'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,13 @@
+uuid: 43e50963-4a57-4b14-8c1f-bd8ca1d9a7a2
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_recurring
+_core:
+  default_config_hash: SCktry3DAS27YWSFk283Q2ejPhhZCBPS5XPuLKg-dLo
+id: commerce_subscription.customer
+label: Client
+description: null
+targetEntityType: commerce_subscription
+cache: true
