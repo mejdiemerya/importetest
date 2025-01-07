@@ -1,0 +1,41 @@
+label: 'Subscription initial order'
+description: 'Used to display the initial order on the subscription view administration page.'
+display:
+  default:
+    display_title: Master
+    display_options:
+      fields:
+        order_id:
+          label: ID
+          separator: ', '
+        uid:
+          label: 'User ID'
+          separator: ', '
+        order_number:
+          label: 'Order number'
+          alter:
+            path: 'admin/commerce/orders/{{ order_id }}'
+          separator: ', '
+        placed:
+          label: Placed
+          separator: ', '
+        payment_method:
+          label: 'Payment method'
+          separator: ', '
+        state:
+          label: State
+          separator: ', '
+        total_price__number:
+          label: 'Order amount'
+          separator: ', '
+      exposed_form:
+        options:
+          submit_button: Apply
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      arguments:
+        subscription_id:
+          exception:
+            title: All

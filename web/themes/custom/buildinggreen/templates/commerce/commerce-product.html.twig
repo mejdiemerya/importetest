@@ -40,47 +40,54 @@
 {#{% endif %}#}
 {#<div class="text-center breathe mt10 mb10 line-snug small"  ><em  >{{ 'If you\'re already a Premium member'|t }}, <a href="/user/login"  >{{ 'log in now'|t }}</a> {{ 'to get the discounted price of'|t }} $99.</em></div>#}
 
-<!-- PREMIUM USERS WILL SEE: -->
-{% if (user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content') or in_pricelist) and not has_purchased and not product_entity.get ('field_hide_buy_button').value  %}
-{%  if  member_price  %}
-<p class="mt05 mb05">Regular price: ${{ list_price }} </p>
-<p class="mt0 large line-snug"><strong><em>Premium member price: ${{ member_price }} </em></strong></p>
-  {% endif %}
-
-<a class="btn btn-lg btn-wrap mb10 btn-success wide"  >Buy it now for <strong>${%  if  member_price  %} {{ member_price }} {% else %} {{ list_price }}  {% endif %}</strong></a>
-
-  {% endif %}
-
-<!-- NON-PREMIUM USERS WILL SEE: -->
-{% if   not (user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content')) and not in_pricelist  and  not has_purchased and not product_entity.get ('field_hide_buy_button').value  %}
-
-<a class="btn btn-lg btn-wrap mt10 btn-success wide"  >Buy it now for <strong>${{ list_price }} </strong></a>
-
-{% if product.field_coupon  %}
-<a class="btn btn-lg btn-wrap btn-midtone wide mt05"   >{{ product.field_button_label[0] }}</a>
-{% endif %}
-
-{% if (not logged_in and   product_entity.get ('field_free_to_premium_users').value == 1)%}
-<a class="btn btn-wrap mt05 btn-primary wide" href="#" data-toggle="modal" data-target="#login-modal">Free for LEEDuser Premium members  </a>
-<div class="text-center breathe mt10 mb10 line-snug small"><em>Did you already purchase this product? If so, please <a href="#" data-toggle="modal" data-target="#login-modal" class="line">log in now</a> to access it.</em></div>
-{% elseif not logged_in %}
-<div class="text-center breathe mt10 mb10 line-snug small"><em>If you're already a Premium member, <a href="/user/login" data-toggle="modal" data-target="#login-modal" class="line">log in now</a> to get the discounted price of ${{ member_price }} .</em></div>
-{% endif %}
-{% endif %}
 
 
 
 
-{{ dump(product) }}
-<article{{ attributes }}>
+
+
+<article{{ attributes.addClass('mb-5') }}>
   {{ title_prefix }}
   {{ title_suffix }}
-  {{ product.field_promo_image }}
-  {{ product.field_type_of_product }}
-  {{ product.title[0] }}
-  {{ product.body }}
-  <a class="btn btn-xl btn-success mt10 wide hidden-xs btn-wrap ng-scope"  >
-    <p class="mt0 mb0 xlarge" data-gtm-vis-has-fired7025260_75="1">{{ 'Buy'|t }} <strong  >{{ product.variation_title[0] }} </strong> {{ 'for'|t }} $149 »</p>
-  </a>
+  <div class="row">
+    <div class="col-sm-3 col-sm-pull-9">
+      {{ product.field_promo_image }}
+      {{ product.field_type_of_product }}
+      <!-- PREMIUM USERS WILL SEE: -->
+      {% if (user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content') or in_pricelist) and not has_purchased and not product_entity.get ('field_hide_buy_button').value  %}
+        {%  if  member_price  %}
+          <p class="mt05 mb05">Regular price: ${{ list_price }} </p>
+          <p class="mt0 large line-snug"><strong><em>Premium member price: ${{ member_price }} </em></strong></p>
+        {% endif %}
+
+        <a class="btn btn-lg btn-wrap mb10 btn-success wide"  >Buy it now for <strong>${%  if  member_price  %} {{ member_price }} {% else %} {{ list_price }}  {% endif %}</strong></a>
+
+      {% endif %}
+
+      <!-- NON-PREMIUM USERS WILL SEE: -->
+      {% if   not (user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content')) and not in_pricelist  and  not has_purchased and not product_entity.get ('field_hide_buy_button').value  %}
+
+        <a class="btn btn-lg btn-wrap mt10 btn-success wide"  >Buy it now for <strong>${{ list_price }} </strong></a>
+
+        {% if product.field_coupon  %}
+          <a class="btn btn-lg btn-wrap btn-midtone wide mt05"   >{{ product.field_button_label[0] }}</a>
+        {% endif %}
+
+        {% if (not logged_in and   product_entity.get ('field_free_to_premium_users').value == 1)%}
+          <a class="btn btn-wrap mt05 btn-primary wide" href="#" data-toggle="modal" data-target="#login-modal">Free for LEEDuser Premium members  </a>
+          <div class="text-center breathe mt10 mb10 line-snug small"><em>Did you already purchase this product? If so, please <a href="#" data-toggle="modal" data-target="#login-modal" class="line">log in now</a> to access it.</em></div>
+        {% elseif not logged_in %}
+          <div class="text-center breathe mt10 mb10 line-snug small"><em>If you're already a Premium member, <a href="/user/login" data-toggle="modal" data-target="#login-modal" class="line">log in now</a> to get the discounted price of ${{ member_price }} .</em></div>
+        {% endif %}
+      {% endif %}
+    </div>
+    <div class="col-sm-9 col-sm-push-3">
+      {{ product.title[0] }}
+      {{ product.body }}
+      <a class="btn btn-xl btn-success mt-3 w-100 hidden-xs btn-wrap ng-scope"  >
+        <p class="mt-0 mb-0 xlarge" data-gtm-vis-has-fired7025260_75="1">{{ 'Buy'|t }} <strong  >{{ product.variation_title[0] }} </strong> {{ 'for'|t }} $149 »</p>
+      </a>
+    </div>
+  </div>
 
 </article>

@@ -20,7 +20,7 @@ base_field: license_id
 display:
   default:
     id: default
-    display_title: Principal
+    display_title: Master
     display_plugin: default
     position: 0
     display_options:
@@ -89,7 +89,7 @@ display:
           entity_type: commerce_license
           entity_field: license_id
           plugin_id: field
-          label: 'Identifiant (ID)'
+          label: ID
           exclude: false
           alter:
             alter_text: false
@@ -154,7 +154,7 @@ display:
           admin_label: ''
           entity_type: commerce_license
           plugin_id: commerce_license__entity_label
-          label: Libellé
+          label: Label
           exclude: false
           alter:
             alter_text: false
@@ -535,7 +535,7 @@ display:
           entity_type: commerce_license
           entity_field: changed
           plugin_id: field
-          label: 'Mis à jour'
+          label: Updated
           exclude: false
           alter:
             alter_text: false
@@ -653,7 +653,7 @@ display:
           entity_type: user
           entity_field: name
           plugin_id: field
-          label: Nom
+          label: Name
           exclude: true
           alter:
             alter_text: false
@@ -782,24 +782,24 @@ display:
           tags:
             next: ››
             previous: ‹‹
-            first: '« Premier'
-            last: 'Dernier »'
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
-            items_per_page_label: 'Éléments par page'
+            items_per_page_label: 'Items per page'
             items_per_page_options: '5, 10, 25, 50'
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- Tout -'
+            items_per_page_options_all_label: '- All -'
             offset: false
-            offset_label: Décalage
+            offset_label: Offset
           quantity: 9
       exposed_form:
         type: basic
         options:
-          submit_button: Filtrer
+          submit_button: Filter
           reset_button: true
-          reset_button_label: Réinitialiser
-          exposed_sorts_label: 'Trier par'
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
@@ -889,7 +889,7 @@ display:
           exposed: true
           expose:
             operator_id: combine_op
-            label: 'Nom ou courriel contenant'
+            label: 'Name or email contains'
             description: ''
             use_operator: false
             operator: combine_op

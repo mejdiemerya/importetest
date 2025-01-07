@@ -1,0 +1,56 @@
+label: ' Subscription orders (administrator)'
+description: 'Used to display a list of recurring orders on the subscription view administration page.'
+display:
+  default:
+    display_title: Master
+    display_options:
+      fields:
+        order_id:
+          label: ID
+          separator: ', '
+        uid:
+          label: 'User ID'
+          separator: ', '
+        order_number:
+          label: 'Order number'
+          alter:
+            path: 'admin/commerce/orders/{{ order_id }}'
+          separator: ', '
+        completed:
+          label: 'Payment date'
+          separator: ', '
+        payment_method:
+          label: 'Payment method'
+          separator: ', '
+        billing_period:
+          label: 'Billing period'
+          separator: ', '
+        state:
+          label: State
+          separator: ', '
+        total_price__number:
+          label: 'Order amount'
+          separator: ', '
+      pager:
+        options:
+          tags:
+            next: ››
+            previous: ‹‹
+          expose:
+            items_per_page_label: 'Items per page'
+            items_per_page_options_all_label: '- All -'
+            offset_label: Offset
+      exposed_form:
+        options:
+          submit_button: Apply
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      empty:
+        area_text_custom:
+          content: 'No orders yet.'
+      arguments:
+        subscription_id:
+          exception:
+            title: All

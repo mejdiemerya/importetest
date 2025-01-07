@@ -1,6 +1,7 @@
 _core:
   default_config_hash: 4GIX5Esnc_umpXUBj4IIocRX7Mt5fPhm4AgXfE3E56E
 module:
+  add_content_by_bundle: 0
   address: 0
   admin_toolbar: 0
   admin_toolbar_tools: 0
@@ -12,6 +13,7 @@ module:
   big_pipe: 0
   block: 0
   block_content: 0
+  bpmn_io: 0
   breakpoint: 0
   ckeditor5: 0
   comment: 0
@@ -32,17 +34,42 @@ module:
   commerce_store: 0
   config: 0
   contact: 0
+  content_moderation: 0
   contextual: 0
   ctools: 0
   custom_forums: 0
   datetime: 0
   dblog: 0
   devel: 0
+  display_link_plus: 0
+  draggableviews: 0
   dynamic_page_cache: 0
+  eca: 0
+  eca_access: 0
+  eca_base: 0
+  eca_cache: 0
+  eca_cm: 0
+  eca_config: 0
+  eca_content: 0
+  eca_endpoint: 0
+  eca_file: 0
+  eca_flag: 0
+  eca_log: 0
+  eca_misc: 0
+  eca_modeller_bpmn: 0
+  eca_queue: 0
+  eca_render: 0
+  eca_tamper: 0
+  eca_ui: 0
+  eca_user: 0
+  eca_views: 0
+  eca_workflow: 0
   editor: 0
   entity: 0
   entity_clone: 0
   entity_reference_revisions: 0
+  facets_rest: 0
+  facets_searchbox_widget: 0
   field: 0
   field_group: 0
   field_ui: 0
@@ -65,9 +92,9 @@ module:
   menu_ui: 0
   migrate: 0
   migrate_drupal: 0
+  migrate_drupal_ui: 0
   migrate_plus: 0
   migrate_tools: 0
-  migrate_drupal_ui: 0
   mysql: 0
   node: 0
   options: 0
@@ -80,62 +107,39 @@ module:
   rate: 0
   rest: 0
   search: 0
+  search_api: 0
   search_api_db: 0
   search_api_db_defaults: 0
   search_api_page: 0
+  serialization: 0
   shortcut: 0
-  content_moderation: 0
-  state_machine: 0
-  text_field_formatter: 0
   smtp: 0
-  display_link_plus: 0
   stage_file_proxy: 0
+  state_machine: 0
   storage: 0
   svg_image_field: 0
   svg_image_field_media_bundle: 0
   system: 0
+  tamper: 0
   taxonomy: 0
   telephone: 0
   text: 0
+  text_field_formatter: 0
   token: 0
-  search_api: 0
-  upgrade_status: 0
-  add_content_by_bundle: 0
   toolbar: 0
   twig_field_value: 0
+  twig_tweak: 0
   update: 0
+  upgrade_status: 0
   user: 0
-  views_ui: 0
-  draggableviews: 0
   views_load_more: 0
+  views_ui: 0
   votingapi: 0
   workflows: 0
-  eca: 0
-  eca_access: 0
-  eca_base: 0
-  eca_cache: 0
-  eca_cm: 0
-  eca_config: 0
-  eca_content: 0
-  eca_endpoint: 0
-  eca_file: 0
-  eca_flag: 0
-  eca_log: 0
-  eca_misc: 0
-  eca_modeller_bpmn: 0
-  eca_queue: 0
-  eca_render: 0
-  eca_tamper: 0
-  eca_ui: 0
-  eca_user: 0
-  eca_views: 0
-  eca_workflow: 0
-  tamper: 0
   eca_form: 1
-  serialization: 0
-  forum: 1
-  flag: 1
   facets: 1
+  flag: 1
+  forum: 1
   pathauto: 1
   views: 10
   paragraphs: 11
