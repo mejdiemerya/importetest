@@ -1,0 +1,38 @@
+display:
+  default:
+    display_title: Master
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Filter
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Items per page'
+            items_per_page_options_all_label: '- All -'
+            offset_label: Offset
+          tags:
+            previous: '‹ Previous'
+            next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
+      fields:
+        status:
+          label: Status
+          settings:
+            format_custom_true: Published
+            format_custom_false: Unpublished
+        changed:
+          label: Updated
+        operations:
+          label: Operations
+      filters:
+        status:
+          group_info:
+            group_items:
+              1:
+                title: Published
+              2:
+                title: Unpublished

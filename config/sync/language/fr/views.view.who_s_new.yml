@@ -1,0 +1,12 @@
+display:
+  default:
+    display_title: Default
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Apply
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+  block_1:
+    display_options:
+      block_category: User

@@ -15,10 +15,8 @@ bundle: standalone
 mode: customer
 content:
   changed:
-    label: hidden
     type: timestamp
-    weight: 0
-    region: content
+    label: hidden
     settings:
       date_format: medium
       custom_date_format: ''
@@ -33,90 +31,92 @@ content:
         granularity: 2
         refresh: 60
     third_party_settings: {  }
-  ends:
-    label: inline
-    type: timestamp
-    weight: 4
-    region: content
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
-    third_party_settings: {  }
-  next_renewal:
-    label: inline
-    type: timestamp
-    weight: 6
-    region: content
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
-    third_party_settings: {  }
-  orders:
-    type: subscription_orders
     weight: 0
     region: content
+  ends:
+    type: timestamp
+    label: inline
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  next_renewal:
+    type: timestamp
+    label: inline
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  orders:
+    type: subscription_orders
     label: hidden
     settings:
       view: commerce_subscription_orders_customer
     third_party_settings: {  }
+    weight: 0
+    region: content
   payment_method:
     type: entity_reference_entity_view
+    label: inline
+    settings:
+      view_mode: default
+      link: true
+    third_party_settings: {  }
     weight: 7
     region: content
+  renewed:
+    type: timestamp
     label: inline
     settings:
-      link: true
-      view_mode: default
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
     third_party_settings: {  }
-  renewed:
-    label: inline
-    type: timestamp
     weight: 5
     region: content
+  starts:
+    type: timestamp
+    label: inline
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-  starts:
-    label: inline
-    type: timestamp
     weight: 3
     region: content
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
-    third_party_settings: {  }
   state:
-    label: hidden
     type: list_default
-    weight: 8
-    region: content
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 8
+    region: content
   trial_ends:
-    label: inline
     type: timestamp
+    label: inline
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
     weight: 2
     region: content
+  trial_starts:
+    type: timestamp
+    label: inline
     settings:
       date_format: medium
       custom_date_format: ''
       timezone: ''
     third_party_settings: {  }
-  trial_starts:
-    label: inline
-    type: timestamp
     weight: 1
     region: content
-    settings:
-      date_format: medium
-      custom_date_format: ''
-      timezone: ''
-    third_party_settings: {  }
 hidden:
   billing_schedule: true
   created: true

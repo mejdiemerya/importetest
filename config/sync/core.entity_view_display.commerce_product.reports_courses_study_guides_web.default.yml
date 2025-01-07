@@ -127,6 +127,7 @@ hidden:
   field_report_page_button_label: true
   field_vv: true
   langcode: true
+  search_api_excerpt: true
   stores: true
   uid: true
   variations: true

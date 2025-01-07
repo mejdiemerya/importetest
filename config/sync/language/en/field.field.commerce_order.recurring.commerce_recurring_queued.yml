@@ -1,0 +1,4 @@
+label: Queued
+settings:
+  on_label: 'Yes'
+  off_label: 'No'

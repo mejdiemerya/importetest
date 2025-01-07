@@ -1,0 +1,20 @@
+display:
+  default:
+    display_title: Default
+    display_options:
+      fields:
+        name:
+          label: User
+        link:
+          label: Operations
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Items per page'
+            items_per_page_options_all_label: '- All -'
+            offset_label: Offset
+      exposed_form:
+        options:
+          submit_button: Filter
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'

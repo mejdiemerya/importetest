@@ -134,5 +134,6 @@ content:
 hidden:
   langcode: true
   product_id: true
+  search_api_excerpt: true
   sku: true
   title: true
