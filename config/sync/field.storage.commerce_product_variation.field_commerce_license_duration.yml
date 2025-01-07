@@ -1,0 +1,27 @@
+uuid: 6525afde-cd48-4f86-8b5a-8577043ce8f4
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - options
+id: commerce_product_variation.field_commerce_license_duration
+field_name: field_commerce_license_duration
+entity_type: commerce_product_variation
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: unlimited
+      label: Unlimited
+    -
+      value: limited
+      label: Limited
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

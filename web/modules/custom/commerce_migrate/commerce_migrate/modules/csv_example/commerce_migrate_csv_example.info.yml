@@ -1,0 +1,17 @@
+name: Commerce Migrate CSV example
+type: module
+description: 'Import products from an example CSV file'
+core_version_requirement: '>=9.3 || 10'
+package: Commerce (contrib)
+dependencies:
+  - commerce:commerce
+  - commerce_migrate:commerce_migrate
+  - migrate_source_csv:migrate_source_csv
+
+test_dependencies:
+  - paragraphs:paragraphs
+
+# Information added by Drupal.org packaging script on 2024-04-27
+version: '4.0.1'
+project: 'commerce_migrate'
+datestamp: 1714195470

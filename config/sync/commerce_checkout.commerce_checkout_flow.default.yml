@@ -1,0 +1,72 @@
+uuid: 82979e48-144f-4d7b-ae52-3612f4f7792c
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_payment
+_core:
+  default_config_hash: 1BxQSpt9FMh77dg9LMMrriQ4JRWHwnBKzywwOwSpQ04
+label: 'Par défaut'
+id: default
+plugin: multistep_default
+configuration:
+  display_checkout_progress: true
+  display_checkout_progress_breadcrumb_links: false
+  guest_order_assign: false
+  guest_new_account: false
+  guest_new_account_notify: false
+  panes:
+    login:
+      step: login
+      weight: 0
+      wrapper_element: null
+      allow_guest_checkout: false
+      allow_registration: false
+      registration_form_mode: register
+    payment_information:
+      display_label: null
+      step: order_information
+      weight: 1
+      wrapper_element: fieldset
+      require_payment_method: true
+    review:
+      display_label: null
+      step: review
+      weight: 2
+      wrapper_element: null
+    payment_process:
+      display_label: null
+      step: payment
+      weight: 3
+      wrapper_element: container
+      capture: true
+    completion_message:
+      display_label: null
+      step: complete
+      weight: 4
+      wrapper_element: null
+      message:
+        value: "Your order number is [commerce_order:order_number].\r\nYou can view your order on your account page when logged in."
+        format: plain_text
+    completion_register:
+      display_label: null
+      step: complete
+      weight: 5
+      wrapper_element: null
+    order_summary:
+      display_label: null
+      step: _sidebar
+      weight: 6
+      wrapper_element: container
+      view: null
+    contact_information:
+      display_label: null
+      step: _disabled
+      weight: 7
+      wrapper_element: fieldset
+      double_entry: false
+    customer_comments:
+      display_label: null
+      step: _disabled
+      weight: 8
+      wrapper_element: fieldset

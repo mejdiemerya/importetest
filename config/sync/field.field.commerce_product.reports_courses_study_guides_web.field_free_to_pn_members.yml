@@ -1,0 +1,21 @@
+uuid: 10aaf80b-b162-4efc-8829-6e391f6b64ae
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.reports_courses_study_guides_web
+    - field.storage.commerce_product.field_free_to_pn_members
+id: commerce_product.reports_courses_study_guides_web.field_free_to_pn_members
+field_name: field_free_to_pn_members
+entity_type: commerce_product
+bundle: reports_courses_study_guides_web
+label: 'Free to PN members'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: Activé
+  off_label: Désactivé
+field_type: boolean

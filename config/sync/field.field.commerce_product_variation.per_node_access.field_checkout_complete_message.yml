@@ -1,0 +1,22 @@
+uuid: 8450ad66-decc-48a0-b249-408f5565bc2f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.per_node_access
+    - field.storage.commerce_product_variation.field_checkout_complete_message
+  module:
+    - text
+id: commerce_product_variation.per_node_access.field_checkout_complete_message
+field_name: field_checkout_complete_message
+entity_type: commerce_product_variation
+bundle: per_node_access
+label: 'Checkout complete message'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

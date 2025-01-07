@@ -1,0 +1,19 @@
+uuid: acda05d2-33e5-44bb-877c-20f41d992772
+langcode: fr
+status: true
+dependencies: {  }
+id: reports_courses_study_guides_web
+label: 'Reports, Courses, Study Guides, Live Webinars'
+traits: {  }
+locked: false
+description: ''
+variationTypes:
+  - commerce_node_checkout
+  - default
+  - event_registration
+  - file_download
+  - membership
+  - per_node_access
+  - product
+multipleVariations: true
+injectVariationFields: true

@@ -1,0 +1,10 @@
+uuid: 85737d6c-999d-4af8-9540-3c995989e27c
+langcode: fr
+status: true
+dependencies: {  }
+id: commerce_node_checkout
+label: 'Pay to publish'
+traits: {  }
+locked: false
+orderItemType: product
+generateTitle: null

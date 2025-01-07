@@ -1,0 +1,67 @@
+# A "migration" is, in technical terms, a plugin whose configuration describes
+# how to read source data, process it (generally by mapping source fields to
+# destination fields), and write it to Drupal.
+
+# The machine name for a migration, used to uniquely identify it.
+id: credit_term
+
+# A human-friendly description of the migration.
+label: Migrate style categories from the source database to taxonomy terms
+
+
+
+# Every migration must have a source plugin, which controls the delivery of our
+# source data. In this case, our source plugin has the name "credit_term", which
+# Drupal resolves to the PHP class defined in
+# src/Plugin/migrate/source/CreditTerm.php.
+source:
+  plugin: credit_term
+
+
+destination:
+  plugin: entity:taxonomy_term
+
+
+process:
+  tid: tid
+  field_credit_requirement_text:
+    plugin: get
+    source: field_credit_requirement_text_value
+  field_guest_expert:
+    plugin: get
+    source: field_guest_expert_target_id
+  field_intent:
+    plugin: get
+    source: field_credit_intent_value
+  field_credit_meta_points:
+    plugin: get
+    source: field_credit_requirement_points_value
+  name: name
+  description: description
+
+
+  vid:
+    plugin: default_value
+    default_value: 'credit'
+
+  weight: weight
+  parent:
+    -
+      plugin: skip_on_empty
+      method: process
+      source: parent
+    -
+      plugin: migration_lookup
+      migration: credit_term
+  changed: timestamp
+#  parent:
+#    plugin: migration_lookup
+#
+#    migration: credit_term
+#
+#    source: style_parent
+
+
+migration_dependencies: {}
+
+

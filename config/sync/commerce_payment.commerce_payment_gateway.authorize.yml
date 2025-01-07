@@ -1,0 +1,26 @@
+uuid: cb350fc7-1d7d-4eac-8f25-3d2f6a5dd11a
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_authnet
+id: authorize
+label: authorize
+weight: null
+plugin: authorizenet_acceptjs
+configuration:
+  display_label: Authorize.net
+  mode: test
+  payment_method_types:
+    - credit_card
+  collect_billing_information: true
+  api_login: 24mbyJ6a6Z2V
+  transaction_key: 2aXHnupt225wG59f
+  client_key: 9FLRr2jkYXXSUHaBq2C2bFc62n4fyK3gew45b795TC7rU3F9MHbvwqXh7xyTK3cE
+  cca_status: false
+  cca_api_id: ''
+  cca_org_unit_id: ''
+  cca_api_key: ''
+  enable_credit_card_icons: true
+conditions: {  }
+conditionOperator: AND

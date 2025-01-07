@@ -1,0 +1,7 @@
+bg_product_cart.variation_cart_add:
+  path: '/product/add/variation-cart/{pid}/{vid}'
+  defaults:
+    _controller: '\Drupal\bg_product_cart\Controller\BgProductCartController::addVariation'
+    _title: 'Add'
+  requirements:
+    _permission: 'access content'

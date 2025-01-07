@@ -1,0 +1,19 @@
+uuid: fca7af9b-80d8-4db8-a05b-74a8e4ff220a
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+    - text
+id: commerce_product_variation.field_welcome_email_body
+field_name: field_welcome_email_body
+entity_type: commerce_product_variation
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

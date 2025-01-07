@@ -1,0 +1,20 @@
+finished:
+  7:
+    commerce: commerce_store
+    commerce_customer: profile
+    commerce_line_item: commerce_order
+    commerce_message: commerce_log
+    commerce_order:
+      - commerce_order
+      - commerce_shipping
+    commerce_payment:
+      - commerce_payment
+      - commerce_payment_gateway
+    commerce_price: commerce_price
+    commerce_product: commerce_product
+    commerce_product_reference: commerce_product
+    taxonomy: commerce_product
+not_finished:
+  7:
+    commerce1_shipping_flat_rate: commerce_shipping
+    commerce_tax: commerce_tax

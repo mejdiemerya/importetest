@@ -1,0 +1,19 @@
+uuid: de3aa04d-e615-41fb-8a8a-43adb33e1ebb
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.membership
+    - field.storage.commerce_product_variation.field_number_of_renewals
+id: commerce_product_variation.membership.field_number_of_renewals
+field_name: field_number_of_renewals
+entity_type: commerce_product_variation
+bundle: membership
+label: 'Number of renewals'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

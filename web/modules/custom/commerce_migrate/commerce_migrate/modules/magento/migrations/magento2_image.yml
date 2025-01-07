@@ -1,0 +1,223 @@
+id: magento2_image
+label: Migrate Magento 2 images
+migration_group: commerce_migrate_magento2
+migration_tags:
+  - Magento 2
+  - Content
+source:
+  # Uses a custom source plugin to yield the top level category.
+  plugin: magento2_image_csv
+  # Change the path and filename to match your source CSV file.
+  path: 'public://import/magento2-catalog_product_20180326_013553_test.csv'
+  # Change the enclosure character to suit your source CVS file.
+  enclosure: "\""
+  # Change the number of header rows to suit your source CVS file.
+  header_offset: 0
+  # The key field is the top level category determined from the 'categories'
+  # column. The source plugin determines the vocabulary name and adds it to
+  # the source row indexed by 'vocabulary'.
+  ids: [sku, image]
+  fields:
+    - name: sku
+      label: SKU
+    - name: store_view_code
+      label: Store view code
+    - name: attribute_set_code
+      label: Attribute set code
+    - name: product_type
+      label: Product type
+    - name: categories
+      label: Categories
+    - name: product_websites
+      label: Product websites
+    - name: name
+      label: Name
+    - name: description
+      label: Description
+    - name: short_description
+      label: Short description
+    - name: weight
+      label: Weight
+    - name: product_online
+      label: product_online
+    - name: tax_class_name
+      label: tax_class_name
+    - name: visibility
+      label: visibility
+    - name: price
+      label: Price
+    - name: special_price
+      label: Special price
+    - name: special_price_from_date
+      label: Special price from date
+    - name: special_price_to_date
+      label: Special price to date
+    - name: url_key
+      label: Url key
+    - name: meta_title
+      label: Meta title
+    - name: meta_keywords
+      label: Meta keywords
+    - name: meta_description
+      label: Meta description
+    - name: base_image
+      label: Base image
+    - name: base_image_label
+      label: Base image label
+    - name: small_image
+      label: Small image
+    - name: small_image_label
+      label: Small image label
+    - name: thumbnail_image
+      label: Thumbnail image
+    - name: thumbnail_image_label
+      label: Thumbnail image label
+    - name: swatch_image
+      label: Swatch image
+    - name: swatch_image_label
+      label: Swatch image label
+    - name: created_at
+      label: Created at
+    - name: updated_at
+      label: Updated at
+    - name: new_from_date
+      label: New from date
+    - name: new_to_date
+      label: New to date
+    - name: display_product_options_in
+      label: display product options in
+    - name: map_price
+      label: Map price
+    - name: msrp_price
+      label: MSRP price
+    - name: msrp_price
+      label: msrp_price
+    - name: map_enabled
+      label: map_enabled
+    - name: gift_message_available
+      label: gift_message_available
+    - name: custom_design
+      label: custom_design
+    - name: custom_design_from
+      label: custom_design_from
+    - name: custom_design_to
+      label: custom_design_to
+    - name: custom_layout_update
+      label: custom_layout_update
+    - name: page_layout
+      label: page_layout
+    - name: product_options_container
+      label: product_options_container
+    - name: msrp_display_actual_price_type
+      label: msrp_display_actual_price_type
+    - name: country_of_manufacture
+      label: country_of_manufacture
+    - name: additional_attributes
+      label: additional_attributes
+    - name: qty
+      label: qty
+    - name: out_of_stock_qty
+      label: out_of_stock_qty
+    - name: use_config_min_qty
+      label: use_config_min_qty
+    - name: is_qty_decimal
+      label: is_qty_decimal
+    - name: allow_backorders
+      label: allow_backorders
+    - name: use_config_backorders
+      label: use_config_backorders
+    - name: min_cart_qty
+      label: min_cart_qty
+    - name: use_config_min_sale_qty
+      label: use_config_min_sale_qty
+    - name: max_cart_qty
+      label: max_cart_qty
+    - name: use_config_max_sale_qty
+      label: use_config_max_sale_qty
+    - name: is_in_stock
+      label: is_in_stock
+    - name: notify_on_stock_below
+      label: notify_on_stock_below
+    - name: use_config_notify_stock_qty
+      label: use_config_notify_stock_qty
+    - name: manage_stock
+      label: manage_stock
+    - name: use_config_manage_stock
+      label: use_config_manage_stock
+    - name: use_config_qty_increments
+      label: use_config_qty_increments
+    - name: qty_increments
+      label: qty_increments
+    - name: use_config_enable_qty_inc
+      label: use_config_enable_qty_inc
+    - name: enable_qty_increments
+      label: enable_qty_increments
+    - name: is_decimal_divided
+      label: is_decimal_divided
+    - name: website_id
+      label: website_id
+    - name: related_skus
+      label: related_skus
+    - name: related_position
+      label: related_position
+    - name: crosssell_skus
+      label: crosssell_skus
+    - name: crosssell_position
+      label: crosssell_position
+    - name: upsell_skus
+      label: upsell_skus
+    - name: upsell_position
+      label: upsell_position
+    - name: additional_images
+      label: additional_images
+    - name: additional_image_labels
+      label: additional_image_labels
+  # Set constants for values not in the source data.
+  constants:
+    base_path: public://import/images/catalog/product
+process:
+  sku:
+    plugin: skip_on_empty
+    method: row
+    source: sku
+  filename:
+    -
+      plugin: skip_on_empty
+      method: row
+      source: image
+    -
+      plugin: callback
+      callable: basename
+  dir:
+    plugin: callback
+    callable: dirname
+    source: image
+  # Path to the source file.
+  full_path:
+    -
+      plugin: concat
+      source:
+        - 'constants/base_path'
+        - image
+    -
+      plugin: urlencode
+  # Copy the files from the source to the destination. Here the source files
+  # have been moved to the destination by some other, probably faster, means and
+  # the configuration property 'file_exists' is set to 'use existing' so that no
+  # copy action takes place. This will improve performance.
+  uri:
+    plugin: file_copy
+    file_exists: use existing
+    source:
+      - '@full_path'
+      - '@full_path'
+  # Assign a uid to the file, default to 1.
+  uid:
+    plugin: default_value
+    source: image_uid
+    default_value: 1
+  status:
+    plugin: default_value
+    default_value: 1
+destination:
+  plugin: entity:file

@@ -1,0 +1,19 @@
+uuid: 72272cf6-0d0b-4c31-bd1c-65908353e65d
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.event_registration
+    - field.storage.commerce_product_variation.field_welcome_email_subject
+id: commerce_product_variation.event_registration.field_welcome_email_subject
+field_name: field_welcome_email_subject
+entity_type: commerce_product_variation
+bundle: event_registration
+label: 'Welcome email subject'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

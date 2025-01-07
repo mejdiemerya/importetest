@@ -1,0 +1,131 @@
+id: my_product_variation
+label: Commerce product variation type
+migration_tags:
+  - Drupal 7
+  - Commerce
+  - Configuration
+#deriver: Drupal\commerce_migrate_commerce\Plugin\migrate\ProductVariationDeriver
+#source:
+#  plugin: commerce1_product
+#  bundle: 'default'
+source:
+  plugin: ProductVariationD7
+destination:
+  plugin: 'entity:commerce_product_variation'
+  destination_module: commerce_product
+process:
+  variation_id: product_id
+  product_id: pid
+  type:
+    plugin: get
+    source: type
+  revision_id: revision_id
+  sku: sku
+  title: title
+  price/number:
+    plugin: get
+    source: commerce_price_amount
+  price/currency_code:
+    plugin: get
+    source: commerce_price_currency_code
+  field_welcome_email_subject:
+    plugin: get
+    source: field_welcome_email_subject_value
+  field_welcome_email_body:
+    plugin: get
+    source: field_welcome_email_body_value
+  field_failed_renewal_subject:
+    plugin: get
+    source: field_failed_renewal_subject_value
+  field_failed_renewal_body:
+    plugin: get
+    source: field_failed_renewal_body_value
+  field_failed_renewal_subject_2:
+    plugin: get
+    source: field_failed_renewal_subject_2_value
+  field_failed_renewal_body_2:
+    plugin: get
+    source: field_failed_renewal_body_2_value
+  field_checkout_complete_message:
+    plugin: get
+    source: field_checkout_complete_message_value
+  field_bg_commerce_license_role:
+    plugin: get
+    source: bg_commerce_license_role_value
+  field_bg_commerce_license_trial/interval:
+    plugin: get
+    source: bg_commerce_license_trial_interval
+  field_bg_commerce_license_trial/period:
+    plugin: get
+    source: bg_commerce_license_trial_period
+  field_bg_license_trial_price/number:
+    plugin: get
+    source: bg_commerce_license_trial_price_amount
+  field_bg_license_trial_price/currency_code:
+    plugin: get
+    source: bg_commerce_license_trial_price_currency_code
+  field_number_of_renewals:
+    plugin: get
+    source: field_renewal_number_value
+  field_commerce_license_type:
+    plugin: get
+    source: commerce_license_type_value
+  field_commerce_license_duration:
+    plugin: get
+    source: commerce_license_duration_value
+  field_license_billing_type:
+    plugin: get
+    source: cl_billing_type_value
+  field_license_billing_cycle_type:
+    plugin: get
+    source: cl_billing_cycle_type_name
+  field_bg_commerce_license_desc:
+    plugin: get
+    source: bg_commerce_license_description_value
+  field_commerce_node_checkout_exp/interval:
+    plugin: get
+    source: commerce_node_checkout_expire_interval
+  field_commerce_node_checkout_exp/period:
+    plugin: get
+    source: commerce_node_checkout_expire_period
+
+
+  language: language
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+#  data: data
+#  price:
+#    plugin: commerce1_migrate_commerce_price
+#    source: commerce_price
+
+#id: my_product_variation
+#label: Commerce product variation type
+#migration_tags:
+#  - Drupal 7
+#  - Commerce
+#  - Configuration
+#source:
+#  plugin: commerce1_product_type
+#  variations:
+#    matching: true
+#    default: default
+#process:
+#  id: type
+#  revision: revision
+#  type: type
+#  label: name
+#  description: description
+#  help: help
+#  generateTitle: 'constants/generate_title'
+#  lineItemType: 'constants/line_item_type'
+#  orderItemType:
+#    plugin: default_value
+#    source: line_item_type
+#    default_value: default
+#destination:
+#  plugin: 'entity:commerce_product_variation_type'
+#  destination_module: commerce_product
+
+

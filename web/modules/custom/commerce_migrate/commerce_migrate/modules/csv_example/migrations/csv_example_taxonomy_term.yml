@@ -1,0 +1,72 @@
+# Import taxonomy terms for existing vocabularies.
+#
+# Taxonomy is imported in vocabulary/term pairs. Up to 3 pairs per row can be
+# imported with this migration. The text in the vocabulary column is expected to
+# the be the same for that entire column. The term should be whatever is
+# required for the product variation in that row.
+#
+# The vocabulary/term pair will only be saved when both values are not empty.
+#
+# Destination site configuration:
+#   - Install the Taxonomy Module.
+#   - Create the vocabularies.
+#
+id: csv_example_taxonomy_term
+label: Taxonomy terms
+migration_group: commerce_migrate_csv_example
+migration_tags:
+  - Commerce CSV
+  - Content
+source:
+  plugin: csv_example_taxonomy_term
+  path: 'public://import/example-products.csv'
+  enclosure: "\""
+  header_offset: 0
+  ids: [vocabulary_name, term]
+  fields:
+    - name: title
+      label: Title
+    - name: sku
+      label: SKU
+    - name: status
+      label: Status
+    - name: product_type
+      label: Product type
+    - name: description
+      label: Description
+    - name: product_variation_type
+      label: Product variation type
+    - name: sell_price
+      label: Sell price
+    - name: vocabulary_name1
+      label: Vocabulary1
+    - name: term1
+      label: Vocabulary value1
+    - name: vocabulary_name2
+      label: Vocabulary2
+    - name: term2
+      label: Vocabulary value2
+    - name: vocabulary_name3
+      label: Vocabulary3
+    - name: term3
+      label: Vocabulary value3
+process:
+  # The vocabulary/term pair will only be saved when both are not empty.
+  # Vocabulary ID is limited to 32 character.
+  vid:
+    -
+      plugin: machine_name
+      source: vocabulary_name
+    -
+      plugin: skip_on_empty
+      method: row
+    -
+      plugin: substr
+      length: 32
+  # Skip the row if the term is empty.
+  name:
+    plugin: skip_on_empty
+    source: term
+    method: row
+destination:
+  plugin: entity:taxonomy_term

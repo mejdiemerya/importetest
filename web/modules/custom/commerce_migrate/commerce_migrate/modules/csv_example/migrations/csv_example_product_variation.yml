@@ -1,0 +1,237 @@
+# Import a product variation with up to 4 attribute values and 3 images.
+#
+# If any of the attributes or images do not exist in the source, processing
+# for that item is skipped, the remaining data is still imported.
+#
+# To modify
+#
+# Destination site configuration:
+#   - Same requirements as the csv_image migration.
+#   - Same requirements as the csv_attribute_value migration.
+#   - Install the Paragraph Module.
+#   - Create a product variation type with
+#     - Up to 4 attributes.
+#     - An image field, field_product_image.
+#     - An image field, field_product_image_2.
+#     - An image field, field_product_image_3.
+#
+id: csv_example_product_variation
+label: Product variations
+migration_group: commerce_migrate_csv_example
+migration_tags:
+  - Commerce CSV
+  - Content
+source:
+  plugin: csv_example_product_variation
+  path: 'public://import/example-products.csv'
+  enclosure: "\""
+  header_offset: 0
+  ids: [ sku ]
+  fields:
+    - name: title
+      label: Title
+    - name: sku
+      label: SKU
+    - name: status
+      label: Status
+    - name: product_type
+      label: Product type
+    - name: description
+      label: Description
+    - name: product_variation_type
+      label: Product variation type
+    - name: sell_price
+      label: Sell price
+    - name: vocabulary_name1
+      label: Vocabulary1
+    - name: term1
+      label: Vocabulary value1
+    - name: vocabulary_name2
+      label: Vocabulary2
+    - name: term2
+      label: Vocabulary value2
+    - name: vocabulary_name3
+      label: Vocabulary3
+    - name: term3
+      label: Vocabulary value3
+    - name: attribute_name1
+      label: Attribute name1
+    - name: attribute_value1
+      label: Attribute value1
+    - name: attribute_name2
+      label: Attribute name2
+    - name: attribute_value2
+      label: Attribute value2
+    - name: attribute_name3
+      label: Attribute name3
+    - name: attribute_value3
+      label: Attribute value3
+    - name: attribute_name4
+      label: Attribute name4
+    - name: attribute_value4
+      label: Attribute value4
+    - name: related1
+      label: SKU of Related item 1
+    - name: related2
+      label: SKU of Related item 2
+    - name: related3
+      label: SKU of Related item 3
+    - name: image1
+      label: Image 1
+    - name: image2
+      label: Image 2
+    - name: image3
+      label: Image 3
+    - name: video1
+      label: Video 1
+    - name: thumbnail1
+      label: Thumbnail 1
+    - name: video2
+      label: Video 2
+    - name: thumbnail2
+      label: Thumbnail 2
+    - name: video3
+      label: Video 3
+    - name: thumbnail3
+      label: Thumbnail 3
+    - name: tab_title1
+      label: Tab title 1
+    - name: tab_content1
+      label: Tab content 1
+    - name: tab_cta1
+      label: Associated tab CTA 1
+    - name: tab_title2
+      label: Tab title 2
+    - name: tab_content2
+      label: Tab content 2
+    - name: tab_cta2
+      label: Associated tab CTA 2
+    - name: cta_title1
+      label: CTA title 1
+    - name: cta_link1
+      label: CTA link 1
+    - name: cta_image1
+      label: CTA product image 1
+    - name: cta_title2
+      label: CTA title 2
+    - name: cta_link2
+      label: CTA link 2
+    - name: cta_image2
+      label: CTA product image 2
+process:
+  # The example data does not have a variation id. If your data has a column for
+  # a variation ID uncomment this section.
+  #variation_id:
+  #  plugin: skip_on_empty
+  #  source: <name of column with the ID>
+  #  method: row
+  sku: sku
+  title: title
+  # The currency code defaults to 'CAD'. If your data has only 1 currency code,
+  # then simply change the default value to that currency code. If multiple
+  # currencies are used, this will need to be changed to the name given to that
+  # that column of the input CSV.
+  currency_code:
+    plugin: default_value
+    default_value: CAD
+  price:
+    plugin: csv_example_get_price
+    source:
+      - sell_price
+      - '@currency_code'
+  # The product variation type default to 'default'. For each product variation
+  # type, make a new migration and change the default value to the desired
+  # machine name.
+  type:
+    plugin: default_value
+    default_value: default
+  # Attributes are single valued entity reference fields migrated in name/id
+  # pairs. The attribute name must be a machine name of a certain format.
+  attribute1_name:
+    plugin: machine_name
+    source: attribute_name1
+  attribute1_id:
+    plugin: migration_lookup
+    migration: csv_example_attribute_value
+    source:
+      - '@attribute1_name'
+      - attribute_value1
+  attribute2_name:
+    plugin: machine_name
+    source: attribute_name2
+  attribute2_id:
+    plugin: migration_lookup
+    migration: csv_example_attribute_value
+    source:
+      - '@attribute2_name'
+      - attribute_value2
+  attribute3_name:
+    plugin: machine_name
+    source: attribute_name3
+  attribute3_id:
+    plugin: migration_lookup
+    migration: csv_example_attribute_value
+    source:
+      - '@attribute3_name'
+      - attribute_value3
+  attribute4_name:
+    plugin: machine_name
+    source: attribute_name4
+  attribute4_id:
+    plugin: migration_lookup
+    migration: csv_example_attribute_value
+    source:
+      - '@attribute4_name'
+      - attribute_value4
+  attribute_destination:
+    plugin: csv_example_attribute_destination
+    source:
+      - '@attribute1_name'
+      - '@attribute1_id'
+      - '@attribute2_name'
+      - '@attribute2_id'
+      - '@attribute3_name'
+      - '@attribute3_id'
+      - '@attribute4_name'
+      - '@attribute4_id'
+  # For each image field the processing for that image is skipped if there
+  # is no input and the rest of the row will continue to be processes.
+  # Image field, single value.
+  field_product_image:
+    -
+      plugin: skip_on_empty
+      source: image1
+      method: process
+    -
+      plugin: csv_example_product_variation_file
+      source:
+        - sku
+        - image1
+  # Image field, single value.
+  field_product_image_2:
+    -
+      plugin: skip_on_empty
+      source: image2
+      method: process
+    -
+      plugin: csv_example_product_variation_file
+      source:
+        - sku
+        - image2
+  # Image field, single value.
+  field_product_image_3:
+    -
+      plugin: skip_on_empty
+      source: image3
+      method: process
+    -
+      plugin: csv_example_product_variation_file
+      source:
+        - sku
+        - image3
+destination:
+  plugin: 'entity:commerce_product_variation'
+migration_dependencies:
+  required:
+    - csv_example_image
+    - csv_example_attribute_value

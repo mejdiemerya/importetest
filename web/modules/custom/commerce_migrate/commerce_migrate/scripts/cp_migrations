@@ -1,0 +1,49 @@
+#!/bin/bash
+
+#
+# Copy migrations to config/install.
+#
+
+MODULES="csv_example | magento | shopify | woocommerce"
+USAGE="Usage: ${0##./} [${MODULES}]\n"
+NUM_REQ_ARGS=1
+ARGS="-c core --debug -v --colors=always"
+
+function error_exit() {
+    echo -e ${USAGE}
+    exit 1
+}
+
+function migrations_to_config() {
+    mkdir -p modules/${module}/config/install
+
+    for file in `ls modules/${module}/migrations`
+    do
+      cp -p modules/${module}/migrations/${file} modules/${module}/config/install/migrate_plus.migration.${file}
+    done
+
+    public=../../../sites/default/files
+
+    source_dir=modules/${module}/tests/fixtures
+    mkdir -p ${public}/import
+    if [ -d ${source_dir} ]
+    then
+      cp -p ${source_dir}/csv/* ${public}/import
+    fi
+}
+
+if [ $# -lt ${NUM_REQ_ARGS} ] ; then
+    error_exit
+fi
+
+module=${1}
+
+case ${module} in
+csv_example | magento | shopify | woocommerce)
+  migrations_to_config
+  printf '%s\n', 'Migrations copied.'
+  ;;
+*)
+  printf '%s\n', 'Invalid module name.'
+esac
+

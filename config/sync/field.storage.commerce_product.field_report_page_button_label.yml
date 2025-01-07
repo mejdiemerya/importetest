@@ -1,0 +1,21 @@
+uuid: a404444d-5d9a-42aa-bc33-28cea3136cdc
+langcode: fr
+status: true
+dependencies:
+  module:
+    - commerce_product
+id: commerce_product.field_report_page_button_label
+field_name: field_report_page_button_label
+entity_type: commerce_product
+type: string
+settings:
+  max_length: 255
+  case_sensitive: false
+  is_ascii: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,21 @@
+uuid: c50768e5-1c7a-424b-9163-f6280afcaa4f
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.commerce_node_checkout
+    - field.storage.commerce_product_variation.field_license_billing_type
+  module:
+    - options
+id: commerce_product_variation.commerce_node_checkout.field_license_billing_type
+field_name: field_license_billing_type
+entity_type: commerce_product_variation
+bundle: commerce_node_checkout
+label: 'License billing type'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

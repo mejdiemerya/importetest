@@ -1,0 +1,19 @@
+name: Commerce Migrate Commerce
+type: module
+description: Provides migrations for Commerce
+core_version_requirement: '>=9.3 || 10'
+package: Commerce (contrib)
+dependencies:
+  - commerce:commerce
+  - commerce:commerce_price
+  - drupal:migrate_drupal
+  - commerce_migrate:commerce_migrate
+  - migrate_plus:migrate_plus
+
+test_dependencies:
+  - commerce_shipping:commerce_shipping
+
+# Information added by Drupal.org packaging script on 2024-04-27
+version: '4.0.1'
+project: 'commerce_migrate'
+datestamp: 1714195470

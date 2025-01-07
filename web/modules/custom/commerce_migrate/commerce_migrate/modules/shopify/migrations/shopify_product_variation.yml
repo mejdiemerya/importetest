@@ -1,0 +1,87 @@
+id: shopify_product_variation
+label: Shopify product variation
+migration_group: commerce_migrate_shopify
+migration_tags:
+  - Shopify
+  - Content
+source:
+  plugin: csv
+  # Change the path and filename to match your source CSV file.
+  path: 'public://import/shopify-products_export_test.csv'
+  # Change the enclosure character to suit your source CVS file.
+  enclosure: "\""
+  # Change the number of header rows to suit your source CVS file.
+  header_offset: 0
+  # The key fields attribute and name are set in the row in the source plugin.
+  ids: [variant_sku]
+  fields:
+    - name: handle
+      label: Handle
+    - name: title
+      label: Title
+    - name: body
+      label: Body (HTML)
+    - name: vendor
+      label: Vendor
+    - name: type
+      label: Type
+    - name: tags
+      label: Tags
+    - name: published
+      label: Published
+    - name: option1_name
+      label: Option1 Name
+    - name: optiona1_value
+      label: Option1 Value
+    - name: option2_name
+      label: Option2 Name
+    - name: option2_value
+      label: Option2 Value
+    - name: option3_name
+      label: Option3 Name
+    - name: option3_value
+      label: Option3 Value
+    - name: variant_sku
+      label: Variant SKU
+    - name: variant_grams
+      label: Variant Grams
+    - name: variant_inventoty_tracked
+      label: Variant Inventory Tracker
+    - name:  variant_inventory_qty
+      label: Variant Inventory Qty
+    - name: variant_inventory_policy
+      label: Variant Inventory Policy
+    - name: variant_fulfillment_service
+      label: Variant Fulfillment Service
+    - name: variant_price
+      label: Variant Price
+process:
+  sku: variant_sku
+  uid:
+    plugin: default_value
+    default_value: 1
+  # The currency code default is 'USD'. If your are using a different currency
+  # change the default value here.
+  currency_code:
+    plugin: default_value
+    default_value: USD
+  price:
+    plugin: shopify_commerce_price
+    source:
+      - variant_price
+      - '@currency_code'
+  # The 'handle' column is the key for the product variation type migration.
+  type:
+    -
+      plugin: migration_lookup
+      migration: shopify_product_variation_type
+      source: handle
+    -
+      plugin: default_value
+      default_value: default
+  active: published
+destination:
+  plugin: 'entity:commerce_product_variation'
+migration_dependencies:
+  required:
+    - shopify_product_variation_type

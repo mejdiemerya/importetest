@@ -1,0 +1,10 @@
+uuid: 288b1592-4076-4be3-9dbd-2defda838ecd
+langcode: fr
+status: true
+dependencies: {  }
+id: renewal_price
+label: 'Renewal price'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

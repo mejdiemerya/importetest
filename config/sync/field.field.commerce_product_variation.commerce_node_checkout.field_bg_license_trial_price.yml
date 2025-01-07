@@ -1,0 +1,23 @@
+uuid: 7636ffbf-ee50-45e9-853d-2434110473db
+langcode: fr
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.commerce_node_checkout
+    - field.storage.commerce_product_variation.field_bg_license_trial_price
+  module:
+    - commerce_price
+id: commerce_product_variation.commerce_node_checkout.field_bg_license_trial_price
+field_name: field_bg_license_trial_price
+entity_type: commerce_product_variation
+bundle: commerce_node_checkout
+label: 'Trial price'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_currencies: {  }
+  allow_negative: false
+field_type: commerce_price

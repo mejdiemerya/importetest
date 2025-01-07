@@ -1,0 +1,79 @@
+id: magento2_product
+label: Product
+migration_group: commerce_migrate_magento2
+migration_tags:
+  - Magento 2
+  - Content
+source:
+  # Uses a custom source plugin to yield the attribute values.
+  plugin: product_csv
+  # Change the path and filename to match your source CSV file.
+  path: 'public://import/magento2-catalog_product_20180326_013553_test.csv'
+  # Change the enclosure character to suit your source CVS file.
+  enclosure: "\""
+  # Change the number of header rows to suit your source CVS file.
+  header_offset: 0
+  # The key fields attribute and name are set in the row in the source plugin.
+  ids: [sku]
+process:
+  title: name
+  # Using default as the fallback product type.
+  type:
+    -
+      plugin: migration_lookup
+      migration: magento2_product_type
+      source: attribute_set_code
+    -
+      plugin: default_value
+      default_value: default
+  # Set products to be owned by uid 1. This can be changed to suit your needs.
+  uid:
+    plugin: default_value
+    default_value: 1
+  'body/format':
+    plugin: default_value
+    default_value: basic_html
+  'body/value': description
+  'body/summary': short_description
+  # The Enabled product field is not exported in the product CSV, assume
+  # published.
+  status:
+    plugin: default_value
+    default_value: 1
+  # Use store 1 as the default store.
+  stores/target_id:
+    plugin: default_value
+    default_value: 1
+  created:
+    -
+      plugin: explode
+      delimiter: ','
+      source: created_at
+    -
+      plugin: concat
+    -
+      plugin: format_date
+      from_format: 'n/d/y g:i A'
+      to_format: U
+  changed:
+    -
+      plugin: explode
+      delimiter: ','
+      source: updated_at
+    -
+      plugin: concat
+    -
+      plugin: format_date
+      from_format: 'n/d/y g:i A'
+      to_format: U
+  variations:
+    plugin: migration_lookup
+    migration: magento2_product_variation
+    source: variations
+destination:
+  plugin: 'entity:commerce_product'
+  destination_module: commerce_product
+migration_dependencies:
+  required:
+    - magento2_product_type
+    - magento2_product_variation

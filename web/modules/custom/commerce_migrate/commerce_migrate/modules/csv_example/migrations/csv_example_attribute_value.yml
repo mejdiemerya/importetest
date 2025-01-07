@@ -1,0 +1,79 @@
+# Import attribute values for existing attributes.
+#
+# Attributes are imported in name/value pairs. Up to 4 pairs per row can be
+# imported with this migrations. The text in the name column is expected to the
+# be the same for that entire column. The value should be whatever is required
+# for the product variation in that row.
+#
+# Destination site configuration:
+#   - Install the Commerce Module.
+#   - Create the attributes, with only one value, on the destination site.
+#
+id: csv_example_attribute_value
+label: Product attribute values
+migration_group: commerce_migrate_csv_example
+migration_tags:
+  - Commerce CSV
+  - Content
+source:
+  plugin: csv_example_attribute
+  path: 'public://import/example-products.csv'
+  enclosure: "\""
+  header_offset: 0
+  ids: [attribute_name, attribute_value]
+  fields:
+    - name: title
+      label: Title
+    - name: sku
+      label: SKU
+    - name: status
+      label: Status
+    - name: product_type
+      label: Product type
+    - name: description
+      label: Description
+    - name: product_variation_type
+      label: Product variation type
+    - name: sell_price
+      label: Sell price
+    - name: vocabulary_name1
+      label: Vocabulary1
+    - name: term1
+      label: Vocabulary value1
+    - name: vocabulary_name2
+      label: Vocabulary2
+    - name: term2
+      label: Vocabulary value2
+    - name: vocabulary_name3
+      label: Vocabulary3
+    - name: term3
+      label: Vocabulary value3
+    - name: attribute_name1
+      label: Attribute name1
+    - name: attribute_value1
+      label: Attribute value1
+    - name: attribute_name2
+      label: Attribute name2
+    - name: attribute_value2
+      label: Attribute value2
+    - name: attribute_name3
+      label: Attribute name3
+    - name: attribute_value3
+      label: Attribute value3
+    - name: attribute_name4
+      label: Attribute name4
+    - name: attribute_value4
+      label: Attribute value4
+  constants:
+    langcode: en
+process:
+  langcode: 'constants/langcode'
+  # Convert the attribute name to a machine name.
+  attribute:
+    -
+      plugin: machine_name
+      source: attribute_name
+  name: attribute_value
+destination:
+  plugin: entity:commerce_product_attribute_value
+  destination_module: commerce_product
