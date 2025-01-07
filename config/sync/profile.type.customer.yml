@@ -15,6 +15,11 @@ label: Client
 display_label: 'Informations sur le client'
 multiple: true
 registration: false
-roles: {  }
+roles:
+  content_editor: content_editor
+  pre_authorized: pre_authorized
+  authenticated: authenticated
+  administrator: administrator
+  bg_communities: bg_communities
 allow_revisions: false
 new_revision: false

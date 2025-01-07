@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - commerce_product.commerce_product_variation_type.commerce_node_checkout
+    - field.field.commerce_product_variation.commerce_node_checkout.attribute_tt
     - field.field.commerce_product_variation.commerce_node_checkout.field_bg_commerce_license_desc
     - field.field.commerce_product_variation.commerce_node_checkout.field_bg_commerce_license_role
     - field.field.commerce_product_variation.commerce_node_checkout.field_bg_commerce_license_trial
@@ -27,6 +28,12 @@ targetEntityType: commerce_product_variation
 bundle: commerce_node_checkout
 mode: default
 content:
+  attribute_tt:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_bg_commerce_license_desc:
     type: string_textfield
     weight: 19

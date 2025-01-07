@@ -7,11 +7,12 @@ module:
   advancedqueue: 0
   announcements_feed: 0
   automated_cron: 0
+  bg_import_product: 0
+  bg_product_cart: 0
   big_pipe: 0
   block: 0
   block_content: 0
   breakpoint: 0
-  buildgreen_migrate: 0
   ckeditor5: 0
   comment: 0
   commerce: 0
@@ -25,15 +26,16 @@ module:
   commerce_order: 0
   commerce_payment: 0
   commerce_price: 0
+  commerce_pricelist: 0
   commerce_product: 0
   commerce_recurring: 0
   commerce_store: 0
-  commerce_variation_add_to_cart: 0
   config: 0
   contact: 0
   contextual: 0
   datetime: 0
   dblog: 0
+  devel: 0
   dynamic_page_cache: 0
   editor: 0
   entity: 0
@@ -74,6 +76,7 @@ module:
   text: 0
   token: 0
   toolbar: 0
+  twig_field_value: 0
   update: 0
   user: 0
   views_ui: 0
@@ -83,4 +86,7 @@ module:
 theme:
   olivero: 0
   claro: 0
+  stable9: 0
+  bootstrap5: 0
+  buildinggreen: 0
 profile: standard

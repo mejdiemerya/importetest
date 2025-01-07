@@ -94,7 +94,8 @@ settings:
         startIndex: true
       multiBlock: true
     ckeditor5_sourceEditing:
-      allowed_tags: {  }
+      allowed_tags:
+        - '<iframe>'
 image_upload:
   status: true
   scheme: public

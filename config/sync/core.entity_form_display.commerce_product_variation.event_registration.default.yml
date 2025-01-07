@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - commerce_product.commerce_product_variation_type.event_registration
+    - field.field.commerce_product_variation.event_registration.attribute_tt
     - field.field.commerce_product_variation.event_registration.field_checkout_complete_message
     - field.field.commerce_product_variation.event_registration.field_event_type
     - field.field.commerce_product_variation.event_registration.field_failed_renewal_body
@@ -22,6 +23,12 @@ targetEntityType: commerce_product_variation
 bundle: event_registration
 mode: default
 content:
+  attribute_tt:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_checkout_complete_message:
     type: text_textarea
     weight: 100

@@ -3,10 +3,12 @@ langcode: fr
 status: true
 dependencies:
   module:
+    - bg_product_cart
     - comment
 id: bg_premium
 label: bg_premium
 weight: 22
 is_admin: null
 permissions:
+  - 'access premium content'
   - 'skip comment approval'

@@ -1,7 +1,9 @@
-uuid: 5803cb3c-beab-4f52-8b8a-e40d510efa94
-langcode: en
+uuid: 17c32dd5-2dbb-42d0-bcfe-f468aecee487
+langcode: fr
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: dUmHI9JkhfW6ru4ukEUrL_SYlJM9FfOFGFGQCAG6c9Q
 id: my_product_type
 class: null
 field_plugin_method: null

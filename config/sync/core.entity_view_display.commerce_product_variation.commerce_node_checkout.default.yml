@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - commerce_product.commerce_product_variation_type.commerce_node_checkout
+    - field.field.commerce_product_variation.commerce_node_checkout.attribute_tt
     - field.field.commerce_product_variation.commerce_node_checkout.field_bg_commerce_license_desc
     - field.field.commerce_product_variation.commerce_node_checkout.field_bg_commerce_license_role
     - field.field.commerce_product_variation.commerce_node_checkout.field_bg_commerce_license_trial
@@ -28,13 +29,27 @@ targetEntityType: commerce_product_variation
 bundle: commerce_node_checkout
 mode: default
 content:
+  attribute_tt:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: add_to_cart
+      link: false
+    third_party_settings: {  }
+    weight: 16
+    region: content
+  commerce_variation_cart_form:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 16
+    region: content
   field_bg_commerce_license_desc:
     type: string
     label: above
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 22
+    weight: 13
     region: content
   field_bg_commerce_license_role:
     type: entity_reference_label
@@ -42,14 +57,14 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 12
+    weight: 5
     region: content
   field_bg_commerce_license_trial:
     type: interval_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 13
+    weight: 6
     region: content
   field_bg_license_trial_price:
     type: commerce_price_default
@@ -58,49 +73,49 @@ content:
       strip_trailing_zeroes: false
       currency_display: symbol
     third_party_settings: {  }
-    weight: 14
+    weight: 7
     region: content
   field_checkout_complete_message:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 4
     region: content
   field_commerce_license_duration:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 18
+    weight: 9
     region: content
   field_commerce_license_interval:
     type: interval_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 24
+    weight: 15
     region: content
   field_commerce_license_type:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 17
+    weight: 8
     region: content
   field_commerce_node_checkout_exp:
     type: interval_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 23
+    weight: 14
     region: content
   field_failed_renewal_body:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 3
     region: content
   field_failed_renewal_subject:
     type: string
@@ -108,21 +123,21 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 8
+    weight: 2
     region: content
   field_license_billing_cycle_type:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 19
+    weight: 10
     region: content
   field_license_billing_type:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 20
+    weight: 11
     region: content
   field_number_of_renewals:
     type: string
@@ -130,7 +145,7 @@ content:
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    weight: 21
+    weight: 12
     region: content
   list_price:
     type: commerce_price_default
@@ -139,7 +154,7 @@ content:
       strip_trailing_zeroes: false
       currency_display: symbol
     third_party_settings: {  }
-    weight: -1
+    weight: 0
     region: content
   price:
     type: commerce_price_default
@@ -148,7 +163,7 @@ content:
       strip_trailing_zeroes: false
       currency_display: symbol
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
   langcode: true

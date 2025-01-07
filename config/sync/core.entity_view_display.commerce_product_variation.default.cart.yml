@@ -5,6 +5,7 @@ dependencies:
   config:
     - commerce_product.commerce_product_variation_type.default
     - core.entity_view_mode.commerce_product_variation.cart
+    - field.field.commerce_product_variation.default.attribute_tt
   module:
     - commerce_price
   enforced:
@@ -18,6 +19,15 @@ targetEntityType: commerce_product_variation
 bundle: default
 mode: cart
 content:
+  attribute_tt:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: add_to_cart
+      link: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
   list_price:
     type: commerce_price_default
     label: above
@@ -25,7 +35,7 @@ content:
       strip_trailing_zeroes: false
       currency_display: symbol
     third_party_settings: {  }
-    weight: -1
+    weight: 0
     region: content
   product_id:
     type: entity_reference_label
@@ -33,7 +43,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 0
+    weight: 1
     region: content
 hidden:
   langcode: true

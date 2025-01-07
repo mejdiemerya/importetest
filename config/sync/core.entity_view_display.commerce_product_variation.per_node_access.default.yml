@@ -23,26 +23,31 @@ targetEntityType: commerce_product_variation
 bundle: per_node_access
 mode: default
 content:
+  commerce_variation_cart_form:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
+    region: content
   field_checkout_complete_message:
     type: text_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 7
     region: content
   field_commerce_license_duration:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 18
+    weight: 9
     region: content
   field_commerce_license_type:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 17
+    weight: 8
     region: content
   field_hide_button_on_report_page:
     type: boolean
@@ -69,14 +74,14 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 19
+    weight: 10
     region: content
   field_license_billing_type:
     type: list_default
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 20
+    weight: 11
     region: content
   field_purchased_content:
     type: entity_reference_label
@@ -108,7 +113,7 @@ content:
       strip_trailing_zeroes: false
       currency_display: symbol
     third_party_settings: {  }
-    weight: -1
+    weight: 0
     region: content
   price:
     type: commerce_price_default
@@ -117,10 +122,24 @@ content:
       strip_trailing_zeroes: false
       currency_display: symbol
     third_party_settings: {  }
-    weight: 0
+    weight: 1
+    region: content
+  sku:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 13
+    region: content
+  title:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 14
     region: content
 hidden:
   langcode: true
   product_id: true
-  sku: true
-  title: true

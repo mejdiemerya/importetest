@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - commerce_product.commerce_product_variation_type.default
+    - field.field.commerce_product_variation.default.attribute_tt
   module:
     - commerce_price
 id: commerce_product_variation.default.default
@@ -11,6 +12,11 @@ targetEntityType: commerce_product_variation
 bundle: default
 mode: default
 content:
+  commerce_variation_cart_form:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
   list_price:
     type: commerce_price_default
     label: above
@@ -38,6 +44,7 @@ content:
     weight: 2
     region: content
 hidden:
+  attribute_tt: true
   langcode: true
   product_id: true
   sku: true

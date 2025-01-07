@@ -1,7 +1,9 @@
-uuid: ad367efa-4d81-441f-8e51-683b9e4570bd
-langcode: en
+uuid: b4a20093-7ace-4401-b647-c3589368f663
+langcode: fr
 status: true
 dependencies: {  }
+_core:
+  default_config_hash: j6g4D0XjzxRPGlb2vJyX2RXau3CHrZcFoEbphGJMl2Y
 id: my_product_variation
 class: null
 field_plugin_method: null

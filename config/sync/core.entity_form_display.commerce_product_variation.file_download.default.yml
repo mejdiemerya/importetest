@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - commerce_product.commerce_product_variation_type.file_download
+    - field.field.commerce_product_variation.file_download.attribute_tt
     - field.field.commerce_product_variation.file_download.field_commerce_license_duration
     - field.field.commerce_product_variation.file_download.field_commerce_license_type
     - field.field.commerce_product_variation.file_download.field_license_billing_cycle_type
@@ -15,6 +16,12 @@ targetEntityType: commerce_product_variation
 bundle: file_download
 mode: default
 content:
+  attribute_tt:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_commerce_license_duration:
     type: options_buttons
     weight: 9

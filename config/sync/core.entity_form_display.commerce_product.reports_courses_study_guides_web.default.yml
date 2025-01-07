@@ -19,6 +19,9 @@ dependencies:
     - field.field.commerce_product.reports_courses_study_guides_web.field_registration_link
     - field.field.commerce_product.reports_courses_study_guides_web.field_related_products
     - field.field.commerce_product.reports_courses_study_guides_web.field_report_page_button_label
+    - field.field.commerce_product.reports_courses_study_guides_web.field_resume
+    - field.field.commerce_product.reports_courses_study_guides_web.field_type_of_product
+    - field.field.commerce_product.reports_courses_study_guides_web.field_vv
     - image.style.thumbnail
   module:
     - commerce
@@ -32,6 +35,7 @@ third_party_settings:
     group_sales_view:
       children:
         - title
+        - field_resume
         - body
         - field_hide_buy_button
         - field_buy_button_label_override
@@ -63,7 +67,7 @@ third_party_settings:
       label: Discount
       region: content
       parent_name: group_sales_view
-      weight: 11
+      weight: 12
       format_type: fieldset
       format_settings:
         classes: ''
@@ -80,7 +84,7 @@ third_party_settings:
       label: 'Purchased view'
       region: content
       parent_name: ''
-      weight: 2
+      weight: 1
       format_type: tab
       format_settings:
         classes: ''
@@ -98,7 +102,7 @@ third_party_settings:
       label: Cataloging
       region: content
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: tab
       format_settings:
         classes: ''
@@ -115,7 +119,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 3
+    weight: 4
     region: content
     settings:
       rows: 9
@@ -147,7 +151,7 @@ content:
     third_party_settings: {  }
   field_buy_button_label_override:
     type: string_textfield
-    weight: 5
+    weight: 6
     region: content
     settings:
       size: 60
@@ -170,21 +174,21 @@ content:
     third_party_settings: {  }
   field_free_to_pn_members:
     type: boolean_checkbox
-    weight: 9
+    weight: 10
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_free_to_premium_users:
     type: boolean_checkbox
-    weight: 6
+    weight: 7
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_hide_buy_button:
     type: boolean_checkbox
-    weight: 4
+    weight: 5
     region: content
     settings:
       display_label: true
@@ -209,7 +213,7 @@ content:
     third_party_settings: {  }
   field_promo_image:
     type: image_image
-    weight: 8
+    weight: 9
     region: content
     settings:
       progress_indicator: throbber
@@ -217,7 +221,7 @@ content:
     third_party_settings: {  }
   field_registration_link:
     type: link_default
-    weight: 10
+    weight: 9
     region: content
     settings:
       placeholder_url: ''
@@ -235,7 +239,23 @@ content:
     third_party_settings: {  }
   field_report_page_button_label:
     type: string_textfield
-    weight: 11
+    weight: 10
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_resume:
+    type: text_textarea
+    weight: 3
+    region: content
+    settings:
+      rows: 3
+      placeholder: ''
+    third_party_settings: {  }
+  field_type_of_product:
+    type: string_textfield
+    weight: 3
     region: content
     settings:
       size: 60
@@ -243,7 +263,7 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 12
+    weight: 13
     region: content
     settings:
       include_locked: true
@@ -263,7 +283,7 @@ content:
     third_party_settings: {  }
   stores:
     type: commerce_entity_select
-    weight: 7
+    weight: 8
     region: content
     settings:
       hide_single_entity: true
@@ -291,7 +311,7 @@ content:
     third_party_settings: {  }
   variations:
     type: entity_reference_autocomplete
-    weight: 10
+    weight: 11
     region: content
     settings:
       match_operator: CONTAINS
@@ -299,4 +319,5 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  field_vv: true

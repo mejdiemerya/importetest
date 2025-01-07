@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - commerce_product.commerce_product_variation_type.product
+    - field.field.commerce_product_variation.product.attribute_tt
     - field.field.commerce_product_variation.product.billing_schedule
     - field.field.commerce_product_variation.product.subscription_type
   module:
@@ -14,6 +15,12 @@ targetEntityType: commerce_product_variation
 bundle: product
 mode: default
 content:
+  attribute_tt:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   billing_schedule:
     type: options_select
     weight: 91
