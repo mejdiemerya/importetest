@@ -1,0 +1,9 @@
+submit_on_enter:
+  version: 1.x
+  js:
+    js/submit-on-enter.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+

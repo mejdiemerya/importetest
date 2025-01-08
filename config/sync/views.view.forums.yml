@@ -215,7 +215,7 @@ display:
           group_type: group
           admin_label: ''
           plugin_id: search_api_fulltext
-          operator: and
+          operator: or
           value: ''
           group: 1
           exposed: true
@@ -233,13 +233,26 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
               content_editor: '0'
+              pre_authorized: '0'
+              anonymous: '0'
               administrator: '0'
-              leeduser_moderators: '0'
-              leeduser_premium_member: '0'
-              leeduser_basic_member: '0'
+              bg_communities: '0'
+              bg_premium: '0'
+              bg_premium_og: '0'
+              bg_trial: '0'
+              bg_og_multiuser: '0'
+              autologin: '0'
+              bg_og_parent: '0'
+              lu_premium: '0'
+              lu_premium_og: '0'
+              lu_trial: '0'
+              lu_og_multiuser: '0'
+              lu_og_parent: '0'
               lu_guest_expert: '0'
+              editor: '0'
+              bg_basic: '0'
+              lu_basic: '0'
             expose_fields: false
             placeholder: ''
             searched_fields_id: search_api_fulltext_searched_fields
