@@ -77,10 +77,10 @@
       <h5 class="page-topper mb-4 mt-0">{{ product.field_type_of_product }}</h5>
       <h1>{{ product.title[0] }}</h1>
       {{ product.body }}
-      <a class="btn btn-xl btn-success mt-3 w-100 hidden-xs btn-wrap ng-scope"  >
-        <p class="mt-0 mb-0 xlarge" data-gtm-vis-has-fired7025260_75="1">{{ 'Buy'|t }} <strong  >{{ product.variation_title[0] }} </strong> {{ 'for'|t }} $149 »</p>
-      </a>
-      {{ link('Buy it now for ' ~ product.variation_price['#items'][0].number ~' '~ product.variation_price['#items'][0].value.currency_code , url('<front>')|render ~ 'product/add/variation-cart/'~product_entity.product_id.value~'/'~product.variations['#items'][0].target_id, { 'class':['foo' ]} ) }}
+{#      <a class="btn btn-xl btn-success mt-3 w-100 hidden-xs btn-wrap ng-scope"  >#}
+{#        <p class="mt-0 mb-0 xlarge" data-gtm-vis-has-fired7025260_75="1">{{ 'Buy'|t }} <strong  >{{ product.variation_title[0] }} </strong> {{ 'for'|t }} $149 »</p>#}
+{#      </a>#}
+      {{ link('Buy it now for ' ~ product.variation_price['#items'][0].number ~' '~ product.variation_price['#items'][0].value.currency_code , url('<front>')|render ~ 'product/add/variation-cart/'~product_entity.product_id.value~'/'~product.variations['#items'][0].target_id, { 'class':['btn btn-xl btn-success mt-3 w-100 hidden-xs btn-wrap ng-scope' ]} ) }}
     </div>
   </div>
 
