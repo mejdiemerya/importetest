@@ -75,7 +75,7 @@ class LeeduserSearchForm extends FormBase {
     $form['#attached']['library'][] = 'core/drupal.ajax';
     $form['#attached']['library'][] = 'core/jquery';
     $form['#attached']['library'][]='core/drupal.dialog';
-
+    $form['#attached']['library'][]='custom_forums/submit_on_enter';
     // Get the current request
     $request = \Drupal::request();
 
@@ -189,6 +189,7 @@ class LeeduserSearchForm extends FormBase {
       '#default_value' => isset($saved_values['keyword_search']) ? $saved_values['keyword_search'] : '',
       '#attributes' => [
         'placeholder' => t('Search within forums'),
+        'id' => 'keyword-search-field',
       ],
       '#prefix' => '<div id="keyword-search">',
       '#suffix' => '</div>',
@@ -552,20 +553,9 @@ class LeeduserSearchForm extends FormBase {
     // Retrieve the current URI and query parameters.
     $current_uri = \Drupal::service('path.current')->getPath();
     $current_query = \Drupal::request()->query->all();
-
-    // Check for 'f' parameter and clean up the 'combined:aluminum'.
-    if (isset($current_query['f']) && is_array($current_query['f'])) {
-      // Iterate through the array and unset the matching value.
-      foreach ($current_query['f'] as $key => $value) {
-        if (strpos($value, 'combined:') === 0) {
-          unset($current_query['f'][$key]);
-        }
-      }
-
-      // Clean up if the 'f' array is empty after removing.
-      if (empty($current_query['f'])) {
-        unset($current_query['f']);
-      }
+    // Check for the 'search_api_fulltext' parameter and clean it up.
+    if (isset($current_query['search_api_fulltext'])) {
+      unset($current_query['search_api_fulltext']);
     }
 
     // Recreate the URL without the cleaned 'f[0]' parameter.
@@ -845,7 +835,7 @@ class LeeduserSearchForm extends FormBase {
     $location= null;
     $keyword_search = $form_state->getValue('keyword_search');
     if (!empty($keyword_search)) {
-      $filters[] = 'combined:' . $keyword_search;
+      $search_api_fulltext = $keyword_search;
     }
 
     // LEED version.
@@ -898,7 +888,14 @@ class LeeduserSearchForm extends FormBase {
       'credits' => $credit, // Store the last assigned credit value
     ];
     $store->set('saved_values', $values_to_save);
+    $query_params = [
+      'f' => $filters,
+    ];
 
+    if (!empty($search_api_fulltext)) {
+      $query_params['search_api_fulltext'] = $search_api_fulltext;
+    }
     // Redirect with the filters appended to the URL.
-    $form_state->setRedirect('<current>', [], ['query' => ['f' => $filters]]);
+    $form_state->setRedirect('<current>', [], ['query' => $query_params]);
   }}
+
