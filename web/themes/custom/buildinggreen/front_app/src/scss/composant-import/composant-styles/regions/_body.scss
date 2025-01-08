@@ -406,3 +406,16 @@ p.content-category {
     margin-left: 8px;
   }
 }
+
+.page-topper {
+  background-color: #a6a6a6;
+  color: white;
+  padding: 0.5em;
+  text-transform: uppercase;
+}
+
+.field--name-field-promo-image{
+  img{
+    width: 100%;
+  }
+}
