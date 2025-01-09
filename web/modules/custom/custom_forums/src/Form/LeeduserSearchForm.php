@@ -304,7 +304,7 @@ class LeeduserSearchForm extends FormBase {
       '#suffix' => '</div>',
       '#type' => 'select',
       '#empty_option' =>  t('Credit category (optional)'),
-      '#options' => !empty($rating_system) ? $this->getCreditCategories($rating_system) : [],
+      '#options' => !empty($rating_system) ? $this->getCreditCategoriesOptions($rating_system) : [],
       '#disabled' => empty($rating_system),
       '#ajax' => [
         'callback' => '::updateCredits',
@@ -317,7 +317,7 @@ class LeeduserSearchForm extends FormBase {
       '#prefix' => '<div id="credit">',
       '#suffix' => '</div>',
       '#empty_option' =>  t('Credit (optional)'),
-      '#options' => !empty($credit_category) ? $this->getCredits($credit_category) : [],
+      '#options' => !empty($credit_category) ? $this->getCreditsOptions($credit_category) : [],
       '#disabled' => empty($credit_category),
     );
 
@@ -367,19 +367,19 @@ class LeeduserSearchForm extends FormBase {
     }
     $leed_version = $form_state->getValue('leed_version');
     if (!empty($leed_version)) {
-      $form['credit_filter_fieldset']['rating_system']['#options'] = $this->getRatingSystems($leed_version);
+      $form['credit_filter_fieldset']['rating_system']['#options'] = $this->getRatingSystemOptions($leed_version);
       unset($form['credit_filter_fieldset']['rating_system']['#attributes']['disabled']);
 
     }
     $rating_system = $form_state->getValue('rating_system');
     if (!empty($rating_system)) {
-      $form['credit_filter_fieldset']['credit_category']['#options'] = $this->getCreditCategories($rating_system);
+      $form['credit_filter_fieldset']['credit_category']['#options'] = $this->getCreditCategoriesOptions($rating_system);
       unset($form['credit_filter_fieldset']['credit_category']['#attributes']['disabled']);
 
     }
     $credit_category = $form_state->getValue('credit_category');
     if (!empty($credit_category)) {
-      $form['credit_filter_fieldset']['credit']['#options'] = $this->getCredits($credit_category);
+      $form['credit_filter_fieldset']['credit']['#options'] = $this->getCreditsOptions($credit_category);
       unset($form['credit_filter_fieldset']['credit']['#attributes']['disabled']);
 
     }
@@ -390,7 +390,7 @@ class LeeduserSearchForm extends FormBase {
     $selected_rating_system = $form_state->getValue('rating_system');
 
     // Fetch the corresponding credit categories.
-    $credit_categories = $this->getCreditCategories($selected_rating_system);
+    $credit_categories = $this->getCreditCategoriesOptions($selected_rating_system);
 
     // Set the options for the credit category select list.
     $form['credit_filter_fieldset']['credit_category']['#options'] =[''=>t('Credit category (optional)')] + $credit_categories;
@@ -406,7 +406,7 @@ class LeeduserSearchForm extends FormBase {
     $selected_credit_category = $form_state->getValue('credit_category');
 
     // Fetch the corresponding credits.
-    $credits = $this->getCredits($selected_credit_category);
+    $credits = $this->getCreditsOptions($selected_credit_category);
 
     // Set the options for the credit select list.
     $form['credit_filter_fieldset']['credit']['#options'] =[''=>t('Credit (optional)')] + $credits;
@@ -596,6 +596,20 @@ class LeeduserSearchForm extends FormBase {
 
     return $credit_categories;
   }
+  protected function getCreditCategoriesOptions($leed_version) {
+    $options = [];
+    if (!empty($leed_version)) {
+      $rating_systems = $this->getCreditCategories($leed_version);
+      foreach ($rating_systems as $group_label => $group_items) {
+        $label=$this->getCreditFilterLabel($group_label);
+        $options[$group_items] = [
+          $group_label =>$label['description'] ,
+        ];
+      }
+    }
+    return $options;
+  }
+
   protected function getCredits($credit_category_tid) {
     // Get the database connection.
     $connection = \Drupal::database();
@@ -623,6 +637,19 @@ class LeeduserSearchForm extends FormBase {
     }
 
     return $credits;
+  }
+  protected function getCreditsOptions($leed_version) {
+    $options = [];
+    if (!empty($leed_version)) {
+      $rating_systems = $this->getCredits($leed_version);
+      foreach ($rating_systems as $group_label => $group_items) {
+        $label=$this->getCreditFilterLabel($group_label);
+        $options[$group_items] = [
+          $group_label =>$label['description'] ,
+        ];
+      }
+    }
+    return $options;
   }
   protected function getRatingSystems($leed_version_tid) {
     // Get the database connection.
@@ -665,8 +692,9 @@ class LeeduserSearchForm extends FormBase {
     if (!empty($leed_version)) {
       $rating_systems = $this->getRatingSystems($leed_version);
       foreach ($rating_systems as $group_label => $group_items) {
+        $label=$this->getCreditFilterLabel($group_label);
         $options[$group_items] = [
-          $group_label => '0000000000',
+          $group_label =>$label['description'] ,
         ];
       }
     }
@@ -814,21 +842,27 @@ class LeeduserSearchForm extends FormBase {
 
       case 2:
         $data['title'] = strip_tags($parents[0]->name->value);
+        if (isset($parents[0]->description) && !empty($parents[0]->description->value)) {
+          $data['description'] = strip_tags($parents[0]->description->value);
+        }
         break;
 
       case 3:
         $data['title'] = strip_tags(sprintf('%s %s', $parents[1]->name->value, $parents[0]->name->value));
-        $data['description'] = strip_tags($parents[0]->description->value);
+        if (isset($parents[0]->description) && !empty($parents[0]->description->value)) {
+          $data['description'] = strip_tags($parents[0]->description->value);
+        }
         break;
 
       case 4:
         $data['title'] = strip_tags(sprintf('%s %s', $parents[2]->name->value, $parents[0]->name->value));
-        $data['description'] = strip_tags($parents[0]->description->value);
+        if (isset($parents[0]->description) && !empty($parents[0]->description->value)) {
+          $data['description'] = strip_tags($parents[0]->description->value);
+        }
         break;
     }
     return $data;
   }
-
   /**
    * {@inheritdoc}
    */
