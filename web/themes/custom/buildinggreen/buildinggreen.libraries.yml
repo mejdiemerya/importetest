@@ -1,11 +1,11 @@
 global-styling:
   css:
     theme:
-      front_app/dist/assets/composant/default-composant/default-composant.min.css:
-        {}
+      front_app/dist/assets/composant/default-composant/default-composant.min.css:  {}
+      https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css:  {}
   js:
+    https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js: {}
     front_app/dist/assets/composant/default-composant/index.js: {}
-    #front_app/src/js/composant/default-composant/main.js: {}
     # front_app/src/js/composant/default-composant/nav.js: {}
   dependencies:
     - core/jquery

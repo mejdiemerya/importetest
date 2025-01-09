@@ -291,7 +291,7 @@ class LeeduserSearchForm extends FormBase {
       '#suffix' => '</div>',
       '#type' => 'select',
       '#empty_option' => t('Rating system (optional)'),
-      '#options' => !empty($leed_version) ? $this->getRatingSystems($leed_version) : [],
+      '#options' => !empty($leed_version) ? $this->getRatingSystemOptions($leed_version) : [],
       '#disabled' => empty($leed_version),
       '#ajax' => [
         'callback' => '::updateCreditCategories',
@@ -418,7 +418,7 @@ class LeeduserSearchForm extends FormBase {
     $selected_leed_version = $form_state->getValue('leed_version');
 
     // Fetch the rating systems based on selected LEED version.
-    $rating_systems = $this->getRatingSystems($selected_leed_version);
+    $rating_systems = $this->getRatingSystemOptions($selected_leed_version);
 
     $form['credit_filter_fieldset']['rating_system']['#options'] =['' => t('Rating system (optional)')] +  $rating_systems;
     $form['credit_filter_fieldset']['credit_category']['#options'] = ['' => t('Credit category (optional)')];
@@ -662,13 +662,26 @@ class LeeduserSearchForm extends FormBase {
 
       foreach ($sub_child_term_tids as $sub_child_tid) {
         // Use the sub_child_tid to access the name of the parent child term.
+        //$rating_systems_with_children[$sub_child_tid] = '<b>'.$child_terms[$sub_child_tid]->name.'</b><p> '.$child_terms[$sub_child_tid]->name.'</p>';
+
         $rating_systems_with_children[$sub_child_tid] = $child_terms[$sub_child_tid]->name;
       }
     }
 
     return $rating_systems_with_children;
   }
-
+  protected function getRatingSystemOptions($leed_version) {
+    $options = [];
+    if (!empty($leed_version)) {
+      $rating_systems = $this->getRatingSystems($leed_version);
+      foreach ($rating_systems as $group_label => $group_items) {
+        $options[$group_items] = [
+          $group_label => '0000000000',
+        ];
+      }
+    }
+    return $options;
+  }
 
   /**
    * Returns a list of taxonomy terms for the location regions.

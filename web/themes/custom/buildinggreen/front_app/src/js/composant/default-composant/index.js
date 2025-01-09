@@ -10,8 +10,13 @@ var isMobile = window.matchMedia("only screen and (max-width: " + mobileMaxWidth
 (function ($) {
   Drupal.behaviors.customjs = {
     attach: function (context, settings) {
+      //$( "#bg-leeduser-search-form select" ).selectmenu();
+      $( "#bg-leeduser-search-form select" ).select2({
+        minimumResultsForSearch: 20,
+      });
 
       $(document).ready(function () {
+        //$( "#bg-leeduser-search-form select" ).selectmenu();
         // console.log('hekk');
         $('.nav-pills a').click(function (e) {
           e.preventDefault();

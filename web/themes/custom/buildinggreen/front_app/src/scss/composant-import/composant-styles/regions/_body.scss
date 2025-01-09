@@ -419,3 +419,23 @@ p.content-category {
     width: 100%;
   }
 }
+.nullify {
+  font-size: 16px;
+  h2 {
+    font-size: 40px;
+    letter-spacing: 0;
+  }
+  h3 {
+    font-size: 32px;
+  }
+  h4 {
+    font-size: 24px;
+  }
+  h5 {
+    font-size: 16px;
+  }
+}
+
+small,.small {
+  font-size: 81%;
+}
