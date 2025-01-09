@@ -13,6 +13,14 @@ function leeduser_tour_theme() {
       ],
       'template' => 'leeduser-tour-template', // Correspond au fichier Twig.
     ],
+    'store_template' => [
+      'variables' => [
+        'title' => '',
+        'content' => '',
+        'additional_data' => '',
+      ],
+      'template' => 'store-template',
+    ],
   ];
 }
 

@@ -20,4 +20,12 @@ class LeeduserTourController extends ControllerBase {
     ];
   }
 
+  public function contentstore() {
+    return [
+      '#theme' => 'store_template',
+      '#title' => $this->t('Welcome to the Leeduser Tour'),
+      '#content' => $this->t('This is the content of the Leeduser Tour page. Customize it as needed!'),
+    ];
+  }
+
 }
