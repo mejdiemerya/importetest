@@ -1,0 +1,20 @@
+.paragraph--type--leeduser-premium {
+    .paywall {
+        border: 1px solid #b0bf9d;
+        background-image: -webkit-linear-gradient(top, #e6e6e6 0%, #C9D3BC 100%);
+        background-image: -o-linear-gradient(top, #e6e6e6 0%, #C9D3BC 100%);
+        background-image: linear-gradient(to bottom, #e6e6e6 0%, #C9D3BC 100%);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#FFE6E6E6", endColorstr="#FFC9D3BC", GradientType=0);
+
+        h3 {
+            color: $color-green;
+            font-size: 32px;
+            font-weight: normal;
+        }
+
+        p {
+            font-size: 16px;
+        }
+    }
+}

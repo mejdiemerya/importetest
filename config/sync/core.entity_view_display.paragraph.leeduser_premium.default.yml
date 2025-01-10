@@ -1,0 +1,37 @@
+uuid: 7c8066a1-78d3-4ef3-889b-4ee8919c91b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.leeduser_premium.field_descriptions
+    - field.field.paragraph.leeduser_premium.field_title
+    - paragraphs.paragraphs_type.leeduser_premium
+  module:
+    - text
+    - text_field_formatter
+id: paragraph.leeduser_premium.default
+targetEntityType: paragraph
+bundle: leeduser_premium
+mode: default
+content:
+  field_descriptions:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_title:
+    type: text_field_formatter
+    label: hidden
+    settings:
+      wrap_tag: h3
+      wrap_class: ''
+      wrap_attributes: ''
+      override_link_label: ''
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  search_api_excerpt: true
