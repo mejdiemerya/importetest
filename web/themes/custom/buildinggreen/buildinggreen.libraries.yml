@@ -57,7 +57,10 @@ leeduser-tour:
   css:
     theme:
       front_app/dist/assets/composant/leeduser-tour/leeduser-tour.min.css: { minified: true }
-
+store:
+  css:
+    theme:
+      front_app/dist/assets/composant/store/store.min.css: { minified: true }
 page-credit:
   css:
     theme:

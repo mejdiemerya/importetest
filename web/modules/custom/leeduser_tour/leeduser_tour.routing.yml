@@ -5,3 +5,10 @@ leeduser_tour.page:
     _title: 'Leeduser Tour'
   requirements:
     _permission: 'access content'
+store.page:
+  path: '/store'
+  defaults:
+    _controller: '\Drupal\leeduser_tour\Controller\LeeduserTourController::contentstore'
+    _title: 'Store'
+  requirements:
+    _permission: 'access content'

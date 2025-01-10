@@ -18,6 +18,7 @@ module.exports = function () {
         "testimonials-composant",
         "credits-composant",
         'leeduser-tour',
+        'store',
         'page-credit-composant',
       ],
       quality: ["src/scss/**/*.scss"],
