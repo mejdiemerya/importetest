@@ -1,10 +1,22 @@
 uuid: 8efc24ac-da00-4eca-b3fb-b3596ba56005
 langcode: fr
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - commerce_license
+third_party_settings:
+  commerce_license:
+    license_types:
+      role: role
+    activate_on_place: false
+    allow_renewal: false
+    interval: ''
+    period: second
 id: membership
 label: Membership
-traits: {  }
+traits:
+  - commerce_license
+  - purchasable_entity_subscription
 locked: false
 orderItemType: default
-generateTitle: null
+generateTitle: false

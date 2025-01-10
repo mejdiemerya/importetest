@@ -21,7 +21,7 @@ configuration:
       weight: 0
       wrapper_element: null
       allow_guest_checkout: false
-      allow_registration: false
+      allow_registration: true
       registration_form_mode: register
     payment_information:
       display_label: null

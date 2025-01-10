@@ -1,0 +1,21 @@
+uuid: 1f1f13cf-a55f-4cfb-8518-38dbc4383c01
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.membership
+    - field.storage.commerce_product_variation.subscription_type
+  module:
+    - commerce
+id: commerce_product_variation.membership.subscription_type
+field_name: subscription_type
+entity_type: commerce_product_variation
+bundle: membership
+label: 'Subscription type'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: null
+settings: {  }
+field_type: 'commerce_plugin_item:commerce_subscription_type'

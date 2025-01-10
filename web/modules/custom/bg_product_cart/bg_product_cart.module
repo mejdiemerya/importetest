@@ -29,9 +29,9 @@ function bg_product_cart_preprocess_commerce_product(&$variables) {
        Url::fromUserInput(base_path().'product/add/variation-cart/'.$variables['product_entity']->id().'/'.$variation->id())
      );
    }
-foreach ($variables['product_entity']->get("field_related_products")->referencedEntities()  as $relatedProd){
-  //dsm($relatedProd->id());
-}
+//foreach ($variables['product_entity']->get("field_related_products")->referencedEntities()  as $relatedProd){
+//  //dsm($relatedProd->id());
+//}
 
    //$variables['product_entity']->id()
 //$variables['product']['variation_price'][0]["#markup"]

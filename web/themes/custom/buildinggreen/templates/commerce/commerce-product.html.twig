@@ -46,7 +46,7 @@
     <div class="col-sm-3 col-sm-pull-9">
       {{ product.field_promo_image }}
       <!-- PREMIUM USERS WILL SEE: -->
-      {% if (user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content') or in_pricelist) and not has_purchased and not product_entity.get ('field_hide_buy_button').value  %}
+      {% if (user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content') or in_pricelist) and not has_purchased  and product_entity.field_hide_buy_button is defined and not product_entity.get ('field_hide_buy_button').value  %}
         {%  if  member_price  %}
           <p class="mt-4 mb05">Regular price: ${{ list_price }} </p>
           <p class="mt-4 large line-snug"><strong><em>Premium member price: ${{ member_price }} </em></strong></p>
@@ -57,7 +57,7 @@
       {% endif %}
 
       <!-- NON-PREMIUM USERS WILL SEE: -->
-      {% if   not (user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content')) and not in_pricelist  and  not has_purchased and not product_entity.get ('field_hide_buy_button').value  %}
+      {% if   not (user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content')) and not in_pricelist  and  not has_purchased  and product_entity.field_hide_buy_button is defined and not product_entity.get ('field_hide_buy_button').value  %}
 
         <a class="btn btn-lg btn-wrap mt-4 btn-success w-100 mt-2"  >Buy it now for <strong>${{ list_price }} </strong></a>
 

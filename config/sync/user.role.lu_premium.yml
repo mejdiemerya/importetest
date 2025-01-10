@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
-    - custom_forums
+    - bg_product_cart
 id: lu_premium
 label: 'LEEDuser Premium Member'
 weight: 28

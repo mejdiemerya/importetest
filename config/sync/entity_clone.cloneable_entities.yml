@@ -62,3 +62,5 @@ cloneable_entities:
   - entity_form_mode
   - date_format
   - base_field_override
+  - commerce_pricelist
+  - commerce_pricelist_item
