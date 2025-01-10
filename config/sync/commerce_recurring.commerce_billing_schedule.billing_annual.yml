@@ -17,6 +17,6 @@ configuration:
   trial_interval: {  }
   interval:
     number: 1
-    unit: month
+    unit: year
 prorater: full_price
 proraterConfiguration: {  }

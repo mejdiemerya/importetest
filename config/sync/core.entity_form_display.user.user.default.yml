@@ -3,8 +3,10 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.user.user.commerce_remote_id
     - field.field.user.user.field_accreditations
     - field.field.user.user.field_admin_notes
+    - field.field.user.user.field_adresse
     - field.field.user.user.field_aia_number
     - field.field.user.user.field_bio
     - field.field.user.user.field_bpi_number
@@ -32,8 +34,10 @@ dependencies:
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
+    - address
     - datetime
     - image
+    - path
     - text
     - user
 _core:
@@ -68,6 +72,13 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  field_adresse:
+    type: address_default
+    weight: 31
+    region: content
+    settings:
+      wrapper_type: fieldset
     third_party_settings: {  }
   field_aia_number:
     type: string_textfield
@@ -249,6 +260,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   timezone:
     weight: 6
     region: content
@@ -262,4 +279,7 @@ content:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  commerce_remote_id: true
+  customer_profiles: true
+  langcode: true

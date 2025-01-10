@@ -1,0 +1,57 @@
+<?php
+
+/**
+ * @file
+ * Module file for BG Custom Checkout.
+ */
+
+use Drupal\Core\Block\BlockManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+
+/**
+ * Implements hook_help().
+ */
+function bg_custom_checkout_help($route_name, \Drupal\Core\Routing\RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    case 'help.page.bg_custom_checkout':
+      return '<p>' . t('Adds a custom pane to the Drupal Commerce checkout process.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function bg_custom_checkout_theme() {
+  return [
+    'bg_custom_checkout_pane' => [
+      'variables' => [
+        'content' => NULL,
+      ],
+    ],
+  ];
+}
+/**
+ * Implements hook_plugin_alter().
+ */
+/**
+ * Implements hook_plugin_alter().
+ */
+/**
+ * Implements hook_plugin_alter().
+ */
+/**
+ * Implements hook_plugin_alter().
+ */
+function bg_custom_checkout_commerce_checkout_flow_info_alter(array &$plugins) {
+
+    // Vérifiez si le plugin "multistep_default" existe.
+    if (isset($plugins['multistep_default'])) {
+      \Drupal::logger('bg_custom_checkout')->info('Altering the multistep_default plugin.');
+      // Modifiez la classe pour utiliser votre classe personnalisée.
+      $plugins['multistep_default']['class'] = \Drupal\bg_custom_checkout\Plugin\Commerce\CheckoutFlow\CustomMultistepDefault::class;
+    }
+
+}
+
+
+

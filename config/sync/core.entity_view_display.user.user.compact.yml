@@ -4,6 +4,34 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.user.compact
+    - field.field.user.user.commerce_remote_id
+    - field.field.user.user.field_accreditations
+    - field.field.user.user.field_admin_notes
+    - field.field.user.user.field_adresse
+    - field.field.user.user.field_aia_number
+    - field.field.user.user.field_bio
+    - field.field.user.user.field_bpi_number
+    - field.field.user.user.field_bulletin_opt_in
+    - field.field.user.user.field_dp_firm_token
+    - field.field.user.user.field_dp_token
+    - field.field.user.user.field_expert_notification_last
+    - field.field.user.user.field_first_name
+    - field.field.user.user.field_gbci_email
+    - field.field.user.user.field_gbci_number
+    - field.field.user.user.field_hide_email
+    - field.field.user.user.field_ilfi_member
+    - field.field.user.user.field_last_mailchimp_sync_date
+    - field.field.user.user.field_last_name
+    - field.field.user.user.field_last_reminded
+    - field.field.user.user.field_nari_member
+    - field.field.user.user.field_organization
+    - field.field.user.user.field_region
+    - field.field.user.user.field_regional_coordinator
+    - field.field.user.user.field_sub_notification_last
+    - field.field.user.user.field_title
+    - field.field.user.user.field_trial_taken
+    - field.field.user.user.field_trial_taken_lu
+    - field.field.user.user.field_website
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -16,6 +44,11 @@ targetEntityType: user
 bundle: user
 mode: compact
 content:
+  masquerade:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 50
+    region: content
   user_picture:
     type: image
     label: hidden
@@ -28,8 +61,36 @@ content:
     weight: 0
     region: content
 hidden:
+  commerce_remote_id: true
+  customer_profiles: true
+  field_accreditations: true
+  field_admin_notes: true
+  field_adresse: true
+  field_aia_number: true
+  field_bio: true
+  field_bpi_number: true
+  field_bulletin_opt_in: true
+  field_dp_firm_token: true
+  field_dp_token: true
+  field_expert_notification_last: true
   field_first_name: true
+  field_gbci_email: true
+  field_gbci_number: true
+  field_hide_email: true
+  field_ilfi_member: true
+  field_last_mailchimp_sync_date: true
   field_last_name: true
+  field_last_reminded: true
+  field_nari_member: true
+  field_organization: true
+  field_region: true
+  field_regional_coordinator: true
+  field_sub_notification_last: true
+  field_title: true
+  field_trial_taken: true
+  field_trial_taken_lu: true
+  field_website: true
+  langcode: true
   member_for: true
   roles: true
   search_api_excerpt: true

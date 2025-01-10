@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.user.user_expert
+    - field.field.user.user.commerce_remote_id
     - field.field.user.user.field_accreditations
     - field.field.user.user.field_admin_notes
+    - field.field.user.user.field_adresse
     - field.field.user.user.field_aia_number
     - field.field.user.user.field_bio
     - field.field.user.user.field_bpi_number
@@ -91,6 +93,7 @@ hidden:
   commerce_remote_id: true
   customer_profiles: true
   field_admin_notes: true
+  field_adresse: true
   field_aia_number: true
   field_bio: true
   field_bpi_number: true

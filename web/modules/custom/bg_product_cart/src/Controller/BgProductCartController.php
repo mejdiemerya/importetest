@@ -69,7 +69,7 @@ final class BgProductCartController extends ControllerBase {
 
     $account =   $this->currentUser ;
     $cart = FALSE;
-    $store = $this->entityTypeManager->getStorage('commerce_store')  ->loadDefault();
+    $store = $this->entityTypeManager->getStorage('commerce_store') ->loadDefault();
     /**
      * @var \Drupal\commerce_order\OrderItemStorageInterface $order_item_storage
      */
@@ -98,7 +98,7 @@ final class BgProductCartController extends ControllerBase {
 
       $order_item->set('order_id', $cart->id());
       $this->cartManager->addOrderItem($cart, $order_item, true);
-       dsm($order_item->id());
+
     }
 
    // \Drupal::messenger()->deleteAll();
