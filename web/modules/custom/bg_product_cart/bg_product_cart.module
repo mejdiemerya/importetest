@@ -14,22 +14,17 @@ use Drupal\file\Entity\File;
 
 function bg_product_cart_preprocess_commerce_product(&$variables)
 {
-  //dpm($variables['product_entity']->get("field_related_products")->referencedEntities() );
-  //commerce_pricelist_get_user_price
-
 //PriceListRepositoryInterface
   $priceResolv = \Drupal::service('commerce_pricelist.repository');
-//dd($variables['product_entity']->get('stores')->ids());
+
   $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
   $store_id = $variables['product_entity']->get('stores')->target_id;
-  //dd($variables['product_entity']);
+
   $store = \Drupal\commerce_store\Entity\Store::load($store_id);
   $formatter = \Drupal::service('commerce_price.rounder');
-  //dd($formatter-> round("99.000000"));
-  //dd($variables);
-//dd($variables["elements"]['title']["#printed"] );
+
   $tabLinkCartVariations = [];
-  $tabLinkCartRElatedProd = [];
+
 
   foreach (   $variables['product_entity']->get('field_related_products') as $relatedProduct) {
     $resultsOdersP = getOrderByUserAndProduct($account->id(), $relatedProduct->target_id);
@@ -51,7 +46,6 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
         'path' => $file->getFileUri(),
         'id' => $file->id(),
       );
-     // dd($commerce_file);
     }
     }
 
@@ -105,36 +99,8 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
       $variables['has_purchased'] = TRUE;
     }
 
-
-
   }
 
-
-
-
-
-  if (true) {
-    //$variables['has_purchased'] = TRUE;
-  }
-//   if($variables['product_entity']->get("field_related_products"))
-//foreach ($variables['product_entity']->get("field_related_products")->referencedEntities()  as $relatedProd){
-//  //dsm($relatedProd->id());
-//}
-
-  //$variables['product_entity']->id()
-//$variables['product']['variation_price'][0]["#markup"]
-
-
-  /*if(!empty($variables['product_entity']->get('field_related_products'))){
-    foreach ($variables['product_entity']->get('field_related_products') as $discount_product)
-    {
-
-      $variables['discount_products'][] = $discount_product->getValue()["target_id"];
-    }
-   // $variables['discount_products'] = implode(',', $discount_product_ids);
-  }
-
- dd($variables['discount_products']);*/
   $variables ['add_cart_variation'] = $tabLinkCartVariations;
 
 }

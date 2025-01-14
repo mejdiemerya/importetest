@@ -86,10 +86,10 @@ final class BgProductCartController extends ControllerBase {
 
 
       foreach ($product->get('field_related_products') as $discount_product) {
-       // dd($discount_product);
+
         $variation = $this->entityTypeManager->getStorage('commerce_product_variation')->load((int)$discount_product->getValue()["target_id"]);
 
-        //if($variation->get('type')->target_id != "per_node_access")continue;
+
         if(!empty($variation)){
           /**
            * @var \Drupal\commerce_order\Entity\OrderItem $order_item
@@ -230,13 +230,6 @@ final class BgProductCartController extends ControllerBase {
     $redirectURL = 'checkout/'.$cart->id().'/order_information';
     return new RedirectResponse(base_path().$redirectURL);
 
-
-//    $build['content'] = [
-//      '#type' => 'item',
-//      '#markup' => $this->t('It works!'),
-//    ];
-//
-//    return $build;
 
   }
 }
