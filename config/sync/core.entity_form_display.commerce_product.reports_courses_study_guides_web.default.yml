@@ -27,6 +27,7 @@ dependencies:
     - commerce
     - field_group
     - image
+    - inline_entity_form
     - link
     - path
     - text
@@ -228,14 +229,22 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
   field_related_products:
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
     weight: 7
     region: content
     settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
       match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      allow_duplicate: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      removed_reference: optional
     third_party_settings: {  }
   field_report_page_button_label:
     type: string_textfield
@@ -310,14 +319,22 @@ content:
       placeholder: ''
     third_party_settings: {  }
   variations:
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
     weight: 11
     region: content
     settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
       match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      allow_duplicate: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      removed_reference: optional
     third_party_settings: {  }
 hidden:
   field_vv: true

@@ -4,16 +4,16 @@ status: true
 dependencies:
   config:
     - commerce_product.commerce_product_variation_type.per_node_access
+    - field.field.commerce_product_variation.per_node_access.commerce_file
     - field.field.commerce_product_variation.per_node_access.field_checkout_complete_message
-    - field.field.commerce_product_variation.per_node_access.field_commerce_license_duration
-    - field.field.commerce_product_variation.per_node_access.field_commerce_license_type
     - field.field.commerce_product_variation.per_node_access.field_hide_button_on_report_page
     - field.field.commerce_product_variation.per_node_access.field_hide_quiz_button_on_report
     - field.field.commerce_product_variation.per_node_access.field_license_billing_cycle_type
-    - field.field.commerce_product_variation.per_node_access.field_license_billing_type
     - field.field.commerce_product_variation.per_node_access.field_purchased_content
     - field.field.commerce_product_variation.per_node_access.field_zoom_id
     - field.field.commerce_product_variation.per_node_access.field_zoom_type
+    - field.field.commerce_product_variation.per_node_access.license_expiration
+    - field.field.commerce_product_variation.per_node_access.license_type
   module:
     - commerce_price
     - options
@@ -34,20 +34,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 7
-    region: content
-  field_commerce_license_duration:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 9
-    region: content
-  field_commerce_license_type:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 8
     region: content
   field_hide_button_on_report_page:
     type: boolean
@@ -75,13 +61,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 10
-    region: content
-  field_license_billing_type:
-    type: list_default
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    weight: 11
     region: content
   field_purchased_content:
     type: entity_reference_label
@@ -141,6 +120,9 @@ content:
     weight: 14
     region: content
 hidden:
+  commerce_file: true
   langcode: true
+  license_expiration: true
+  license_type: true
   product_id: true
   search_api_excerpt: true

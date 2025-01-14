@@ -1,40 +1,177 @@
 <?php
 
+use Drupal\commerce_order\Entity\Order;
+use Drupal\Core\Database\Database;
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\file\Entity\File;
 
 /**
  * @file
  * Primary module hooks for bg_product_cart module.
  */
 
-function bg_product_cart_preprocess_commerce_product(&$variables) {
-   //dpm($variables['product_entity']->get("field_related_products")->referencedEntities() );
+function bg_product_cart_preprocess_commerce_product(&$variables)
+{
+  //dpm($variables['product_entity']->get("field_related_products")->referencedEntities() );
   //commerce_pricelist_get_user_price
 
-
-  $variables["elements"]["#title"] = false;
-  $variables["elements"]["title"] = false;
+//PriceListRepositoryInterface
+  $priceResolv = \Drupal::service('commerce_pricelist.repository');
+//dd($variables['product_entity']->get('stores')->ids());
+  $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  $store_id = $variables['product_entity']->get('stores')->target_id;
+  //dd($variables['product_entity']);
+  $store = \Drupal\commerce_store\Entity\Store::load($store_id);
+  $formatter = \Drupal::service('commerce_price.rounder');
+  //dd($formatter-> round("99.000000"));
   //dd($variables);
 //dd($variables["elements"]['title']["#printed"] );
-   $tabLinkCartVariations = [];
-   $tabLinkCartRElatedProd = [];
-   foreach ($variables['product_entity']->getVariations() as $variation) {
-   //  dd($variation->get('price'));
- //dsm($variation->get('list_price'));
-     $variables ['member_price'] = $variation->get('price')->number/100;
-     $variables ['list_price'] = $variation->get('price')->number/100;
-     $tabLinkCartVariations[] = new Link(
-       t('Buy it now for ').$variables['product']['variation_price'][0]["#markup"],
-       Url::fromUserInput(base_path().'product/add/variation-cart/'.$variables['product_entity']->id().'/'.$variation->id())
-     );
-   }
+  $tabLinkCartVariations = [];
+  $tabLinkCartRElatedProd = [];
+
+  foreach (   $variables['product_entity']->get('field_related_products') as $relatedProduct) {
+    $resultsOdersP = getOrderByUserAndProduct($account->id(), $relatedProduct->target_id);
+     if(!empty($resultsOdersP)) {
+       $variables['has_purchased'] = TRUE;
+     }else{
+       $variables['has_purchased'] = FALSE;
+       break;
+     }
+  }
+  foreach ($variables['product_entity']->getVariations() as $variation) {
+    $price_list_item = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($account, $store));
+    //dd($variation->get('commerce_file'));
+    if(!empty($variation->get('commerce_file') )){
+    foreach ($variation->get('commerce_file') as $commerce_file){
+      $file = File::load($commerce_file->getValue()['target_id']);
+      $variables['downloads'][] = array(
+        'label' => $commerce_file->getValue()['description'],
+        'path' => $file->getFileUri(),
+        'id' => $file->id(),
+      );
+     // dd($commerce_file);
+    }
+    }
+
+
+    if ($price_list_item)
+      $variables ['member_price'] = $price_list_item->get('price')->number;
+
+
+    $variables ['list_price'] = number_format(  $variation->get('price')->number)    ;
+    $tabLinkCartVariations[] = new Link(
+      t('Buy it now for ') . $variables['product']['variation_price'][0]["#markup"],
+      Url::fromUserInput(base_path() . 'product/add/variation-cart/' . $variables['product_entity']->id() . '/' . $variation->id())
+    );
+
+    //check for premium member price
+    $premium_user = user_load_by_name('googlebotip');//use googlebotip because they have premium roles for bot sites
+    $pricesGooglebotip = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($premium_user, $store));
+    $variables['in_pricelist'] = FALSE;
+
+    if (isset($variables ['member_price']) && $variables ['member_price']/ 100 < $pricesGooglebotip->get('price')->number){
+     // $pricelist_member_price = $pricesGooglebotip->get('price')->number;
+      $variables['in_pricelist'] = TRUE;
+    }
+
+//bg PN member
+    $is_pn_member = FALSE;
+    if (in_array('bg_communities', $account->getRoles())) {
+      $is_pn_member = TRUE;
+    }
+
+    //BG and LU premium users get same access
+    $is_bg_or_lu_premium = FALSE;
+    if ( $account->hasPermission('access premium content') || $account->hasPermission('access LEEDuser premium content')) {
+      $is_bg_or_lu_premium = TRUE;
+    }
+
+    $variables['hide_buy_button'] = FALSE;
+    if (!empty($variables['product_entity']->get('field_hide_buy_button')) && $variables['product_entity']->get('field_hide_buy_button')->value == 1)
+    {
+      $variables['hide_buy_button'] = TRUE;
+    }
+
+    $resultsOders = getOrderByUserAndProduct($account->id(), $variation->id());
+
+    if(!empty($resultsOders)
+      || $account->hasPermission('administer site configuration')
+      || (!empty($variables['product_entity']->get('field_free_to_pn_members')) && $variables['product_entity']->get('field_free_to_pn_members')->value == 1 && $is_pn_member)
+      || (!empty($variables['product_entity']->get('field_free_to_premium_users')) && $variables['product_entity']->get('field_free_to_premium_users')->value == 1 && $is_bg_or_lu_premium)
+    ) {
+
+      $variables['has_purchased'] = TRUE;
+    }
+
+
+
+  }
+
+
+
+
+
+  if (true) {
+    //$variables['has_purchased'] = TRUE;
+  }
+//   if($variables['product_entity']->get("field_related_products"))
 //foreach ($variables['product_entity']->get("field_related_products")->referencedEntities()  as $relatedProd){
 //  //dsm($relatedProd->id());
 //}
 
-   //$variables['product_entity']->id()
+  //$variables['product_entity']->id()
 //$variables['product']['variation_price'][0]["#markup"]
-    $variables ['add_cart_variation'] = $tabLinkCartVariations ;
 
+
+  /*if(!empty($variables['product_entity']->get('field_related_products'))){
+    foreach ($variables['product_entity']->get('field_related_products') as $discount_product)
+    {
+
+      $variables['discount_products'][] = $discount_product->getValue()["target_id"];
+    }
+   // $variables['discount_products'] = implode(',', $discount_product_ids);
+  }
+
+ dd($variables['discount_products']);*/
+  $variables ['add_cart_variation'] = $tabLinkCartVariations;
+
+}
+
+function getOrderByUserAndProduct($uid, $vid)
+{
+  $connection = Database::getConnection();
+  $query = $connection->select('commerce_order', 'o')
+    ->fields('o', ['order_id']);
+  $query->join('commerce_order_item', 'oi', 'o.order_id = oi.order_id');
+  $query->condition('o.uid', $uid);  // Filtrer par l'ID de l'utilisateur
+  $query->condition('oi.purchased_entity', $vid);  // Filtrer par l'ID du variation
+  $query->condition('o.state', 'completed');
+  return $query->execute()->fetchField();
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function bg_product_cart_form_alter(&$form, FormStateInterface $form_state, $form_id)
+{
+
+  if ($form_id == 'commerce_pricelist_commerce_product_variation_edit_form' || $form_id == 'commerce_pricelist_commerce_product_variation_add_form') {
+    $form['customer_eligibility'] ['#type'] = 'checkboxes';
+    $form['customer_eligibility'] ['#default_value'] = array('customer_roles', 'customers');
+    $form['customer_eligibility'] ['#access'] = FALSE;
+  }
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function bg_product_cart_theme($existing, $type, $theme, $path) {
+  return [
+    'checkout_complete_page' => [
+      'variables' => ['custom_message' => NULL],
+    ],
+  ];
 }
