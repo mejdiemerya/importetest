@@ -8,6 +8,7 @@ module:
   advancedqueue: 0
   announcements_feed: 0
   automated_cron: 0
+  bg_custom_checkout: 0
   bg_import_product: 0
   bg_product_cart: 0
   big_pipe: 0

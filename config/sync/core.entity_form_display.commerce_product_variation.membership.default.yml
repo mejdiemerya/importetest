@@ -4,30 +4,21 @@ status: true
 dependencies:
   config:
     - commerce_product.commerce_product_variation_type.membership
-    - field.field.commerce_product_variation.membership.attribute_tt
-    - field.field.commerce_product_variation.membership.field_bg_commerce_license_role
-    - field.field.commerce_product_variation.membership.field_bg_commerce_license_trial
-    - field.field.commerce_product_variation.membership.field_bg_license_trial_price
+    - field.field.commerce_product_variation.membership.billing_schedule
     - field.field.commerce_product_variation.membership.field_checkout_complete_message
-    - field.field.commerce_product_variation.membership.field_commerce_license_duration
-    - field.field.commerce_product_variation.membership.field_commerce_license_type
     - field.field.commerce_product_variation.membership.field_failed_renewal_body
     - field.field.commerce_product_variation.membership.field_failed_renewal_body_2
     - field.field.commerce_product_variation.membership.field_failed_renewal_subject
     - field.field.commerce_product_variation.membership.field_failed_renewal_subject_2
-    - field.field.commerce_product_variation.membership.field_license_billing_cycle_type
-    - field.field.commerce_product_variation.membership.field_license_billing_type
-    - field.field.commerce_product_variation.membership.field_number_of_renewals
-    - field.field.commerce_product_variation.membership.field_renewal_prices
-    - field.field.commerce_product_variation.membership.field_test
     - field.field.commerce_product_variation.membership.field_welcome_email_body
     - field.field.commerce_product_variation.membership.field_welcome_email_subject
+    - field.field.commerce_product_variation.membership.license_expiration
+    - field.field.commerce_product_variation.membership.license_type
+    - field.field.commerce_product_variation.membership.subscription_type
   module:
     - commerce
     - commerce_price
     - field_group
-    - interval
-    - paragraphs
     - text
 third_party_settings:
   field_group:
@@ -70,28 +61,9 @@ targetEntityType: commerce_product_variation
 bundle: membership
 mode: default
 content:
-  attribute_tt:
+  billing_schedule:
     type: options_select
-    weight: 1
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_bg_commerce_license_role:
-    type: options_select
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_bg_commerce_license_trial:
-    type: interval_default
-    weight: 5
-    region: content
-    settings:
-      allowed_periods: {  }
-    third_party_settings: {  }
-  field_bg_license_trial_price:
-    type: commerce_price_default
-    weight: 6
+    weight: 22
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -102,18 +74,6 @@ content:
     settings:
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
-  field_commerce_license_duration:
-    type: options_buttons
-    weight: 9
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_commerce_license_type:
-    type: options_select
-    weight: 8
-    region: content
-    settings: {  }
     third_party_settings: {  }
   field_failed_renewal_body:
     type: text_textarea
@@ -147,50 +107,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_license_billing_cycle_type:
-    type: options_select
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_license_billing_type:
-    type: options_buttons
-    weight: 11
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_number_of_renewals:
-    type: string_textfield
-    weight: 12
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  field_renewal_prices:
-    type: paragraphs
-    weight: 7
-    region: content
-    settings:
-      title: Paragraphe
-      title_plural: Paragraphs
-      edit_mode: open
-      closed_mode: summary
-      autocollapse: none
-      closed_mode_threshold: 0
-      add_mode: dropdown
-      form_display_mode: default
-      default_paragraph_type: ''
-      features:
-        collapse_edit_all: collapse_edit_all
-        duplicate: duplicate
-    third_party_settings: {  }
-  field_test:
-    type: commerce_plugin_radios
-    weight: 22
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_welcome_email_body:
     type: text_textarea
     weight: 20
@@ -213,6 +129,18 @@ content:
     region: content
     settings:
       include_locked: true
+    third_party_settings: {  }
+  license_expiration:
+    type: commerce_plugin_select
+    weight: 21
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  license_type:
+    type: commerce_plugin_select
+    weight: 20
+    region: content
+    settings: {  }
     third_party_settings: {  }
   list_price:
     type: commerce_list_price
@@ -240,6 +168,12 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  subscription_type:
+    type: commerce_plugin_select
+    weight: 0
+    region: content
+    settings: {  }
     third_party_settings: {  }
   title:
     type: string_textfield

@@ -1,0 +1,6 @@
+services:
+  bg_custom_checkout.checkout_pane:
+    class: Drupal\bg_custom_checkout\Plugin\Commerce\CheckoutPane\CustomCheckoutPane
+    arguments: ['@plugin.manager.block']
+    tags:
+      - { name: commerce_checkout_pane, id: custom_checkout_pane, title: 'Custom Checkout Pane', display_label: true }

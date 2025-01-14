@@ -1,0 +1,25 @@
+uuid: dabc1513-6fb9-4eb5-9230-46489cd558c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_adresse
+  module:
+    - address
+    - user
+id: user.user.field_adresse
+field_name: field_adresse
+entity_type: user
+bundle: user
+label: Adresse
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  available_countries: {  }
+  langcode_override: ''
+  field_overrides: {  }
+  fields: {  }
+field_type: address

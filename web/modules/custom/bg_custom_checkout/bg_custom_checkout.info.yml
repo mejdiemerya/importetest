@@ -1,0 +1,8 @@
+name: 'BG Custom Checkout'
+type: module
+description: 'Ajoute un pane de checkout Commerce qui affiche un block.'
+package: 'Custom'
+core_version_requirement: ^11
+dependencies:
+  - drupal:commerce
+  - drupal:block

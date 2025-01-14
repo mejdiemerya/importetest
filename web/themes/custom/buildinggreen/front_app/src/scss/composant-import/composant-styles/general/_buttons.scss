@@ -151,3 +151,6 @@ a#post-question {
     border-color: #9abcc1;
   }
 }
+a[data-drupal-selector="edit-login-returning-customer-forgot-password"]{
+@extend
+}

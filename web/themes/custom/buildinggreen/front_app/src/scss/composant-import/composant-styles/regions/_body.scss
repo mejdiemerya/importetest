@@ -440,3 +440,60 @@ p.content-category {
 small,.small {
   font-size: 81%;
 }
+
+.layout-checkout-form{
+  ol.checkout-progress{
+    margin: 0 0 1em;
+    padding: 0.5em 0 0.5em 1em;
+    text-transform: uppercase;
+    background-color: #eaf4df;
+    display: flex;
+    flex-wrap: wrap;
+    li  {
+      display: block;
+      list-style: outside none none;
+      position: relative;
+      text-align: center;
+      width: auto;
+      color: #868093;
+
+      &.checkout-progress--step__current {
+        color: #333139;
+      }
+
+      &.checkout-progress--step::before{
+        content: "\00bb";
+        padding: 0 1em 0 0;
+        font-weight: 400;
+        color: #333139;
+      }
+
+    }
+  }
+}
+.form-wrapper__login-option,
+.checkout-pane-payment-information{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  height: $card-height;
+  word-wrap: break-word;
+  background-color: $card-bg;
+  background-clip: border-box;
+  border: $card-border-width solid $card-border-color;
+  @include border-radius($card-border-radius);
+  @include box-shadow($card-box-shadow);
+  padding: 0;
+  > legend{
+    padding: .5rem 1rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, .03);
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+  }
+  > .fieldset-wrapper{
+    flex: 1 1 auto;
+    padding: 1rem 1rem;
+  }
+}
