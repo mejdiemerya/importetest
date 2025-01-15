@@ -1,0 +1,19 @@
+uuid: 1046a124-a6f9-4c68-977a-04ce72fd6ef6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_title
+    - paragraphs.paragraphs_type.leeduser_premium
+id: paragraph.leeduser_premium.field_title
+field_name: field_title
+entity_type: paragraph
+bundle: leeduser_premium
+label: Titre
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

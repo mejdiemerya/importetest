@@ -20,6 +20,8 @@ module.exports = function () {
         'leeduser-tour',
         'store',
         'page-credit-composant',
+        "page-tipsheet",
+        "composant-leeduser-premium",
       ],
       quality: ["src/scss/**/*.scss"],
       dest: "./dist/assets/composant/",
