@@ -25,7 +25,6 @@ display:
           label: 'Variation de produit'
           separator: ', '
         name:
-          label: Lister
           separator: ', '
         quantity:
           label: Quantité
