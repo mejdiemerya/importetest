@@ -1,0 +1,11 @@
+uuid: b4b68ae0-697a-46db-8ee9-7b67cf0a40c1
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.per_node_access
+id: commerce_product_variation.per_node_access
+target_entity_type_id: commerce_product_variation
+target_bundle: per_node_access
+default_langcode: site_default
+language_alterable: false
