@@ -5,3 +5,17 @@ bg_product_cart.variation_cart_add:
     _title: 'Add'
   requirements:
     _permission: 'access content'
+bg_product_cart.variation_discount_add:
+  path: '/product/add/discount-cart/{pid}'
+  defaults:
+    _controller: '\Drupal\bg_product_cart\Controller\BgProductCartController::addDiscount'
+    _title: 'Add'
+  requirements:
+    _permission: 'access content'
+bg_product_cart.checkout_complete:
+  path: '/checkout/{order_id}/complete'
+  defaults:
+    _controller: '\Drupal\bg_product_cart\Controller\CheckoutCompleteController::completePage'
+    _title: 'Checkout Complete'
+  requirements:
+    _permission: 'access content'

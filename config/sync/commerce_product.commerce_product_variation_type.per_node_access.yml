@@ -1,10 +1,22 @@
 uuid: 4c462965-8bd4-4142-86d8-67cc0e28dce5
 langcode: fr
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - commerce_license
+third_party_settings:
+  commerce_license:
+    license_types:
+      commerce_file: commerce_file
+    activate_on_place: false
+    allow_renewal: false
+    interval: ''
+    period: second
 id: per_node_access
 label: 'Per-node access'
-traits: {  }
+traits:
+  - commerce_file
+  - commerce_license
 locked: false
 orderItemType: default
-generateTitle: null
+generateTitle: false

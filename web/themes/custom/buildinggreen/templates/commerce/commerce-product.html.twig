@@ -59,10 +59,10 @@
       <!-- NON-PREMIUM USERS WILL SEE: -->
       {% if   not (user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content')) and not in_pricelist  and  not has_purchased  and product_entity.field_hide_buy_button is defined and not product_entity.get ('field_hide_buy_button').value  %}
 
-        <a class="btn btn-lg btn-wrap mt-4 btn-success w-100 mt-2"  >Buy it now for <strong>${{ list_price }} </strong></a>
+        <a class="btn btn-lg btn-wrap mt-4 btn-success w-100 mt-2"  href="{{ '/product/add/variation-cart/'~product_entity.product_id.value~'/'~product.variations['#items'][0].target_id }}" >Buy it now for <strong>${{ list_price }} </strong></a>
 
-        {% if product.field_coupon  %}
-          <a class="btn btn-lg btn-wrap btn-midtone w-100 mt-4"   >{{ product.field_button_label[0] }}</a>
+        {% if product_entity.get ('field_coupon').value  %}
+          <a class="btn btn-lg btn-wrap btn-midtone w-100 mt-4"  href="/product/add/discount-cart/{{ product_entity.product_id.value }}" > {{ product.field_button_label[0] }}</a>
         {% endif %}
 
         {% if (not logged_in and   product_entity.get ('field_free_to_premium_users').value == 1)%}
@@ -76,11 +76,71 @@
     <div class="col-sm-9 col-sm-push-3 magnify">
       <div class="nullify"><h5 class="page-topper mb-4 mt-0">{{ product.field_type_of_product }}</h5></div>
       <h1>{{ product.title[0] }}</h1>
-      {{ product.body }}
-{#      <a class="btn btn-xl btn-success mt-3 w-100 hidden-xs btn-wrap ng-scope"  >#}
-{#        <p class="mt-0 mb-0 xlarge" data-gtm-vis-has-fired7025260_75="1">{{ 'Buy'|t }} <strong  >{{ product.variation_title[0] }} </strong> {{ 'for'|t }} $149 »</p>#}
-{#      </a>#}
-      {{ link('Buy it now for ' ~ product.variation_price['#items'][0].number ~' '~ product.variation_price['#items'][0].value.currency_code , url('<front>')|render ~ 'product/add/variation-cart/'~product_entity.product_id.value~'/'~product.variations['#items'][0].target_id, { 'class':['btn btn-xl btn-success mt-3 w-100 hidden-xs btn-wrap ng-scope' ]} ) }}
+      {% if not has_purchased  %}
+        {{ product.body }}
+      {% endif %}
+      <!-- PREMIUM USERS WHO HAVE NOT PURCHASED THE REPORT WILL SEE: -->
+      {% if ((user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content')) and not has_purchased and not hide_buy_button) %}
+        <a class="btn btn-xl btn-success mt10 btn-wrap wide hidden-xs" buy="{{  field_related_product[0][target_id] }}">
+          <p class="mt0 mb0 xlarge">Buy <strong>{{ product.variation_title[0] }} </strong>
+            {% if  member_price %}
+              <br>
+              <small class="roman"><s>$ {{  list_price }}</s> <strong>$ {{  member_price }}</strong> with your Premium member discount</small>
+            {% endif %}
+          </p>
+        </a>
+      {% endif %}
+
+      <!-- NON-PREMIUM USERS WHO HAVE NOT PURCHASED THE REPORT WILL SEE: -->
+      {% if (not (user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content')) and not has_purchased and not hide_buy_button)%}
+        <a class="btn btn-xl btn-success mt-3 w-100 hidden-xs btn-wrap ng-scope" href="{{ '/product/add/variation-cart/'~product_entity.product_id.value~'/'~product.variations['#items'][0].target_id }}" >
+          <p class="mt0 mb0 xlarge">Buy <strong>{{ product.variation_title[0] }} </strong> for ${{  list_price }}  </p>
+        </a>
+      {% endif %}
+
+      {% if has_purchased  %}
+        <div class="row">
+          <div class="col-sm-12">
+            <h1 class="mt05">{{title  }}</h1>
+          </div>
+
+          <div class="col-md-8">
+
+            {% if  product_entity.get ('field_body_purchased').value    %}
+              {{ product_entity.get ('field_body_purchased').value|raw }}
+            {% else %}
+              <p class="font-size-large">Thank you for purchasing <em>{{ title  }}</em>.  You can download your purchase using the buttons on this page.</p>
+              <p class="font-size-large">To earn continuing education units, click on the quiz button.  If you want BuildingGreen to automatically report your CEUs, please <a href="/user/{{useruid }}/edit">go to your user profile</a> and add your continuing education ID numbers.</p>
+              <p class="font-size-large mb10">Questions or comments about your purchase?  Please let us know via <a href="/contact">our company contact form</a>.</p>
+            {% endif   %}
+
+            {% if  field_registration_link   %}
+              <a href="{{field_registration_link.url}}" class="btn btn-warning btn-lg mt05">Complete your webinar registration</a>
+            {% endif   %}
+
+          </div><!-- end col -->
+          <div class="col-md-4">
+
+            {% if  downloads and downloads|length > 0 %}
+              {% for download in downloads  %}
+                <p><a class="btn btn-lg btn-success btn-wrap wide" type="application/pdf; length=0" href="/commerce-file/{{ download.id }}/download">{{ download.label }}</a></p>
+              {% endfor  %}
+            {% endif   %}
+
+            {% if  purchased_nodes and  purchased_nodes|length > 0 %}
+              <?php foreach ($purchased_nodes as $purchased_node){ %}
+  					  {% if purchased_node.type == 'quiz' and  not has_purchased_product and  'lu_trial' in user.roles  %}
+                <p><a class="btn btn-lg btn-neutral btn-wrap wide" target="_blank" href="/pricing">Sign up for premium membership to earn CEUs</a></p>
+            {%   else    %}
+              <p><a class="btn btn-lg btn-neutral btn-wrap wide" target="_blank" href="{{purchased_node.path  }}">{{purchased_node.label  }}</a></p>
+            {% endif   %}
+
+            {% endif   %}
+
+          </div><!-- end col -->
+        </div><!-- end row -->
+      {% endif   %}
+
     </div>
   </div>
 
