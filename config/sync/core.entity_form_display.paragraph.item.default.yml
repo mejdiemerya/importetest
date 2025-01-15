@@ -3,17 +3,27 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.item.field_btn
     - field.field.paragraph.item.field_description_item
     - field.field.paragraph.item.field_price
     - field.field.paragraph.item.field_title_item
     - paragraphs.paragraphs_type.item
   module:
+    - link
     - text
 id: paragraph.item.default
 targetEntityType: paragraph
 bundle: item
 mode: default
 content:
+  field_btn:
+    type: link_default
+    weight: 3
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
   field_description_item:
     type: string_textfield
     weight: 2

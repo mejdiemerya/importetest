@@ -3,11 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.paragraph.item.field_btn
     - field.field.paragraph.item.field_description_item
     - field.field.paragraph.item.field_price
     - field.field.paragraph.item.field_title_item
     - paragraphs.paragraphs_type.item
   module:
+    - link
     - text
     - text_field_formatter
 id: paragraph.item.default
@@ -15,6 +17,18 @@ targetEntityType: paragraph
 bundle: item
 mode: default
 content:
+  field_btn:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
   field_description_item:
     type: text_field_formatter
     label: hidden
