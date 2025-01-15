@@ -35,10 +35,25 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
        break;
      }
   }
+  if(!empty($resultsOdersP)) {
+    $order = Order::load($resultsOdersP);
+    if(!empty($order)) {
+      if(!empty($order->getItems()[0]->getPurchasedEntity()->get('commerce_file'))){
+        foreach ($order->getItems()[0]->getPurchasedEntity()->get('commerce_file') as $commerce_file){
+          $file = File::load($commerce_file->getValue()['target_id']);
+          $variables['downloads'][] = array(
+            'label' => $commerce_file->getValue()['description'],
+            'path' => $file->getFileUri(),
+            'id' => $file->id(),
+          );
+        }
+      }
+    }
+  }
   foreach ($variables['product_entity']->getVariations() as $variation) {
     $price_list_item = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($account, $store));
-    //dd($variation->get('commerce_file'));
-    if(!empty($variation->get('commerce_file') )){
+    
+    if(!empty($variation->get('commerce_file') ) && empty($variables['downloads'])){
     foreach ($variation->get('commerce_file') as $commerce_file){
       $file = File::load($commerce_file->getValue()['target_id']);
       $variables['downloads'][] = array(
