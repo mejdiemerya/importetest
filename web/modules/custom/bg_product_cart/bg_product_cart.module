@@ -14,32 +14,46 @@ use Drupal\file\Entity\File;
 
 function bg_product_cart_preprocess_commerce_product(&$variables)
 {
-//PriceListRepositoryInterface
-  $priceResolv = \Drupal::service('commerce_pricelist.repository');
 
-  $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
-  $store_id = $variables['product_entity']->get('stores')->target_id;
+  if ($variables['product_entity']->get('type')->target_id == "reports_courses_study_guides_web") {
+    $priceResolv = \Drupal::service('commerce_pricelist.repository');
 
-  $store = \Drupal\commerce_store\Entity\Store::load($store_id);
-  $formatter = \Drupal::service('commerce_price.rounder');
+    $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+    $store_id = $variables['product_entity']->get('stores')->target_id;
 
-  $tabLinkCartVariations = [];
+    $store = \Drupal\commerce_store\Entity\Store::load($store_id);
+    $formatter = \Drupal::service('commerce_price.rounder');
+    $tabLinkCartVariations = [];
 
+    foreach ($variables['product_entity']->get('field_related_products') as $relatedProduct) {
+      $resultsOdersP = getOrderByUserAndProduct($account->id(), $relatedProduct->target_id);
+      if (!empty($resultsOdersP)) {
+        $variables['has_purchased'] = TRUE;
+      } else {
+        $variables['has_purchased'] = FALSE;
+        break;
+      }
+    }
+    if (!empty($resultsOdersP)) {
+      $order = Order::load($resultsOdersP);
+      if (!empty($order)) {
+        if (!empty($order->getItems()[0]->getPurchasedEntity()->get('commerce_file'))) {
+          foreach ($order->getItems()[0]->getPurchasedEntity()->get('commerce_file') as $commerce_file) {
+            $file = File::load($commerce_file->getValue()['target_id']);
+            $variables['downloads'][] = array(
+              'label' => $commerce_file->getValue()['description'],
+              'path' => $file->getFileUri(),
+              'id' => $file->id(),
+            );
+          }
+        }
+      }
+    }
+    foreach ($variables['product_entity']->getVariations() as $variation) {
+      $price_list_item = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($account, $store));
 
-  foreach (   $variables['product_entity']->get('field_related_products') as $relatedProduct) {
-    $resultsOdersP = getOrderByUserAndProduct($account->id(), $relatedProduct->target_id);
-     if(!empty($resultsOdersP)) {
-       $variables['has_purchased'] = TRUE;
-     }else{
-       $variables['has_purchased'] = FALSE;
-       break;
-     }
-  }
-  if(!empty($resultsOdersP)) {
-    $order = Order::load($resultsOdersP);
-    if(!empty($order)) {
-      if(!empty($order->getItems()[0]->getPurchasedEntity()->get('commerce_file'))){
-        foreach ($order->getItems()[0]->getPurchasedEntity()->get('commerce_file') as $commerce_file){
+      if (!empty($variation->get('commerce_file')) && empty($variables['downloads'])) {
+        foreach ($variation->get('commerce_file') as $commerce_file) {
           $file = File::load($commerce_file->getValue()['target_id']);
           $variables['downloads'][] = array(
             'label' => $commerce_file->getValue()['description'],
@@ -48,76 +62,60 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
           );
         }
       }
-    }
-  }
-  foreach ($variables['product_entity']->getVariations() as $variation) {
-    $price_list_item = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($account, $store));
-    
-    if(!empty($variation->get('commerce_file') ) && empty($variables['downloads'])){
-    foreach ($variation->get('commerce_file') as $commerce_file){
-      $file = File::load($commerce_file->getValue()['target_id']);
-      $variables['downloads'][] = array(
-        'label' => $commerce_file->getValue()['description'],
-        'path' => $file->getFileUri(),
-        'id' => $file->id(),
+
+
+      if ($price_list_item)
+        $variables ['member_price'] = $price_list_item->get('price')->number;
+
+
+      $variables ['list_price'] = number_format($variation->get('price')->number);
+      $tabLinkCartVariations[] = new Link(
+        t('Buy it now for ') . $variables['product']['variation_price'][0]["#markup"],
+        Url::fromUserInput(base_path() . 'product/add/variation-cart/' . $variables['product_entity']->id() . '/' . $variation->id())
       );
-    }
-    }
 
+      //check for premium member price
+      $premium_user = user_load_by_name('googlebotip');//use googlebotip because they have premium roles for bot sites
+      $pricesGooglebotip = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($premium_user, $store));
+      $variables['in_pricelist'] = FALSE;
 
-    if ($price_list_item)
-      $variables ['member_price'] = $price_list_item->get('price')->number;
-
-
-    $variables ['list_price'] = number_format(  $variation->get('price')->number)    ;
-    $tabLinkCartVariations[] = new Link(
-      t('Buy it now for ') . $variables['product']['variation_price'][0]["#markup"],
-      Url::fromUserInput(base_path() . 'product/add/variation-cart/' . $variables['product_entity']->id() . '/' . $variation->id())
-    );
-
-    //check for premium member price
-    $premium_user = user_load_by_name('googlebotip');//use googlebotip because they have premium roles for bot sites
-    $pricesGooglebotip = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($premium_user, $store));
-    $variables['in_pricelist'] = FALSE;
-
-    if (isset($variables ['member_price']) && $variables ['member_price']/ 100 < $pricesGooglebotip->get('price')->number){
-     // $pricelist_member_price = $pricesGooglebotip->get('price')->number;
-      $variables['in_pricelist'] = TRUE;
-    }
+      if (isset($variables ['member_price']) && $variables ['member_price'] / 100 < $pricesGooglebotip->get('price')->number) {
+        // $pricelist_member_price = $pricesGooglebotip->get('price')->number;
+        $variables['in_pricelist'] = TRUE;
+      }
 
 //bg PN member
-    $is_pn_member = FALSE;
-    if (in_array('bg_communities', $account->getRoles())) {
-      $is_pn_member = TRUE;
+      $is_pn_member = FALSE;
+      if (in_array('bg_communities', $account->getRoles())) {
+        $is_pn_member = TRUE;
+      }
+
+      //BG and LU premium users get same access
+      $is_bg_or_lu_premium = FALSE;
+      if ($account->hasPermission('access premium content') || $account->hasPermission('access LEEDuser premium content')) {
+        $is_bg_or_lu_premium = TRUE;
+      }
+
+      $variables['hide_buy_button'] = FALSE;
+      if (!empty($variables['product_entity']->get('field_hide_buy_button')) && $variables['product_entity']->get('field_hide_buy_button')->value == 1) {
+        $variables['hide_buy_button'] = TRUE;
+      }
+
+      $resultsOders = getOrderByUserAndProduct($account->id(), $variation->id());
+
+      if (!empty($resultsOders)
+        || $account->hasPermission('administer site configuration')
+        || (!empty($variables['product_entity']->get('field_free_to_pn_members')) && $variables['product_entity']->get('field_free_to_pn_members')->value == 1 && $is_pn_member)
+        || (!empty($variables['product_entity']->get('field_free_to_premium_users')) && $variables['product_entity']->get('field_free_to_premium_users')->value == 1 && $is_bg_or_lu_premium)
+      ) {
+
+        $variables['has_purchased'] = TRUE;
+      }
+
     }
 
-    //BG and LU premium users get same access
-    $is_bg_or_lu_premium = FALSE;
-    if ( $account->hasPermission('access premium content') || $account->hasPermission('access LEEDuser premium content')) {
-      $is_bg_or_lu_premium = TRUE;
-    }
-
-    $variables['hide_buy_button'] = FALSE;
-    if (!empty($variables['product_entity']->get('field_hide_buy_button')) && $variables['product_entity']->get('field_hide_buy_button')->value == 1)
-    {
-      $variables['hide_buy_button'] = TRUE;
-    }
-
-    $resultsOders = getOrderByUserAndProduct($account->id(), $variation->id());
-
-    if(!empty($resultsOders)
-      || $account->hasPermission('administer site configuration')
-      || (!empty($variables['product_entity']->get('field_free_to_pn_members')) && $variables['product_entity']->get('field_free_to_pn_members')->value == 1 && $is_pn_member)
-      || (!empty($variables['product_entity']->get('field_free_to_premium_users')) && $variables['product_entity']->get('field_free_to_premium_users')->value == 1 && $is_bg_or_lu_premium)
-    ) {
-
-      $variables['has_purchased'] = TRUE;
-    }
-
+    $variables ['add_cart_variation'] = $tabLinkCartVariations;
   }
-
-  $variables ['add_cart_variation'] = $tabLinkCartVariations;
-
 }
 
 function getOrderByUserAndProduct($uid, $vid)
@@ -149,7 +147,8 @@ function bg_product_cart_form_alter(&$form, FormStateInterface $form_state, $for
 /**
  * Implements hook_theme().
  */
-function bg_product_cart_theme($existing, $type, $theme, $path) {
+function bg_product_cart_theme($existing, $type, $theme, $path)
+{
   return [
     'checkout_complete_page' => [
       'variables' => ['custom_message' => NULL],
