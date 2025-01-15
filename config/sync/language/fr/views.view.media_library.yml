@@ -2,9 +2,6 @@ display:
   default:
     display_title: 'Par défaut'
     display_options:
-      fields:
-        media_bulk_form:
-          action_title: Action
       pager:
         options:
           expose:
@@ -15,6 +12,8 @@ display:
         options:
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
       filters:
         status:
           group_info:
@@ -27,19 +26,12 @@ display:
         name:
           expose:
             label: Name
-        langcode:
-          expose:
-            label: Langue
   page:
     display_title: Page
     display_options:
       fields:
-        media_bulk_form:
-          action_title: Action
-        edit_media:
-          text: Modifier
-        delete_media:
-          text: Supprimer
+        name:
+          separator: ', '
   widget:
     display_options:
       arguments:
