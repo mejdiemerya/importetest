@@ -5,10 +5,12 @@ dependencies:
   config:
     - field.field.node.tipsheet.body
     - field.field.node.tipsheet.field_credits
+    - field.field.node.tipsheet.field_file_information
     - field.field.node.tipsheet.field_guest_expert
     - field.field.node.tipsheet.field_leeduser_premium
     - node.type.tipsheet
   module:
+    - commerce_file
     - entity_reference_revisions
     - text
 id: node.tipsheet.default
@@ -30,6 +32,14 @@ content:
       link: true
     third_party_settings: {  }
     weight: 10
+    region: content
+  field_file_information:
+    type: commerce_file_download_link
+    label: hidden
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 104
     region: content
   field_guest_expert:
     type: entity_reference_entity_view
