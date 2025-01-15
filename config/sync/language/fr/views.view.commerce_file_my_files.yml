@@ -14,43 +14,31 @@ display:
           tags:
             previous: '‹ Previous'
             next: 'Next ›'
-            first: '« First'
-            last: 'Last »'
           expose:
             items_per_page_label: 'Items per page'
             items_per_page_options_all_label: '- All -'
             offset_label: Offset
       fields:
-        purchasable_entity:
-          label: 'Variation de produit'
+        commerce_file:
+          label: Fichiers
+        download_limit:
+          label: Téléchargements
+        expires:
+          label: Expire
           separator: ', '
-        name:
-          separator: ', '
-        quantity:
-          label: Quantité
-          separator: ', '
-        list_price__number:
-          label: 'Prix public indicatif'
-          separator: ', '
-        price__number:
-          label: Prix
-          separator: ', '
-        status:
-          label: Status
-          separator: ', '
-        operations:
-          label: Operations
-      title: Tarifs
       arguments:
-        'null':
+        uid:
           exception:
             title: All
-        purchasable_entity:
+  checkout_complete:
+    display_title: 'Commande terminée'
+    display_options:
+      arguments:
+        license_id:
           exception:
             title: All
   page:
+    display_title: Page
     display_options:
       menu:
-        title: Tarifs
-      tab_options:
-        title: Tarifs
+        title: Fichiers

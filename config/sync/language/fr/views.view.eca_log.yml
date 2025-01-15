@@ -5,6 +5,7 @@ display:
       fields:
         name:
           label: User
+          separator: ', '
       pager:
         options:
           tags:
@@ -19,3 +20,7 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+  page_1:
+    display_title: Page

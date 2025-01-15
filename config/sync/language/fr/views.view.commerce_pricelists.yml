@@ -17,8 +17,6 @@ display:
       pager:
         options:
           tags:
-            next: ››
-            previous: ‹‹
             first: '« First'
             last: 'Last »'
           expose:
@@ -41,8 +39,3 @@ display:
             label: Status
   admin:
     display_title: Page
-    display_options:
-      menu:
-        title: List
-      tab_options:
-        title: List

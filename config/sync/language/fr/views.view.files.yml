@@ -1,10 +1,13 @@
+label: Fichiers
 display:
   default:
     display_title: Default
     display_options:
+      title: Fichiers
       fields:
         filename:
           label: Name
+          separator: ', '
         status:
           label: Status
         count:
@@ -25,10 +28,16 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
       filters:
         status:
           expose:
             label: Status
+  page_1:
+    display_options:
+      menu:
+        title: Fichiers
   page_2:
     display_options:
       pager:
