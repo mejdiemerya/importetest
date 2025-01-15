@@ -20,6 +20,10 @@
       background-repeat: repeat-x;
       margin-bottom: 1em;
       padding: 0 8%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     .field--name-field-title-item {
       h2 {
