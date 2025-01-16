@@ -10,8 +10,8 @@ dependencies:
     - field.field.node.tipsheet.field_leeduser_premium
     - node.type.tipsheet
   module:
-    - commerce_file
     - entity_reference_revisions
+    - file
     - text
 id: node.tipsheet.default
 targetEntityType: node
@@ -34,7 +34,7 @@ content:
     weight: 10
     region: content
   field_file_information:
-    type: commerce_file_download_link
+    type: file_default
     label: hidden
     settings:
       use_description_as_link_text: true
