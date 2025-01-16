@@ -1,0 +1,5 @@
+services:
+  bg_invoice.dompdf:
+    class: Dompdf\Dompdf
+    arguments: []
+
