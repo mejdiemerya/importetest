@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ed3c8f0582f0b3b65d4371a3c6e32848",
+    "content-hash": "c1dffb225fe7fc82b4cc991933f9bc33",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2608,72 +2608,6 @@
             }
         },
         {
-            "name": "drupal/commerce_email",
-            "version": "1.6.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/commerce_email.git",
-                "reference": "8.x-1.6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/commerce_email-8.x-1.6.zip",
-                "reference": "8.x-1.6",
-                "shasum": "4ed00d37a97f794e802bcd3ca3cfb85b704c0e90"
-            },
-            "require": {
-                "drupal/commerce": "^2.0 || ^3.0",
-                "drupal/core": "^9.3 || ^10 || ^11",
-                "drupal/token": "*"
-            },
-            "require-dev": {
-                "drupal/advancedqueue": "^1.0",
-                "drupal/commerce_recurring": "^1.0@rc"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-1.6",
-                    "datestamp": "1725435277",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "jsacksick",
-                    "homepage": "https://www.drupal.org/user/972218"
-                },
-                {
-                    "name": "paul.linney",
-                    "homepage": "https://www.drupal.org/user/928636"
-                },
-                {
-                    "name": "rinasek",
-                    "homepage": "https://www.drupal.org/user/1245514"
-                },
-                {
-                    "name": "rszrama",
-                    "homepage": "https://www.drupal.org/user/49344"
-                },
-                {
-                    "name": "vmarchuk",
-                    "homepage": "https://www.drupal.org/user/306425"
-                }
-            ],
-            "description": "Provides a UI for defining emails to send in response to various Drupal Commerce events.",
-            "homepage": "https://www.drupal.org/project/commerce_email",
-            "support": {
-                "source": "https://git.drupalcode.org/project/commerce_email"
-            }
-        },
-        {
             "name": "drupal/commerce_file",
             "version": "2.2.0",
             "source": {
@@ -2729,83 +2663,6 @@
             "support": {
                 "source": "https://cgit.drupalcode.org/commerce_file",
                 "issues": "https://www.drupal.org/project/issues/commerce_file"
-            }
-        },
-        {
-            "name": "drupal/commerce_invoice",
-            "version": "2.0.0-rc5",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/commerce_invoice.git",
-                "reference": "8.x-2.0-rc5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/commerce_invoice-8.x-2.0-rc5.zip",
-                "reference": "8.x-2.0-rc5",
-                "shasum": "8155dc2d639e32a819d85de9ef25e9ad0694d201"
-            },
-            "require": {
-                "drupal/commerce": "^2.37 || ^3",
-                "drupal/commerce_number_pattern": "*",
-                "drupal/commerce_order": "*",
-                "drupal/commerce_price": "*",
-                "drupal/commerce_store": "*",
-                "drupal/core": "^9.2 || ^10 || ^11",
-                "drupal/entity_print": "^2.0",
-                "drupal/profile": "*",
-                "drupal/state_machine": "*",
-                "drupal/token": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-2.0-rc5",
-                    "datestamp": "1725025303",
-                    "security-coverage": {
-                        "status": "not-covered",
-                        "message": "RC releases are not covered by Drupal security advisories."
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "amateescu",
-                    "homepage": "https://www.drupal.org/user/729614"
-                },
-                {
-                    "name": "bbujisic",
-                    "homepage": "https://www.drupal.org/user/52799"
-                },
-                {
-                    "name": "bojanz",
-                    "homepage": "https://www.drupal.org/user/86106"
-                },
-                {
-                    "name": "Centarro",
-                    "homepage": "https://www.drupal.org/user/3661446"
-                },
-                {
-                    "name": "jsacksick",
-                    "homepage": "https://www.drupal.org/user/972218"
-                },
-                {
-                    "name": "mglaman",
-                    "homepage": "https://www.drupal.org/user/2416470"
-                },
-                {
-                    "name": "rszrama",
-                    "homepage": "https://www.drupal.org/user/49344"
-                }
-            ],
-            "description": "Defines the Invoice entity and associated features.",
-            "homepage": "https://drupal.org/project/commerce_invoice",
-            "support": {
-                "source": "https://git.drupalcode.org/project/commerce_invoice"
             }
         },
         {
@@ -4514,84 +4371,6 @@
             }
         },
         {
-            "name": "drupal/entity_print",
-            "version": "2.15.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/entity_print.git",
-                "reference": "8.x-2.15"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/entity_print-8.x-2.15.zip",
-                "reference": "8.x-2.15",
-                "shasum": "76ba73f443525ab5b233eae925f22f88c9663b8f"
-            },
-            "require": {
-                "dompdf/dompdf": ">=2.0.7",
-                "drupal/core": "^9.4 || ^10.0 || ^11"
-            },
-            "suggest": {
-                "mikehaertl/phpwkhtmltopdf": "PhpWkhtmlToPdf provides the PHP library to use Wkhtmltopdf"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "8.x-2.15",
-                    "datestamp": "1722642740",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Ben Dougherty",
-                    "homepage": "https://www.drupal.org/u/benjy"
-                },
-                {
-                    "name": "benjy",
-                    "homepage": "https://www.drupal.org/user/1852732"
-                },
-                {
-                    "name": "jsacksick",
-                    "homepage": "https://www.drupal.org/user/972218"
-                },
-                {
-                    "name": "larowlan",
-                    "homepage": "https://www.drupal.org/user/395439"
-                },
-                {
-                    "name": "pameeela",
-                    "homepage": "https://www.drupal.org/user/1431110"
-                },
-                {
-                    "name": "Sam152",
-                    "homepage": "https://www.drupal.org/user/1485048"
-                },
-                {
-                    "name": "VladimirAus",
-                    "homepage": "https://www.drupal.org/user/673120"
-                }
-            ],
-            "description": "PDF print solution for any Drupal entity.",
-            "homepage": "http://drupal.org/project/entity_print",
-            "keywords": [
-                "PDF",
-                "drupal",
-                "print",
-                "web"
-            ],
-            "support": {
-                "source": "https://git.drupalcode.org/project/entity_print"
-            }
-        },
-        {
             "name": "drupal/entity_reference_revisions",
             "version": "1.12.0",
             "source": {
@@ -5862,65 +5641,6 @@
             "time": "2023-07-19T22:22:22+00:00"
         },
         {
-            "name": "drupal/rules",
-            "version": "4.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/rules.git",
-                "reference": "4.0.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/rules-4.0.0.zip",
-                "reference": "4.0.0",
-                "shasum": "685c8cbcf7950e07459957f4536df77d9bf53531"
-            },
-            "require": {
-                "drupal/core": "^10.3 || ^11",
-                "drupal/typed_data": "^2.1"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "4.0.0",
-                    "datestamp": "1721935272",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                },
-                "drush": {
-                    "services": {
-                        "drush.services.yml": ">=9"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "fago",
-                    "homepage": "https://www.drupal.org/user/16747"
-                },
-                {
-                    "name": "klausi",
-                    "homepage": "https://www.drupal.org/user/262198"
-                },
-                {
-                    "name": "tr",
-                    "homepage": "https://www.drupal.org/user/202830"
-                }
-            ],
-            "description": "React on events and conditionally evaluate actions.",
-            "homepage": "https://www.drupal.org/project/rules",
-            "support": {
-                "source": "https://git.drupalcode.org/project/rules",
-                "issues": "https://www.drupal.org/project/issues/rules"
-            }
-        },
-        {
             "name": "drupal/search_api",
             "version": "1.37.0",
             "source": {
@@ -6857,55 +6577,6 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/twigsuggest.git",
                 "issues": "https://www.drupal.org/project/issues/twigsuggest"
-            }
-        },
-        {
-            "name": "drupal/typed_data",
-            "version": "2.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/typed_data.git",
-                "reference": "2.1.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/typed_data-2.1.1.zip",
-                "reference": "2.1.1",
-                "shasum": "600cb9527dd93b200355f57ad4da71172ee5f6dc"
-            },
-            "require": {
-                "drupal/core": "^10.3 | ^11"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "2.1.1",
-                    "datestamp": "1728332112",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "fago",
-                    "homepage": "https://www.drupal.org/user/16747"
-                },
-                {
-                    "name": "tr",
-                    "homepage": "https://www.drupal.org/user/202830"
-                }
-            ],
-            "description": "Extends the core Typed Data API with new APIs and features.",
-            "homepage": "https://www.drupal.org/project/typed_data",
-            "support": {
-                "source": "https://git.drupalcode.org/project/typed_data",
-                "issues": "https://www.drupal.org/project/issues/typed_data"
             }
         },
         {
@@ -12940,7 +12611,6 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "drupal/commerce": 10,
-        "drupal/commerce_invoice": 5,
         "drupal/commerce_recurring": 5,
         "drupal/conditional_fields": 15,
         "drupal/entity_clone": 10,
