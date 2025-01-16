@@ -94,7 +94,7 @@
       <h1>{{ label }}</h1>
     </div>
     <div class="col-sm-9">
-      {% if (logged_in) %}
+      {% if (logged_in and 'lu_premium' in user_roles) %}
       <div class="horizontal-tabs">
         <ul class="horizontal-tabs-list nav nav-tabs"
             id="myTab" role="tablist">
