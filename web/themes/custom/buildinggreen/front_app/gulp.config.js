@@ -22,6 +22,7 @@ module.exports = function () {
         'page-credit-composant',
         "page-tipsheet",
         "composant-leeduser-premium",
+        "page-firmwide-pricing",
       ],
       quality: ["src/scss/**/*.scss"],
       dest: "./dist/assets/composant/",

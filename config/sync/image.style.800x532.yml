@@ -1,0 +1,14 @@
+uuid: ceb3539d-cf6b-45e8-8f3c-2511627c0ef3
+langcode: en
+status: true
+dependencies: {  }
+name: 800x532
+label: 800×532
+effects:
+  8bede343-79fd-454c-9fd1-53e6d27b476f:
+    uuid: 8bede343-79fd-454c-9fd1-53e6d27b476f
+    id: image_resize
+    weight: 1
+    data:
+      width: 800
+      height: 532

@@ -1,0 +1,18 @@
+uuid: f769db50-72fb-485f-adc4-7db51ece7ae6
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Firmwide pricing'
+type: firmwide_pricing
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

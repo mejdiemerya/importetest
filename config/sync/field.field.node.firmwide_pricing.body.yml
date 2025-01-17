@@ -1,0 +1,24 @@
+uuid: 0f801830-7a3c-4a73-a4b2-6f8dd878867e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.firmwide_pricing
+  module:
+    - text
+id: node.firmwide_pricing.body
+field_name: body
+entity_type: node
+bundle: firmwide_pricing
+label: Body
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary
