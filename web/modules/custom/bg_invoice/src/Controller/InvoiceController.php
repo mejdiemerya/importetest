@@ -24,7 +24,7 @@ class InvoiceController extends ControllerBase {
     public function generatePdf() {
         // Example data (replace with your dynamic data).
         $data = [
-            'title' => 'LEEDuser Premium Monthly Subscription',
+            'title' => 'LEEDuser Premium Monthly Subscription Subscription Individual (LUPRM-MI)',
             'unit_price' => '$15.95',
             'quantity' => '1',
             'total' => '$15.95',
@@ -42,6 +42,7 @@ class InvoiceController extends ControllerBase {
         // Configure Dompdf.
         $options = new Options();
         $options->set('defaultFont', 'Helvetica');
+      $options->set('isRemoteEnabled', true);
         $this->dompdf->setOptions($options);
 
         // Load HTML.
