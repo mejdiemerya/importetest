@@ -31,6 +31,11 @@ display:
             label: Status
   page_2:
     display_options:
+      fields:
+        entity_label:
+          label: Entité
+        type:
+          label: "Type d'entité"
       pager:
         options:
           tags:

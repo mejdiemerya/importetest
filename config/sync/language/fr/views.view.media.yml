@@ -3,6 +3,10 @@ display:
     display_title: Default
     display_options:
       fields:
+        media_bulk_form:
+          action_title: Action
+        bundle:
+          label: Type
         status:
           label: Status
           settings:
@@ -29,10 +33,18 @@ display:
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
       filters:
+        bundle:
+          expose:
+            label: Type
         status:
+          expose:
+            label: Vrai
           group_info:
             group_items:
               1:
                 title: Published
               2:
                 title: Unpublished
+        langcode:
+          expose:
+            label: Langue

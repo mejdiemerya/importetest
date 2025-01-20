@@ -16,3 +16,5 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+  attachment_1:
+    display_title: 'Élément joint'

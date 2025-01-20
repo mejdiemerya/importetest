@@ -1,7 +1,9 @@
+label: Contenu
 display:
   default:
     display_title: Default
     display_options:
+      title: Contenu
       fields:
         title:
           label: Title
@@ -12,6 +14,8 @@ display:
             format_custom_true: Published
         changed:
           label: Updated
+        langcode:
+          label: Langue
         operations:
           label: Operations
       pager:
@@ -39,3 +43,12 @@ display:
                 title: Published
               2:
                 title: Unpublished
+        langcode:
+          expose:
+            label: Langue
+  page_1:
+    display_options:
+      menu:
+        title: Contenu
+      tab_options:
+        title: Contenu

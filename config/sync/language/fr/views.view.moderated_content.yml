@@ -29,3 +29,6 @@ display:
         title:
           expose:
             label: Title
+        langcode:
+          expose:
+            label: Langue

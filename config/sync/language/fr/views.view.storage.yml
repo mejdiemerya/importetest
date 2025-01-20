@@ -19,6 +19,10 @@ display:
             first: '« First'
             last: 'Last »'
       fields:
+        storage_bulk_form:
+          action_title: Action
+        type:
+          label: Type
         status:
           label: Status
           settings:
@@ -29,10 +33,18 @@ display:
         operations:
           label: Operations
       filters:
+        type:
+          expose:
+            label: Type
         status:
+          expose:
+            label: Vrai
           group_info:
             group_items:
               1:
                 title: Published
               2:
                 title: Unpublished
+        langcode:
+          expose:
+            label: Langue

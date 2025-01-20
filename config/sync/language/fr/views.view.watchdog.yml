@@ -3,6 +3,10 @@ display:
     display_title: Default
     display_options:
       fields:
+        type:
+          label: Type
+        message:
+          label: Message
         name:
           label: User
         link:
@@ -18,3 +22,7 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+      filters:
+        type:
+          expose:
+            label: Type

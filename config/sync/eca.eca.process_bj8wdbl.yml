@@ -16,7 +16,7 @@ id: process_bj8wdbl
 modeller: bpmn_io
 label: 'moderator approval (post)'
 version: v2
-weight: 0
+weight: -9
 events:
   Event_1npkah9:
     plugin: 'content_entity:insert'

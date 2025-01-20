@@ -7,3 +7,8 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+  sort:
+    display_options:
+      fields:
+        draggableviews:
+          action_title: Action

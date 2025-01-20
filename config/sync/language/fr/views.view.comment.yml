@@ -3,6 +3,10 @@ display:
     display_title: Default
     display_options:
       fields:
+        comment_bulk_form:
+          action_title: Action
+        subject:
+          label: Objet
         changed:
           label: Updated
         operations:
@@ -23,10 +27,28 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+      filters:
+        subject:
+          expose:
+            label: Objet
+        langcode:
+          expose:
+            label: Langue
   page_unapproved:
     display_options:
       fields:
+        comment_bulk_form:
+          action_title: Action
+        subject:
+          label: Objet
         changed:
           label: Updated
         operations:
           label: Operations
+      filters:
+        subject:
+          expose:
+            label: Objet
+        langcode:
+          expose:
+            label: Langue

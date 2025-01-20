@@ -10,27 +10,22 @@ display:
       pager:
         options:
           tags:
-            first: '« First'
-            last: 'Last »'
+            previous: '‹ Previous'
+            next: 'Next ›'
           expose:
             items_per_page_label: 'Items per page'
             items_per_page_options_all_label: '- All -'
             offset_label: Offset
       fields:
-        id:
-          label: ID
-        value:
-          label: Valeur
-  admin_page:
-    display_options:
-      fields:
-        id:
-          label: ID
-        value:
-          label: Valeur
-  node_page:
+        expires:
+          label: Expire
+      arguments:
+        uid:
+          exception:
+            title: All
+  checkout_complete:
     display_options:
       arguments:
-        entity_id:
+        license_id:
           exception:
             title: All

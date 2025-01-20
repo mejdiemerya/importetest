@@ -5,6 +5,8 @@ display:
       fields:
         name:
           label: User
+        message:
+          label: Message
       pager:
         options:
           tags:
@@ -19,3 +21,10 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+      filters:
+        timestamp:
+          expose:
+            label: 'A partir de'
+        timestamp_1:
+          expose:
+            label: À

@@ -5,6 +5,8 @@ display:
       fields:
         status:
           label: Status
+        roles_target_id:
+          label: Rôles
         operations:
           label: Operations
       pager:
@@ -30,3 +32,7 @@ display:
         status:
           group_info:
             label: Status
+  page_1:
+    display_options:
+      menu:
+        title: Lister
