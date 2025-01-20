@@ -33,7 +33,6 @@ display:
           expose:
             label: Status
   admin:
-    display_title: Page
     display_options:
       menu:
         title: Lister

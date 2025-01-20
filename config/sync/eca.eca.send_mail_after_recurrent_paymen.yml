@@ -1,0 +1,30 @@
+uuid: 794802df-779a-4c1c-b098-3fb876e31765
+langcode: en
+status: true
+dependencies:
+  module:
+    - bg_product_cart
+    - eca_commerce
+id: send_mail_after_recurrent_paymen
+modeller: core
+label: 'Send mail after recurrent payment'
+version: v1
+weight: 0
+events:
+  eca_commerce_payment_insert:
+    plugin: 'eca_commerce:payment_insert'
+    label: 'Payment: Insert'
+    configuration: {  }
+    successors:
+      -
+        id: send_mail_client_order_complete
+        condition: null
+conditions: {  }
+gateways: {  }
+actions:
+  send_mail_client_order_complete:
+    plugin: send_mail_client_order_complete
+    label: 'Send Mail to client after order complete'
+    configuration:
+      object: commerce_order
+    successors: {  }

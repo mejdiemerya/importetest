@@ -52,6 +52,7 @@ module:
   eca_base: 0
   eca_cache: 0
   eca_cm: 0
+  eca_commerce: 0
   eca_config: 0
   eca_content: 0
   eca_endpoint: 0
@@ -83,6 +84,8 @@ module:
   image: 0
   inline_entity_form: 0
   interval: 0
+  jquery_ui: 0
+  jquery_ui_resizable: 0
   language: 0
   leeduser_tour: 0
   link: 0
@@ -133,6 +136,7 @@ module:
   toolbar: 0
   twig_field_value: 0
   twig_tweak: 0
+  typed_data: 0
   update: 0
   upgrade_status: 0
   user: 0

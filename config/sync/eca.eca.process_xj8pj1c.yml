@@ -38,7 +38,7 @@ id: process_xj8pj1c
 modeller: bpmn_io
 label: 'Notifiction topic level '
 version: v4
-weight: 0
+weight: -7
 events:
   Event_1rxft90:
     plugin: 'content_entity:update'

@@ -83,7 +83,7 @@ final class BgProductCartController extends ControllerBase {
     }
 
     if(!empty($product->get('field_related_products'))) {
-      
+
       foreach ($product->get('field_related_products') as $discount_product) {
 
         $variation = $this->entityTypeManager->getStorage('commerce_product_variation')->load((int)$discount_product->getValue()["target_id"]);
