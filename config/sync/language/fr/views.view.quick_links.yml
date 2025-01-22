@@ -7,3 +7,11 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+      header:
+        display_link_plus:
+          label: Gérer
+  sort:
+    display_options:
+      fields:
+        draggableviews:
+          action_title: Action

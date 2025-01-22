@@ -87,7 +87,7 @@ display:
           entity_type: null
           entity_field: title
           plugin_id: field
-          label: Title
+          label: Titre
           exclude: false
           alter:
             alter_text: false
@@ -285,7 +285,7 @@ display:
           entity_type: commerce_product
           entity_field: changed
           plugin_id: field
-          label: Updated
+          label: 'Mis à jour'
           exclude: false
           alter:
             alter_text: false
@@ -351,7 +351,7 @@ display:
           admin_label: ''
           entity_type: commerce_product
           plugin_id: entity_operations
-          label: Operations
+          label: Actions
           exclude: false
           alter:
             alter_text: false
@@ -505,7 +505,7 @@ display:
           exposed: true
           expose:
             operator_id: title_op
-            label: Title
+            label: Titre
             description: ''
             use_operator: false
             operator: title_op

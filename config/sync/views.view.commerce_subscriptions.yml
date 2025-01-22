@@ -102,7 +102,7 @@ display:
           entity_type: commerce_subscription
           entity_field: title
           plugin_id: field
-          label: Title
+          label: Titre
           exclude: false
           alter:
             alter_text: false
@@ -560,7 +560,7 @@ display:
           admin_label: ''
           entity_type: commerce_subscription
           plugin_id: entity_operations
-          label: Operations
+          label: Actions
           exclude: false
           alter:
             alter_text: false

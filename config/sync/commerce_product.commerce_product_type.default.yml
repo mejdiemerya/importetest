@@ -5,7 +5,7 @@ dependencies: {  }
 _core:
   default_config_hash: _z3gRqT6raSp9842zsMlka4awElMiTaIMS4tZpjP3_E
 id: default
-label: Default
+label: 'Par défaut'
 traits: {  }
 locked: false
 description: ''

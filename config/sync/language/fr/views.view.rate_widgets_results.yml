@@ -4,7 +4,9 @@ display:
     display_options:
       fields:
         user_id:
-          label: User
+          label: Utilisateur
+        timestamp:
+          label: Date
       exposed_form:
         options:
           submit_button: Apply
@@ -24,7 +26,9 @@ display:
     display_options:
       fields:
         user_id:
-          label: User
+          label: Utilisateur
+        timestamp:
+          label: Date
       pager:
         options:
           tags:

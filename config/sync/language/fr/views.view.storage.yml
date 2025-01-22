@@ -19,16 +19,25 @@ display:
             first: '« First'
             last: 'Last »'
       fields:
+        storage_bulk_form:
+          action_title: Action
+        type:
+          label: Type
+        user_id:
+          label: Auteur
         status:
           label: Status
           settings:
             format_custom_true: Published
             format_custom_false: Unpublished
         changed:
-          label: Updated
+          label: 'Mis à jour'
         operations:
-          label: Operations
+          label: Actions
       filters:
+        type:
+          expose:
+            label: Type
         status:
           group_info:
             group_items:
@@ -36,3 +45,6 @@ display:
                 title: Published
               2:
                 title: Unpublished
+        langcode:
+          expose:
+            label: Langue

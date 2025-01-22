@@ -1,7 +1,10 @@
 display:
   default:
-    display_title: Default
+    display_title: 'Par défaut'
     display_options:
+      fields:
+        media_bulk_form:
+          action_title: Action
       pager:
         options:
           expose:
@@ -24,11 +27,19 @@ display:
         name:
           expose:
             label: Name
+        langcode:
+          expose:
+            label: Langue
   page:
+    display_title: Page
     display_options:
       fields:
+        media_bulk_form:
+          action_title: Action
         edit_media:
           text: Modifier
+        delete_media:
+          text: Supprimer
   widget:
     display_options:
       arguments:
@@ -39,13 +50,18 @@ display:
         name:
           expose:
             label: Name
+      header:
+        display_link_table:
+          label: Tableau
   widget_table:
     display_options:
       fields:
         name:
           label: Name
+        uid:
+          label: Auteur
         changed:
-          label: Updated
+          label: 'Mis à jour'
       arguments:
         bundle:
           exception:
@@ -54,3 +70,6 @@ display:
         name:
           expose:
             label: Name
+      header:
+        display_link_table:
+          label: Tableau

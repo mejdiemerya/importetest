@@ -1,12 +1,18 @@
 display:
   default:
-    display_title: Default
+    display_title: 'Par défaut'
     display_options:
       fields:
+        type:
+          label: Type
+        timestamp:
+          label: Date
+        message:
+          label: Message
         name:
-          label: User
+          label: Utilisateur
         link:
-          label: Operations
+          label: Actions
       pager:
         options:
           expose:
@@ -18,3 +24,13 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+      empty:
+        area:
+          admin_label: "Aucune entrée du journal n'est disponible."
+          content: "Aucune entrée du journal n'est disponible."
+      filters:
+        type:
+          expose:
+            label: Type
+  page:
+    display_title: Page

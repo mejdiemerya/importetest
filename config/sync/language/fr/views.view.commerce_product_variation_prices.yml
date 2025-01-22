@@ -21,6 +21,8 @@ display:
       fields:
         purchasable_entity:
           label: 'Variation de produit'
+        name:
+          label: Lister
         quantity:
           label: Quantité
         list_price__number:
@@ -30,7 +32,7 @@ display:
         status:
           label: Status
         operations:
-          label: Operations
+          label: Actions
       title: Tarifs
       arguments:
         'null':

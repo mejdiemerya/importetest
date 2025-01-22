@@ -1,6 +1,6 @@
 display:
   default:
-    display_title: Default
+    display_title: 'Par défaut'
     display_options:
       fields:
         name:
@@ -32,3 +32,10 @@ display:
         status:
           expose:
             label: Status
+  admin:
+    display_title: Page
+    display_options:
+      menu:
+        title: Lister
+      tab_options:
+        title: Lister

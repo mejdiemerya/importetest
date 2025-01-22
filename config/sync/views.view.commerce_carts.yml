@@ -419,7 +419,7 @@ display:
           entity_type: commerce_order
           entity_field: changed
           plugin_id: field
-          label: Updated
+          label: 'Mis à jour'
           exclude: false
           alter:
             alter_text: false
@@ -483,7 +483,7 @@ display:
           admin_label: ''
           entity_type: commerce_order
           plugin_id: entity_operations
-          label: Operations
+          label: Actions
           exclude: false
           alter:
             alter_text: false

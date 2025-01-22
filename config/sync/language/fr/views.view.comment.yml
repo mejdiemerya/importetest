@@ -1,12 +1,18 @@
 display:
   default:
-    display_title: Default
+    display_title: 'Par défaut'
     display_options:
       fields:
+        comment_bulk_form:
+          action_title: Action
+        subject:
+          label: Objet
+        name:
+          label: Auteur
         changed:
-          label: Updated
+          label: 'Mis à jour'
         operations:
-          label: Operations
+          label: Actions
       pager:
         options:
           tags:
@@ -23,10 +29,30 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+      filters:
+        subject:
+          expose:
+            label: Objet
+        langcode:
+          expose:
+            label: Langue
   page_unapproved:
     display_options:
       fields:
+        comment_bulk_form:
+          action_title: Action
+        subject:
+          label: Objet
+        name:
+          label: Auteur
         changed:
-          label: Updated
+          label: 'Mis à jour'
         operations:
-          label: Operations
+          label: Actions
+      filters:
+        subject:
+          expose:
+            label: Objet
+        langcode:
+          expose:
+            label: Langue

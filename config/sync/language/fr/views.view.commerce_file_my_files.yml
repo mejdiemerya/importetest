@@ -35,6 +35,7 @@ display:
           exception:
             title: All
   page:
+    display_title: Page
     display_options:
       menu:
         title: Fichiers
