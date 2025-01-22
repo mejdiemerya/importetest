@@ -57,8 +57,7 @@ function buildinggreen_preprocess_page(&$variables) {
           ]);
 
 $subscription = reset($subscriptions);
-if(isset($subscription){
-
+if(!empty($subscription))
 $renewal_date = $subscription->getNextRenewalDate();
 $renewal_date = $renewal_date->getTimestamp();
 $date = date("j/n/Y", $renewal_date);
@@ -83,7 +82,6 @@ $variables['totl'] = $formatted_number;
     // Passer le formulaire au template Twig.
     $variables['subscription_edit_form'] = $form;
 
-  }
   }
   else {
     // Si l'utilisateur est anonyme.
