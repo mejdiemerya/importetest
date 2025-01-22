@@ -31,6 +31,18 @@ function bg_product_cart_mail($key, &$message, $params)
   }
 }
 
+/**
+ * Implements hook_entity_predelete().
+ */
+//function codimth_custom_rules_event_entity_predelete(EntityInterface $entity) {
+//
+//  if ($entity instanceof ContentEntityInterface) {
+//    $entity_type_id = $entity->getEntityTypeId();
+//    $event = new EntityEvent($entity, [$entity_type_id => $entity]);
+//    $event_dispatcher = \Drupal::service('event_dispatcher');
+//    $event_dispatcher->dispatch("codimth_custom_rules_event_entity_predelete:$entity_type_id", $event);
+//  }
+//}
 
 /**
  * @file
