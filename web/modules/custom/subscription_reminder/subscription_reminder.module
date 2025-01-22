@@ -1,0 +1,117 @@
+<?php
+
+use Drupal\Core\Mail\MailManagerInterface;
+use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\commerce_recurring\Entity\Subscription;
+
+/**
+ * Implémentation de hook_cron() pour Ultimate Cron.
+ */
+function subscription_reminder_cron() {
+  // Charger toutes les souscriptions actives.
+  $subscriptions = \Drupal::entityTypeManager()
+    ->getStorage('commerce_subscription')
+    ->loadByProperties(['state' => 'active']);
+
+  // Obtenir l'horodatage actuel et celui dans 3 jours.
+  $current_timestamp = time();
+  $next_renewal_limit = strtotime('+3 days');
+
+  foreach ($subscriptions as $subscription) {
+    /** @var \Drupal\commerce_recurring\Entity\Subscription $subscription */
+
+    // Obtenir la date de renouvellement avec getNextRenewalDate().
+    $renewal_date = $subscription->getNextRenewalDate();
+
+
+    if ($renewal_date) {
+      $renewal_timestamp = $renewal_date->getTimestamp();
+
+      // Si la date de renouvellement est dans 3 jours.
+      if ($renewal_timestamp >= $current_timestamp && $renewal_timestamp <= $next_renewal_limit) {
+        // Vérifier si l'email a déjà été envoyé pour ce cycle.
+        if ($subscription->hasField('field_email_reminder_sent') && $subscription->get('field_email_reminder_sent')->value) {
+          continue; // Ignorer si l'e-mail a déjà été envoyé.
+        }
+
+        // Obtenir l'utilisateur lié à la souscription.
+        $user = $subscription->getCustomer();
+
+        // Envoyer l'email à l'utilisateur.
+        subscription_reminder_send_email($user, $subscription);
+
+        // Marquer que l'email a été envoyé pour ce cycle.
+        if ($subscription->hasField('field_email_reminder_sent')) {
+          $subscription->set('field_email_reminder_sent', TRUE);
+          $subscription->save();
+        }
+      }
+    }
+  }
+}
+
+
+
+
+/**
+ * Fonction pour envoyer un e-mail de rappel.
+ *
+ * @param \Drupal\user\UserInterface $user
+ *   L'utilisateur abonné.
+ * @param \Drupal\commerce_recurring\Entity\Subscription $subscription
+ *   L'abonnement.
+ */
+function subscription_reminder_send_email($user, $subscription) {
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $module = 'subscription_reminder';
+  $key = 'subscription_reminder_email';
+  $to = $user->getEmail();
+  $langcode = $user->getPreferredLangcode();
+  $renewal_date = $subscription->getNextRenewalDate()->getTimestamp();
+  $formatted_date = date('F d, Y', $renewal_date);
+
+  // Préparer les données de l'email.
+  $params = [
+    'user' => $user,
+    'subscription' => $subscription,
+    'renewal_date' => $formatted_date,
+  ];
+
+  // Envoyer l'email.
+  $mailManager->mail($module, $key, $to, $langcode, $params);
+}
+function subscription_reminder_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'subscription_reminder_email':
+      $user = $params['user'];
+      $subscription = $params['subscription'];
+      $renewal_date = $params['renewal_date'];
+
+      $message['subject'] = t('Reminder: Your subscription will renew soon');
+      $message['body'][] = t('Hello @name,', ['@name' => $user->getDisplayName()]);
+      $message['body'][] = t('This is a reminder that your subscription "@subscription" will renew on @date.', [
+        '@subscription' => $subscription->label(),
+        '@date' => $renewal_date,
+      ]);
+      $message['body'][] = t('If you have any questions, please contact us.');
+      break;
+  }
+}
+/**
+ * Implémentation de hook_entity_update().
+ */
+function subscription_reminder_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
+  // Vérifier que l'entité est une souscription.
+  if ($entity instanceof \Drupal\commerce_recurring\Entity\Subscription) {
+    // Vérifier que l'entité n'est pas nouvelle (ce n'est pas une création).
+    if (!$entity->isNew()) {
+      // Obtenir les champs de la souscription.
+      $original = $entity->original;
+      // Comparer les anciennes et nouvelles dates de renouvellement.
+        // Réinitialiser l'état d'envoi de l'email.
+        if ($entity->hasField('field_email_reminder_sent')) {
+          $entity->set('field_email_reminder_sent', FALSE);
+        }
+    }
+  }
+}

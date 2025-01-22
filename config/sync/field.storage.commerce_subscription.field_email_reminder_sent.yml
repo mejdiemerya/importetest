@@ -1,0 +1,18 @@
+uuid: 404a1c2d-ac8f-4fde-8762-f0494645d00a
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_recurring
+id: commerce_subscription.field_email_reminder_sent
+field_name: field_email_reminder_sent
+entity_type: commerce_subscription
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

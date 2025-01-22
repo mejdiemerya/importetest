@@ -10,6 +10,7 @@ module:
   automated_cron: 0
   bg_custom_checkout: 0
   bg_import_product: 0
+  bg_invoice: 0
   bg_product_cart: 0
   big_pipe: 0
   block: 0
@@ -119,6 +120,7 @@ module:
   stage_file_proxy: 0
   state_machine: 0
   storage: 0
+  subscription_reminder: 0
   svg_image_field: 0
   svg_image_field_media_bundle: 0
   system: 0
@@ -144,6 +146,7 @@ module:
   forum: 1
   pathauto: 1
   views: 10
+  form_mode_manager: 11
   paragraphs: 11
   standard: 1000
 theme:

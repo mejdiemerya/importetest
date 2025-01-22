@@ -2,24 +2,8 @@ display:
   default:
     display_title: Master
     display_options:
-      fields:
-        field_link:
-          separator: ', '
-        field_hover_text:
-          separator: ', '
-        field_media_svg:
-          separator: ', '
-        name:
-          separator: ', '
       exposed_form:
         options:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-  sort:
-    display_options:
-      fields:
-        name:
-          separator: ', '
