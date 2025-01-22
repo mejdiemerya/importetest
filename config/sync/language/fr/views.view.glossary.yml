@@ -1,10 +1,12 @@
 display:
   default:
-    display_title: Default
+    display_title: 'Par défaut'
     display_options:
       fields:
         title:
-          label: Title
+          label: Titre
+        name:
+          label: Auteur
       pager:
         options:
           expose:

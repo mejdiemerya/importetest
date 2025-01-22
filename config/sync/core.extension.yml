@@ -139,6 +139,11 @@ module:
   views_load_more: 0
   views_ui: 0
   votingapi: 0
+  webform: 0
+  webform_attachment: 0
+  webform_node: 0
+  webform_templates: 0
+  webform_ui: 0
   workflows: 0
   eca_form: 1
   facets: 1
