@@ -19,11 +19,15 @@ display:
       fields:
         id:
           label: ID
+        value:
+          label: Valeur
   admin_page:
     display_options:
       fields:
         id:
           label: ID
+        value:
+          label: Valeur
   node_page:
     display_options:
       arguments:

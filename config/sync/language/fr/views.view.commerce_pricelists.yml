@@ -32,3 +32,10 @@ display:
         status:
           expose:
             label: Status
+  admin:
+    display_title: Page
+    display_options:
+      menu:
+        title: Lister
+      tab_options:
+        title: Lister
