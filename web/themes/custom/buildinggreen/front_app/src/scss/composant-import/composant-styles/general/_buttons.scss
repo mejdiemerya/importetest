@@ -47,6 +47,8 @@
     border-radius: 6px;
   }
 }
+.address-book__edit-link,
+.address-book__add-link,
 .link--previous,
 .button{
   @extend .btn
@@ -139,6 +141,8 @@ a#post-question {
   line-height: 1.3333333;
   border-radius: 6px;
 }
+.address-book__edit-link,
+.address-book__add-link,
 .link--previous,
 .dialog-cancel,
 .btn-midtone {
