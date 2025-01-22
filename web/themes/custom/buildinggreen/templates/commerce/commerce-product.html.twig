@@ -52,7 +52,7 @@
           <p class="mt-4 large line-snug"><strong><em>Premium member price: ${{ member_price }} </em></strong></p>
         {% endif %}
 
-        <a class="btn btn-lg btn-wrap mb10 btn-success w-100 mt-2"  >Buy it now for <strong>${%  if  member_price  %} {{ member_price }} {% else %} {{ list_price }}  {% endif %}</strong></a>
+        <a class="btn btn-lg btn-wrap mb10 btn-success w-100 mt-2" href="{{ '/product/add/variation-cart/'~product_entity.product_id.value~'/'~product.variations['#items'][0].target_id }}" >Buy it now for <strong>${%  if  member_price  %} {{ member_price }} {% else %} {{ list_price }}  {% endif %}</strong></a>
 
       {% endif %}
 
@@ -81,7 +81,7 @@
       {% endif %}
       <!-- PREMIUM USERS WHO HAVE NOT PURCHASED THE REPORT WILL SEE: -->
       {% if ((user.hasPermission('access leeduser premium content') or user.hasPermission('access premium content')) and not has_purchased and not hide_buy_button) %}
-        <a class="btn btn-xl btn-success mt10 btn-wrap wide hidden-xs" buy="{{  field_related_product[0][target_id] }}">
+        <a class="btn btn-xl btn-success mt10 btn-wrap wide hidden-xs"  href="{{ '/product/add/variation-cart/'~product_entity.product_id.value~'/'~product.variations['#items'][0].target_id }}"        >
           <p class="mt0 mb0 xlarge">Buy <strong>{{ product.variation_title[0] }} </strong>
             {% if  member_price %}
               <br>
