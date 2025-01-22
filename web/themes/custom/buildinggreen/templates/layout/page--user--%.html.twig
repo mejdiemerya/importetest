@@ -103,7 +103,7 @@
     {% endif %}
     <div class="row g-0">
       {#      {% if page.sidebar_first %} #}
-      <div class="order-2 order-lg-1 col-12 col-lg-2 bg-light-custom py-4 user-sidebar">
+      <div class="order-2 order-lg-1 col-12 col-lg-2 bg-light-custom py-4 user-sidebar" role="tablist">
 
         <div class="sans-serif mb-4">
           <div class="account-status sans-serif mb-4">
@@ -121,11 +121,13 @@
             <p class="small">
               NEXT CHARGE:<br>
               {{ totl }} on {{ renewed }}<br>
-              <a href="#membership-info-lu" data-toggle="tab" class="underline">manage auto-renewal</a> {{ subscription_edit_form }}
+              <a class="text-decoration-underline" id="nav-membership-info-lu-tab" data-bs-toggle="tab" data-bs-target="#nav-membership-info-lu"
+                                      type="button" role="tab" aria-controls="nav-membership-info-lu" aria-selected="false">manage auto-renewal</a>
+
             </p>
           </div>
         </div>
-        <ul class="menu-simple line-snug" role="tablist">
+        <ul class="menu-simple line-snug">
 
           <li>
             <button class="nav-link active" id="nav-view-profile-tab" data-bs-toggle="tab"
@@ -180,18 +182,22 @@
         <h1 class="mt-0">{{ first_name }} {{ last_name }}</h1>
         <div class="tab-content" id="nav-tabContent">
 
+          <div class="tab-pane fade" id="nav-membership-info-lu" role="tabpanel" aria-labelledby="nav-membership-info-lu-tab">
+            {{ subscription_edit_form }}
+          </div>
+
           <div class="tab-pane fade active show" id="nav-view-profile" role="tabpanel"
                aria-labelledby="nav-view-profile-tab">{{ page.content }}</div>
 
-          <div class="tab-pane fade" id="nav-edit-profile" role="tabpanel" aria-labelledby="nav-edit-profile-tab">
-            <div id="comments"><h2 class="title">Edit Profile</h2></div>
+{#          <div class="tab-pane fade" id="nav-edit-profile" role="tabpanel" aria-labelledby="nav-edit-profile-tab">#}
+{#            <div id="comments"><h2 class="title">Edit Profile</h2></div>#}
 
-          </div>
+{#          </div>#}
 
-          <div class="tab-pane fade" id="nav-email-password" role="tabpanel" aria-labelledby="nav-email-password-tab">
-            <div id="comments"><h2 class="title">>Email & Password</a> </h2></div>
+{#          <div class="tab-pane fade" id="nav-email-password" role="tabpanel" aria-labelledby="nav-email-password-tab">#}
+{#            <div id="comments"><h2 class="title">>Email & Password</a> </h2></div>#}
 
-          </div>
+{#          </div>#}
 
           <div class="tab-pane fade" id="nav-continuing-education" role="tabpanel" aria-labelledby="nav-continuing-education-tab">
             <div id="comments"><h2 class="title">Continuing Education</h2></div>

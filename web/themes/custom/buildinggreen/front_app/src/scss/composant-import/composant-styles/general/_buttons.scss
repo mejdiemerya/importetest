@@ -47,7 +47,10 @@
     border-radius: 6px;
   }
 }
-
+.
+.button{
+  @extend .btn
+}
 // Alternate buttons
 // --------------------------------------------------
 $brand-primary:         darken(#428bca, 6.5%); // #337ab7
@@ -136,6 +139,7 @@ a#post-question {
   line-height: 1.3333333;
   border-radius: 6px;
 }
+.dialog-cancel,
 .btn-midtone {
   color: #fff;
   background-color: #46828C;
