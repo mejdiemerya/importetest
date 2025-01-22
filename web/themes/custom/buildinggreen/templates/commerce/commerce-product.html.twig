@@ -128,13 +128,13 @@
             {% endif   %}
 
             {% if  purchased_nodes and  purchased_nodes|length > 0 %}
-              <?php foreach ($purchased_nodes as $purchased_node){ %}
+              {% for purchased_node in purchased_nodes  %}
   					  {% if purchased_node.type == 'quiz' and  not has_purchased_product and  'lu_trial' in user.roles  %}
                 <p><a class="btn btn-lg btn-neutral btn-wrap wide" target="_blank" href="/pricing">Sign up for premium membership to earn CEUs</a></p>
             {%   else    %}
               <p><a class="btn btn-lg btn-neutral btn-wrap wide" target="_blank" href="{{purchased_node.path  }}">{{purchased_node.label  }}</a></p>
             {% endif   %}
-
+            {% endfor  %}
             {% endif   %}
 
           </div><!-- end col -->
