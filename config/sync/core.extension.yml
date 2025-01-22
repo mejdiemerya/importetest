@@ -72,7 +72,6 @@ module:
   editor: 0
   entity: 0
   entity_clone: 0
-  entity_print: 0
   entity_reference_revisions: 0
   facets_rest: 0
   facets_searchbox_widget: 0
@@ -117,7 +116,6 @@ module:
   range: 0
   rate: 0
   rest: 0
-  rules: 0
   search: 0
   search_api: 0
   search_api_db: 0
@@ -142,11 +140,9 @@ module:
   toolbar: 0
   twig_field_value: 0
   twig_tweak: 0
-  typed_data: 0
   update: 0
   upgrade_status: 0
   user: 0
-  views_bulk_operations: 0
   views_load_more: 0
   views_ui: 0
   votingapi: 0
