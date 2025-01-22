@@ -98,7 +98,7 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
 
 
       if ($price_list_item)
-        $variables ['member_price'] = $price_list_item->get('price')->number;
+        $variables ['member_price'] = number_format($price_list_item->get('price')->number);
       $variables ['list_price'] = number_format($variation->get('price')->number);
       $tabLinkCartVariations[] = new Link(
         t('Buy it now for ') . $variables['product']['variation_price'][0]["#markup"],

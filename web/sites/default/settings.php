@@ -909,3 +909,23 @@ $databases['default']['default'] = array (
   'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
   'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
 );
+$databases['migrate']['default']
+
+  = ['database' => 'db',
+
+  'username' => 'db',
+
+  'password' => 'db',
+
+  'prefix' => '',
+
+  'host' => 'ddev-buildgreen-db',
+
+  'port' => '3306',
+
+  'driver' => 'mysql',
+
+  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
+
+];
+$settings['cache']['bins']['discovery_migration'] = 'cache.backend.memory';
