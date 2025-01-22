@@ -47,7 +47,7 @@
     border-radius: 6px;
   }
 }
-.
+.link--previous,
 .button{
   @extend .btn
 }
@@ -139,6 +139,7 @@ a#post-question {
   line-height: 1.3333333;
   border-radius: 6px;
 }
+.link--previous,
 .dialog-cancel,
 .btn-midtone {
   color: #fff;
@@ -155,6 +156,4 @@ a#post-question {
     border-color: #9abcc1;
   }
 }
-a[data-drupal-selector="edit-login-returning-customer-forgot-password"]{
 
-}
