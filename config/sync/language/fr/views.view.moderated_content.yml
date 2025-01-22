@@ -5,16 +5,8 @@ display:
       fields:
         title:
           label: Title
-          separator: ', '
-        type:
-          separator: ', '
-        name:
-          separator: ', '
-        moderation_state:
-          separator: ', '
         changed:
           label: Updated
-          separator: ', '
         operations:
           label: Operations
       pager:
@@ -33,8 +25,6 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
       filters:
         title:
           expose:

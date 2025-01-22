@@ -1,5 +1,5 @@
 bg_invoice.generate_pdf:
-  path: '/invoice/pdf/1'
+  path: '/invoice/pdf/{invoice_id}'
   defaults:
     _controller: '\Drupal\bg_invoice\Controller\InvoiceController::generatePdf'
     _title: 'Generate Invoice PDF'

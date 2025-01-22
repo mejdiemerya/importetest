@@ -2,6 +2,8 @@ uuid: ccd1b872-d397-4653-a891-e31363cc0678
 langcode: en
 status: true
 dependencies:
+  config:
+    - field.field.commerce_subscription.product_variation.field_email_reminder_sent
   module:
     - commerce_price
     - commerce_recurring
@@ -59,6 +61,16 @@ content:
       timezone: ''
     third_party_settings: {  }
     weight: 6
+    region: content
+  field_email_reminder_sent:
+    type: boolean
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    weight: 18
     region: content
   initial_order:
     type: subscription_orders

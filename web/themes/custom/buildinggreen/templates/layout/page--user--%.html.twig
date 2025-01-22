@@ -114,13 +114,13 @@
           <div class="account-status sans-serif mb-4">
 
             <h4>
-              LEEDuser Premium
+              {{ titlesubscription }}
               <br>
-              <small><em>billed monthly</em></small>
+              <small><em>{{ billed }}</em></small>
             </h4>
             <p class="small">
               NEXT CHARGE:<br>
-              $15.95 on 2/2/2025<br>
+              {{ totl }} on {{ renewed }}<br>
               <a href="#membership-info-lu" data-toggle="tab" class="underline">manage auto-renewal</a>
             </p>
           </div>
@@ -135,14 +135,13 @@
           </li>
 
           <li>
-            <button class="nav-link" id="nav-edit-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-edit-profile"
-                    type="button" role="tab" aria-controls="nav-edit-profile" aria-selected="false">Profile
-            </button>
+            <a href="/user/{{ user_id }}/edit/profile" class="nav-link" id="nav-edit-profile-tab" >Profile
+            </a>
           </li>
 
           <li>
-            <button class="nav-link" id="nav-email-password-tab" data-bs-toggle="tab" data-bs-target="#nav-email-password"
-                    type="button" role="tab" aria-controls="nav-email-password" aria-selected="false">Email &amp; Password</button>
+            <a href="/user/{{ user_id }}/edit/password" class="nav-link"
+                    type="button" >Email &amp; Password</a>
           </li>
           <li>
             <button class="nav-link" id="nav-continuing-education-tab" data-bs-toggle="tab" data-bs-target="#nav-continuing-education"
@@ -157,27 +156,28 @@
                     type="button" role="tab" aria-controls="nav-order-history" aria-selected="false">Order History</button>
           </li>
           <li>
-            <button class="nav-link" id="nav-credit-cards-tab" data-bs-toggle="tab" data-bs-target="#nav-credit-cards"
-                    type="button" role="tab" aria-controls="nav-credit-cards" aria-selected="false">Credit Cards</button>
+            <a href ="/user/{{ user_id }}/payment-methods" class="nav-link" >
+                   Credit Cards</a>
           </li>
           <li>
             <button class="nav-link" id="nav-subscriptions-tab" data-bs-toggle="tab" data-bs-target="#nav-subscriptions"
                     type="button" role="tab" aria-controls="nav-subscriptions" aria-selected="false">Subscriptions</button>
+
           </li>
           <li>
             <button class="nav-link" id="nav-bulletins-tab" data-bs-toggle="tab" data-bs-target="#nav-bulletins"
                     type="button" role="tab" aria-controls="nav-bulletins" aria-selected="false">Bulletins</button>
           </li>
           <li>
-            <button class="nav-link" id="nav-addressbook-tab" data-bs-toggle="tab" data-bs-target="#nav-addressbook"
-                    type="button" role="tab" aria-controls="nav-addressbook" aria-selected="false">Saved Addresses</button>
+            <a href="/user/{{ user_id }}/address-book"
+                    >Saved Addresses</a>
           </li>
         </ul>
 
       </div>
       {#      {% endif %} #}
       <div class="order-1 order-lg-2 col-12 col-lg-10 py-4">
-        <h1 class="mt-0">Christopher DeJulis</h1>
+        <h1 class="mt-0">{{ first_name }} {{ last_name }}</h1>
         <div class="tab-content" id="nav-tabContent">
 
           <div class="tab-pane fade active show" id="nav-view-profile" role="tabpanel"
@@ -185,10 +185,12 @@
 
           <div class="tab-pane fade" id="nav-edit-profile" role="tabpanel" aria-labelledby="nav-edit-profile-tab">
             <div id="comments"><h2 class="title">Edit Profile</h2></div>
+
           </div>
 
           <div class="tab-pane fade" id="nav-email-password" role="tabpanel" aria-labelledby="nav-email-password-tab">
-            <div id="comments"><h2 class="title">Email & Password</h2></div>
+            <div id="comments"><h2 class="title">>Email & Password</a> </h2></div>
+
           </div>
 
           <div class="tab-pane fade" id="nav-continuing-education" role="tabpanel" aria-labelledby="nav-continuing-education-tab">
@@ -197,10 +199,12 @@
 
           <div class="tab-pane fade" id="nav-purchased-content" role="tabpanel" aria-labelledby="nav-purchased-content-tab">
             <div id="comments"><h2 class="title">Purchased Content</h2></div>
+            {{ drupal_view('purchasedcontent', 'page_1') }}
           </div>
 
           <div class="tab-pane fade" id="nav-order-history" role="tabpanel" aria-labelledby="nav-order-history-tab">
             <div id="comments"><h2 class="title">Order History</h2></div>
+            {{ drupal_view('mes_commandes', 'page_1') }}
           </div>
 
           <div class="tab-pane fade" id="nav-credit-cards" role="tabpanel" aria-labelledby="nav-credit-cards-tab">
@@ -209,6 +213,7 @@
 
           <div class="tab-pane fade" id="nav-subscriptions" role="tabpanel" aria-labelledby="nav-subscriptions-tab">
             <div id="comments"><h2 class="title">Subscriptions</h2></div>
+            {{ subscription_edit_form }}
           </div>
 
           <div class="tab-pane fade" id="nav-bulletins" role="tabpanel" aria-labelledby="nav-bulletins-tab">

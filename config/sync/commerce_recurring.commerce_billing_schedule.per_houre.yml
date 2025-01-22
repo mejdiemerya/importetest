@@ -1,0 +1,24 @@
+uuid: 3af9f963-8917-4b09-8385-dbf82488b8d4
+langcode: en
+status: true
+dependencies: {  }
+id: per_houre
+label: 'per houre'
+displayLabel: 'per houre'
+billingType: prepaid
+combineSubscriptions: false
+retrySchedule:
+  - 1
+  - 3
+  - 5
+unpaidSubscriptionState: canceled
+plugin: fixed
+configuration:
+  trial_interval: {  }
+  interval:
+    number: 1
+    unit: hour
+  start_month: 1
+  start_day: 1
+prorater: full_price
+proraterConfiguration: {  }

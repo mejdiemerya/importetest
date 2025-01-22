@@ -1,0 +1,11 @@
+uuid: aa1ad482-fbd9-4d87-b3fd-1d23e0932087
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.profileedit
+label: profileedit
+description: ''
+targetEntityType: user
+cache: true

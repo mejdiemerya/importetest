@@ -1,0 +1,114 @@
+uuid: 25d787ae-c129-4b50-9f6c-e91e91c5f586
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.commerce_subscription.product_variation.field_email_reminder_sent
+  module:
+    - commerce
+    - commerce_price
+    - commerce_recurring
+id: commerce_subscription.product_variation.default
+targetEntityType: commerce_subscription
+bundle: product_variation
+mode: default
+content:
+  billing_schedule:
+    type: options_select
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  ends:
+    type: commerce_recurring_end_timestamp
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_email_reminder_sent:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  payment_method:
+    type: commerce_recurring_payment_method
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  purchased_entity:
+    type: entity_reference_autocomplete
+    weight: -1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  quantity:
+    type: number
+    weight: 1
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  starts:
+    type: datetime_timestamp
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  store_id:
+    type: commerce_entity_select
+    weight: 2
+    region: content
+    settings:
+      hide_single_entity: true
+      autocomplete_threshold: 7
+      autocomplete_size: 60
+      autocomplete_placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -10
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  trial_ends:
+    type: commerce_recurring_end_timestamp
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  trial_starts:
+    type: datetime_timestamp
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 0
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  unit_price:
+    type: commerce_price_default
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }

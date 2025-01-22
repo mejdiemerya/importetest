@@ -28,4 +28,67 @@ function buildinggreen_preprocess_node(&$variables) {
   $variables['time_ago'] = $date_formatter->formatTimeDiffSince($timestamp);
 }
 
+/**
+ * Implémente hook_preprocess_HOOK().
+ */
+function buildinggreen_preprocess_page(&$variables) {
+  // Vérifie si l'utilisateur est connecté.
+  if (\Drupal::currentUser()->isAuthenticated()) {
+    // Récupère l'ID de l'utilisateur connecté.
+    $current_user_id = \Drupal::currentUser()->id();
+
+    // Charge l'utilisateur connecté.
+    $account = \Drupal\user\Entity\User::load($current_user_id);
+
+    // Récupère les champs personnalisés (prénom et nom).
+    $first_name = $account->get('field_first_name')->value ?? '';
+    $last_name = $account->get('field_last_name')->value ?? '';
+
+    // Passe les variables au fichier Twig.
+    $variables['user_id'] = $current_user_id;
+    $variables['first_name'] = $first_name;
+    $variables['last_name'] = $last_name;
+    $variables['titlesubscription'] = $last_name;
+ $subscriptions = \Drupal::entityTypeManager()
+    ->getStorage('commerce_subscription')
+    ->loadByProperties([
+            'state' => 'active',
+            'uid' => $current_user_id,
+          ]);
+
+$subscription = reset($subscriptions);
+$renewal_date = $subscription->getNextRenewalDate();
+$renewal_date = $renewal_date->getTimestamp();
+$date = date("j/n/Y", $renewal_date);
+
+// Obtenir la première commande
+$orders = $subscription->getOrders(); // Stocker le résultat dans une variable
+$order = reset($orders);
+
+// Formater le prix total
+$formatted_number = number_format($order->total_price->getvalue()[0]['number'], 2);
+
+// Récupérer le titre de l'abonnement
+$subscription_title = $subscription->title->getvalue()[0]['value'];
+
+// Construire les variables
+$variables['titlesubscription'] = $subscription_title;
+$variables['billed'] = $subscription->getBillingSchedule()->id();
+$variables['renewed'] = $date;
+$variables['totl'] = $formatted_number;
+   $form = \Drupal::service('entity.form_builder')->getForm($subscription, 'cancel');
+
+    // Passer le formulaire au template Twig.
+    $variables['subscription_edit_form'] = $form;
+
+  }
+  else {
+    // Si l'utilisateur est anonyme.
+    $variables['user_id'] = NULL;
+    $variables['first_name'] = NULL;
+    $variables['last_name'] = NULL;
+  }
+
+}
+
 

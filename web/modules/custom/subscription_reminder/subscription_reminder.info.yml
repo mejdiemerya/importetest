@@ -1,0 +1,4 @@
+name: 'Subscription Reminder'
+type: module
+description: 'Envoie un email de rappel aux utilisateurs avant le renouvellement de leur abonnement.'
+core_version_requirement: ^11
