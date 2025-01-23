@@ -1,0 +1,6 @@
+label: 'Après le quiz'
+description: "Afficher le retour d'information après le quiz"
+component:
+  context_definitions:
+    quiz_result:
+      label: 'Résultat du quiz'

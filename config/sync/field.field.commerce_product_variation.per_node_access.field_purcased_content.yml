@@ -1,0 +1,91 @@
+uuid: a5d49a4e-b255-4574-b7cc-baa67760ea03
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.per_node_access
+    - field.storage.commerce_product_variation.field_purcased_content
+    - paragraphs.paragraphs_type.quiz_select
+  module:
+    - entity_reference_revisions
+id: commerce_product_variation.per_node_access.field_purcased_content
+field_name: field_purcased_content
+entity_type: commerce_product_variation
+bundle: per_node_access
+label: 'Purchased content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      quiz_select: quiz_select
+    negate: 0
+    target_bundles_drag_drop:
+      descriptions_sidebar:
+        weight: 22
+        enabled: false
+      hero:
+        weight: 23
+        enabled: false
+      hero_pricing:
+        weight: 24
+        enabled: false
+      home_forme:
+        weight: 25
+        enabled: false
+      image_sidebar:
+        weight: 26
+        enabled: false
+      item:
+        weight: 27
+        enabled: false
+      leed_credits:
+        weight: 28
+        enabled: false
+      leed_process:
+        weight: 29
+        enabled: false
+      leeduser_recommends:
+        weight: 30
+        enabled: false
+      membership:
+        weight: 31
+        enabled: false
+      membership_item:
+        weight: 32
+        enabled: false
+      multichoice:
+        weight: 33
+        enabled: false
+      quiz_question_term_pool:
+        weight: 34
+        enabled: false
+      quiz_result_feedback:
+        weight: 35
+        enabled: false
+      quiz_select:
+        weight: 36
+        enabled: true
+      renewal_price:
+        weight: 37
+        enabled: false
+      testimonials:
+        weight: 38
+        enabled: false
+      testimonials_item:
+        weight: 39
+        enabled: false
+      text_well_marquee:
+        weight: 40
+        enabled: false
+      tribox_global:
+        weight: 41
+        enabled: false
+      views_recent_posts:
+        weight: 42
+        enabled: false
+field_type: entity_reference_revisions

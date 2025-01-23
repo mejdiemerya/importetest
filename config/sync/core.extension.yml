@@ -9,7 +9,6 @@ module:
   announcements_feed: 0
   automated_cron: 0
   bg_custom_checkout: 0
-  bg_import_product: 0
   bg_product_cart: 0
   big_pipe: 0
   block: 0
@@ -41,6 +40,7 @@ module:
   ctools: 0
   custom_forums: 0
   datetime: 0
+  datetime_range: 0
   dblog: 0
   devel: 0
   display_link_plus: 0
@@ -70,6 +70,7 @@ module:
   editor: 0
   entity: 0
   entity_clone: 0
+  entity_print: 0
   entity_reference_revisions: 0
   facets_rest: 0
   facets_searchbox_widget: 0
@@ -109,8 +110,12 @@ module:
   phpass: 0
   profile: 0
   quick_links: 0
+  quiz: 0
+  quiz_multichoice: 0
+  range: 0
   rate: 0
   rest: 0
+  rules: 0
   search: 0
   search_api: 0
   search_api_db: 0
@@ -138,6 +143,7 @@ module:
   update: 0
   upgrade_status: 0
   user: 0
+  views_bulk_operations: 0
   views_load_more: 0
   views_ui: 0
   votingapi: 0

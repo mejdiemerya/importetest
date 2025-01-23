@@ -7,6 +7,9 @@ display:
           label: Title
       pager:
         options:
+          tags:
+            next: ››
+            previous: ‹‹
           expose:
             items_per_page_label: 'Items per page'
             items_per_page_options_all_label: '- All -'
@@ -16,5 +19,9 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
   attachment_1:
     display_title: 'Élément joint'
+  page_1:
+    display_title: Page

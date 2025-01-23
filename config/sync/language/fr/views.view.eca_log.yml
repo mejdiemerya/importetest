@@ -5,11 +5,14 @@ display:
       fields:
         name:
           label: User
+          separator: ', '
         message:
           label: Message
       pager:
         options:
           tags:
+            next: ››
+            previous: ‹‹
             first: '« First'
             last: 'Last »'
           expose:
@@ -21,6 +24,8 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
       filters:
         timestamp:
           expose:
@@ -28,3 +33,5 @@ display:
         timestamp_1:
           expose:
             label: À
+  page_1:
+    display_title: Page

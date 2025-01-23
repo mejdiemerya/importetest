@@ -5,15 +5,24 @@ display:
       fields:
         media_bulk_form:
           action_title: Action
+        thumbnail__target_id:
+          separator: ', '
+        name:
+          separator: ', '
         bundle:
           label: Type
+          separator: ', '
+        uid:
+          separator: ', '
         status:
           label: Status
           settings:
             format_custom_false: Unpublished
             format_custom_true: Published
+          separator: ', '
         changed:
           label: Updated
+          separator: ', '
         operations:
           label: Operations
       pager:
@@ -32,6 +41,8 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
       filters:
         bundle:
           expose:

@@ -1,0 +1,85 @@
+label: 'Résultats du Quiz'
+display:
+  default:
+    display_title: Master
+    display_options:
+      title: 'Résultats du Quiz'
+      fields:
+        name:
+          label: "Nom d'utilisateur"
+          separator: ', '
+        time_start:
+          label: 'Date de lancement'
+          settings:
+            future_format: 'Dans @interval'
+            past_format: 'Il y a @interval'
+          separator: ', '
+        time_end:
+          label: 'Date de complétion'
+          settings:
+            future_format: 'Dans @interval'
+            past_format: 'Il y a @interval'
+          separator: ', '
+        score:
+          label: Score
+          separator: ', '
+        is_evaluated:
+          label: Évalué
+          separator: ', '
+        edit_quiz_result:
+          label: Modifier
+          text: Score
+        view_quiz_result:
+          text: Voir
+        delete_quiz_result:
+          label: Supprimer
+          text: Supprimer
+        dropbutton:
+          label: Operations
+      pager:
+        options:
+          tags:
+            next: ››
+            previous: ‹‹
+          expose:
+            items_per_page_label: 'Items per page'
+            items_per_page_options_all_label: '- All -'
+            offset_label: Offset
+      exposed_form:
+        options:
+          submit_button: Apply
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      arguments:
+        qid:
+          exception:
+            title: All
+  list:
+    display_title: 'Résultats du Quiz'
+    display_options:
+      menu:
+        title: Résultats
+  page_1:
+    display_title: 'Tous les résultats'
+    display_options:
+      fields:
+        title:
+          label: Title
+          separator: ', '
+        name:
+          label: Name
+          separator: ', '
+        time_start:
+          separator: ', '
+        time_end:
+          separator: ', '
+        score:
+          label: Score
+          separator: ', '
+        is_evaluated:
+          label: Évalué
+          separator: ', '
+      menu:
+        title: 'Résultats du Quiz'

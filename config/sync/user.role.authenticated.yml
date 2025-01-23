@@ -20,6 +20,7 @@ dependencies:
     - flag
     - media
     - node
+    - quiz
     - rate
     - search
     - shortcut
@@ -35,6 +36,7 @@ permissions:
   - 'access checkout'
   - 'access comments'
   - 'access content'
+  - 'access quiz'
   - 'access shortcuts'
   - 'access site-wide contact form'
   - 'access user profiles'
@@ -58,7 +60,9 @@ permissions:
   - 'unflag subscription_tipsheet'
   - 'use editorial transition create_new_draft'
   - 'use text format basic_html'
+  - 'view any quiz'
   - 'view media'
+  - 'view own quiz_result'
   - 'view published modal_list_forums storage entities'
   - 'view published other_rating_systems storage entities'
   - 'view published quick_link storage entities'

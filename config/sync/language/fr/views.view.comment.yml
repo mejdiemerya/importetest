@@ -7,10 +7,20 @@ display:
           action_title: Action
         subject:
           label: Objet
+          separator: ', '
+        uid:
+          separator: ', '
+        name:
+          separator: ', '
+        entity_id:
+          separator: ', '
         changed:
           label: Updated
+          separator: ', '
         operations:
           label: Operations
+        name_1:
+          separator: ', '
       pager:
         options:
           tags:
@@ -27,6 +37,8 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
       filters:
         subject:
           expose:
@@ -41,10 +53,20 @@ display:
           action_title: Action
         subject:
           label: Objet
+          separator: ', '
+        uid:
+          separator: ', '
+        name:
+          separator: ', '
+        entity_id:
+          separator: ', '
         changed:
           label: Updated
+          separator: ', '
         operations:
           label: Operations
+        name_1:
+          separator: ', '
       filters:
         subject:
           expose:
