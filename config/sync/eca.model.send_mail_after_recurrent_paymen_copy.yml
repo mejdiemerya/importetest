@@ -1,0 +1,52 @@
+uuid: dfb556b9-283f-4697-82a2-6b441543e0d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - eca.eca.send_mail_after_recurrent_paymen_copy
+id: send_mail_after_recurrent_paymen_copy
+label: 'Send mail after recurrent payment (copy)'
+tags:
+  - untagged
+documentation: ''
+filename: ''
+modeldata: |
+  <?xml version="1.0" encoding="UTF-8"?>
+  <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+    <bpmn2:process id="send_mail_after_recurrent_paymen_copy" name="Send mail after recurrent payment (copy)" isExecutable="true" camunda:versionTag="v1">
+      <bpmn2:startEvent id="eca_commerce_payment_insert" name="Payment: Insert" camunda:modelerTemplate="org.drupal.event.eca_commerce:payment_insert">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="eca_commerce:payment_insert" />
+          </camunda:properties>
+        </bpmn2:extensionElements>
+        <bpmn2:outgoing>Flow_0ikkc99</bpmn2:outgoing>
+      </bpmn2:startEvent>
+      <bpmn2:task id="send_mail_client_order_complete" name="Send Mail to client after order complete" camunda:modelerTemplate="org.drupal.action.send_mail_client_order_complete">
+        <bpmn2:extensionElements>
+          <camunda:properties>
+            <camunda:property name="pluginid" value="send_mail_client_order_complete" />
+          </camunda:properties>
+          <camunda:field name="object">
+            <camunda:string>commerce_order</camunda:string>
+          </camunda:field>
+        </bpmn2:extensionElements>
+        <bpmn2:incoming>Flow_0ikkc99</bpmn2:incoming>
+      </bpmn2:task>
+      <bpmn2:sequenceFlow id="Flow_0ikkc99" sourceRef="eca_commerce_payment_insert" targetRef="send_mail_client_order_complete" />
+    </bpmn2:process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_send_mail_after_recurrent_paymen_copy">
+      <bpmndi:BPMNPlane id="BPMNPlane_send_mail_after_recurrent_paymen_copy" bpmnElement="send_mail_after_recurrent_paymen_copy">
+        <bpmndi:BPMNShape id="eca_commerce_payment_insert_di" bpmnElement="eca_commerce_payment_insert">
+          <dc:Bounds x="57" y="52" width="36" height="36" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="send_mail_client_order_complete_di" bpmnElement="send_mail_client_order_complete">
+          <dc:Bounds x="175" y="30" width="100" height="80" />
+        </bpmndi:BPMNShape>
+        <bpmndi:BPMNEdge id="Flow_0ikkc99_di" bpmnElement="Flow_0ikkc99">
+          <di:waypoint x="93" y="70" />
+          <di:waypoint x="175" y="70" />
+        </bpmndi:BPMNEdge>
+      </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+  </bpmn2:definitions>

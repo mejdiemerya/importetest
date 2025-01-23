@@ -1,0 +1,4 @@
+label: 'Bonne réponse'
+settings:
+  on_label: 'Yes'
+  off_label: 'No'

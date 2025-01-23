@@ -71,3 +71,18 @@ cloneable_entities:
   - easy_email_override
   - mailer_policy
   - mailer_transport
+  - quiz_question_type
+  - quiz_feedback_type
+  - quiz_question_relationship
+  - quiz_result_answer
+  - quiz_question
+  - quiz_result_answer_type
+  - quiz_result_type
+  - quiz_result
+  - quiz_type
+  - quiz
+  - print_engine
+  - commerce_invoice_item
+  - commerce_invoice
+  - commerce_invoice_type
+  - commerce_email

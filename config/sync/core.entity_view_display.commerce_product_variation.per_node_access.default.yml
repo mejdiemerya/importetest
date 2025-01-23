@@ -9,13 +9,14 @@ dependencies:
     - field.field.commerce_product_variation.per_node_access.field_hide_button_on_report_page
     - field.field.commerce_product_variation.per_node_access.field_hide_quiz_button_on_report
     - field.field.commerce_product_variation.per_node_access.field_license_billing_cycle_type
-    - field.field.commerce_product_variation.per_node_access.field_purchased_content
+    - field.field.commerce_product_variation.per_node_access.field_purcased_content
     - field.field.commerce_product_variation.per_node_access.field_zoom_id
     - field.field.commerce_product_variation.per_node_access.field_zoom_type
     - field.field.commerce_product_variation.per_node_access.license_expiration
     - field.field.commerce_product_variation.per_node_access.license_type
   module:
     - commerce_price
+    - entity_reference_revisions
     - options
     - text
 id: commerce_product_variation.per_node_access.default
@@ -62,13 +63,14 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
-  field_purchased_content:
-    type: entity_reference_label
+  field_purcased_content:
+    type: entity_reference_revisions_entity_view
     label: above
     settings:
-      link: true
+      view_mode: default
+      link: ''
     third_party_settings: {  }
-    weight: 4
+    weight: 15
     region: content
   field_zoom_id:
     type: string
