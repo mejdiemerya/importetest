@@ -9,7 +9,7 @@ dependencies:
     - field.field.commerce_product_variation.per_node_access.field_hide_button_on_report_page
     - field.field.commerce_product_variation.per_node_access.field_hide_quiz_button_on_report
     - field.field.commerce_product_variation.per_node_access.field_license_billing_cycle_type
-    - field.field.commerce_product_variation.per_node_access.field_purchased_content
+    - field.field.commerce_product_variation.per_node_access.field_purcased_content
     - field.field.commerce_product_variation.per_node_access.field_zoom_id
     - field.field.commerce_product_variation.per_node_access.field_zoom_type
     - field.field.commerce_product_variation.per_node_access.license_expiration
@@ -18,6 +18,7 @@ dependencies:
     - commerce
     - commerce_price
     - file
+    - paragraphs
     - text
 id: commerce_product_variation.per_node_access.default
 targetEntityType: commerce_product_variation
@@ -26,14 +27,14 @@ mode: default
 content:
   commerce_file:
     type: file_generic
-    weight: 101
+    weight: 15
     region: content
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
   field_checkout_complete_message:
     type: text_textarea
-    weight: 100
+    weight: 13
     region: content
     settings:
       rows: 5
@@ -41,37 +42,45 @@ content:
     third_party_settings: {  }
   field_hide_button_on_report_page:
     type: boolean_checkbox
-    weight: 95
+    weight: 11
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_hide_quiz_button_on_report:
     type: boolean_checkbox
-    weight: 96
+    weight: 12
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   field_license_billing_cycle_type:
     type: options_select
-    weight: 10
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_purchased_content:
-    type: entity_reference_autocomplete
-    weight: 94
+  field_purcased_content:
+    type: paragraphs
+    weight: 14
     region: content
     settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        collapse_edit_all: collapse_edit_all
+        duplicate: duplicate
     third_party_settings: {  }
   field_zoom_id:
     type: string_textfield
-    weight: 93
+    weight: 10
     region: content
     settings:
       size: 60
@@ -79,44 +88,44 @@ content:
     third_party_settings: {  }
   field_zoom_type:
     type: options_select
-    weight: 92
+    weight: 9
     region: content
     settings: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 2
+    weight: 4
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   license_expiration:
     type: commerce_plugin_select
-    weight: 21
+    weight: 7
     region: content
     settings: {  }
     third_party_settings: {  }
   license_type:
     type: commerce_plugin_select
-    weight: 20
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   list_price:
     type: commerce_list_price
-    weight: -1
+    weight: 2
     region: content
     settings: {  }
     third_party_settings: {  }
   price:
     type: commerce_price_default
-    weight: 0
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   sku:
     type: string_textfield
-    weight: -4
+    weight: 1
     region: content
     settings:
       size: 60
@@ -124,14 +133,14 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 90
+    weight: 8
     region: content
     settings:
       display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60

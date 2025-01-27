@@ -27,10 +27,7 @@ class CheckoutCompleteController extends ControllerBase {
         $message = $order->getItems()[0]->getPurchasedEntity()->get('field_checkout_complete_message')->value;
 
         $message = str_replace("[commerce-order:order-number]", $order_id, $message);
-        $path_alias_manager = \Drupal::service('path_alias.manager');
-        $url_alias = $path_alias_manager->getAliasByPath("/product/".$order->getItems()[0]->getPurchasedEntity()->get('product_id')->target_id);
-        $message = str_replace("[commerce-order:pid]", $url_alias, $message);
-      }
+        }
         else{
           $message = $this->t('Complete order.');
         }

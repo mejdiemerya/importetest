@@ -1,0 +1,15 @@
+uuid: 2bf80464-6c1f-4738-8bcc-9907ced39fa4
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - quiz_multichoice
+_core:
+  default_config_hash: ww0XPFSiTaEE__RucuyVnzGjjM3mvtKfbnAoAzf3Jp0
+id: multichoice
+label: 'Multiple choice'
+icon_uuid: null
+icon_default: null
+description: 'Multiple choice question answers'
+behavior_plugins: {  }

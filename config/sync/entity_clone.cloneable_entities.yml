@@ -64,3 +64,10 @@ cloneable_entities:
   - base_field_override
   - commerce_pricelist
   - commerce_pricelist_item
+  - rules_reaction_rule
+  - rules_component
+  - easy_email
+  - easy_email_type
+  - easy_email_override
+  - mailer_policy
+  - mailer_transport

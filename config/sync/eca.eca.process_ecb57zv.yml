@@ -14,7 +14,7 @@ id: process_ecb57zv
 modeller: bpmn_io
 label: 'moderator approval (comment) '
 version: v3
-weight: 0
+weight: -10
 events:
   Event_1ma91fw:
     plugin: 'content_entity:presave'

@@ -1,0 +1,10 @@
+uuid: 7cff7930-a8db-4afb-aabf-4d7c1422a5e4
+langcode: en
+status: true
+dependencies: {  }
+id: quiz_select
+label: 'Quiz select'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

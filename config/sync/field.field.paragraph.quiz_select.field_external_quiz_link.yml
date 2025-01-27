@@ -1,0 +1,23 @@
+uuid: 8992156c-ba56-4fcf-b00a-b21670e8d505
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_external_quiz_link
+    - paragraphs.paragraphs_type.quiz_select
+  module:
+    - link
+id: paragraph.quiz_select.field_external_quiz_link
+field_name: field_external_quiz_link
+entity_type: paragraph
+bundle: quiz_select
+label: 'External Quiz Link'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 2
+  link_type: 16
+field_type: link

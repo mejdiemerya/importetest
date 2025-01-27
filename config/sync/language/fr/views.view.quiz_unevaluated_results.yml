@@ -1,0 +1,46 @@
+display:
+  default:
+    display_title: Master
+    display_options:
+      exposed_form:
+        options:
+          submit_button: Apply
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      pager:
+        options:
+          expose:
+            items_per_page_label: 'Items per page'
+            items_per_page_options_all_label: '- All -'
+            offset_label: Offset
+          tags:
+            previous: ‹‹
+            next: ››
+      fields:
+        title:
+          label: Quiz
+          separator: ', '
+        name:
+          label: User
+          separator: ', '
+        time_end:
+          label: 'Date de complétion'
+          separator: ', '
+        edit_quiz_result:
+          text: Score
+      filters:
+        uid_current_1:
+          expose:
+            label: "Est l'utilisateur connecté"
+  page_1:
+    display_title: "Noter n'importe quel quiz"
+  page_2:
+    display_title: 'Noter ses propres quiz'
+  page_3:
+    display_options:
+      filters:
+        uid_current_1:
+          expose:
+            label: "Est l'utilisateur connecté"

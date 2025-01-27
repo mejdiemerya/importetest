@@ -14,7 +14,7 @@ id: eca_lib_0034
 modeller: bpmn_io
 label: 'Notifiction post level'
 version: v1
-weight: 0
+weight: -8
 events:
   Event_1rxft90:
     plugin: 'content_entity:update'

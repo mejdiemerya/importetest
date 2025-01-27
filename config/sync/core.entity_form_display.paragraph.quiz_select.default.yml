@@ -1,0 +1,36 @@
+uuid: f37983ec-d9d9-49a6-8e10-2c77c4a70471
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.quiz_select.field_external_quiz_link
+    - field.field.paragraph.quiz_select.field_quiz
+    - paragraphs.paragraphs_type.quiz_select
+  module:
+    - link
+id: paragraph.quiz_select.default
+targetEntityType: paragraph
+bundle: quiz_select
+mode: default
+content:
+  field_external_quiz_link:
+    type: link_default
+    weight: 1
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_quiz:
+    type: entity_reference_autocomplete
+    weight: 2
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

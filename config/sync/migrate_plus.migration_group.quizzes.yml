@@ -1,0 +1,10 @@
+uuid: 8957e4c6-7ad5-42ba-805b-c4f01577ee3a
+langcode: en
+status: true
+dependencies: {  }
+id: quizzes
+label: quizzes
+description: ''
+source_type: null
+module: null
+shared_configuration: null

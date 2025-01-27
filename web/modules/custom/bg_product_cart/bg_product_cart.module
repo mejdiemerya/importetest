@@ -8,6 +8,43 @@ use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 
 /**
+ * Implements hook_mail().
+ */
+function bg_product_cart_mail($key, &$message, $params)
+{
+
+  //var_dump($key);die;
+  $options = array(
+    'langcode' => $message['langcode'],
+  );
+//recurring_payment_declined
+  switch ($key) {
+    case 'notification_client_order':
+      $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
+      $message['from'] = 'no-reply@leeduser.com';
+      $message['headers']['Sender'] = 'no-reply@leeduser.com';
+      $message['headers']['Return-Path'] = 'no-reply@leeduser.com';
+      $message['headers']['From'] = 'LEEDuser <no-reply@leeduser.com>';
+      $message['subject'] = $params['subject'];
+      $message['body'][] = $params['message'];
+      break;
+  }
+}
+
+/**
+ * Implements hook_entity_predelete().
+ */
+//function codimth_custom_rules_event_entity_predelete(EntityInterface $entity) {
+//
+//  if ($entity instanceof ContentEntityInterface) {
+//    $entity_type_id = $entity->getEntityTypeId();
+//    $event = new EntityEvent($entity, [$entity_type_id => $entity]);
+//    $event_dispatcher = \Drupal::service('event_dispatcher');
+//    $event_dispatcher->dispatch("codimth_custom_rules_event_entity_predelete:$entity_type_id", $event);
+//  }
+//}
+
+/**
  * @file
  * Primary module hooks for bg_product_cart module.
  */
@@ -17,7 +54,7 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
 
   if ($variables['product_entity']->get('type')->target_id == "reports_courses_study_guides_web") {
     $priceResolv = \Drupal::service('commerce_pricelist.repository');
-
+    $path_alias_manager = \Drupal::service('path_alias.manager');
     $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
     $store_id = $variables['product_entity']->get('stores')->target_id;
 
@@ -29,12 +66,18 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
       $resultsOdersP = getOrderByUserAndProduct($account->id(), $relatedProduct->target_id);
       if (!empty($resultsOdersP)) {
         $variables['has_purchased'] = TRUE;
+        $variationItem = \Drupal\commerce_product\Entity\ProductVariation::load($relatedProduct->target_id);
+        if ($variationItem->get('type')->target_id == "per_node_access") {
+          $variables['purchased_nodes'] = getQuizPurchased($variationItem);
+        }
+
       } else {
         $variables['has_purchased'] = FALSE;
         break;
       }
     }
     if (!empty($resultsOdersP)) {
+
       $order = Order::load($resultsOdersP);
       if (!empty($order)) {
         if (!empty($order->getItems()[0]->getPurchasedEntity()->get('commerce_file'))) {
@@ -47,9 +90,11 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
             );
           }
         }
+
       }
     }
     foreach ($variables['product_entity']->getVariations() as $variation) {
+
       $price_list_item = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($account, $store));
 
       if (!empty($variation->get('commerce_file')) && empty($variables['downloads'])) {
@@ -65,9 +110,7 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
 
 
       if ($price_list_item)
-        $variables ['member_price'] = $price_list_item->get('price')->number;
-
-
+        $variables ['member_price'] = number_format($price_list_item->get('price')->number);
       $variables ['list_price'] = number_format($variation->get('price')->number);
       $tabLinkCartVariations[] = new Link(
         t('Buy it now for ') . $variables['product']['variation_price'][0]["#markup"],
@@ -80,7 +123,6 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
       $variables['in_pricelist'] = FALSE;
 
       if (isset($variables ['member_price']) && $variables ['member_price'] / 100 < $pricesGooglebotip->get('price')->number) {
-        // $pricelist_member_price = $pricesGooglebotip->get('price')->number;
         $variables['in_pricelist'] = TRUE;
       }
 
@@ -111,11 +153,49 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
 
         $variables['has_purchased'] = TRUE;
       }
+    }
+
+    if ($variables['has_purchased'] && empty($variables['purchased_nodes'])) {
+      foreach ($variables['product_entity']->getVariations() as $variation) {
+        $variables['purchased_nodes'] = getQuizPurchased($variation);
+      }
 
     }
 
+    $variables['has_purchased_product'] = $variables['has_purchased'];
     $variables ['add_cart_variation'] = $tabLinkCartVariations;
   }
+}
+
+function getQuizPurchased($variation)
+{
+  $path_alias_manager = \Drupal::service('path_alias.manager');
+  $purchased_nodes = [];
+  if (!empty($variation->get('field_purcased_content'))) {
+    foreach ($variation->get('field_purcased_content') as $purcased_content) {
+      //
+      $paragraph = Drupal\Paragraphs\Entity\Paragraph::load($purcased_content->getValue()['target_id']);
+      if (!empty($paragraph->get('field_quiz')->target_id)) {
+        $quiz = Drupal\quiz\Entity\Quiz::load($paragraph->get('field_quiz')->target_id);
+        $url_alias = $path_alias_manager->getAliasByPath("/quiz/" . $paragraph->get('field_quiz')->target_id);
+        $purchased_nodes [] = [
+          'type' => 'quiz',
+          'path' => $url_alias,
+          'label' => $quiz->get('title')->value,
+        ];
+
+      } elseif (!empty($paragraph->get('field_external_quiz_link')->uri)) {
+        $purchased_nodes [] = [
+          'type' => 'quiz',
+          'path' => $paragraph->get('field_external_quiz_link')->uri,
+          'label' => $paragraph->get('field_external_quiz_link')->title,
+        ];
+
+      }
+
+    }
+  }
+  return $purchased_nodes;
 }
 
 function getOrderByUserAndProduct($uid, $vid)

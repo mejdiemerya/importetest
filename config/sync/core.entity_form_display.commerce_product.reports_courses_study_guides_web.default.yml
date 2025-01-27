@@ -21,7 +21,6 @@ dependencies:
     - field.field.commerce_product.reports_courses_study_guides_web.field_report_page_button_label
     - field.field.commerce_product.reports_courses_study_guides_web.field_resume
     - field.field.commerce_product.reports_courses_study_guides_web.field_type_of_product
-    - field.field.commerce_product.reports_courses_study_guides_web.field_vv
     - image.style.thumbnail
   module:
     - commerce
@@ -336,5 +335,4 @@ content:
       revision: false
       removed_reference: optional
     third_party_settings: {  }
-hidden:
-  field_vv: true
+hidden: {  }
