@@ -21,7 +21,6 @@ module:
   comment: 0
   views_bulk_operations: 0
   entity_print: 0
-  rules: 0
   commerce: 0
   commerce_authnet: 0
   commerce_cart: 0
@@ -119,6 +118,7 @@ module:
   range: 0
   rate: 0
   rest: 0
+  rules: 0
   search: 0
   search_api: 0
   search_api_db: 0
