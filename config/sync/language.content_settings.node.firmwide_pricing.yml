@@ -1,0 +1,11 @@
+uuid: 211d97e9-2f27-4139-be93-55a1687322f7
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.firmwide_pricing
+id: node.firmwide_pricing
+target_entity_type_id: node
+target_bundle: firmwide_pricing
+default_langcode: site_default
+language_alterable: false

@@ -1,0 +1,34 @@
+uuid: 45094f84-14de-4593-9798-3bb4ca0b9833
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.leeduser_premium.field_descriptions
+    - field.field.paragraph.leeduser_premium.field_title
+    - paragraphs.paragraphs_type.leeduser_premium
+  module:
+    - text
+id: paragraph.leeduser_premium.default
+targetEntityType: paragraph
+bundle: leeduser_premium
+mode: default
+content:
+  field_descriptions:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

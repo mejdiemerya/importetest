@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.commerce_subscription.customer
+    - field.field.commerce_subscription.product_variation.field_email_reminder_sent
   module:
     - commerce_recurring
     - options
@@ -120,6 +121,7 @@ content:
 hidden:
   billing_schedule: true
   created: true
+  field_email_reminder_sent: true
   initial_order: true
   purchased_entity: true
   quantity: true

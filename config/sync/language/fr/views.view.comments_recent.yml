@@ -1,9 +1,3 @@
 display:
   default:
-    display_title: Default
-    display_options:
-      fields:
-        changed:
-          settings:
-            future_format: 'Dans @interval'
-            past_format: 'Il y a @interval'
+    display_title: 'Par défaut'

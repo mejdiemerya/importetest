@@ -1,17 +1,22 @@
+label: Fichiers
 display:
   default:
-    display_title: Default
+    display_title: 'Par défaut'
     display_options:
+      title: Fichiers
       fields:
         filename:
           label: Name
-          separator: ', '
+        filesize:
+          label: Taille
         status:
           label: Status
+        changed:
+          label: 'Date de modification'
         count:
           format_plural_string: !!binary MSBwbGFjZQNAY291bnQgcGxhY2Vz
         operations:
-          label: Operations
+          label: Actions
       pager:
         options:
           tags:
@@ -26,17 +31,17 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
       filters:
         status:
           expose:
             label: Status
+  page_1:
+    display_options:
+      menu:
+        title: Fichiers
   page_2:
     display_options:
       fields:
-        entity_label:
-          label: Entité
         type:
           label: "Type d'entité"
       pager:

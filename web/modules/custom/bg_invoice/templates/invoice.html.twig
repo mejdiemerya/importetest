@@ -1,0 +1,126 @@
+<html>
+<head>
+  <style>
+    body {
+      font-family: Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .details, .footer {
+      margin: 20px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table#tabsprice{
+      margin-bottom: 50px;
+    }
+    table#tabsprice th{
+      border-bottom: 2px solid black;
+    }
+    table#tabsprice td {
+      border-top: 2px solid black;
+    }
+
+    table, th, td {
+      /*border: 1px solid black;*/
+    }
+    th {
+      padding: 1px;
+      text-align: left;
+    }
+    td {
+      padding: 0px;
+      text-align: left;
+    }
+    #footer {
+      border-top:2px solid #292929;
+      position: fixed;
+      left: 20px;
+      right: 20px;
+      bottom: -40px;
+      text-align: center;
+      bottom: -40px !important;
+      color:#646464;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <table style="border:0px;" border="0" cellpadding="0">
+    <tr>
+      <td><img width="272" height="71" src="https://drupal-11.ddev.site/themes/custom/buildinggreen/front_app/dist/assets/images/buildinggreen.jpg"></td>
+      <td><img width="236" height="80" src="https://drupal-11.ddev.site/themes/custom/buildinggreen/front_app/dist/assets/images/leeduser.jpg"></td>
+      <td align="right" style="text-align: right; color:#646464; font-size: 12px;"><p>
+          BuildingGreen, Inc.<br>
+          122 Birge Street, Suite 30<br>
+          Brattleboro, VT 05301<br>
+          USA
+        </p></td>
+    </tr>
+  </table>
+  <hr style="background: #292929;">
+  <table style="border:0px; margin-bottom: 40px;" border="0" cellpadding="0">
+    <tr>
+      <td width="40%" style="font-size: 15px;">
+        <p>{{ customer_name }}<br>{{ customer_address }}</p>
+      </td>
+      <td></td>
+      <td width="30%" align="right" style="text-align: right; color:#000; font-size: 15px;">
+        {{ date }}
+      </td>
+    </tr>
+  </table>
+
+</div>
+<div class="details" style="margin-bottom: 40px;">
+  <p>Invoice No.: {{ invoice_no }}<br>Order No.: {{ order_no }}</p>
+</div>
+<table id="tabsprice">
+  <thead>
+  <tr>
+    <th width="50%"><b>Title</b></th>
+    <th width="20%"><b>Unit Price</b></th>
+    <th width="10%"><b>Quantity</b></th>
+    <th width="20%" align="right" style="text-align: right;"><b>Total</b></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>{{ title }}</td>
+    <td align="center" style="text-align: center;">{{ unit_price }}</td>
+    <td align="center" style="text-align: center;">{{ quantity }}</td>
+    <td align="right" style="text-align: right;">{{ total }}</td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td align="right" style="text-align: right;"><b>Order total</b></td>
+    <td></td>
+    <td align="right" style="text-align: right;">{{ total }}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td align="right" style="text-align: right;"><b>Balance Due</b></td>
+    <td></td>
+    <td align="right" style="text-align: right;">{{ balance_due }}</td>
+  </tr>
+  </tbody>
+</table>
+<p>Thank you for your order</p>
+<div id="footer"><p>
+    BuildingGreen, Inc.<br>
+    122 Birge Street, Suite 30<br>
+    Brattleboro, VT 05301<br>
+    USA
+  </p></div>
+</body>
+</html>

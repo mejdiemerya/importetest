@@ -9,6 +9,8 @@ module:
   announcements_feed: 0
   automated_cron: 0
   bg_custom_checkout: 0
+  bg_import_product: 0
+  bg_invoice: 0
   bg_product_cart: 0
   big_pipe: 0
   block: 0
@@ -17,6 +19,8 @@ module:
   breakpoint: 0
   ckeditor5: 0
   comment: 0
+  views_bulk_operations: 0
+  entity_print: 0
   commerce: 0
   commerce_authnet: 0
   commerce_cart: 0
@@ -70,7 +74,6 @@ module:
   editor: 0
   entity: 0
   entity_clone: 0
-  entity_print: 0
   entity_reference_revisions: 0
   facets_rest: 0
   facets_searchbox_widget: 0
@@ -127,6 +130,7 @@ module:
   stage_file_proxy: 0
   state_machine: 0
   storage: 0
+  subscription_reminder: 0
   svg_image_field: 0
   svg_image_field_media_bundle: 0
   system: 0
@@ -143,10 +147,14 @@ module:
   update: 0
   upgrade_status: 0
   user: 0
-  views_bulk_operations: 0
   views_load_more: 0
   views_ui: 0
   votingapi: 0
+  webform: 0
+  webform_attachment: 0
+  webform_node: 0
+  webform_templates: 0
+  webform_ui: 0
   workflows: 0
   eca_form: 1
   facets: 1
@@ -154,6 +162,7 @@ module:
   forum: 1
   pathauto: 1
   views: 10
+  form_mode_manager: 11
   paragraphs: 11
   standard: 1000
 theme:

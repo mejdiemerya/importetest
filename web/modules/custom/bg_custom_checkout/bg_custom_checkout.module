@@ -52,6 +52,16 @@ function bg_custom_checkout_commerce_checkout_flow_info_alter(array &$plugins) {
     }
 
 }
+function bg_custom_checkout_commerce_checkout_pane_info_alter(array &$plugins) {
+
+  // Vérifiez si le plugin "multistep_default" existe.
+  if (isset($plugins['review'])) {
+    \Drupal::logger('bg_custom_checkout')->info('Altering the multistep_default plugin.');
+    // Modifiez la classe pour utiliser votre classe personnalisée.
+    $plugins['review']['class'] = \Drupal\bg_custom_checkout\Plugin\Commerce\CheckoutPane\Customreview::class;
+  }
+
+}
 
 
 

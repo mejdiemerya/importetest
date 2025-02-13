@@ -1,18 +1,18 @@
 display:
   default:
-    display_title: Default
+    display_title: 'Par défaut'
     display_options:
+      title: Journal
       fields:
         name:
-          label: User
-          separator: ', '
+          label: Utilisateur
+        timestamp:
+          label: Heure
         message:
           label: Message
       pager:
         options:
           tags:
-            next: ››
-            previous: ‹‹
             first: '« First'
             last: 'Last »'
           expose:
@@ -24,8 +24,6 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
       filters:
         timestamp:
           expose:
@@ -35,3 +33,10 @@ display:
             label: À
   page_1:
     display_title: Page
+    display_options:
+      menu:
+        title: Journal
+  page_2:
+    display_options:
+      menu:
+        title: Journal

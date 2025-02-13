@@ -1,24 +1,19 @@
 display:
   default:
-    display_title: Default
+    display_title: 'Par défaut'
     display_options:
       fields:
         name:
           label: Name
-          separator: ', '
         start_date:
           label: 'Date de début'
-          separator: ', '
         end_date:
           label: 'Date de fin'
-          separator: ', '
         operations:
           label: "Liens d'actions"
       pager:
         options:
           tags:
-            next: ››
-            previous: ‹‹
             first: '« First'
             last: 'Last »'
           expose:
@@ -30,8 +25,6 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
       filters:
         name:
           expose:

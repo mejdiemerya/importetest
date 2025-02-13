@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - search
+    - system
   theme:
     - buildinggreen
 id: buildinggreen_searchform
@@ -18,4 +19,8 @@ settings:
   label_display: '0'
   provider: search
   page_id: null
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    negate: true
+    pages: '/user/*/**'

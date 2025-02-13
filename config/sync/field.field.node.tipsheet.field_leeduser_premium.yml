@@ -1,0 +1,82 @@
+uuid: af64eb1f-244b-4a6a-8ce6-3e52efd18153
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_leeduser_premium
+    - node.type.tipsheet
+    - paragraphs.paragraphs_type.leeduser_premium
+  module:
+    - entity_reference_revisions
+id: node.tipsheet.field_leeduser_premium
+field_name: field_leeduser_premium
+entity_type: node
+bundle: tipsheet
+label: 'LEEDuser Premium'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      leeduser_premium: leeduser_premium
+    negate: 0
+    target_bundles_drag_drop:
+      descriptions_sidebar:
+        weight: 19
+        enabled: false
+      hero:
+        weight: 20
+        enabled: false
+      hero_pricing:
+        weight: 21
+        enabled: false
+      home_forme:
+        weight: 22
+        enabled: false
+      image_sidebar:
+        weight: 23
+        enabled: false
+      item:
+        weight: 24
+        enabled: false
+      leed_credits:
+        weight: 27
+        enabled: false
+      leed_process:
+        weight: 28
+        enabled: false
+      leeduser_premium:
+        weight: 25
+        enabled: true
+      leeduser_recommends:
+        weight: 26
+        enabled: false
+      membership:
+        weight: 29
+        enabled: false
+      membership_item:
+        weight: 30
+        enabled: false
+      renewal_price:
+        weight: 31
+        enabled: false
+      testimonials:
+        weight: 32
+        enabled: false
+      testimonials_item:
+        weight: 33
+        enabled: false
+      text_well_marquee:
+        weight: 34
+        enabled: false
+      tribox_global:
+        weight: 35
+        enabled: false
+      views_recent_posts:
+        weight: 36
+        enabled: false
+field_type: entity_reference_revisions

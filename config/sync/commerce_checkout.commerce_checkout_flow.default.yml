@@ -4,10 +4,11 @@ status: true
 dependencies:
   module:
     - bg_custom_checkout
+    - commerce_file
     - commerce_payment
 _core:
   default_config_hash: 1BxQSpt9FMh77dg9LMMrriQ4JRWHwnBKzywwOwSpQ04
-label: Default
+label: 'Par défaut'
 id: default
 plugin: multistep_default
 configuration:
@@ -53,21 +54,27 @@ configuration:
       weight: 5
       wrapper_element: fieldset
       require_payment_method: false
+    order_summary_review:
+      display_label: null
+      step: review
+      weight: 7
+      wrapper_element: container
+      view: duplicate_of_checkout_order_summary
     review:
       display_label: null
       step: review
-      weight: 6
+      weight: 8
       wrapper_element: null
     payment_process:
       display_label: null
       step: payment
-      weight: 7
+      weight: 9
       wrapper_element: container
       capture: true
     completion_message:
       display_label: null
       step: complete
-      weight: 8
+      weight: 10
       wrapper_element: null
       message:
         value: "Your order number is [commerce_order:order_number].\r\nYou can view your order on your account page when logged in."
@@ -75,27 +82,59 @@ configuration:
     completion_register:
       display_label: null
       step: complete
-      weight: 9
+      weight: 11
       wrapper_element: null
+    commerce_file_download:
+      display_label: null
+      step: complete
+      weight: 12
+      wrapper_element: container
     custom_checkout_pane:
       display_label: null
       step: _sidebar
-      weight: 10
+      weight: 13
+      wrapper_element: container
+    order_summary_complet:
+      display_label: null
+      step: _disabled
+      weight: 14
+      wrapper_element: container
+      view: ''
+    order_summary_payement:
+      display_label: null
+      step: _disabled
+      weight: 15
+      wrapper_element: container
+      view: ''
+    block_progres_review:
+      display_label: null
+      step: review
+      weight: 6
+      wrapper_element: container
+    block_progres_payement:
+      display_label: null
+      step: _disabled
+      weight: 16
+      wrapper_element: container
+    block_progres_complete:
+      display_label: null
+      step: _disabled
+      weight: 17
       wrapper_element: container
     contact_information:
       display_label: null
       step: _disabled
-      weight: 11
+      weight: 18
       wrapper_element: fieldset
       double_entry: false
     order_summary:
       display_label: null
       step: _disabled
-      weight: 12
+      weight: 19
       wrapper_element: container
       view: ''
     customer_comments:
       display_label: null
       step: _disabled
-      weight: 13
+      weight: 20
       wrapper_element: fieldset

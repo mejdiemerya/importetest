@@ -16,7 +16,7 @@ third_party_settings:
 _core:
   default_config_hash: kYapI397yx2zFJGyDEs85Hyqgfc9jhmzxqPZMl2Fqhk
 id: default
-label: Default
+label: 'Par défaut'
 traits: {  }
 locked: false
 workflow: order_default

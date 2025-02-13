@@ -1,15 +1,12 @@
 display:
   default:
-    display_title: Default
+    display_title: 'Par défaut'
     display_options:
       fields:
         media_bulk_form:
           action_title: Action
       pager:
         options:
-          tags:
-            next: ››
-            previous: ‹‹
           expose:
             items_per_page_label: 'Items per page'
             items_per_page_options_all_label: '- All -'
@@ -18,8 +15,6 @@ display:
         options:
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
       filters:
         status:
           group_info:
@@ -41,8 +36,6 @@ display:
       fields:
         media_bulk_form:
           action_title: Action
-        name:
-          separator: ', '
         edit_media:
           text: Modifier
         delete_media:
@@ -57,13 +50,18 @@ display:
         name:
           expose:
             label: Name
+      header:
+        display_link_table:
+          label: Tableau
   widget_table:
     display_options:
       fields:
         name:
           label: Name
+        uid:
+          label: Auteur
         changed:
-          label: Updated
+          label: 'Mis à jour'
       arguments:
         bundle:
           exception:
@@ -72,3 +70,6 @@ display:
         name:
           expose:
             label: Name
+      header:
+        display_link_table:
+          label: Tableau

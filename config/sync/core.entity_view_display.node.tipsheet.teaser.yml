@@ -6,7 +6,9 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.tipsheet.body
     - field.field.node.tipsheet.field_credits
+    - field.field.node.tipsheet.field_file_information
     - field.field.node.tipsheet.field_guest_expert
+    - field.field.node.tipsheet.field_leeduser_premium
     - node.type.tipsheet
   module:
     - text
@@ -35,6 +37,9 @@ content:
     region: content
 hidden:
   field_credits: true
+  field_file_information: true
   field_guest_expert: true
+  field_leeduser_premium: true
+  langcode: true
   search_api_excerpt: true
   uid: true

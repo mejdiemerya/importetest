@@ -1,0 +1,6 @@
+name: 'BG Invoice'
+type: module
+description: 'A module to generate invoices as PDFs.'
+package: 'Custom'
+core_version_requirement: ^11
+

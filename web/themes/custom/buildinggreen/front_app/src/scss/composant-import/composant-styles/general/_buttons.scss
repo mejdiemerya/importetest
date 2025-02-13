@@ -47,7 +47,12 @@
     border-radius: 6px;
   }
 }
-
+.address-book__edit-link,
+.address-book__add-link,
+.link--previous,
+.button{
+  @extend .btn
+}
 // Alternate buttons
 // --------------------------------------------------
 $brand-primary:         darken(#428bca, 6.5%); // #337ab7
@@ -136,6 +141,10 @@ a#post-question {
   line-height: 1.3333333;
   border-radius: 6px;
 }
+.address-book__edit-link,
+.address-book__add-link,
+.link--previous,
+.dialog-cancel,
 .btn-midtone {
   color: #fff;
   background-color: #46828C;
@@ -151,6 +160,4 @@ a#post-question {
     border-color: #9abcc1;
   }
 }
-a[data-drupal-selector="edit-login-returning-customer-forgot-password"]{
 
-}

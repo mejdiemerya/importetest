@@ -1,0 +1,22 @@
+uuid: 4de9d0cc-ca67-45c6-8ff8-2e8a5f6af735
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_leeduser_premium_members
+    - node.type.firmwide_pricing
+  module:
+    - text
+id: node.firmwide_pricing.field_leeduser_premium_members
+field_name: field_leeduser_premium_members
+entity_type: node
+bundle: firmwide_pricing
+label: 'LEEDuser Premium members '
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats: {  }
+field_type: text_long

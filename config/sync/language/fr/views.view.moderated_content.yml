@@ -1,22 +1,18 @@
 display:
   default:
-    display_title: Default
+    display_title: 'Par défaut'
     display_options:
       fields:
         title:
-          label: Title
-          separator: ', '
+          label: Titre
         type:
-          separator: ', '
+          label: 'Type de contenu'
         name:
-          separator: ', '
-        moderation_state:
-          separator: ', '
+          label: Auteur
         changed:
-          label: Updated
-          separator: ', '
+          label: 'Mis à jour'
         operations:
-          label: Operations
+          label: Actions
       pager:
         options:
           tags:
@@ -33,12 +29,13 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
       filters:
         title:
           expose:
-            label: Title
+            label: Titre
+        type:
+          expose:
+            label: 'Type de contenu'
         langcode:
           expose:
             label: Langue

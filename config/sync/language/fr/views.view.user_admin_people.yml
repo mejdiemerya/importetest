@@ -1,22 +1,18 @@
 display:
   default:
-    display_title: Default
+    display_title: 'Par défaut'
     display_options:
       fields:
         name:
           label: "Nom d'utilisateur"
         status:
           label: Status
+          settings:
+            format_custom_true: Actif
         roles_target_id:
           label: Rôles
-        access:
-          settings:
-            future_format: 'Dans @interval'
-            past_format: 'Il y a @interval'
         operations:
-          label: Operations
-        mail:
-          separator: ', '
+          label: Actions
       pager:
         options:
           tags:
@@ -33,8 +29,6 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
       filters:
         combine:
           expose:
@@ -42,9 +36,15 @@ display:
         status:
           group_info:
             label: Status
+            group_items:
+              1:
+                title: Actif
         roles_target_id:
           expose:
             label: Rôle
+        permission:
+          expose:
+            label: Droit
   page_1:
     display_title: Page
     display_options:

@@ -154,7 +154,7 @@ display:
           admin_label: ''
           entity_type: commerce_license
           plugin_id: commerce_license__entity_label
-          label: Label
+          label: Libellé
           exclude: false
           alter:
             alter_text: false
@@ -535,7 +535,7 @@ display:
           entity_type: commerce_license
           entity_field: changed
           plugin_id: field
-          label: Updated
+          label: 'Mis à jour'
           exclude: false
           alter:
             alter_text: false

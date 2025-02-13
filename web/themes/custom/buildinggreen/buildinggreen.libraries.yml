@@ -68,3 +68,18 @@ page-credit:
   dependencies:
     - core/jquery
     - core/drupal
+
+page-tipsheet:
+  css:
+    theme:
+      front_app/dist/assets/composant/page-tipsheet/page-tipsheet.min.css: { minified: true }
+
+composant-leeduser-premium:
+  css:
+    theme:
+      front_app/dist/assets/composant/composant-leeduser-premium/composant-leeduser-premium.min.css: { minified: true }
+
+page-firmwide-pricing:
+  css:
+    theme:
+      front_app/dist/assets/composant/page-firmwide-pricing/page-firmwide-pricing.min.css: { minified: true }

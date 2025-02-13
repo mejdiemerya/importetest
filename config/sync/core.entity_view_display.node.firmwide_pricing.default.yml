@@ -1,0 +1,67 @@
+uuid: 6cf0fed5-4faf-4ef5-9968-0a0db2bcf8d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.firmwide_pricing.body
+    - field.field.node.firmwide_pricing.field_image
+    - field.field.node.firmwide_pricing.field_leeduser_premium_members
+    - field.field.node.firmwide_pricing.field_our_members_include
+    - field.field.node.firmwide_pricing.field_webform
+    - image.style.800x532
+    - node.type.firmwide_pricing
+  module:
+    - image
+    - text
+    - webform
+id: node.firmwide_pricing.default
+targetEntityType: node
+bundle: firmwide_pricing
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: 800x532
+      image_loading:
+        attribute: eager
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_leeduser_premium_members:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_our_members_include:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_webform:
+    type: webform_entity_reference_entity_view
+    label: hidden
+    settings:
+      source_entity: true
+      lazy: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  uid: true
