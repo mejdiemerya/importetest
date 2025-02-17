@@ -6,9 +6,7 @@ namespace Drupal\custom_forums\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\user\Entity\User;
-use Drupal\user\UserAuthInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+
 
 /**
  * Provides a Basic Membership Signup form.
@@ -29,8 +27,15 @@ class MembershipBasicSignupForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
     $step = $form_state->get('step') ?? 1;
-    $form['#step'] = $step;
+    $step_request = \Drupal::request()->request->get('step');
 
+    if (!empty($step_request)) {
+      $step = (int) $step_request;
+      $form_state->set('step', $step);
+    }
+
+    $form['#prefix'] = '<div id="signup-form-wrapper">';
+    $form['#suffix'] = '</div>';
     if ($step == 1) {
       $form['email'] = [
         '#type' => 'email',
@@ -63,10 +68,9 @@ class MembershipBasicSignupForm extends FormBase {
           '#value' => $this->t('Submit'),
         ];
         $form['forgot_password'] = [
-          '#type' => 'submit',
-          '#value' => $this->t('Forgot password?'),
-          '#submit' => ['::forgotPasswordSubmit'],
+          '#markup' => '<a href="#" id="forgot-password-link">' . $this->t('Forgot password?') . '</a>',
         ];
+        $form['#attached']['library'][] = 'custom_forums/forgot_password';
       } else {
         $form['first_name'] = [
           '#type' => 'textfield',
@@ -182,6 +186,7 @@ class MembershipBasicSignupForm extends FormBase {
         ]);
         $user->setPassword($password);
         $user->save();
+       _user_mail_notify('register_no_approval_required', $user);
         $form_state->set('step', 'success');
         $form_state->setRebuild();
 
@@ -208,10 +213,6 @@ class MembershipBasicSignupForm extends FormBase {
     $form_state->setRedirect('<front>');
   }
 
-public function forgotPasswordSubmit(array &$form, FormStateInterface $form_state) {
-  $form_state->set('step', 3);
-  $form_state->setRebuild();
-}
 }
 
 

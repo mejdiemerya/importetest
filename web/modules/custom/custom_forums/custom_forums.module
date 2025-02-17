@@ -1016,7 +1016,7 @@ function custom_forums_theme($existing, $type, $theme, $path) {
     'email_safety_message' => [
     'variables' => [],
   ],
-    'sucesss_signup' => [
+    'sucess_signup' => [
       'variables' => [],
     ],
   ];
@@ -1336,4 +1336,8 @@ function custom_forums_preprocess_flag__subscription_credit(&$variables){
     ];// Include the text.
 
 
+}
+function custom_forums_theme_suggestions_form_alter(array &$suggestions, array $variables) {
+    $form_id = $variables['element']['#form_id'];
+    $suggestions[] = 'form__' . $form_id;
 }
