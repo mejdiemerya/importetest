@@ -881,6 +881,7 @@ function custom_forums_preprocess_node(array &$variables) {
         $route_parameters = [
           'flag' => 'forum_notification',
           'entity_id' => $term->id(),
+          'view_mode' => 'default',
         ];
         // Get the current page URL for the destination parameter.
         $current_path = \Drupal::service('path.current')->getPath();
@@ -913,6 +914,8 @@ function custom_forums_preprocess_node(array &$variables) {
         $route_parameters = [
           'flag' => 'subscription_credit',
           'entity_id' => $term->id(),
+          'view_mode' => 'default',
+
         ];
         $current_path = \Drupal::service('path.current')->getPath();
         $current_query = \Drupal::request()->query->all(); // Get query parameters from the current request.
@@ -943,6 +946,7 @@ function custom_forums_preprocess_node(array &$variables) {
         $route_parameters = [
           'flag' => 'subscription_tipsheet',
           'entity_id' =>  $node->id(),
+          'view_mode' => 'default',
         ];
         $current_path = \Drupal::service('path.current')->getPath();
         $current_query = \Drupal::request()->query->all(); // Get query parameters from the current request.
@@ -1008,7 +1012,13 @@ function custom_forums_theme($existing, $type, $theme, $path) {
         'documentation' => NULL,
         'resources'=>NULL,
       ],
-    ]
+    ],
+    'email_safety_message' => [
+    'variables' => [],
+  ],
+    'sucesss_signup' => [
+      'variables' => [],
+    ],
   ];
 }
 function getCreditFilterLabel($tid) {
