@@ -125,6 +125,16 @@
                                       type="button" role="tab" aria-controls="nav-membership-info-lu" aria-selected="false">manage auto-renewal</a>
 
             </p>
+            {% if is_premium_user %}
+            <p class="small">
+              Manage groupe:<br>
+
+{#              <a class="text-decoration-underline" id="nav-membership-info-lu-tab" data-bs-toggle="tab" data-bs-target="#nav-membership-info-lu"#}
+{#                 type="button" role="tab" aria-controls="nav-membership-info-lu" aria-selected="false">groupe membership</a>#}
+              {{ drupal_view('grouped', 'block_1') }}
+
+            </p>
+            {% endif %}
           </div>
         </div>
         <ul class="menu-simple line-snug">
