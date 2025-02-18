@@ -643,3 +643,11 @@ small,.small {
 article[data-drupal-selector="edit-review-payment-information-summary"]{
   line-height: 1.7;
 }
+.superheader {
+  text-transform: uppercase;
+  font-weight: normal;
+  font-size: 150%;
+  color: #5c5767;
+  border-bottom: 1px solid #e7e6e9;
+  margin-bottom: 1em;
+}

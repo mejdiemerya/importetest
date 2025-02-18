@@ -33,20 +33,28 @@ class MembershipBasicSignupForm extends FormBase {
       $step = (int) $step_request;
       $form_state->set('step', $step);
     }
-
-    $form['#prefix'] = '<div id="signup-form-wrapper">';
-    $form['#suffix'] = '</div>';
+    
+    $form['selector'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['row']],
+      '#prefix' => '<div id="signup-form-wrapper">',
+      '#suffix' => '</div>',
+    ];
+    $form['selector']['col-1'] = [
+      '#type' => 'container',
+      '#attributes' => ['class' => ['col-md-6 col-lg-7']],
+    ];
     if ($step == 1) {
-      $form['email'] = [
+      $form['selector']['col-1']['email'] = [
         '#type' => 'email',
         '#title' => $this->t('Email Address'),
         '#required' => TRUE,
       ];
-      $form['next'] = [
+      $form['selector']['col-1']['next'] = [
         '#type' => 'submit',
         '#value' => $this->t('Next'),
       ];
-      $form['info_block'] = [
+      $form['selector']['info_block'] = [
         '#theme' => 'email_safety_message',
       ];
     }
@@ -55,44 +63,44 @@ class MembershipBasicSignupForm extends FormBase {
       $existing_users = \Drupal::entityTypeManager()->getStorage('user')->loadByProperties(['mail' => $email]);
 
       if ($existing_users) {
-        $form['message'] = [
+        $form['selector']['col-1']['message'] = [
           '#markup' => '<p><strong>You already have a BuildingGreen account — please enter your password:</strong></p>',
         ];
-        $form['password'] = [
+        $form['selector']['col-1']['password'] = [
           '#type' => 'password',
           '#title' => $this->t('Password'),
           '#required' => TRUE,
         ];
-        $form['login'] = [
+        $form['selector']['col-1']['login'] = [
           '#type' => 'submit',
           '#value' => $this->t('Submit'),
         ];
-        $form['forgot_password'] = [
+        $form['selector']['col-1']['forgot_password'] = [
           '#markup' => '<a href="#" id="forgot-password-link">' . $this->t('Forgot password?') . '</a>',
         ];
         $form['#attached']['library'][] = 'custom_forums/forgot_password';
       } else {
-        $form['first_name'] = [
+        $form['selector']['col-1']['first_name'] = [
           '#type' => 'textfield',
           '#title' => $this->t('First Name'),
           '#required' => TRUE,
         ];
-        $form['last_name'] = [
+        $form['selector']['col-1']['last_name'] = [
           '#type' => 'textfield',
           '#title' => $this->t('Last Name'),
           '#required' => TRUE,
         ];
-        $form['password'] = [
+        $form['selector']['col-1']['password'] = [
           '#type' => 'password',
           '#title' => $this->t('Create a Password'),
           '#required' => TRUE,
         ];
-        $form['confirm_password'] = [
+        $form['selector']['col-1']['confirm_password'] = [
           '#type' => 'password',
           '#title' => $this->t('Verify Password'),
           '#required' => TRUE,
         ];
-        $form['submit'] = [
+        $form['selector']['col-1']['submit'] = [
           '#type' => 'submit',
           '#value' => $this->t('Next'),
         ];
@@ -100,17 +108,17 @@ class MembershipBasicSignupForm extends FormBase {
     }
     elseif ($step == 3) {
       $email = \Drupal::service('tempstore.private')->get('signup')->get('email');
-      $form['info'] = [
+      $form['selector']['col-1']['info'] = [
         '#markup' => $this->t('We will send you to send a password reset link to <strong>@email</strong>.', ['@email' => $email]),
       ];
-      $form['reset_password'] = [
+      $form['selector']['col-1']['reset_password'] = [
         '#type' => 'submit',
         '#value' => $this->t('Request pasword reset'),
         '#submit' => ['::resetPasswordSubmit'],
       ];
     }
     elseif ($step == 'success') {
-      $form['sucess'] = [
+      $form['selector']['col-1']['sucess'] = [
         '#theme' => 'sucess_signup',
       ];
     }
