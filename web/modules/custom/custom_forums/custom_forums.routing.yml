@@ -12,10 +12,10 @@ custom_forums.site_settings:
     _form: 'Drupal\custom_forums\Form\CustomForumsSettingsForm'
   requirements:
     _permission: 'access content'
-custom_forums.membership_signup.form:
-  path: '/signup'
+custom_forums.team_membership:
+  path: '/teams'
   defaults:
-    _form: 'Drupal\custom_forums\Form\MembershipBasicSignupForm'
+    _form: 'Drupal\custom_forums\Form\TeamPageForm'
     _title: 'Basic Membership Signup'
   requirements:
     _permission: 'access content'
