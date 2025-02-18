@@ -87,7 +87,7 @@ display:
           entity_type: null
           entity_field: title
           plugin_id: field
-          label: Titre
+          label: Title
           exclude: false
           alter:
             alter_text: false
@@ -505,7 +505,7 @@ display:
           exposed: true
           expose:
             operator_id: title_op
-            label: Titre
+            label: Title
             description: ''
             use_operator: false
             operator: title_op

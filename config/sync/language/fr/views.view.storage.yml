@@ -19,10 +19,6 @@ display:
             first: '« First'
             last: 'Last »'
       fields:
-        storage_bulk_form:
-          action_title: Action
-        type:
-          label: Type
         user_id:
           label: Auteur
         status:
@@ -35,9 +31,6 @@ display:
         operations:
           label: Actions
       filters:
-        type:
-          expose:
-            label: Type
         status:
           group_info:
             group_items:

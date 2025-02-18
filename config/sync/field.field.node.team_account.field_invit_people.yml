@@ -1,0 +1,19 @@
+uuid: 86220146-0a44-4ee9-ab25-474dc873f522
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_invit_people
+    - node.type.team_account
+id: node.team_account.field_invit_people
+field_name: field_invit_people
+entity_type: node
+bundle: team_account
+label: 'Invit people'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

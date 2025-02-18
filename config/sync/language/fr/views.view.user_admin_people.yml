@@ -11,6 +11,10 @@ display:
             format_custom_true: Actif
         roles_target_id:
           label: Rôles
+        access:
+          settings:
+            future_format: '@interval hence'
+            past_format: '@interval ago'
         operations:
           label: Actions
       pager:
@@ -46,7 +50,6 @@ display:
           expose:
             label: Droit
   page_1:
-    display_title: Page
     display_options:
       menu:
         title: Lister

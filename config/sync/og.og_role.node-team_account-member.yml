@@ -1,0 +1,15 @@
+uuid: 2f67f24b-689e-475d-9dae-561b9de4bc1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.team_account
+id: node-team_account-member
+label: Member
+weight: 1
+group_id: null
+group_type: node
+group_bundle: team_account
+is_admin: false
+permissions: {  }
+role_type: required

@@ -33,74 +33,98 @@ class TeamPageForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $form['#attributes']['class'] = ['teams-form'];
-    $team_products = ['LUPRM-YT', 'LUPRM-YT-20', 'LUPRM-YT-30'];
-    $products =[];
-    foreach ($team_products as $sku)
-    {
-      $product = \Drupal::entityTypeManager()->getStorage('commerce_product_variation')->loadBySku($sku);
-      $products[] = array(
-        'sku' => $sku,
-        'variation_id' => $product->variation_id->value,
-        'product_id' => $product->product_id->target_id,
-        'name' => _bg_content_get_human_readable_product_name($product),
-        'price' =>$product->price->number,
+      $account = \Drupal::currentUser();
+    if($account->isAnonymous()) {
+      $form['team_signup'] = [
+        '#type' => 'markup',
+        '#markup' => '
+        <div id="team-signup" class="panel panel-neutral mt10 mb10">
+          <div class="panel-heading">
+            <h3 class="panel-title text-center">TEAM MEMBERSHIP PRICING &amp; SIGNUP</h3>
+          </div>
+          <div class="panel-body">
+            <h4 class="mt0">Pricing:</h4>
+            <p><strong>10-person team:</strong> $385/year<br>
+              <strong>20-person team:</strong> $770/year<br>
+              <strong>30-person team:</strong> $1,155/year</p>
+            <p><a href="/user">Sign up now&nbsp;</a></p>
+          </div>
+        </div>',
+        '#allowed_tags' => ['div', 'h3', 'h4', 'p', 'strong', 'br', 'a'], // Sécurité pour éviter XSS
+      ];
+
+    }else{
+
+      $form['#attributes']['class'] = ['teams-form'];
+      $team_products = ['LUPRM-YT', 'LUPRM-YT-20', 'LUPRM-YT-30'];
+      $products =[];
+      foreach ($team_products as $sku)
+      {
+        $product = \Drupal::entityTypeManager()->getStorage('commerce_product_variation')->loadBySku($sku);
+        $products[] = array(
+          'sku' => $sku,
+          'variation_id' => $product->variation_id->value,
+          'product_id' => $product->product_id->target_id,
+          'name' => _bg_content_get_human_readable_product_name($product),
+          'price' =>$product->price->number,
+        );
+
+      }
+      $account=$this->currentUser()->id();
+      $existing_groups = bg_content_get_groups_by_user($account, $type = 'team_account', $status = 0);
+
+      if (!empty($existing_groups))
+      {
+        $existing_group_options['choose'] = 'Choose One';
+        foreach ($existing_groups as $existing_group)
+        {
+          $existing_group_options[$existing_group->nid] = 'Renew: ' . $existing_group->title;
+        }
+        $existing_group_options[''] = 'Start a new team';
+
+        $form['existing_group'] = array(
+          '#type' => 'select',
+          '#title' => 'Select an option',
+          '#options' => $existing_group_options,
+          '#default_value' => 'choose',
+        );
+      }
+      $form['group_name'] = array(
+        '#type' => 'textfield',
+        '#title' => 'Name of team (Usually your company name)',
+        '#required' => !empty($existing_groups) ? FALSE : TRUE,
       );
 
-    }
-    $account=$this->currentUser()->id();
-    $existing_groups = bg_content_get_groups_by_user($account, $type = 'team_account', $status = 0);
-
-    if (!empty($existing_groups))
-    {
-      $existing_group_options['choose'] = 'Choose One';
-      foreach ($existing_groups as $existing_group)
+      $product_options = array();
+      $product_options['choose'] = 'Choose one';
+      foreach ($products as $product)
       {
-        $existing_group_options[$existing_group->nid] = 'Renew: ' . $existing_group->title;
-      }
-      $existing_group_options[''] = 'Start a new team';
+        $price =  $product['price'] + 0;
+        if (strpos($product['price'], '.') !== FALSE)
+        {
+          $price = number_format($price, 2, '.', ',');
 
-      $form['existing_group'] = array(
+        }else{
+          $price = number_format($price, 0, '.', ',');
+        }
+
+        $product_label = $product['name'] . ' - $' . $price;
+        $product_options[$product['variation_id']] = $product_label;
+      }
+      $form['product'] = [
         '#type' => 'select',
-        '#title' => 'Select an option',
-        '#options' => $existing_group_options,
-        '#default_value' => 'choose',
-      );
+        '#title' => 'Product',
+        '#options' => $product_options,
+        '#default_value' => !empty($_REQUEST['tp']) && intval($_REQUEST['tp']) > 0 ? $_REQUEST['tp'] : 'choose',
+      ];
+
+      $form['submit'] = [
+        '#type' => 'submit',
+        '#value' => 'Proceed to checkout »',
+        '#attributes' => ['class' => ['btn-warning', 'btn-lg']],
+      ];
+
     }
-    $form['group_name'] = array(
-      '#type' => 'textfield',
-      '#title' => 'Name of team (Usually your company name)',
-      '#required' => !empty($existing_groups) ? FALSE : TRUE,
-    );
-
-    $product_options = array();
-    $product_options['choose'] = 'Choose one';
-    foreach ($products as $product)
-    {
-      $price =  $product['price'] + 0;
-      if (strpos($product['price'], '.') !== FALSE)
-      {
-        $price = number_format($price, 2, '.', ',');
-
-      }else{
-        $price = number_format($price, 0, '.', ',');
-      }
-
-      $product_label = $product['name'] . ' - $' . $price;
-      $product_options[$product['variation_id']] = $product_label;
-    }
-    $form['product'] = [
-      '#type' => 'select',
-      '#title' => 'Product',
-      '#options' => $product_options,
-      '#default_value' => !empty($_REQUEST['tp']) && intval($_REQUEST['tp']) > 0 ? $_REQUEST['tp'] : 'choose',
-    ];
-
-    $form['submit'] = [
-      '#type' => 'submit',
-      '#value' => 'Proceed to checkout »',
-      '#attributes' => ['class' => ['btn-warning', 'btn-lg']],
-    ];
     return $form;
   }
 
@@ -117,14 +141,26 @@ class TeamPageForm extends FormBase {
     if (!empty($values['existing_group'])) {
       $group_node = Node::load($values['existing_group']);
     } else {
+      $team_products = [
+        12 => 10,
+        13 => 20,
+        14 => 30,
+      ];
+
+      $product_code = (int) $values['product'];
+      $field_nbr_max_value = isset($team_products[$product_code]) ? $team_products[$product_code] : 0;
+
       $group_node = Node::create([
         'type' => 'team_account',
         'title' => $values['group_name'],
         'uid' => $user->id(),
+        'field_nbr_max' => $field_nbr_max_value,
         'status' => 0,
       ]);
       $group_node->save();
+
     }
+
     $store = Store::load(1);
     $cart_manager = \Drupal::service('commerce_cart.cart_manager');
     $cart_provider = \Drupal::service('commerce_cart.cart_provider');
@@ -169,7 +205,7 @@ function commerce_node_checkout_add_node($node, $product, $account = NULL) {
         'type' => 'default',
         'state' => 'draft',
         'uid' => $uid,
-        'store_id' => $product->getStoreIds(),
+        'store_id' => $store,
         'cart' => TRUE,
       ]);
     $cart->save();

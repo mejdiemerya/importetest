@@ -1,0 +1,18 @@
+uuid: a06ed240-a93e-479d-a70f-7b224d06f17d
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: 'Team Group'
+type: team_account
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

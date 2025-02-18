@@ -1,0 +1,11 @@
+uuid: 132d3cb4-09ac-4765-a7da-408da960acf9
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_variation_type.commerce_node_checkout
+id: commerce_product_variation.commerce_node_checkout
+target_entity_type_id: commerce_product_variation
+target_bundle: commerce_node_checkout
+default_langcode: site_default
+language_alterable: false
