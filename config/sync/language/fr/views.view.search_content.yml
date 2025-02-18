@@ -20,5 +20,3 @@ display:
         search_api_fulltext:
           expose:
             label: Rechercher
-  page_1:
-    display_title: Page

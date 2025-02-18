@@ -102,7 +102,7 @@ display:
           entity_type: commerce_subscription
           entity_field: title
           plugin_id: field
-          label: Titre
+          label: Title
           exclude: false
           alter:
             alter_text: false

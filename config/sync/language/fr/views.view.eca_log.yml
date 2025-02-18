@@ -8,8 +8,6 @@ display:
           label: Utilisateur
         timestamp:
           label: Heure
-        message:
-          label: Message
       pager:
         options:
           tags:
@@ -32,7 +30,6 @@ display:
           expose:
             label: À
   page_1:
-    display_title: Page
     display_options:
       menu:
         title: Journal

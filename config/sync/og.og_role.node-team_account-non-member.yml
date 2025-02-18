@@ -1,0 +1,16 @@
+uuid: c8732c45-7907-4f29-aba1-4de9504d519c
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.team_account
+id: node-team_account-non-member
+label: Non-member
+weight: 0
+group_id: null
+group_type: node
+group_bundle: team_account
+is_admin: false
+permissions:
+  - subscribe
+role_type: required

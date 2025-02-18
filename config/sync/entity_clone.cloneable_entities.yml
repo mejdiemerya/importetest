@@ -86,3 +86,6 @@ cloneable_entities:
   - commerce_invoice
   - commerce_invoice_type
   - commerce_email
+  - og_membership
+  - og_membership_type
+  - og_role

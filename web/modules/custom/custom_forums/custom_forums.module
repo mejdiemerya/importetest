@@ -10,12 +10,17 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
 use Drupal\flag\FlaggingInterface;
 use Drupal\node\Entity\Node;
-
-use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\Role;
+use Drupal\user\Entity\User;
+use Drupal\og\Og;
+use Drupal\Core\Mail\MailManagerInterface;
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Language\LanguageInterface;
 
-function custom_forums_entity_extra_field_info() {
+
+function custom_forums_entity_extra_field_info()
+{
   $extra = [];
   $extra['node']['blog']['display']['read_more_comment_links'] = [
     'label' => t('Read More and Comments Links'),
@@ -117,10 +122,12 @@ function custom_forums_entity_extra_field_info() {
   ];
   return $extra;
 }
+
 /**
  * Implements hook_entity_view().
  */
-function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode) {
+function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInterface $entity, \Drupal\Core\Entity\Display\EntityViewDisplayInterface $display, $view_mode)
+{
   // Check if the entity is a node and is of type "article".
   if ($entity->getEntityTypeId() === 'node' && $entity->bundle() === 'forum') {
     if ($display->getComponent('title_forum')) {
@@ -136,14 +143,14 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       $credit_id = NULL;
       $tipsheet_id = NULL;
       $forum_id = NULL;
-      $forum_name=NULL;
+      $forum_name = NULL;
       if (!$entity->get('taxonomy_forums')->isEmpty()) {
         $term = $entity->get('taxonomy_forums')->entity;
 
         if ($term) {
           // Get the name of the taxonomy term.
           $forum_id = $term->id();
-          $forum_name =  $term->getName();
+          $forum_name = $term->getName();
           $result['text'] = $forum_name;
 
         }
@@ -158,7 +165,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
           $result['url'] = $link;
           $result['credit'] = true; // Set credit to true.
           $result['text'] = $label['title'];// Add text.
-          $result['title']=$label['title'].':' .$label['description'];
+          $result['title'] = $label['title'] . ':' . $label['description'];
 
         }
       }
@@ -176,18 +183,18 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
 
       }
 
-          // Add combined result to the build array.
+      // Add combined result to the build array.
       $build['title_forum'] = [
-        '#credit_id'=>$credit_id,
-        '#forum_name'=>$forum_name,
-        '#forum_id'=>$forum_id,
+        '#credit_id' => $credit_id,
+        '#forum_name' => $forum_name,
+        '#forum_id' => $forum_id,
         '#tipsheet_id' => $tipsheet_id,
         '#markup' => $result['markup'],
         '#url' => $result['url'], // Include the URL.
         '#credit' => $result['credit'], // Include the credit flag.
         '#tipsheet' => $result['tipsheet'], // Include the tipsheet flag.
         '#text' => $result['text'], // Include the text.
-        '#title'=>$result['title']
+        '#title' => $result['title']
 
       ];
     }
@@ -232,7 +239,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       if ($display->getComponent('last_comment_date')) {
 
         $build['last_comment_date'] = [
-          '#markup' => '<div class="xsmall line-snug">'.$last_comment_date.'</div>',
+          '#markup' => '<div class="xsmall line-snug">' . $last_comment_date . '</div>',
         ];
       }
     }
@@ -264,7 +271,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       }
     }
   }
-  if ($entity->getEntityTypeId() === 'comment' ) {
+  if ($entity->getEntityTypeId() === 'comment') {
 
     if ($display->getComponent('comment_form_button')) {
 
@@ -305,13 +312,13 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
     // Format roles for display if the 'roles' component exists.
     if (!empty($role_labels) && $display->getComponent('roles')) {
       $build['roles'] = [
-        '#markup' => '<div class="role_labels xsmall">'.implode(', ', $role_labels)."</div>",
+        '#markup' => '<div class="role_labels xsmall">' . implode(', ', $role_labels) . "</div>",
       ];
     }
-    $first_name=$entity->get('field_first_name')->value;
-    $last_name=$entity->get('field_last_name')->value;
+    $first_name = $entity->get('field_first_name')->value;
+    $last_name = $entity->get('field_last_name')->value;
     $user_profile_url = \Drupal\Core\Url::fromRoute('entity.user.canonical', ['user' => $entity->id()])->toString();
-    if($first_name&&$last_name){
+    if ($first_name && $last_name) {
       if ($display->getComponent('user_name')) {
         // Add the roles to the view array.
         $build['user_name'] = [
@@ -354,30 +361,30 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       $read_more_markup = $renderer->render($read_more_link);
       $comments_markup = $comments_link ? $renderer->render($comments_link) : '';
       // Add the links to the render array.
-     if($display->getComponent('read_more_comment_links')){
-      $build['read_more_comment_links'] = [
-        '#markup' =>$comments_markup . ' ' . $read_more_markup,
-      ];
-    }}
+      if ($display->getComponent('read_more_comment_links')) {
+        $build['read_more_comment_links'] = [
+          '#markup' => $comments_markup . ' ' . $read_more_markup,
+        ];
+      }
+    }
   }
-  if ($entity->getEntityTypeId() == 'taxonomy_term' && $entity->bundle()=='credit') {
+  if ($entity->getEntityTypeId() == 'taxonomy_term' && $entity->bundle() == 'credit') {
     if ($display->getComponent('title_forum')) {
 
       $label = getCreditFilterLabel($entity->id());
       $build['title_forum'] = [
-        '#markup' =>'<strong>' .$label['title'].'</strong>', // Include the text.
+        '#markup' => '<strong>' . $label['title'] . '</strong>', // Include the text.
       ];
     }
     if ($display->getComponent('credit_checklists')) {
 
-      $checklist_phases=_get_checklist_by_taxonomy_tid($entity->id());
+      $checklist_phases = _get_checklist_by_taxonomy_tid($entity->id());
       $checklists_output = '';
       $rendered_phases = []; // Array to store the names of rendered project phases
 
-      if (!empty($checklist_phases)){
-        foreach ($checklist_phases as $checklist_phase)
-        {
-          $project_phases=$checklist_phase->get('field_project_phase')->referencedEntities();
+      if (!empty($checklist_phases)) {
+        foreach ($checklist_phases as $checklist_phase) {
+          $project_phases = $checklist_phase->get('field_project_phase')->referencedEntities();
           $project_phase = reset($project_phases); // Get the first referenced entity
 
           // Ensure project_phase is valid before proceeding
@@ -406,7 +413,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
         }
         // Embed the view programmatically.
         $build['credit_checklists'] = [
-          '#markup' =>$checklists_output,
+          '#markup' => $checklists_output,
           '#cache' => [
             '#max-age' => 0,
           ]
@@ -426,7 +433,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       $view->setDisplay('credit_bev');
       $view->setArguments([$entity->id()]);
       $view->execute();
-      $credit_bev=$view->render();
+      $credit_bev = $view->render();
       // Embed the view programmatically.
       $build['credit_bev'] = [
         '#markup' => \Drupal::service('renderer')->render($credit_bev),
@@ -446,7 +453,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       $view->setDisplay('credit_faq');
       $view->setArguments([$entity->id()]);
       $view->execute();
-      $credit_faq=$view->render();
+      $credit_faq = $view->render();
       // Embed the view programmatically.
       $build['credit_faq'] = [
         '#markup' => \Drupal::service('renderer')->render($credit_faq),
@@ -466,7 +473,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       $view->setDisplay('credit_documentation_section');
       $view->setArguments([$entity->id()]);
       $view->execute();
-      $credit_documentation_section=$view->render();
+      $credit_documentation_section = $view->render();
       // Embed the view programmatically.
       $build['credit_documentation_section'] = [
         '#markup' => \Drupal::service('renderer')->render($credit_documentation_section),
@@ -486,7 +493,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       $view->setDisplay('credit_resources');
       $view->setArguments([$entity->id()]);
       $view->execute();
-      $credit_resources=$view->render();
+      $credit_resources = $view->render();
       // Embed the view programmatically.
       $build['credit_resources'] = [
         '#markup' => \Drupal::service('renderer')->render($credit_resources),
@@ -506,7 +513,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       $view->setDisplay('credit_addenda');
       $view->setArguments([$entity->id()]);
       $view->execute();
-      $credit_addenda=$view->render();
+      $credit_addenda = $view->render();
       // Embed the view programmatically.
       $build['credit_addenda'] = [
         '#markup' => \Drupal::service('renderer')->render($credit_addenda),
@@ -526,7 +533,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       $view->setDisplay('cost_guidance');
       $view->setArguments([$entity->id()]);
       $view->execute();
-      $cost_guidance=$view->render();
+      $cost_guidance = $view->render();
       // Embed the view programmatically.
       $build['cost_guidance'] = [
         '#markup' => \Drupal::service('renderer')->render($cost_guidance),
@@ -542,16 +549,16 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
 
 function custom_forums_entity_insert(EntityInterface $entity)
 {
-  if ($entity->getEntityTypeId() === 'comment' && $entity->bundle() =='comment_forum') {
+  if ($entity->getEntityTypeId() === 'comment' && $entity->bundle() == 'comment_forum') {
     // Load the latest comment.
-    $node_related_id =$entity->get('entity_id')->getValue()[0]['target_id'];
+    $node_related_id = $entity->get('entity_id')->getValue()[0]['target_id'];
 
-    $node_related=Node::load($node_related_id);
-    if($node_related_id) {
+    $node_related = Node::load($node_related_id);
+    if ($node_related_id) {
       $last_comment = \Drupal::entityTypeManager()
         ->getStorage('comment')
         ->loadByProperties([
-          'entity_id' =>   $node_related_id,
+          'entity_id' => $node_related_id,
           'entity_type' => 'node',
           'status' => 1,
         ]);
@@ -567,7 +574,9 @@ function custom_forums_entity_insert(EntityInterface $entity)
     }
   }
 }
-function custom_forums_entity_delete(EntityInterface $entity) {
+
+function custom_forums_entity_delete(EntityInterface $entity)
+{
   if ($entity instanceof Comment) {
     // Get the related node of the comment.
     $node_related = $entity->getCommentedEntity();
@@ -584,8 +593,7 @@ function custom_forums_entity_delete(EntityInterface $entity) {
     if (!empty($last_comment)) {
       $last_comment = end($last_comment);
       $node_related->set('field_last_comment_author', $last_comment->getOwnerId());
-    }
-    else {
+    } else {
       // No comments remain; clear the field.
       $node_related->set('field_last_comment_author', NULL);
     }
@@ -654,7 +662,7 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
     $form['actions']['submit']['#value'] = t('Post to forum');
     $form['#attached']['library'][] = 'core/drupal.ajax';
     $form['#attached']['library'][] = 'core/jquery';
-    $form['#attached']['library'][]='core/drupal.dialog';
+    $form['#attached']['library'][] = 'core/drupal.dialog';
     // Add a Cancel button.
     $form['actions']['cancel'] = [
       '#type' => 'link',
@@ -694,12 +702,12 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
         ]),
       ];
     }
-    if ($current_credit_id ) {
-      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($current_credit_id );
+    if ($current_credit_id) {
+      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($current_credit_id);
       // Ensure the form field exists in the form and assign it the value.
       if (isset($form['field_credits'])) {
         $form['field_credits']['widget'][0]['target_id']['#default_value'] = $term;
-        $form['taxonomy_forums']['widget'][0]['target_id']['#default_value'] =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->load(getTermIdByName('Credit Forums', 'forums'));
+        $form['taxonomy_forums']['widget'][0]['target_id']['#default_value'] = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load(getTermIdByName('Credit Forums', 'forums'));
         $form['taxonomy_forums']['#access'] = FALSE;
         $form['field_credits']['#access'] = FALSE;
         $form['field_tipsheet']['#access'] = FALSE;
@@ -712,15 +720,15 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
       // Add the forum area field with the term name and change link
       $form['forum_area'] = [
         '#markup' => t('Forum area: @forum_name <a href="#" data-bs-toggle="modal" data-bs-target="#post-question-modal"  >[change] </a>', [
-          '@forum_name' =>  strip_tags($term->getDescription()),
-        ]), ];
+          '@forum_name' => strip_tags($term->getDescription()),
+        ]),];
     }
     if ($current_tipsheet_id) {
-      $term = \Drupal::entityTypeManager()->getStorage('node')->load($current_tipsheet_id );
+      $term = \Drupal::entityTypeManager()->getStorage('node')->load($current_tipsheet_id);
       // Ensure the form field exists in the form and assign it the value.
       if (isset($form['field_tipsheet'])) {
         $form['field_tipsheet']['widget'][0]['target_id']['#default_value'] = $term;
-        $form['taxonomy_forums']['widget'][0]['target_id']['#default_value'] =\Drupal::entityTypeManager()->getStorage('taxonomy_term')->load(getTermIdByName('Tipsheet Forum', 'forums'));
+        $form['taxonomy_forums']['widget'][0]['target_id']['#default_value'] = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load(getTermIdByName('Tipsheet Forum', 'forums'));
         $form['taxonomy_forums']['#access'] = FALSE;
         $form['field_credits']['#access'] = FALSE;
         $form['moderation_state']['#access'] = FALSE;
@@ -734,7 +742,9 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
     }
   }
 }
-function _allowed_formats_remove_textarea_help($form_element, FormStateInterface $form_state) {
+
+function _allowed_formats_remove_textarea_help($form_element, FormStateInterface $form_state)
+{
 
   if (isset($form_element[0]['format'])) {
     // All this stuff is needed to hide the help text.
@@ -748,7 +758,8 @@ function _allowed_formats_remove_textarea_help($form_element, FormStateInterface
   return $form_element;
 }
 
-function custom_forums_flagging_presave(FlaggingInterface $flagging) {
+function custom_forums_flagging_presave(FlaggingInterface $flagging)
+{
   // Get the flagged entity.
   $flagged_entity = $flagging->getFlaggable();
   $entity_type_manager = \Drupal::entityTypeManager();
@@ -761,14 +772,12 @@ function custom_forums_flagging_presave(FlaggingInterface $flagging) {
       $related_nids = $entity_type_manager->getStorage('node')->getQuery()
         ->condition('taxonomy_forums', $term_id)->accessCheck(false)
         ->execute();
-    }
-    elseif ($flagged_entity->bundle() == 'credit') {
+    } elseif ($flagged_entity->bundle() == 'credit') {
       $related_nids = $entity_type_manager->getStorage('node')->getQuery()
         ->condition('field_credits', $term_id)->accessCheck(false)
         ->execute();
     }
-  }
-  elseif ($flagged_entity instanceof Node) {
+  } elseif ($flagged_entity instanceof Node) {
     if ($flagged_entity->bundle() == 'tipsheet') {
       $related_nids = $entity_type_manager->getStorage('node')->getQuery()
         ->condition('field_tipsheet', $flagged_entity->id())->accessCheck(false)
@@ -810,10 +819,11 @@ function custom_forums_flagging_presave(FlaggingInterface $flagging) {
   }
 }
 
-function custom_forums_flagging_delete(FlaggingInterface $flagging) {
+function custom_forums_flagging_delete(FlaggingInterface $flagging)
+{
   // Check if the flagging is for a taxonomy term.
   $flagged_entity = $flagging->getFlaggable();
-  $related_nodes=[];
+  $related_nodes = [];
   $entity_type_manager = \Drupal::entityTypeManager();
 
   if ($flagged_entity instanceof Term) {
@@ -826,7 +836,7 @@ function custom_forums_flagging_delete(FlaggingInterface $flagging) {
     }
   }
   if ($flagged_entity instanceof Node) {
-    if($flagged_entity->bundle() == 'tipsheet'){
+    if ($flagged_entity->bundle() == 'tipsheet') {
       $related_nodes = $entity_type_manager->getStorage('node')->loadByProperties(['field_tipsheet' => $flagged_entity->id()]);
     }
   }
@@ -842,7 +852,9 @@ function custom_forums_flagging_delete(FlaggingInterface $flagging) {
     }
   }
 }
-function custom_forums_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type) {
+
+function custom_forums_entity_base_field_info_alter(&$fields, EntityTypeInterface $entity_type)
+{
   switch ($entity_type->id()) {
 
     case 'node':
@@ -855,12 +867,11 @@ function custom_forums_entity_base_field_info_alter(&$fields, EntityTypeInterfac
 }
 
 
-
-
 /**
  * Implements hook_preprocess_HOOK() for node templates.
  */
-function custom_forums_preprocess_node(array &$variables) {
+function custom_forums_preprocess_node(array &$variables)
+{
   // Ensure the node object is present and is a NodeInterface instance.
   if (isset($variables['node']) && $variables['node'] instanceof \Drupal\node\NodeInterface) {
     $flag_service = \Drupal::service('flag');
@@ -922,7 +933,7 @@ function custom_forums_preprocess_node(array &$variables) {
 
         $destination = Url::fromUserInput($current_path, ['query' => $current_query])->toString();
 
-  // Generate the URL for flagging/unflagging with the destination parameter.
+        // Generate the URL for flagging/unflagging with the destination parameter.
         $link = Url::fromRoute($route_name, $route_parameters, [
           'query' => ['destination' => $destination],
         ])->toString();
@@ -945,7 +956,7 @@ function custom_forums_preprocess_node(array &$variables) {
         $route_name = $is_flagged ? 'flag.action_link_unflag' : 'flag.action_link_flag';
         $route_parameters = [
           'flag' => 'subscription_tipsheet',
-          'entity_id' =>  $node->id(),
+          'entity_id' => $node->id(),
           'view_mode' => 'default',
         ];
         $current_path = \Drupal::service('path.current')->getPath();
@@ -964,7 +975,7 @@ function custom_forums_preprocess_node(array &$variables) {
         ];
 
       }
-      }
+    }
     $variables['#cache'] = [
       'max-age' => 0,
     ];
@@ -972,7 +983,7 @@ function custom_forums_preprocess_node(array &$variables) {
     $variables['flagged_terms'] = $flagged_terms;
     $currentUser = \Drupal::currentUser();
 
-    if ($currentUser->isAnonymous() ||!\Drupal::currentUser()->hasPermission('access leeduser premium content')){
+    if ($currentUser->isAnonymous() || !\Drupal::currentUser()->hasPermission('access leeduser premium content')) {
 
       $membership_promo_block = [
         '#theme' => 'membership_promo_block',
@@ -984,21 +995,25 @@ function custom_forums_preprocess_node(array &$variables) {
 
   }
 }
-function custom_forums_preprocess_page(&$variables) {
+
+function custom_forums_preprocess_page(&$variables)
+{
   $current_user = \Drupal::currentUser();
   $variables['is_anonymous'] = $current_user->isAnonymous();
   $variables['is_authenticated'] = $current_user->isAuthenticated();
 }
+
 /**
  * Implements hook_theme().
  */
-function custom_forums_theme($existing, $type, $theme, $path) {
+function custom_forums_theme($existing, $type, $theme, $path)
+{
   return [
-     'post_question_modal' => [
+    'post_question_modal' => [
       'variables' => [
         'form' => NULL,
-        'is_authenticated'=>NULL,
-        'is_anonymous'=>NULL,
+        'is_authenticated' => NULL,
+        'is_anonymous' => NULL,
       ],
     ],
     'membership_promo_block' => [
@@ -1007,21 +1022,17 @@ function custom_forums_theme($existing, $type, $theme, $path) {
     'membership_content_block' => [
       'variables' => [],
     ],
-    'doc_toolkit_tab'=>[
+    'doc_toolkit_tab' => [
       'variables' => [
         'documentation' => NULL,
-        'resources'=>NULL,
+        'resources' => NULL,
       ],
-    ],
-    'email_safety_message' => [
-    'variables' => [],
-  ],
-    'sucess_signup' => [
-      'variables' => [],
-    ],
+    ]
   ];
 }
-function getCreditFilterLabel($tid) {
+
+function getCreditFilterLabel($tid)
+{
   $parents = loadAllParentsModal($tid);
   $count = count($parents);
   $data = array('title' => '', 'description' => '');
@@ -1052,33 +1063,35 @@ function getCreditFilterLabel($tid) {
   return $data;
 }
 
-  function loadAllParentsModal($tid) {
+function loadAllParentsModal($tid)
+{
 
 
-    $parents = [];
-    $term = Term::load($tid);
+  $parents = [];
+  $term = Term::load($tid);
 
 
-    if (  $term) {
-      $parents[] = $term;
-      $n = 0;
+  if ($term) {
+    $parents[] = $term;
+    $n = 0;
 
-      while (isset($parents[$n]) && $parent_id = $parents[$n]->parent->target_id) {
+    while (isset($parents[$n]) && $parent_id = $parents[$n]->parent->target_id) {
 
-        if ($parent = Term::load($parent_id)) {
-          $parents[] = $parent;
-          $n++;
-        } else {
-          break;
-        }
+      if ($parent = Term::load($parent_id)) {
+        $parents[] = $parent;
+        $n++;
+      } else {
+        break;
       }
     }
-
-
-    return $parents;
   }
 
- function getTipsheetName($nid) {
+
+  return $parents;
+}
+
+function getTipsheetName($nid)
+{
   $query = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
     ->condition('type', 'tipsheet')
     ->condition('nid', $nid)->accessCheck() // Replace 'field_credit' with the actual field linking to the credit.
@@ -1091,7 +1104,9 @@ function getCreditFilterLabel($tid) {
   }
   return '';
 }
-function getTermIdByName($term_name, $vocabulary) {
+
+function getTermIdByName($term_name, $vocabulary)
+{
   // Load the term storage handler.
   $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
 
@@ -1106,10 +1121,11 @@ function getTermIdByName($term_name, $vocabulary) {
   // Return the first TID found, or NULL if none found.
   return !empty($tids) ? reset($tids) : null;
 }
-function custom_forums_pathauto_alias_alter(&$alias, &$context){
+
+function custom_forums_pathauto_alias_alter(&$alias, &$context)
+{
   //for individual credit pages make the path /credit/[rating-system]/[credit]
-  if ($context['bundle'] == 'credit' && isset($context['data']['term']))
-  {
+  if ($context['bundle'] == 'credit' && isset($context['data']['term'])) {
 
     $credit_term = $context['data']['term']->id();
 
@@ -1121,13 +1137,10 @@ function custom_forums_pathauto_alias_alter(&$alias, &$context){
     //put parents in reverse order
     $parents = array_reverse($parents);
     $i = 0;
-    foreach ($parents as $parent)
-    {
+    foreach ($parents as $parent) {
 
-      if (count($parents) == 4)
-      {
-        if ($i != 0 && $i != 2)
-        {
+      if (count($parents) == 4) {
+        if ($i != 0 && $i != 2) {
 
           $new_alias .= '/' . $parent->name->value;
 
@@ -1138,36 +1151,34 @@ function custom_forums_pathauto_alias_alter(&$alias, &$context){
     $alias = $new_alias;
   }
 }
+
 /**
  * Implementation of hook_preprocess_taxonomy_term()
  */
-function custom_forums_preprocess_taxonomy_term(&$variables){
+function custom_forums_preprocess_taxonomy_term(&$variables)
+{
   $term = $variables['term'];
   //credit terms
   if ($term->bundle() === 'credit') {
-    if (strpos($variables['content']['credit_bev']['#markup'], 'no LEEDuser summary') !== FALSE)
-    {
+    if (strpos($variables['content']['credit_bev']['#markup'], 'no LEEDuser summary') !== FALSE) {
       $variables['has_credit_bev'] = FALSE;
-    }else{
+    } else {
       $variables['has_credit_bev'] = TRUE;
     }
 
-    if (strpos($variables['content']['credit_faq']['#markup'], 'No results found') !== FALSE)
-    {
+    if (strpos($variables['content']['credit_faq']['#markup'], 'No results found') !== FALSE) {
       $variables['credit_faq'] = FALSE;
-    }else{
+    } else {
       $variables['credit_faq'] = TRUE;
     }
-    if (strpos($variables['content']['cost_guidance']['#markup'], 'No results found') !== FALSE)
-    {
+    if (strpos($variables['content']['cost_guidance']['#markup'], 'No results found') !== FALSE) {
       $variables['cost_guidance_tab'] = FALSE;
-    }else{
+    } else {
       $variables['cost_guidance_tab'] = TRUE;
     }
     $variables['show_doc_tab'] = TRUE;
 
-    if (strpos($variables['content']['credit_documentation_section']['#markup'], 'No results found') !== FALSE&& strpos($variables['content']['credit_resources']['#markup'], 'No results found') !== FALSE)
-    {
+    if (strpos($variables['content']['credit_documentation_section']['#markup'], 'No results found') !== FALSE && strpos($variables['content']['credit_resources']['#markup'], 'No results found') !== FALSE) {
       $variables['show_doc_tab'] = FALSE;
     }
     if (strpos($variables['content']['credit_documentation_section']['#markup'], 'No results found') !== FALSE) {
@@ -1178,10 +1189,9 @@ function custom_forums_preprocess_taxonomy_term(&$variables){
       $variables['content']['credit_resources']['#markup'] = '';
     }
 
-    if (strpos($variables['content']['credit_addenda']['#markup'], 'This credit has no LEEDuser summary') !== FALSE)
-    {
+    if (strpos($variables['content']['credit_addenda']['#markup'], 'This credit has no LEEDuser summary') !== FALSE) {
       $variables['addenda_tab'] = FALSE;
-    }else{
+    } else {
       $variables['addenda_tab'] = TRUE;
     }
 // Prepare the variables for the template.
@@ -1241,7 +1251,7 @@ function custom_forums_preprocess_taxonomy_term(&$variables){
     }
     $variables['can_access_leeduser_content'] = \Drupal::currentUser()->hasPermission('access leeduser premium content');
     $currentUser = \Drupal::currentUser();
-    if ($currentUser->isAnonymous() ||!\Drupal::currentUser()->hasPermission('access leeduser premium content')){
+    if ($currentUser->isAnonymous() || !\Drupal::currentUser()->hasPermission('access leeduser premium content')) {
 
       $membership_content_block = [
         '#theme' => 'membership_content_block',
@@ -1253,7 +1263,9 @@ function custom_forums_preprocess_taxonomy_term(&$variables){
     $variables['show_credit_language_tab'] = TRUE;
   }
 }
-function _get_checklist_by_taxonomy_tid($tid) {
+
+function _get_checklist_by_taxonomy_tid($tid)
+{
   $query = \Drupal::entityQuery('node')
     ->condition('type', 'credit_checklist') // Filter by content type 'checklist'
     ->condition('field_credits', $tid, 'CONTAINS') // Match the taxonomy term ID in the multiple field 'field_credits'
@@ -1269,7 +1281,9 @@ function _get_checklist_by_taxonomy_tid($tid) {
 
   return []; // Return an empty array if no results
 }
-function _get_updated_url($alias, $replacement) {
+
+function _get_updated_url($alias, $replacement)
+{
   // Check if the alias contains 'v4/' or 'v4.1/'.
   if (strpos($alias, 'v4/') !== FALSE || strpos($alias, 'v4.1/') !== FALSE) {
     // Replace 'v4/' or 'v4.1/' with the replacement value.
@@ -1289,7 +1303,9 @@ function _get_updated_url($alias, $replacement) {
   // Return FALSE if no match was found or no taxonomy term is associated with the alias.
   return FALSE;
 }
-function is_taxonomy_term_from_alias($alias) {
+
+function is_taxonomy_term_from_alias($alias)
+{
   // Remove the '/credit' prefix and split alias into segments.
   $segments = explode('/', trim($alias, '/'));
 
@@ -1324,20 +1340,137 @@ function is_taxonomy_term_from_alias($alias) {
   return FALSE;
 }
 
-function custom_forums_preprocess_views_view_field__credit_page_tab_content__credit_faq__body(&$variables){
+function custom_forums_preprocess_views_view_field__credit_page_tab_content__credit_faq__body(&$variables)
+{
   $variables['can_access_leeduser_content'] = \Drupal::currentUser()->hasPermission('access leeduser premium content');
 }
-function custom_forums_preprocess_flag__subscription_credit(&$variables){
-  $entity=$variables['flaggable'];
+
+function custom_forums_preprocess_flag__subscription_credit(&$variables)
+{
+  $entity = $variables['flaggable'];
   $label = getCreditFilterLabel($entity->id());
 
-  $variables['title_forum']=
-    ['#markup'=>$label['title']
+  $variables['title_forum'] =
+    ['#markup' => $label['title']
     ];// Include the text.
 
 
 }
-function custom_forums_theme_suggestions_form_alter(array &$suggestions, array $variables) {
-    $form_id = $variables['element']['#form_id'];
-    $suggestions[] = 'form__' . $form_id;
+
+/**
+ * Implémente hook_ENTITY_TYPE_update() pour les nodes.
+ */
+
+/**
+ * Implémente hook_node_update().
+ */
+function custom_forums_node_update(Node $node)
+{
+  // Vérifier si c'est un node de type 'team_account'.
+  if ($node->bundle() === 'team_account') {
+    // Récupérer le champ 'invite_people'.
+    $emails = explode("\n", trim($node->get('field_invit_people')->value));
+
+    // Vérifier s'il y a des emails.
+    if (!empty($emails)) {
+      // Récupérer l'ID du groupe (le node actuel est le groupe).
+      $group_id = $node->id();
+      $owner_mail = $node->getOwner()->getEmail();
+      $owner_name = $node->getOwner()->getDisplayName();
+
+      // Vérifier le nombre actuel de membres du groupe.
+      $connection = \Drupal\Core\Database\Database::getConnection();
+      $query = $connection->select('og_membership', 'ogm')
+        ->condition('entity_id', $group_id)
+        ->condition('entity_type', 'node')
+        ->condition('state', \Drupal\og\Entity\OgMembership::STATE_ACTIVE)
+        ->countQuery();
+      $current_members_count = $query->execute()->fetchField();
+
+
+      // Limite du groupe à 10 membres.
+      $max_members = $node->field_nbr_max->getValue()[0]['value'];
+      if ($current_members_count >= $max_members) {
+        \Drupal::messenger()->addError("The team account has reached the maximum of 10 members.");
+        return;
+      }
+
+      foreach ($emails as $email) {
+        $email = trim($email);
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+          // Vérifier si l'utilisateur existe déjà.
+          $existing_user = user_load_by_mail($email);
+
+          if (!$existing_user) {
+            // Créer un nouvel utilisateur.
+            $user = User::create([
+              'name' => $email,
+              'mail' => $email,
+              'status' => 1, // Activer le compte.
+              'roles' => ['lu_premium'], // Assigner le rôle.
+            ]);
+            $user->save();
+          } else {
+            $user = $existing_user;
+          }
+          $query = $connection->select('og_membership', 'ogm')
+            ->condition('entity_id', $group_id)
+            ->condition('entity_type', 'node')
+            ->condition('state', \Drupal\og\Entity\OgMembership::STATE_ACTIVE)
+            ->countQuery();
+          $current_members_count = $query->execute()->fetchField();
+          // Vérifier à nouveau la limite après chaque ajout.
+          if ($current_members_count >= $max_members) {
+            \Drupal::messenger()->addError("Cannot add more users. The team account has reached the maximum of 10 members.");
+            break;
+          }
+
+          // Assigner l'utilisateur au groupe en tant que membre.
+          if (!Og::isMember($node, $user)) {
+            Og::createMembership($node, $user)
+//              ->setRoles(['lu_premium_og']) // Ajouter le rôle de groupe.
+              ->save();
+          }
+
+          // Envoyer l'email de bienvenue.
+          custom_forums_send_welcome_email($user, $owner_name, $owner_mail);
+        }
+      }
+    }
+
+    // Réinitialiser le champ `field_invite_people` après chaque mise à jour.
+    $node->set('field_invit_people', '');
+//    $node->save();
+  }
 }
+
+/**
+ * Fonction pour envoyer un e-mail de bienvenue.
+ */
+function custom_forums_send_welcome_email(\Drupal\user\Entity\User $user, $owner_name, $owner_mail)
+{
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $module = 'my_module';
+  $key = 'welcome_email';
+  $to = $user->getEmail();
+  $langcode = $user->getPreferredLangcode();
+  $params['subject'] = 'Welcome to LEEDuser Team Membership';
+  $params['message'] = "
+Hello " . $user->getDisplayName() . ",
+
+You have been added to container’s team membership at LEEDuser.com.
+
+This gives you full access to LEEDuser’s premium content. We invite you to log into LEEDuser and start browsing our wide range of LEED credit information and forums.
+
+https://www.leeduser.buildinggreen.com/user
+
+If you have questions about this invitation, contact $owner_name ($owner_mail).
+
+For all other questions, contact BuildingGreen, Inc. customer service at customersupport@buildinggreen.com.
+
+LEEDuser is a product of BuildingGreen, Inc.
+";
+
+  $mailManager->mail($module, $key, $to, $langcode, $params);
+}
+

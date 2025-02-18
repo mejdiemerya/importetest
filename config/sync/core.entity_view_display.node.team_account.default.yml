@@ -1,0 +1,49 @@
+uuid: 933c83aa-5f7f-4e80-b6f4-9fcccb36e81e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.team_account.field_invit_people
+    - field.field.node.team_account.field_nbr_max
+    - node.type.team_account
+  module:
+    - og
+id: node.team_account.default
+targetEntityType: node
+bundle: team_account
+mode: default
+content:
+  field_invit_people:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_nbr_max:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 103
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  og_group:
+    type: og_group_subscribe
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  search_api_excerpt: true
+  uid: true

@@ -4,7 +4,7 @@ display:
     display_options:
       fields:
         title:
-          label: Titre
+          label: Title
         name:
           label: Auteur
       pager:
@@ -18,5 +18,3 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-  page_1:
-    display_title: Page

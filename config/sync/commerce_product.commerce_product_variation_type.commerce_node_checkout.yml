@@ -1,10 +1,21 @@
 uuid: 85737d6c-999d-4af8-9540-3c995989e27c
 langcode: fr
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - commerce_license
+third_party_settings:
+  commerce_license:
+    license_types:
+      role: role
+    activate_on_place: false
+    allow_renewal: false
+    interval: ''
+    period: second
 id: commerce_node_checkout
 label: 'Pay to publish'
-traits: {  }
+traits:
+  - commerce_license
 locked: false
-orderItemType: product
-generateTitle: null
+orderItemType: default
+generateTitle: false

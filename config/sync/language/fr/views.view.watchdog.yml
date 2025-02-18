@@ -3,12 +3,6 @@ display:
     display_title: 'Par défaut'
     display_options:
       fields:
-        type:
-          label: Type
-        timestamp:
-          label: Date
-        message:
-          label: Message
         name:
           label: Utilisateur
         link:
@@ -28,9 +22,3 @@ display:
         area:
           admin_label: "Aucune entrée du journal n'est disponible."
           content: "Aucune entrée du journal n'est disponible."
-      filters:
-        type:
-          expose:
-            label: Type
-  page:
-    display_title: Page

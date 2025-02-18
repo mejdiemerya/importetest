@@ -4,7 +4,7 @@ display:
     display_options:
       fields:
         title:
-          label: Titre
+          label: Title
         type:
           label: 'Type de contenu'
         name:
@@ -32,7 +32,7 @@ display:
       filters:
         title:
           expose:
-            label: Titre
+            label: Title
         type:
           expose:
             label: 'Type de contenu'

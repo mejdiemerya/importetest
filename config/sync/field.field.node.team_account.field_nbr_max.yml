@@ -1,0 +1,19 @@
+uuid: 24be5bba-c250-4f83-bc85-bf3aa0e7e163
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_nbr_max
+    - node.type.team_account
+id: node.team_account.field_nbr_max
+field_name: field_nbr_max
+entity_type: node
+bundle: team_account
+label: 'Nbr max'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

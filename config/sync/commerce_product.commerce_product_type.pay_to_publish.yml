@@ -1,0 +1,13 @@
+uuid: 95dbdfe3-0fc2-41ce-867c-cfa957de9ab1
+langcode: en
+status: true
+dependencies: {  }
+id: pay_to_publish
+label: 'Pay to publish'
+traits: {  }
+locked: false
+description: ''
+variationTypes:
+  - commerce_node_checkout
+multipleVariations: true
+injectVariationFields: true

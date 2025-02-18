@@ -10,8 +10,3 @@ display:
       header:
         display_link_plus:
           label: Gérer
-  sort:
-    display_options:
-      fields:
-        draggableviews:
-          action_title: Action
