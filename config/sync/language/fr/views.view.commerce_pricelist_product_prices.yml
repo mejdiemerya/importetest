@@ -7,7 +7,7 @@ display:
         sku:
           label: Référence
         purchasable_entity:
-          label: Titre
+          label: Title
         name:
           label: Lister
         quantity:

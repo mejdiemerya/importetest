@@ -4,22 +4,16 @@ status: true
 dependencies:
   config:
     - commerce_product.commerce_product_variation_type.commerce_node_checkout
-    - field.field.commerce_product_variation.commerce_node_checkout.attribute_tt
     - field.field.commerce_product_variation.commerce_node_checkout.field_bg_commerce_license_desc
-    - field.field.commerce_product_variation.commerce_node_checkout.field_bg_commerce_license_role
-    - field.field.commerce_product_variation.commerce_node_checkout.field_bg_commerce_license_trial
-    - field.field.commerce_product_variation.commerce_node_checkout.field_bg_license_trial_price
     - field.field.commerce_product_variation.commerce_node_checkout.field_checkout_complete_message
-    - field.field.commerce_product_variation.commerce_node_checkout.field_commerce_license_duration
-    - field.field.commerce_product_variation.commerce_node_checkout.field_commerce_license_interval
-    - field.field.commerce_product_variation.commerce_node_checkout.field_commerce_license_type
     - field.field.commerce_product_variation.commerce_node_checkout.field_commerce_node_checkout_exp
     - field.field.commerce_product_variation.commerce_node_checkout.field_failed_renewal_body
     - field.field.commerce_product_variation.commerce_node_checkout.field_failed_renewal_subject
-    - field.field.commerce_product_variation.commerce_node_checkout.field_license_billing_cycle_type
-    - field.field.commerce_product_variation.commerce_node_checkout.field_license_billing_type
     - field.field.commerce_product_variation.commerce_node_checkout.field_number_of_renewals
+    - field.field.commerce_product_variation.commerce_node_checkout.license_expiration
+    - field.field.commerce_product_variation.commerce_node_checkout.license_type
   module:
+    - commerce
     - commerce_price
     - interval
     - text
@@ -28,65 +22,21 @@ targetEntityType: commerce_product_variation
 bundle: commerce_node_checkout
 mode: default
 content:
-  attribute_tt:
-    type: options_select
-    weight: 1
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_bg_commerce_license_desc:
     type: string_textfield
-    weight: 19
+    weight: 5
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_bg_commerce_license_role:
-    type: options_select
-    weight: 5
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_bg_commerce_license_trial:
-    type: interval_default
-    weight: 6
-    region: content
-    settings:
-      allowed_periods: {  }
-    third_party_settings: {  }
-  field_bg_license_trial_price:
-    type: commerce_price_default
-    weight: 7
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_checkout_complete_message:
     type: text_textarea
-    weight: 18
+    weight: 13
     region: content
     settings:
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
-  field_commerce_license_duration:
-    type: options_buttons
-    weight: 10
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_commerce_license_interval:
-    type: interval_default
-    weight: 11
-    region: content
-    settings:
-      allowed_periods: {  }
-    third_party_settings: {  }
-  field_commerce_license_type:
-    type: options_select
-    weight: 9
-    region: content
-    settings: {  }
     third_party_settings: {  }
   field_commerce_node_checkout_exp:
     type: interval_default
@@ -97,7 +47,7 @@ content:
     third_party_settings: {  }
   field_failed_renewal_body:
     type: text_textarea
-    weight: 17
+    weight: 12
     region: content
     settings:
       rows: 5
@@ -105,27 +55,15 @@ content:
     third_party_settings: {  }
   field_failed_renewal_subject:
     type: string_textfield
-    weight: 16
+    weight: 11
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  field_license_billing_cycle_type:
-    type: options_select
-    weight: 12
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_license_billing_type:
-    type: options_buttons
-    weight: 13
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_number_of_renewals:
     type: string_textfield
-    weight: 14
+    weight: 6
     region: content
     settings:
       size: 60
@@ -137,6 +75,18 @@ content:
     region: content
     settings:
       include_locked: true
+    third_party_settings: {  }
+  license_expiration:
+    type: commerce_plugin_select
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  license_type:
+    type: commerce_plugin_select
+    weight: 9
+    region: content
+    settings: {  }
     third_party_settings: {  }
   list_price:
     type: commerce_list_price
@@ -160,7 +110,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 15
+    weight: 7
     region: content
     settings:
       display_label: true

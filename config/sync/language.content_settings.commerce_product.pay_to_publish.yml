@@ -1,0 +1,11 @@
+uuid: 8ebc01e5-47f3-48cd-90b4-c442d051608e
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_product.commerce_product_type.pay_to_publish
+id: commerce_product.pay_to_publish
+target_entity_type_id: commerce_product
+target_bundle: pay_to_publish
+default_langcode: site_default
+language_alterable: false

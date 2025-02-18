@@ -1,0 +1,29 @@
+uuid: 3b9f8801-c950-43e5-a68a-773a40a4dce0
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_order.commerce_order_item_type.commerce_node_checkout
+    - field.storage.commerce_order_item.field_associated_content
+    - node.type.team_account
+id: commerce_order_item.commerce_node_checkout.field_associated_content
+field_name: field_associated_content
+entity_type: commerce_order_item
+bundle: commerce_node_checkout
+label: 'Associated content'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      team_account: team_account
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

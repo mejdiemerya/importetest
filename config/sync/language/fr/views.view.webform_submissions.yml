@@ -18,8 +18,6 @@ display:
             items_per_page_options_all_label: '- All -'
             offset_label: Offset
       fields:
-        sid:
-          label: '#'
         in_draft:
           label: Brouillon
         created:
@@ -37,10 +35,6 @@ display:
   embed_administer:
     display_options:
       fields:
-        webform_submission_bulk_form:
-          action_title: Action
-        sid:
-          label: '#'
         in_draft:
           label: Brouillon
         sticky:
@@ -68,10 +62,6 @@ display:
   embed_manage:
     display_options:
       fields:
-        webform_submission_bulk_form:
-          action_title: Action
-        sid:
-          label: '#'
         in_draft:
           label: Brouillon
         sticky:
@@ -102,8 +92,6 @@ display:
   embed_review:
     display_options:
       fields:
-        sid:
-          label: '#'
         in_draft:
           label: Brouillon
         sticky:

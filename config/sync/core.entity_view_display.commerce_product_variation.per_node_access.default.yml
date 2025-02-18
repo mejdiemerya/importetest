@@ -123,6 +123,9 @@ content:
     region: content
 hidden:
   commerce_file: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   langcode: true
   license_expiration: true
   license_type: true

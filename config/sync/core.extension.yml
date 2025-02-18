@@ -19,8 +19,6 @@ module:
   breakpoint: 0
   ckeditor5: 0
   comment: 0
-  views_bulk_operations: 0
-  entity_print: 0
   commerce: 0
   commerce_authnet: 0
   commerce_cart: 0
@@ -74,6 +72,7 @@ module:
   editor: 0
   entity: 0
   entity_clone: 0
+  entity_print: 0
   entity_reference_revisions: 0
   facets_rest: 0
   facets_searchbox_widget: 0
@@ -106,6 +105,8 @@ module:
   migrate_tools: 0
   mysql: 0
   node: 0
+  og: 0
+  og_ui: 0
   options: 0
   page_cache: 0
   path: 0
@@ -147,6 +148,7 @@ module:
   update: 0
   upgrade_status: 0
   user: 0
+  views_bulk_operations: 0
   views_load_more: 0
   views_ui: 0
   votingapi: 0

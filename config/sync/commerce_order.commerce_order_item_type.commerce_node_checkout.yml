@@ -1,0 +1,10 @@
+uuid: 09c675a7-aea8-45f3-bc67-170863fe950a
+langcode: en
+status: true
+dependencies: {  }
+id: commerce_node_checkout
+label: 'Commerce Node Checkout'
+traits: {  }
+locked: false
+purchasableEntityType: commerce_product_variation
+orderType: default

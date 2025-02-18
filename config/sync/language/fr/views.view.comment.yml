@@ -3,8 +3,6 @@ display:
     display_title: 'Par défaut'
     display_options:
       fields:
-        comment_bulk_form:
-          action_title: Action
         subject:
           label: Objet
         name:
@@ -39,8 +37,6 @@ display:
   page_unapproved:
     display_options:
       fields:
-        comment_bulk_form:
-          action_title: Action
         subject:
           label: Objet
         name:

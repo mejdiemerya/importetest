@@ -1,0 +1,15 @@
+uuid: ef975595-51ee-4cdc-bf2e-95891397c0cc
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.team_account
+id: node-team_account-administrator
+label: Administrator
+weight: 2
+group_id: null
+group_type: node
+group_bundle: team_account
+is_admin: true
+permissions: {  }
+role_type: null
