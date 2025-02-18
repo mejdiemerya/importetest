@@ -46,6 +46,8 @@ function buildinggreen_preprocess_page(&$variables)
 
     // Charge l'utilisateur connecté.
     $account = \Drupal\user\Entity\User::load($current_user_id);
+$is_premium_user = $account->hasRole('lu_premium_og');
+$variables['is_premium_user'] = $is_premium_user;
 
     // Récupère les champs personnalisés (prénom et nom).
     $first_name = $account->get('field_first_name')->value ?? '';

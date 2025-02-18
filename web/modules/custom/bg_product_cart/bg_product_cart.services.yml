@@ -1,0 +1,6 @@
+services:
+  bg_product_cart.order_completed_subscriber:
+    class: Drupal\bg_product_cart\EventSubscriber\OrderCompletedSubscriber
+    arguments: ['@entity_type.manager']
+    tags:
+      - { name: event_subscriber }
