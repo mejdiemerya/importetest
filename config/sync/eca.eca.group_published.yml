@@ -1,0 +1,20 @@
+uuid: 5637218a-67bd-449e-81ee-07a07afb94df
+langcode: en
+status: false
+dependencies:
+  module:
+    - eca_commerce
+id: group_published
+modeller: core
+label: 'group published'
+version: null
+weight: 0
+events:
+  eca_commerce_order_item_create:
+    plugin: 'eca_commerce:order_item_create'
+    label: 'Order: Item create'
+    configuration: {  }
+    successors: {  }
+conditions: {  }
+gateways: {  }
+actions: {  }

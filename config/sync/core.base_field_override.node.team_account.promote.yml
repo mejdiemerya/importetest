@@ -1,0 +1,22 @@
+uuid: 3827f0fd-908f-4c3c-b164-eab4bb59692a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.team_account
+id: node.team_account.promote
+field_name: promote
+entity_type: node
+bundle: team_account
+label: 'Promoted to front page'
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

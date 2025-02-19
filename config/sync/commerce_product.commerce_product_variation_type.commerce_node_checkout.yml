@@ -17,5 +17,5 @@ label: 'Pay to publish'
 traits:
   - commerce_license
 locked: false
-orderItemType: default
+orderItemType: commerce_node_checkout
 generateTitle: false
