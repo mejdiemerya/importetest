@@ -38,16 +38,16 @@ class TeamPageForm extends FormBase {
       $form['team_signup'] = [
         '#type' => 'markup',
         '#markup' => '
-        <div id="team-signup" class="panel panel-neutral mt10 mb10">
-          <div class="panel-heading">
-            <h3 class="panel-title text-center">TEAM MEMBERSHIP PRICING &amp; SIGNUP</h3>
+        <div id="team-signup" class="panel panel-neutral my-4 card">
+          <div class="panel-heading card-header text-center">
+            <h3 class="panel-title text-center m-0">TEAM MEMBERSHIP PRICING &amp; SIGNUP</h3>
           </div>
-          <div class="panel-body">
+          <div class="panel-body card-body">
             <h4 class="mt0">Pricing:</h4>
             <p><strong>10-person team:</strong> $385/year<br>
               <strong>20-person team:</strong> $770/year<br>
               <strong>30-person team:</strong> $1,155/year</p>
-            <p><a href="/user">Sign up now&nbsp;</a></p>
+            <p><a class="btn btn-warning btn-lg" href="/user">Sign up now&nbsp;</a></p>
           </div>
         </div>',
         '#allowed_tags' => ['div', 'h3', 'h4', 'p', 'strong', 'br', 'a'], // Sécurité pour éviter XSS

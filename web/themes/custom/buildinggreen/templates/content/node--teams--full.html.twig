@@ -104,15 +104,7 @@
         {{ label }}
       </h1>
       {{ content.body }}
-      <div class="card  mt-2 mb-2">
-        <div class="card-header text-center">
-          <h3 class="m-0">{{ 'TEAM MEMBERSHIP PRICING &amp; SIGNUP'|t }}</h3>
-        </div>
-        <div class="card-body">
-          {{ drupal_form('Drupal\\custom_forums\\Form\\TeamPageForm') }}
-        </div>
-      </div>
-
+      {{ drupal_form('Drupal\\custom_forums\\Form\\TeamPageForm') }}
       {{ content.field_contenu }}
     </div>
     <div class="col-sm-5">
