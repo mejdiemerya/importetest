@@ -5,6 +5,7 @@ dependencies:
   config:
     - commerce_order.commerce_order_item_type.commerce_node_checkout
     - field.field.commerce_order_item.commerce_node_checkout.field_associated_content
+    - field.field.commerce_order_item.commerce_node_checkout.license
 id: commerce_order_item.commerce_node_checkout.default
 targetEntityType: commerce_order_item
 bundle: commerce_node_checkout
@@ -37,6 +38,14 @@ content:
     third_party_settings: {  }
     weight: 1
     region: content
+  license:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: hidden
 hidden:
   adjustments: true
   entity_print_view_epub: true

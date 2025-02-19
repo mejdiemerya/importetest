@@ -1,0 +1,34 @@
+uuid: 06246371-b6ff-4310-9e7b-f57f24b63329
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.lu_premium_og
+  module:
+    - eca_commerce
+    - user
+id: process_lz6dttx
+modeller: bpmn_io
+label: noname
+version: ''
+weight: 0
+events:
+  Event_0shgagi:
+    plugin: 'eca_commerce:order_paid'
+    label: Event_0shgagi
+    configuration: {  }
+    successors:
+      -
+        id: Activity_0d6fhmb
+        condition: ''
+conditions: {  }
+gateways: {  }
+actions:
+  Activity_0d6fhmb:
+    plugin: user_add_role_action
+    label: Activity_0d6fhmb
+    configuration:
+      replace_tokens: false
+      rid: lu_premium_og
+      object: ''
+    successors: {  }
