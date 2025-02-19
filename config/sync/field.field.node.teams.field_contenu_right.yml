@@ -1,0 +1,24 @@
+uuid: 20d664c0-347f-45ec-a58e-4767786e43aa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_contenu_right
+    - filter.format.full_html
+    - node.type.teams
+  module:
+    - text
+id: node.teams.field_contenu_right
+field_name: field_contenu_right
+entity_type: node
+bundle: teams
+label: 'Contenu right'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text_long

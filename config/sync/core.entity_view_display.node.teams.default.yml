@@ -1,0 +1,45 @@
+uuid: 16f921aa-78c6-48d1-b7cf-a714df13e8a7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.teams.body
+    - field.field.node.teams.field_contenu
+    - field.field.node.teams.field_contenu_right
+    - node.type.teams
+  module:
+    - text
+id: node.teams.default
+targetEntityType: node
+bundle: teams
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_contenu:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_contenu_right:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  uid: true

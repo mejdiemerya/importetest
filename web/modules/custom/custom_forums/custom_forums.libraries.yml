@@ -7,3 +7,11 @@ submit_on_enter:
     - core/jquery
     - core/once
 
+forgot_password:
+  js:
+    js/forgot_password.js: {}
+  dependencies:
+    - core/once
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings

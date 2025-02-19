@@ -1,0 +1,11 @@
+uuid: deceec75-10b4-4a5d-ae5d-6b74f3575adf
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.teams
+id: node.teams
+target_entity_type_id: node
+target_bundle: teams
+default_langcode: site_default
+language_alterable: false
