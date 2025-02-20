@@ -1,0 +1,134 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for bg_user_api module.
+ * @param Drupal\user\Entity\User $account
+ */
+function bg_user_api_user_presave($account) {
+
+  if (!$account->isNew() && !empty($account->get('field_id_in_d7'))) {
+
+    foreach ($account->getRoles() as $role) {
+      if(!empty(convertRoleToD7($role)))
+      $post_fields['roles'] [convertRoleToD7($role)] = $role;
+    }
+    if(!empty($post_fields['roles'])){
+      $post_fields['uid'] = $account->get('field_id_in_d7')->value;
+      //dd($post_fields );
+      sendHttpRequest($post_fields,'put');
+    }
+
+  }
+//  if (!$account->isNew()) {
+//    $original_email = $account->original->get('mail')->value;
+//    $updated_email = $account->get('mail')->value;
+//
+//    if ($original_email != $updated_email) {
+//      $account->setUsername($updated_email);
+//    }
+//  }
+}
+
+function bg_user_api_form_alter(&$form, &$form_state,$form_id) {
+
+  if($form_id == "commerce_checkout_flow_multistep_default"){
+    $form['#submit'][]  = ('bg_user_api_form_commerce_checkout_form_registration_submit') ;
+
+  }
+}
+/**
+ * Implements bg_user_api_form_commerce_checkout_form_registration_submit()
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function bg_user_api_form_commerce_checkout_form_registration_submit(&$form, &$form_state) {
+ //dd($form_state->getValue('login') );
+if(!empty($form_state->getValue('login')) && !empty($form_state->getValue('login')['register']) ){
+
+// dd($form_state->getValue('login')['register']);
+  $values = $form_state->getValue('login')['register'];
+  $post_fields['name'] = $values['name'];
+  $post_fields['mail'] = $values['mail'];
+  $post_fields['pass'] = $values['name'];
+  $post_fields['roles'] = array(18); // 18 = pre-authorized
+  $result = sendHttpRequest($post_fields);
+  if (!empty($result)){
+    $arrayResult = json_decode($result,true);
+    if (!empty($arrayResult['uid'])){
+      /** @var \Drupal\user\Entity\User $user */
+      $user = user_load_by_mail($values['mail']);
+      $user->set('field_id_in_d7', $arrayResult['uid']);
+      $user->save();
+    }
+  }
+
+}
+}
+
+
+function sendHttpRequest(  $post_fields = null ,$method= 'post'){
+
+  if($method == 'put'){
+    $url = 'https://leeduser.buildinggreen.com.ddev.site/api-v2/user/'.$post_fields['uid'];
+    $uid = $post_fields['uid'];
+    unset($post_fields['uid']);
+   // dd(json_encode($post_fields));
+    $response = \Drupal::httpClient()
+      ->put($url, [
+        'auth' => ['devdevdev', 'devdevdev'],
+        'body' => json_encode($post_fields),
+        'http_errors' => FALSE,
+        'headers' => [
+          'Content-Type' => 'application/json',
+        ],
+      ])->getBody()->getContents();
+    \Drupal::logger('bg_user_api')->debug(
+      'Update user id '.$uid.' </br>Result update user to d7: <pre>@placeholder_name</pre>',
+      array('@placeholder_name' => print_r( $response, TRUE))
+    );
+  }else{
+    $url = 'https://leeduser.buildinggreen.com.ddev.site/api-v2/user/register';
+    $response = \Drupal::httpClient()
+      ->post($url, [
+        'auth' => ['devdevdev', 'devdevdev'],
+        'body' => json_encode($post_fields),
+        'http_errors' => FALSE,
+        'headers' => [
+          'Content-Type' => 'application/json',
+        ],
+      ])->getBody()->getContents();
+    \Drupal::logger('bg_user_api')->debug(
+      'Adding user email '.$post_fields['mail'].' </br>Result add user to d7: <pre>@placeholder_name</pre>',
+      array('@placeholder_name' => print_r( $response, TRUE))
+    );
+  }
+
+
+
+  return $response;
+}
+
+function convertRoleToD7($role)
+{
+  $tabD7 = [
+    'bg_communities' => 16,
+    'bg_premium' => 4,
+    'bg_premium_og' => 5,
+    'bg_trial' => 6,
+    'bg_og_multiuser' => 7,
+    'autologin' => 8,
+    'bg_og_parent' => 9,
+    'lu_premium' => 10,
+    'lu_premium_og' => 11,
+    'lu_trial' => 12,
+    'lu_og_multiuser' => 13,
+    'lu_og_parent' => 14,
+    'lu_guest_expert' => 15,
+    'editor' => 17,
+    'bg_basic' => 19,
+    'lu_basic' => 20,
+    'pre-authorized' => 18,
+  ];
+
+  return isset($tabD7[$role]) ? $tabD7[$role] : 0;
+}

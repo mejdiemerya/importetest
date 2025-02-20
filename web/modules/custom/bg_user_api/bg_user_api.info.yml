@@ -1,0 +1,5 @@
+name: 'bg_user_api'
+type: module
+description: 'api rest users'
+package: Custom
+core_version_requirement: ^10 || ^11
