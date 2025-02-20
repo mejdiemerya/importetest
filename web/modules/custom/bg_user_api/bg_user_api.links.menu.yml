@@ -1,0 +1,7 @@
+bg_user_api.admin_settings:
+  title: 'BG User API Settings'
+  description: 'Configure the API connection settings.'
+  route_name: bg_user_api.settings
+  parent: system.admin_config
+  weight: 100
+  menu_name: admin

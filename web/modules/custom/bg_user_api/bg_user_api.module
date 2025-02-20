@@ -20,14 +20,6 @@ function bg_user_api_user_presave($account) {
     }
 
   }
-//  if (!$account->isNew()) {
-//    $original_email = $account->original->get('mail')->value;
-//    $updated_email = $account->get('mail')->value;
-//
-//    if ($original_email != $updated_email) {
-//      $account->setUsername($updated_email);
-//    }
-//  }
 }
 
 function bg_user_api_form_alter(&$form, &$form_state,$form_id) {
@@ -67,15 +59,22 @@ if(!empty($form_state->getValue('login')) && !empty($form_state->getValue('login
 
 
 function sendHttpRequest(  $post_fields = null ,$method= 'post'){
-
+  $config = \Drupal::config('bg_user_api.settings');
+  $api_url = rtrim($config->get('api_url'), '/');
+  $api_user = $config->get('api_user');
+  $api_password = $config->get('api_password');
+  if (!$api_url || !$api_user || !$api_password) {
+    \Drupal::logger('bg_user_api')->error('API configuration is missing.');
+    return NULL;
+  }
   if($method == 'put'){
-    $url = 'https://leeduser.buildinggreen.com.ddev.site/api-v2/user/'.$post_fields['uid'];
+    $url = $api_url.$post_fields['uid'];
     $uid = $post_fields['uid'];
     unset($post_fields['uid']);
    // dd(json_encode($post_fields));
     $response = \Drupal::httpClient()
       ->put($url, [
-        'auth' => ['devdevdev', 'devdevdev'],
+        'auth' => [$api_user, $api_password],
         'body' => json_encode($post_fields),
         'http_errors' => FALSE,
         'headers' => [
@@ -87,10 +86,10 @@ function sendHttpRequest(  $post_fields = null ,$method= 'post'){
       array('@placeholder_name' => print_r( $response, TRUE))
     );
   }else{
-    $url = 'https://leeduser.buildinggreen.com.ddev.site/api-v2/user/register';
+    $url = $api_url;
     $response = \Drupal::httpClient()
       ->post($url, [
-        'auth' => ['devdevdev', 'devdevdev'],
+        'auth' => [$api_user , $api_password],
         'body' => json_encode($post_fields),
         'http_errors' => FALSE,
         'headers' => [

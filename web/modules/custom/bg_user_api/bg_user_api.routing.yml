@@ -1,0 +1,7 @@
+bg_user_api.settings:
+  path: '/admin/config/bg-user-api'
+  defaults:
+    _form: 'Drupal\bg_user_api\Form\BgUserApiSettingsForm'
+    _title: 'BG User API Settings'
+  requirements:
+    _permission: 'administer site configuration'
