@@ -10,6 +10,7 @@ module:
   automated_cron: 0
   basic_auth: 0
   bg_custom_checkout: 0
+  bg_import_og: 0
   bg_import_product: 0
   bg_invoice: 0
   bg_product_cart: 0
@@ -101,6 +102,7 @@ module:
   menu_link_content: 0
   menu_ui: 0
   migrate: 0
+  migrate_devel: 0
   migrate_drupal: 0
   migrate_drupal_ui: 0
   migrate_plus: 0
@@ -120,6 +122,7 @@ module:
   quiz_multichoice: 0
   range: 0
   rate: 0
+  reroute_email: 0
   rest: 0
   restui: 0
   rules: 0
