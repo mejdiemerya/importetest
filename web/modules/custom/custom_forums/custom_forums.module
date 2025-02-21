@@ -1006,14 +1006,13 @@ function custom_forums_preprocess_page(&$variables)
 /**
  * Implements hook_theme().
  */
-function custom_forums_theme($existing, $type, $theme, $path)
-{
+function custom_forums_theme($existing, $type, $theme, $path) {
   return [
     'post_question_modal' => [
       'variables' => [
         'form' => NULL,
-        'is_authenticated' => NULL,
-        'is_anonymous' => NULL,
+        'is_authenticated'=>NULL,
+        'is_anonymous'=>NULL,
       ],
     ],
     'membership_promo_block' => [
@@ -1022,12 +1021,18 @@ function custom_forums_theme($existing, $type, $theme, $path)
     'membership_content_block' => [
       'variables' => [],
     ],
-    'doc_toolkit_tab' => [
+    'doc_toolkit_tab'=>[
       'variables' => [
         'documentation' => NULL,
-        'resources' => NULL,
+        'resources'=>NULL,
       ],
-    ]
+    ],
+    'email_safety_message' => [
+      'variables' => [],
+    ],
+    'sucess_signup' => [
+      'variables' => [],
+    ],
   ];
 }
 

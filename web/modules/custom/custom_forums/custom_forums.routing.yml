@@ -19,3 +19,10 @@ custom_forums.team_membership:
     _title: 'Page teams'
   requirements:
     _permission: 'access content'
+custom_forums.membership_signup.form:
+  path: '/signup'
+  defaults:
+    _form: 'Drupal\custom_forums\Form\MembershipBasicSignupForm'
+    _title: 'Basic Membership Signup'
+  requirements:
+    _permission: 'access content'
