@@ -1,9 +1,12 @@
 uuid: 5b6616aa-8fa7-4a10-a785-d4a27f514387
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - bg_product_cart
 id: lu_trial
 label: lu_trial
 weight: 30
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access leeduser premium content'

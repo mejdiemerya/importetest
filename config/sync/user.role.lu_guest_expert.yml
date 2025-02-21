@@ -1,9 +1,12 @@
 uuid: 3270a2cd-71db-488c-afc5-cd6e119d5c55
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - bg_product_cart
 id: lu_guest_expert
 label: 'LEEDuser Experts'
 weight: 33
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access leeduser premium content'

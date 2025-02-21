@@ -1,9 +1,12 @@
 uuid: 8aed4b73-ba56-4f96-b7d1-b8b47beb999e
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - bg_product_cart
 id: bg_og_multiuser
 label: bg_og_multiuser
 weight: 25
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access premium content'
