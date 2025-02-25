@@ -6,11 +6,14 @@ display:
       fields:
         name:
           label: Utilisateur
+          separator: ', '
         timestamp:
           label: Heure
       pager:
         options:
           tags:
+            next: ››
+            previous: ‹‹
             first: '« First'
             last: 'Last »'
           expose:
@@ -22,6 +25,8 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
       filters:
         timestamp:
           expose:
@@ -30,6 +35,7 @@ display:
           expose:
             label: À
   page_1:
+    display_title: Page
     display_options:
       menu:
         title: Journal

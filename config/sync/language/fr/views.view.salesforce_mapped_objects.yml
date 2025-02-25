@@ -11,33 +11,29 @@ display:
           sort_desc_label: Desc
       pager:
         options:
-          tags:
-            previous: ‹‹
-            next: ››
-            first: '« First'
-            last: 'Last »'
           expose:
             items_per_page_label: 'Items per page'
             items_per_page_options_all_label: '- All -'
             offset_label: Offset
+          tags:
+            previous: ‹‹
+            next: ››
       fields:
-        name:
-          label: Name
+        id:
+          label: ID
           separator: ', '
-        created:
+        drupal_entity__target_id:
+          label: Entité
           separator: ', '
-        state:
-          label: État
+        salesforce_id_1:
           separator: ', '
-        roles_target_id:
-          label: Rôles
+        salesforce_mapping:
+          label: Correspondance
+          separator: ', '
+        changed:
+          label: 'Dernière mise à jour'
           separator: ', '
         operations:
           label: "Liens d'actions"
-      arguments:
-        entity_type:
-          exception:
-            title: All
-        entity_id:
-          exception:
-            title: All
+  page_1:
+    display_title: Page
