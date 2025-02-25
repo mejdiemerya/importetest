@@ -13,6 +13,7 @@ dependencies:
     - commerce_product
     - contact
     - filter
+    - form_mode_manager
     - media
     - search
     - storage
@@ -31,6 +32,7 @@ permissions:
   - 'access user profiles'
   - 'search content'
   - 'use text format restricted_html'
+  - 'use user.default form mode'
   - 'view e_membership_display commerce_product'
   - 'view media'
   - 'view published modal_list_forums storage entities'
