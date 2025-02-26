@@ -1,0 +1,28 @@
+image: atlassian/default-image:latest
+
+pipelines:
+  branches:
+    '**':  # S'applique à toutes les branches
+      - step:
+          name: Push branch to Pantheon
+          script:
+            - echo "🚀 Poussée de la branche $BITBUCKET_BRANCH vers Pantheon..."
+
+            # 🔹 Installer les outils nécessaires
+            - apt-get update && apt-get install -y curl git openssh-client
+
+            # 🔹 Ajouter la clé SSH pour Pantheon
+            - mkdir -p ~/.ssh
+            - echo "$BITBUCKET_SSH_KEY_PANTHEON" > ~/.ssh/id_rsa
+            - chmod 600 ~/.ssh/id_rsa
+            - eval "$(ssh-agent -s)"
+            - ssh-add ~/.ssh/id_rsa
+            - ssh-keyscan -p 2222 codeserver.dev.3037dd32-7cfa-4c3e-96d0-e73d459c8cc1.drush.in >> ~/.ssh/known_hosts
+
+            # 🔹 Ajouter Pantheon comme remote Git
+            - git remote add pantheon ssh://codeserver.dev.3037dd32-7cfa-4c3e-96d0-e73d459c8cc1.drush.in:2222/~/repository.git || true
+
+            # 🔹 Pousser la branche courante sur Pantheon
+            - git push --force pantheon $BITBUCKET_BRANCH
+
+            - echo "✅ La branche $BITBUCKET_BRANCH a été poussée sur Pantheon. Déploiement manuel nécessaire."
