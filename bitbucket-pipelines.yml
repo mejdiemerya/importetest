@@ -11,6 +11,11 @@ pipelines:
             # 🔹 Installer les outils nécessaires
             - apt-get update && apt-get install -y curl git openssh-client
 
+            # 🔹 Ajouter la clé SSH pour Pantheon
+            - mkdir -p ~/.ssh
+            - (umask  077 ; echo $BITBUCKET_SSH_KEY_PANTHEON | base64 --decode > ~/.ssh/id_rsa)
+            - ssh-keyscan -p 2222 codeserver.dev.3037dd32-7cfa-4c3e-96d0-e73d459c8cc1.drush.in >> ~/.ssh/known_hosts
+
             # 🔹 Ajouter Pantheon comme remote Git
             - git remote add pantheon ssh://codeserver.dev.3037dd32-7cfa-4c3e-96d0-e73d459c8cc1.drush.in:2222/~/repository.git || true
 
