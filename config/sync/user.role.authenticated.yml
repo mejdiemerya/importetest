@@ -18,6 +18,7 @@ dependencies:
     - commerce_recurring
     - contact
     - content_moderation
+    - field_permissions
     - file
     - filter
     - flag
@@ -74,6 +75,7 @@ permissions:
   - 'use user.password form mode'
   - 'use user.profile form mode'
   - 'view any quiz'
+  - 'view field_website'
   - 'view media'
   - 'view own commerce_order'
   - 'view own profile'

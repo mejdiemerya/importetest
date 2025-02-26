@@ -4,9 +4,11 @@ status: true
 dependencies:
   module:
     - bg_product_cart
+    - field_permissions
 id: lu_premium
 label: 'LEEDuser Premium Member'
 weight: 28
 is_admin: null
 permissions:
   - 'access leeduser premium content'
+  - 'view own field_website'

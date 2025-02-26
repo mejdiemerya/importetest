@@ -3,12 +3,18 @@ display:
     display_title: 'Par défaut'
     display_options:
       fields:
+        type:
+          label: Type
         name:
           label: Utilisateur
+          separator: ', '
         link:
           label: Actions
       pager:
         options:
+          tags:
+            next: ››
+            previous: ‹‹
           expose:
             items_per_page_label: 'Items per page'
             items_per_page_options_all_label: '- All -'
@@ -18,7 +24,15 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
       empty:
         area:
           admin_label: "Aucune entrée du journal n'est disponible."
           content: "Aucune entrée du journal n'est disponible."
+      filters:
+        type:
+          expose:
+            label: Type
+  page:
+    display_title: Page

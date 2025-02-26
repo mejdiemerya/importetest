@@ -17,6 +17,8 @@ display:
             past_format: '@interval ago'
         operations:
           label: Actions
+        mail:
+          separator: ', '
       pager:
         options:
           tags:
@@ -33,6 +35,8 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
       filters:
         combine:
           expose:
@@ -50,6 +54,7 @@ display:
           expose:
             label: Droit
   page_1:
+    display_title: Page
     display_options:
       menu:
         title: Lister

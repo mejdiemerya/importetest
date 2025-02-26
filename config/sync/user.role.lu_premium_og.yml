@@ -1,9 +1,14 @@
 uuid: f43c9992-e553-46fa-8e27-fa3fdb432a57
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - bg_product_cart
+    - field_permissions
 id: lu_premium_og
 label: lu_premium_og
 weight: 29
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access leeduser premium content'
+  - 'view own field_website'

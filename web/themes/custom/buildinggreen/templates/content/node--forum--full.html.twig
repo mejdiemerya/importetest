@@ -151,7 +151,7 @@
       {% if not logged_in %}
         <div class="margin-bottom-x well well-success mt-2">
           <h4 class="title comment-form">Add new comment</h4>
-          <p class="small line-snug">To post a comment, you need to <a href="/signup/#comments">register for a LEEDuser Basic membership</a> (free) or <a href="#" data-toggle="modal" data-target="#login-modal">login to your existing profile</a>.</p>
+          <p class="small line-snug">To post a comment, you need to <a href="/signup/#comments">register for a LEEDuser Basic membership</a> (free) or <a href="{{ path('user.login') }}" data-toggle="modal" data-target="#login-modal">login to your existing profile</a>.</p>
         </div>
         {% else %}
       <div id="comments" class="comment-wrapper magnify">

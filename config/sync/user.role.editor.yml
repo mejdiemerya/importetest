@@ -5,6 +5,7 @@ dependencies:
   config:
     - filter.format.full_html
   module:
+    - bg_product_cart
     - block
     - comment
     - draggableviews
@@ -25,6 +26,8 @@ permissions:
   - 'access content'
   - 'access content overview'
   - 'access draggableviews'
+  - 'access leeduser premium content'
+  - 'access premium content'
   - 'access user profiles'
   - 'administer blocks'
   - 'administer comments'

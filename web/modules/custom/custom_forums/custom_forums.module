@@ -291,25 +291,27 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
   }
   // Check if the entity is a user.
   if ($entity->getEntityTypeId() === 'user') {
-
-    // Load the user roles.
-    $roles = $entity->getRoles();
-
-    // Filter to include only 'lu_premium' and 'lu_guest_expert'.
-    $roles = array_filter($roles, function ($role_id) {
-      return in_array($role_id, ['lu_premium', 'lu_guest_expert']);
-    });
-
-    // Load role entities for the remaining role IDs.
-    $role_entities = Role::loadMultiple($roles);
-
-    // Build a comma-separated list of role labels.
     $role_labels = [];
-    foreach ($role_entities as $role) {
-      $role_labels[] = $role->label();
+
+    // Load and filter the user roles.
+    $roles = $entity->getRoles();
+    $has_guest_expert = in_array('lu_guest_expert', $roles);
+    $is_admin = in_array('administrator', $roles);
+
+    if ($entity->hasPermission('access leeduser premium content')) {
+      $role_labels[] = 'LEEDuser Premium Member';
     }
 
-    // Format roles for display if the 'roles' component exists.
+    if ($has_guest_expert) {
+      $role_entities = Role::loadMultiple(['lu_guest_expert']);
+      foreach ($role_entities as $role) {
+        $role_labels = [$role->label()];
+      }
+    }
+    if (!$has_guest_expert && !$is_admin) {
+      $role_labels = ['LEEDuser Basic Member'];
+    }
+
     if (!empty($role_labels) && $display->getComponent('roles')) {
       $build['roles'] = [
         '#markup' => '<div class="role_labels xsmall">' . implode(', ', $role_labels) . "</div>",
@@ -1478,4 +1480,6 @@ LEEDuser is a product of BuildingGreen, Inc.
 
   $mailManager->mail($module, $key, $to, $langcode, $params);
 }
+
+
 
