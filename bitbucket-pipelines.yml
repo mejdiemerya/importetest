@@ -9,7 +9,7 @@ pipelines:
             - echo "🚀 Poussée de la branche $BITBUCKET_BRANCH vers Pantheon..."
 
             # 🔹 Installer les outils nécessaires
-            - apt-get update && apt-get install -y curl git openssh-client
+            - apt-get update && apt-get install -y curl git openssh-client ssh-askpass
 
             # 🔹 Ajouter la clé SSH pour Pantheon
             - mkdir -p ~/.ssh
