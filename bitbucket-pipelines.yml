@@ -14,6 +14,7 @@ pipelines:
             # 🔹 Ajouter la clé SSH pour Pantheon
             - mkdir -p ~/.ssh
             - (umask  077 ; echo $BITBUCKET_SSH_KEY_PANTHEON | base64 --decode > ~/.ssh/id_rsa)
+            - echo "~/.ssh/id_rsa"
             - export SSH_ASKPASS=/bin/true  # 🔹 Désactive ssh-askpass
             - eval "$(ssh-agent -s)"
             - ssh-add ~/.ssh/id_rsa
