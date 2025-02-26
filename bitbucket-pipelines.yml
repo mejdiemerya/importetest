@@ -1,35 +1,28 @@
-# This is an example Starter pipeline configuration
-# Use a skeleton to build, test and deploy using manual and parallel steps
-# -----
-# You can specify a custom docker image from Docker Hub as your build environment.
-
-image: atlassian/default-image:3
+image: atlassian/default-image:latest
 
 pipelines:
-  default:
-    - parallel:
+  branches:
+    '**':  # S'applique à toutes les branches
       - step:
-          name: 'Build and Test'
+          name: Push branch to Pantheon
           script:
-            - echo "Your build and test goes here..."
-      - step:
-          name: 'Lint'
-          script:
-            - echo "Your linting goes here..."
-      - step:
-          name: 'Security scan'
-          script:
-            - echo "Your security scan goes here..."
+            - echo "🚀 Poussée de la branche $BITBUCKET_BRANCH vers Pantheon..."
 
-    # The following deployment steps will be executed for each pipeline run. To configure your steps and conditionally deploy see https://support.atlassian.com/bitbucket-cloud/docs/configure-bitbucket-pipelinesyml/
-    - step:
-        name: 'Deployment to Staging'
-        deployment: staging
-        script:
-          - echo "Your deployment to staging script goes here..."
-    - step:
-        name: 'Deployment to Production'
-        deployment: production
-        trigger: 'manual'
-        script:
-          - echo "Your deployment to production script goes here..."
+            # 🔹 Installer les outils nécessaires
+            - apt-get update && apt-get install -y curl git openssh-client
+
+            # 🔹 Ajouter la clé SSH pour Pantheon
+            - mkdir -p ~/.ssh
+            - echo "$BITBUCKET_SSH_KEY_PANTHEON" > ~/.ssh/id_rsa
+            - chmod 600 ~/.ssh/id_rsa
+            - eval "$(ssh-agent -s)"
+            - ssh-add ~/.ssh/id_rsa
+            - ssh-keyscan -p 2222 codeserver.dev.3037dd32-7cfa-4c3e-96d0-e73d459c8cc1.drush.in >> ~/.ssh/known_hosts
+
+            # 🔹 Ajouter Pantheon comme remote Git
+            - git remote add pantheon ssh://codeserver.dev.3037dd32-7cfa-4c3e-96d0-e73d459c8cc1.drush.in:2222/~/repository.git || true
+
+            # 🔹 Pousser la branche courante sur Pantheon
+            - git push --force pantheon $BITBUCKET_BRANCH
+
+            - echo "✅ La branche $BITBUCKET_BRANCH a été poussée sur Pantheon. Déploiement manuel nécessaire."
