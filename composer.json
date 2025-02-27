@@ -155,8 +155,9 @@
         },
         "patches": {
             "drupal/core": {
-                "Add Exception for TypeError Argument must be String in \\Drupal\\Component\\Utility\\Html escape{}\n":"https://www.drupal.org/files/issues/2024-11-07/TypeError_htmlspecialchars_ArgumentNustBeTypeString_ArrayGiven-3352384-62.patch",
-                "RuntimeException: Adding non-existent permissions to a role is not allowed": "https://www.drupal.org/files/issues/2024-06-03/3358586-36.patch"},
+                "Add Exception for TypeError Argument must be String in \\Drupal\\Component\\Utility\\Html escape{}\n":"https://www.drupal.org/files/issues/2024-11-07/TypeError_htmlspecialchars_ArgumentNustBeTypeString_ArrayGiven-3352384-62.patch"
+
+            },
             "buildingreen/rate": {
                 "Automated Drupal 11 compatibility fixes for rate\n": "https://www.drupal.org/files/issues/2024-05-21/rate.3.1.0.rector.patch"
             }
