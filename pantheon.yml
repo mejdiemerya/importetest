@@ -3,3 +3,9 @@ web_docroot: true
 php_version: 8.3
 database:
   version: 10.6
+workflows:
+  deploy:
+    after:
+      - type: webphp
+        description: "Lancer les éléments liés au deploiement Drupal"
+        script: scripts/deploy.php
