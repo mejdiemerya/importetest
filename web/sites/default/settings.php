@@ -909,3 +909,14 @@ $databases['default']['default'] = array (
   'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
   'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
 );
+
+# CONFIG LIEES A PANTHEON
+$settings['container_yamls'][] = __DIR__ . '/services.yml';
+$settings['config_sync_directory'] = dirname(DRUPAL_ROOT) . '/config';
+include __DIR__ . "/settings.pantheon.php";
+$local_settings = __DIR__ . "/settings.local.php";
+if (file_exists($local_settings)) {
+  include $local_settings;
+}
+$settings['install_profile'] = 'standard';
+# FIN CONFIG PANTHEON
