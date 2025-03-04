@@ -99,6 +99,7 @@
         "drupal/webform": "^6.3@beta",
         "drush/drush": "^13.3",
         "kint-php/kint": "^6.0",
+        "pantheon-se/node-composer": "^2.1",
         "pantheon-systems/drupal-integrations": "^11.1",
         "phpmailer/phpmailer": "^6.9"
     },
@@ -114,10 +115,16 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
+            "pantheon-se/node-composer": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true
         },
         "sort-packages": true
+    },
+    "scripts": {
+        "post-install-cmd": ["@build"],
+        "post-update-cmd": ["@build"],
+        "build": "cd web/themes/custom/buildinggreen/front_app && ../../../../../vendor/bin/npm install && ../../../../../vendor/bin/npm run build"
     },
     "extra": {
         "drupal-scaffold": {
@@ -183,6 +190,11 @@
                 "  * Remove the plugin that prints this message:",
                 "      composer remove drupal/core-project-message"
             ]
+        },
+        "pantheon-se": {
+            "node-composer": {
+                "node-version": "18.20.5"
+            }
         }
     }
 }
