@@ -860,6 +860,11 @@ function custom_forums_entity_base_field_info_alter(&$fields, EntityTypeInterfac
   switch ($entity_type->id()) {
 
     case 'node':
+      $fields['created']->setDisplayConfigurable('view', TRUE)
+        ->setDisplayOptions('view', ['region' => 'hidden']);
+      $fields['uid']->setDisplayConfigurable('view', TRUE)
+        ->setDisplayOptions('view', ['region' => 'hidden']);
+      break;
     case 'comment':
       $fields['uid']->setDisplayConfigurable('view', TRUE)
         ->setDisplayOptions('view', ['region' => 'hidden']);

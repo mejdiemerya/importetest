@@ -132,6 +132,7 @@ module:
   salesforce_mapping: 0
   salesforce_mapping_ui: 0
   salesforce_oauth: 0
+  salesforce_pull: 0
   salesforce_push: 0
   salesforce_soap: 0
   search: 0

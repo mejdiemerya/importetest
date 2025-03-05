@@ -79,7 +79,7 @@
           <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
         {% endif %}
           <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'credit_id':content.title_forum['#credit_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
-          <a type="button" class="btn btn-light btn-wrap" href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}"><i class="glyphicon glyphicon-leaf"></i> <div>See LEEDuser&rsquo;s guidance on {{ content.title_forum['#text'] }}>&nbsp;&raquo;</div></a>
+          <a type="button" class="btn btn-light btn-wrap" href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}"><i class="glyphicon glyphicon-leaf"></i> <div>See LEEDuser&rsquo;s guidance on {{ content.title_forum['#text'] }}&raquo;</div></a>
       </div>
 
 
@@ -134,7 +134,11 @@
 
       <div class="post-text">
         <div class="meta mb10 hidden-xs">
+          {% if content.field_project_location['#markup'] is not empty %}
+
           <div class="location float-end d-flex align-items-center">Project location: {{ content.field_project_location }}</div>
+          {% endif %}
+
           <p class="date"><span class="glyphicon glyphicon-time"></span>{{ date}} </p>
         </div>
         {{content.field_question}}
