@@ -47,7 +47,7 @@ class TeamPageForm extends FormBase {
             <p><strong>10-person team:</strong> $385/year<br>
               <strong>20-person team:</strong> $770/year<br>
               <strong>30-person team:</strong> $1,155/year</p>
-            <p><a class="btn btn-warning btn-lg" href="/user">Sign up now&nbsp;</a></p>
+            <p><a class="btn btn-warning btn-lg" href="/signup">Sign up now&nbsp;</a></p>
           </div>
         </div>',
         '#allowed_tags' => ['div', 'h3', 'h4', 'p', 'strong', 'br', 'a'], // Sécurité pour éviter XSS
@@ -72,15 +72,14 @@ class TeamPageForm extends FormBase {
       }
       $account=$this->currentUser()->id();
       $existing_groups = bg_content_get_groups_by_user($account, $type = 'team_account', $status = 0);
-
       if (!empty($existing_groups))
       {
         $existing_group_options['choose'] = 'Choose One';
         foreach ($existing_groups as $existing_group)
         {
-          $existing_group_options[$existing_group->nid] = 'Renew: ' . $existing_group->title;
+          $existing_group_options[$existing_group->nid->value] = 'Renew: ' . $existing_group->title->value;
         }
-        $existing_group_options[''] = 'Start a new team';
+        $existing_group_options['create'] = 'Start a new team';
 
         $form['existing_group'] = array(
           '#type' => 'select',
@@ -89,11 +88,16 @@ class TeamPageForm extends FormBase {
           '#default_value' => 'choose',
         );
       }
-      $form['group_name'] = array(
+      $form['group_name'] = [
         '#type' => 'textfield',
         '#title' => 'Name of team (Usually your company name)',
         '#required' => !empty($existing_groups) ? FALSE : TRUE,
-      );
+        '#states' => [
+          'visible' => [
+            ':input[name="existing_group"]' => ['value' => 'create'],
+          ],
+        ],
+      ];
 
       $product_options = array();
       $product_options['choose'] = 'Choose one';
@@ -115,7 +119,7 @@ class TeamPageForm extends FormBase {
         '#type' => 'select',
         '#title' => 'Product',
         '#options' => $product_options,
-        '#default_value' => !empty($_REQUEST['tp']) && intval($_REQUEST['tp']) > 0 ? $_REQUEST['tp'] : 'choose',
+        '#default_value' => 'choose',
       ];
 
       $form['submit'] = [
@@ -252,21 +256,37 @@ function _bg_content_get_human_readable_product_name($product){
   return $name;
 }
 
-function bg_content_get_groups_by_user($account, $type = FALSE, $status = 'all', $domain = 'all'){
-  global $domains;
+function bg_content_get_groups_by_user($account, $type = FALSE, $status = 'all'){
   $groups = array();
-//  $assigned_groups = og_get_groups_by_user($account);
-//  if ($assigned_groups)
-//  {
-//    foreach ($assigned_groups['node'] as $group_nid)
-//    {
-//      $group_node = \Drupal::entityTypeManager()->getStorage('node')->load($group_nid);
-//
-//      if ($group_node->type == $type && ($group_node->status === $status || $status == 'all') && (key($group_node->domains) == $domains[$domain]['domain_id'] || $domain == 'all'))
-//      {
-//        $groups[] = $group_node;
-//      }
-//    }
-//  }
+  $assigned_groups = _get_groups_by_user($account);
+  if ($assigned_groups)
+  {
+    foreach ($assigned_groups as $group_nid)
+    {
+      $group_node = \Drupal::entityTypeManager()->getStorage('node')->load($group_nid);
+
+        $groups[] = $group_node;
+    }
+  }
   return $groups;
+}
+function _get_groups_by_user($account = NULL, $group_type = NULL) {
+  if (!$account) {
+    $account = \Drupal::currentUser();
+  }
+
+  if ($account instanceof User) {
+    $uid = $account->id();
+  } else {
+    $uid = \Drupal::currentUser()->id();
+  }
+  $nids = \Drupal::entityQuery('node')
+    ->condition('type', 'team_account')
+    ->condition('uid', $uid)->accessCheck(FALSE)
+    ->execute();
+
+  if (!empty($nids)) {
+    return $nids;
+  }
+  return [];
 }
