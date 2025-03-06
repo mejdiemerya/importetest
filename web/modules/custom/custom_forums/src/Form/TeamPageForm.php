@@ -79,7 +79,7 @@ class TeamPageForm extends FormBase {
         {
           $existing_group_options[$existing_group->nid->value] = 'Renew: ' . $existing_group->title->value;
         }
-        $existing_group_options['create'] = 'Start a new team';
+        $existing_group_options[''] = 'Start a new team';
 
         $form['existing_group'] = array(
           '#type' => 'select',
@@ -94,7 +94,7 @@ class TeamPageForm extends FormBase {
         '#required' => !empty($existing_groups) ? FALSE : TRUE,
         '#states' => [
           'visible' => [
-            ':input[name="existing_group"]' => ['value' => 'create'],
+            ':input[name="existing_group"]' => ['value' => ''],
           ],
         ],
       ];
@@ -138,8 +138,7 @@ class TeamPageForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $values = $form_state->getValues();
     $product = ProductVariation::load($values['product']);
-    if (!empty($values['existing_group'])) {
-      $group_node = Node::load($values['existing_group']);}
+
     $user = \Drupal::currentUser();
 
     if (!empty($values['existing_group'])) {
@@ -222,7 +221,6 @@ function commerce_node_checkout_add_node($node, $product, $account = NULL) {
   $order_item = $order_item_storage->create([
     'type' => 'commerce_node_checkout',
     'purchased_entity' => $variation->id(),
-    'title' => $variation->getOrderItemTitle() .'(' .$node->getTitle(). ')',
     'quantity' => 1,
     'field_associated_content'=>$node->id(),
     'unit_price' => $variation->getPrice(),
