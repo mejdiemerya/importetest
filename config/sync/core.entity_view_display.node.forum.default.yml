@@ -25,7 +25,7 @@ content:
   comment_button:
     settings: {  }
     third_party_settings: {  }
-    weight: 7
+    weight: 9
     region: content
   comment_forum:
     type: comment_default
@@ -34,12 +34,32 @@ content:
       view_mode: default
       pager_id: 0
     third_party_settings: {  }
-    weight: 8
+    weight: 10
     region: content
   content_moderation_control:
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  created:
+    type: timestamp
+    label: inline
+    settings:
+      date_format: custom
+      custom_date_format: 'F j, Y'
+      timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
+        description: ''
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_project_location:
     type: entity_reference_label
@@ -47,29 +67,29 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 4
+    weight: 5
     region: content
   field_question:
     type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 6
     region: content
   flag_notification:
     settings: {  }
     third_party_settings: {  }
-    weight: 10
+    weight: 12
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 9
+    weight: 11
     region: content
   rate_rate:
     settings: {  }
     third_party_settings: {  }
-    weight: 6
+    weight: 8
     region: content
   taxonomy_forums:
     type: entity_reference_label
@@ -77,7 +97,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 2
+    weight: 4
     region: content
   title_forum:
     settings: {  }
@@ -86,21 +106,29 @@ content:
     region: content
   uid:
     type: entity_reference_entity_view
-    label: hidden
+    label: inline
     settings:
       view_mode: author_profile
       link: false
     third_party_settings: {  }
     weight: 3
     region: content
+  user_picture:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
 hidden:
   author_picture: true
   comment_count: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   field_credits: true
   field_last_comment_author: true
   field_tipsheet: true
+  langcode: true
   last_comment_author_image: true
   last_comment_author_role: true
   last_comment_date: true
   search_api_excerpt: true
-  user_picture: true
