@@ -138,6 +138,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
         'tipsheet' => false,
         'text' => '', // Placeholder for text
         'title' => '',
+        'name'=>''
       ];
       // Initialize credit and tipsheet IDs.
       $credit_id = NULL;
@@ -159,6 +160,9 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       if (!empty($entity->get('field_credits')->target_id)) {
         $credit_id = $entity->get('field_credits')->target_id;
         if ($credit_id) {
+          $term = $entity->get('field_credits')->entity;
+          $credit_name = $term->getName();
+          $result['name'] = $credit_name;
           $label = getCreditFilterLabel($credit_id);
           $link = Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $credit_id])->toString();
           $result['markup'] = sprintf('<a href="%s"><strong>%s:</strong><em>%s</em></a><br>', $link, $label['title'], $label['description']);
@@ -194,7 +198,8 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
         '#credit' => $result['credit'], // Include the credit flag.
         '#tipsheet' => $result['tipsheet'], // Include the tipsheet flag.
         '#text' => $result['text'], // Include the text.
-        '#title' => $result['title']
+        '#title' => $result['title'],
+        '#name' => $result['name'],
 
       ];
     }
@@ -925,6 +930,7 @@ function custom_forums_preprocess_node(array &$variables)
 
       $subscription_credit_flag = $flag_service->getFlagById('subscription_credit');
       $credit_id = $variables['node']->get('field_credits')->target_id;
+      $variables['credit_faqs'] = _lu_content_get_credit_faqs($credit_id, 20);
       if ($credit_id) {
         $term = Term::load($credit_id);
         $is_flagged = $subscription_credit_flag->isFlagged($term);
@@ -1100,6 +1106,34 @@ function loadAllParentsModal($tid)
 
 
   return $parents;
+}
+function _lu_content_get_credit_faqs($term, $limit = 'all') {
+  $limit = is_numeric($limit) && intval($limit) > 0 ? intval($limit) : NULL;
+
+  $query = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
+    ->condition('type', 'credit_faq')
+    ->condition('status', 1)
+    ->sort('created', 'DESC')
+    ->condition('field_credits.target_id', $term)->accessCheck(false);
+
+  if ($limit) {
+    $query->range(0, $limit);
+  }
+
+  $nids = $query->execute();
+
+  $faqs = [];
+  if (!empty($nids)) {
+    $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $faqs[] = [
+        'nid' => $node->id(),
+        'title' => $node->label(),
+      ];
+    }
+  }
+
+ return $faqs;
 }
 
 function getTipsheetName($nid)

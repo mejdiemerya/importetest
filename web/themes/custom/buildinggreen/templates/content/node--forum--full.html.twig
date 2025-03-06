@@ -81,6 +81,17 @@
           <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'credit_id':content.title_forum['#credit_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
           <a type="button" class="btn btn-light btn-wrap" href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}"><i class="glyphicon glyphicon-leaf"></i> <div>See LEEDuser&rsquo;s guidance on {{ content.title_forum['#text'] }}&raquo;</div></a>
       </div>
+      {% if credit_faqs|length > 0 %}
+        <div class="faqs mt10">
+          <h5 class="mt0">FAQs about {{ content.title_forum['#name'] }} :</h5>
+
+          {% for credit_faq in credit_faqs %}
+            <p><a href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}#tab-faq">{{ credit_faq.title }}</a></p>
+          {% endfor %}
+
+          <p><strong style="font-style: normal;"><a href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}#tab-faq">View answers</a> &raquo;</strong></p>
+        </div>
+      {% endif %}
 
 
     {% elseif content.title_forum['#tipsheet'] %}
