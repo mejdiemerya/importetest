@@ -9,7 +9,9 @@ dependencies:
     - field.field.node.credit_checklist.field_credit_tip_type
     - field.field.node.credit_checklist.field_credits
     - field.field.node.credit_checklist.field_image_landscape
+    - field.field.node.credit_checklist.field_image_landscape_v2
     - field.field.node.credit_checklist.field_image_portrait
+    - field.field.node.credit_checklist.field_image_portrait_v2
     - field.field.node.credit_checklist.field_project_phase
     - field.field.node.credit_checklist.field_who_does_it
     - node.type.credit_checklist
@@ -34,12 +36,18 @@ content:
     weight: 100
     region: content
 hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   field_credit_labels: true
   field_credit_tip_type: true
   field_credits: true
   field_image_landscape: true
+  field_image_landscape_v2: true
   field_image_portrait: true
+  field_image_portrait_v2: true
   field_project_phase: true
   field_who_does_it: true
+  langcode: true
   search_api_excerpt: true
   uid: true

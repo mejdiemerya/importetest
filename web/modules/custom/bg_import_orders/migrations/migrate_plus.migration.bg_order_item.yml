@@ -1,0 +1,116 @@
+id: bg_order_item
+label: Commerce order item
+deriver: Drupal\commerce_migrate_commerce\Plugin\migrate\OrderItemDeriver
+migration_tags:
+  - Drupal 7
+  - Commerce
+  - Content
+source:
+  plugin: bg_line_item
+process:
+  order_item_id: line_item_id
+  revision_id: revision_id
+  type:
+    plugin: static_map
+    source: status
+    map:
+      invoiced: default
+      recurring_open: recurring_product_variation
+#    plugin: static_map
+#    source: type
+#    map:
+#      product: default
+#      recurring: recurring_product_variation
+  uid: uid
+  order_id: order_id
+  status: status
+  created: created
+  changed: changed
+  title: title_product
+  unit_price: unit_price
+  total_price: total
+  billing_period/starts:
+    plugin: get
+    source: formatted_time_start
+  billing_period/ends:
+    plugin: get
+    source: formatted_time_end
+  license/bundle:
+    plugin: default_value
+    default_value: default
+  license/target_id:
+    plugin: get
+    source: cl_billing_license_target_id
+  subscription/target_id:
+    - plugin: get
+      source: cl_billing_license_target_id
+#    - plugin: debug
+#  subscription/target_id:
+#    plugin: get
+#    source: cl_billing_license_target_id
+  #  unit_price/currency_code:
+#    plugin: default_value
+#    default_value: 'USD'
+#  total_price/currency_code:
+#    plugin: default_value
+#    default_value: 'USD'
+#  'field_order_items/entity_id':
+#    plugin: get
+#    source: order_id
+#  'field_order_items/target_id':
+#    plugin: get
+#    source: line_item_id
+#  order_items:
+#    plugin: 'default_value'  # Plugin pour gérer la valeur par défaut
+#    source: 'commerce_line_items'  # Source du champ texte
+#    default_value: '@source.commerce_line_items'
+#  order_items:
+#    plugin: '@MigrateField'  # Utilisation du plugin @MigrateField
+#    source: 'commerce_line_items'  # Le champ texte à migrer
+#    entity_type: 'commerce_order_item'  # L'entité cible, ici un node
+#    field_name: 'order_items'  # Le champ Drupal où migrer le texte
+#    language: 'und'  # Langue du champ (par défaut 'und' pour inconnu)
+#    field_name: 'order_items'  # Nom du champ personnalisé dans Drupal
+#    language: 'und'  # La langue pour le champ (ici 'und' pour inconnu)
+#  order_items:
+#    plugin: migration_lookup
+#    migration: bg_order_item
+#    source: bg_line_item_reference
+  purchased_entity:
+    plugin: static_map
+#    bypass: true
+    source: line_item_label
+    map:
+      BGPRM-MI: 5
+      LUPRM-MI: 10
+      LUPNW-LDSW: 13
+      LUPRM-YI: 8
+      BGPNG-WELL-AP-Dv2: 220
+      LUPNG-V4AP-SITE: 131
+      LUPNG-V4AP: 81
+      BGPNG-WELL-APv2: 218
+      LUPNG-V4GA: 80
+#      5: 'BGPRM-MI'
+#    plugin: migration_lookup
+#    migration: commerce1_product_variation
+#    source: commerce_product
+  quantity: quantity
+  adjustments:
+    -
+      plugin: commerce1_order_item_discount_adjustment
+      source: order_components/0/data/components
+    -
+      plugin: commerce_adjustments
+  uses_legacy_adjustments:
+    plugin: default_value
+    default_value: false
+destination:
+  plugin: entity:commerce_order_item
+  destination_module: commerce_order
+#migration_dependencies:
+#  required:
+#    - commerce1_store
+#    - commerce1_product_variation
+#    - commerce1_order_item_type
+  optional:
+    - d7_field_instance

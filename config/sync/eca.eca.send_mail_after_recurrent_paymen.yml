@@ -11,9 +11,9 @@ label: 'Send mail after recurrent payment'
 version: v1
 weight: 0
 events:
-  eca_commerce_payment_insert:
-    plugin: 'eca_commerce:payment_insert'
-    label: 'Payment: Insert'
+  eca_commerce_checkout_completion:
+    plugin: 'eca_commerce:checkout_completion'
+    label: 'Checkout: Completion'
     configuration: {  }
     successors:
       -

@@ -6,17 +6,18 @@ dependencies:
     - field.field.node.credit_documentation_entry.field_documentation_file
     - field.field.node.credit_documentation_entry.field_documentation_type
     - node.type.credit_documentation_entry
+  module:
+    - file
 id: node.credit_documentation_entry.default
 targetEntityType: node
 bundle: credit_documentation_entry
 mode: default
 content:
   field_documentation_file:
-    type: entity_reference_entity_view
+    type: file_default
     label: above
     settings:
-      view_mode: default
-      link: false
+      use_description_as_link_text: true
     third_party_settings: {  }
     weight: 102
     region: content
@@ -34,5 +35,9 @@ content:
     weight: 100
     region: content
 hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
   search_api_excerpt: true
   uid: true

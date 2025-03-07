@@ -1,0 +1,50 @@
+uuid: 830481be-988b-43a9-ae04-c45234ecaf72
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - migrate_drupal
+id: credit_documentation_section
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: null
+label: credit_documentation_section
+source:
+  plugin: credit_documentation_section_node
+process:
+  type:
+    plugin: default_value
+    default_value: credit_documentation_section
+  title:
+    plugin: skip_on_empty
+    method: row
+    source: title
+  nid: nid
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+  field_credit_labels:
+    plugin: get
+    source: field_credit_labels_tid
+  field_credits:
+    plugin: get
+    source: field_credits_tid
+  field_documents:
+    plugin: get
+    source: field_documents_target_id
+  body/value:
+    plugin: get
+    source: body_value
+  body/summary:
+    plugin: get
+    source: body_summary
+  body/format:
+    plugin: default_value
+    default_value: full_html
+destination:
+  plugin: 'entity:node'
+migration_dependencies: null

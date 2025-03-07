@@ -1,0 +1,7 @@
+name: 'bg_import_orders'
+type: module
+description: 'Migrer les commandes du drupal 7 au drupal 11'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - migrate:migrate

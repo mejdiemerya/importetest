@@ -1,0 +1,61 @@
+uuid: cf8d9e98-a4f8-4237-b084-d55ddabb0cb1
+langcode: en
+status: true
+dependencies: {  }
+id: bg_subscription
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Commerce
+  - Content
+migration_group: null
+label: 'Commerce subscription'
+source:
+  plugin: bg_subscription
+process:
+  title: product_title
+  subscription_id:
+    plugin: get
+    source: license_id
+  type:
+    plugin: default_value
+    default_value: product_variation
+  uid: uid
+  store_id:
+    plugin: default_value
+    default_value: '1'
+  billing_schedule:
+    plugin: get
+    source: billing_schedule
+  payment_method:
+    plugin: default_value
+    default_value: '1'
+  purchased_entity:
+    plugin: static_map
+    source: product_id
+    map:
+      11: 5
+      77: 10
+      216: 13
+      70: 11
+      220: 4
+      131: 6
+      81: 7
+      218: 8
+      80: 9
+  unit_price: unit_price
+  state:
+    plugin: default_value
+    default_value: active
+  initial_order: originating_order
+  created: granted
+  changed: granted
+  next_renewal: expires
+  starts: granted
+  orders/target_id: originating_order
+destination:
+  plugin: 'entity:commerce_subscription'
+  destination_module: commerce_subscription
+migration_dependencies: null

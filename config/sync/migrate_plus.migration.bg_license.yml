@@ -1,0 +1,61 @@
+uuid: 4379c583-5cff-411d-83c3-8823ff213de3
+langcode: en
+status: true
+dependencies: {  }
+id: bg_license
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Commerce
+  - Content
+migration_group: null
+label: 'Commerce license'
+source:
+  plugin: bg_license
+process:
+  license_id: license_id
+  type:
+    plugin: static_map
+    source: type
+    map:
+      file: commerce_file
+      buildinggreen_license: role
+  uid: uid
+  state:
+    plugin: static_map
+    source: status
+    map:
+      2: active
+  product_variation:
+    plugin: static_map
+    source: product_id
+    map:
+      11: 5
+      77: 10
+      216: 13
+      70: 11
+      220: 4
+      131: 6
+      81: 7
+      218: 8
+      80: 9
+  expiration_type/target_plugin_id:
+    plugin: default_value
+    default_value: unlimited
+  created: created
+  granted: granted
+  renewed: renewed
+  changed: changed
+  originating_order: originating_order
+  license_role/entity_id:
+    plugin: get
+    source: license_id
+  license_role/target_id:
+    plugin: get
+    source: role_name
+destination:
+  plugin: 'entity:commerce_license'
+  destination_module: commerce_license
+migration_dependencies: null

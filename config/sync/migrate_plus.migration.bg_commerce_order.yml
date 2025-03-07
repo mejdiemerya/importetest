@@ -1,0 +1,84 @@
+uuid: 6babeff9-1d5d-4409-ab7e-dfbb85ede5c0
+langcode: en
+status: true
+dependencies: {  }
+id: bg_commerce_order
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Commerce
+  - Content
+migration_group: null
+label: 'Commerce order'
+source:
+  plugin: bg_commerce_order
+process:
+  order_id: order_id
+  order_number: order_number
+  revision_id: revision_id
+  type: type
+  billing_period/starts:
+    plugin: get
+    source: start
+  billing_period/ends:
+    plugin: get
+    source: end
+  uid: uid
+  ip_address: hostname
+  state: status
+  total_price: total
+  billing_profile/target_id:
+    plugin: get
+    source: commerce_customer_billing_profile_id
+  billing_profile/target_revision_id:
+    plugin: get
+    source: commerce_customer_billing_profile_id
+  order_items:
+    plugin: migration_lookup
+    migration: bg_order_item
+    source: commerce_line_items
+  cart:
+    plugin: static_map
+    source: status
+    default_value: false
+    map:
+      cart: true
+  created: created
+  changed: changed
+  placed:
+    -
+      plugin: skip_on_value
+      method: process
+      source: '@state'
+      value:
+        - draft
+        - cancelled
+    -
+      plugin: get
+      source: created
+  completed:
+    -
+      plugin: skip_on_value
+      method: process
+      not_equals: true
+      source: '@state'
+      value: completed
+    -
+      plugin: get
+      source: changed
+  mail: mail
+  payment_method: transaction_id
+  payment_gateway:
+    plugin: default_value
+    default_value: authorize
+  data/refresh_state: refresh_state
+  store_id:
+    plugin: default_value
+    source: default_store_id
+    default_value: 1
+destination:
+  plugin: 'entity:commerce_order'
+  destination_module: commerce_order
+migration_dependencies: null

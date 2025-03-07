@@ -1,0 +1,60 @@
+id: bg_payment
+label: Commerce payment
+migration_tags:
+  - Drupal 7
+  - Commerce
+  - Content
+source:
+  plugin: bg_payment
+#  constants:
+#    type: payment_manual
+process:
+  # If you are using this file to build a custom migration consider removing
+  # the payment_id field to allow incremental migrations.
+  payment_id: transaction_id
+  payment_gateway:
+    plugin: default_value
+    default_value: 'authorize'
+  # Migrated payments are considered historical and should not initiate real
+  # transactions; therefore the manual payment gateway is used.
+  type:
+    plugin: default_value
+    default_value: 'acceptjs'
+  order_id: order_id
+  amount : amount
+  refunded_amount : refunded_amount
+#  amount :
+#    - plugin: skip_on_empty
+#      source: amount
+#      method: process
+#    - plugin: skip_on_condition
+#      source: amount
+#      condition:
+#        plugin: equals
+#        strict: true
+#        value: 0
+#      method: process
+#  refunded_amount :
+#    plugin: skip_on_empty
+#    source: refunded_amount
+#    method: process
+
+  state:
+      plugin: static_map
+      source: status
+      default_value: 'voided'
+      map:
+        pending: 'pending'
+        success: 'completed'
+        failure: 'voided'
+  completed: created
+  remote_id : remote_id
+  expires :
+    plugin: default_value
+    default_value: '0'
+destination:
+#  plugin: entity:commerce_payment
+  plugin:  entity:commerce_payment
+
+  destination_module: commerce_payment
+

@@ -1,0 +1,49 @@
+id: bg_payment_method
+label: Commerce payment method
+migration_tags:
+  - Drupal 7
+  - Commerce
+  - Content
+source:
+  plugin: bg_payment_method
+
+process:
+#  method_id : card_id
+  type:
+    plugin: default_value
+    default_value: 'credit_card'
+
+  uid: uid
+  payment_gateway:
+    plugin: default_value
+    default_value: 'authorize'
+  remote_id : remote_id
+  billing_profile/target_id: commerce_cardonfile_profile_profile_id
+  expires: expires
+  created: created
+  changed: changed
+  card_exp_month/value:
+    plugin: get
+    source: card_exp_month
+  card_exp_year/value:
+    plugin: get
+    source: card_exp_year
+  card_number/value:
+    plugin: get
+    source: card_number
+
+  card_type/value:
+#    - plugin: get
+#      source: card_type
+    - plugin: skip_on_condition
+      source: card_type
+      condition:
+        plugin: equals
+        strict: true
+        value: 'card'
+      method: process
+
+destination:
+  plugin:  entity:commerce_payment_method
+  destination_module: commerce_payment
+

@@ -1,17 +1,20 @@
-uuid: cc012d12-017f-4d44-9316-0d1e576985ea
+uuid: fe3d6026-5b4a-4d05-9bb0-83b34f772abf
 langcode: en
 status: true
 dependencies:
   module:
-    - media
+    - file
     - node
 id: node.field_documentation_file
 field_name: field_documentation_file
 entity_type: node
-type: entity_reference
+type: file
 settings:
-  target_type: media
-module: core
+  target_type: file
+  display_field: false
+  display_default: false
+  uri_scheme: public
+module: file
 locked: false
 cardinality: 1
 translatable: true

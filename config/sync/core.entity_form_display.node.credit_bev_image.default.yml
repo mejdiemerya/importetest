@@ -7,9 +7,12 @@ dependencies:
     - field.field.node.credit_bev_image.field_credits
     - field.field.node.credit_bev_image.field_image_landscape
     - field.field.node.credit_bev_image.field_image_portrait
+    - field.field.node.credit_bev_image.field_image_portrait_v2
+    - image.style.thumbnail
     - node.type.credit_bev_image
   module:
     - content_moderation
+    - image
     - media_library
     - path
 id: node.credit_bev_image.default
@@ -56,6 +59,21 @@ content:
     region: content
     settings:
       media_types: {  }
+    third_party_settings: {  }
+  field_image_portrait_v2:
+    type: image_image
+    weight: 15
+    region: content
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
     third_party_settings: {  }
   moderation_state:
     type: moderation_state_default

@@ -8,11 +8,14 @@ dependencies:
     - field.field.node.credit_checklist.field_credit_tip_type
     - field.field.node.credit_checklist.field_credits
     - field.field.node.credit_checklist.field_image_landscape
+    - field.field.node.credit_checklist.field_image_landscape_v2
     - field.field.node.credit_checklist.field_image_portrait
+    - field.field.node.credit_checklist.field_image_portrait_v2
     - field.field.node.credit_checklist.field_project_phase
     - field.field.node.credit_checklist.field_who_does_it
     - node.type.credit_checklist
   module:
+    - image
     - text
 id: node.credit_checklist.default
 targetEntityType: node
@@ -51,6 +54,17 @@ content:
     third_party_settings: {  }
     weight: 106
     region: content
+  field_image_landscape_v2:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 106
+    region: content
   field_image_portrait:
     type: entity_reference_entity_view
     label: above
@@ -59,6 +73,17 @@ content:
       link: false
     third_party_settings: {  }
     weight: 105
+    region: content
+  field_image_portrait_v2:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 107
     region: content
   field_project_phase:
     type: entity_reference_label
@@ -82,6 +107,10 @@ content:
     weight: 100
     region: content
 hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   field_credits: true
+  langcode: true
   search_api_excerpt: true
   uid: true
