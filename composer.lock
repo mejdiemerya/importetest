@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e2b8dd3ba9b9ede68c5efc30f6b8ed45",
+    "content-hash": "acf8273d2324d491b987f52e3e8280f1",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -64,10 +64,10 @@
         },
         {
             "name": "buildingreen/rate",
-            "version": "3",
+            "version": "3.2",
             "dist": {
                 "type": "zip",
-                "url": "https://git.drupalcode.org/project/rate/-/archive/3.0.x/rate-3.0.x.zip"
+                "url": "https://git.drupalcode.org/project/rate/-/archive/3.2.x/rate-3.2.x.zip"
             },
             "type": "drupal-module"
         },
