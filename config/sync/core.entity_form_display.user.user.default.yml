@@ -18,6 +18,7 @@ dependencies:
     - field.field.user.user.field_gbci_email
     - field.field.user.user.field_gbci_number
     - field.field.user.user.field_hide_email
+    - field.field.user.user.field_id_in_d7
     - field.field.user.user.field_ilfi_member
     - field.field.user.user.field_last_mailchimp_sync_date
     - field.field.user.user.field_last_name
@@ -163,6 +164,13 @@ content:
     region: content
     settings:
       display_label: true
+    third_party_settings: {  }
+  field_id_in_d7:
+    type: number
+    weight: 32
+    region: content
+    settings:
+      placeholder: ''
     third_party_settings: {  }
   field_ilfi_member:
     type: boolean_checkbox

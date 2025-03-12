@@ -24,9 +24,36 @@ function bg_user_api_user_presave($account) {
 
 function bg_user_api_form_alter(&$form, &$form_state,$form_id) {
 
+
+  if($form_id == "user_register_form"){
+    $form['actions']['submit']['#submit'][]  = ('bg_user_api_user_register_form_submit') ;
+
+  }
   if($form_id == "commerce_checkout_flow_multistep_default"){
     $form['#submit'][]  = ('bg_user_api_form_commerce_checkout_form_registration_submit') ;
 
+  }
+}
+/**
+ * Implements bg_user_api_user_register_form_submit()
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ */
+function bg_user_api_user_register_form_submit(&$form, &$form_state) {
+
+
+  $post_fields['name'] = $form_state->getValue('name') ;
+  $post_fields['mail'] = $form_state->getValue('mail') ;
+  $post_fields['pass'] = $form_state->getValue('pass') ;
+  $post_fields['roles'] = array(18); // 18 = pre-authorized
+  $result = sendHttpRequest($post_fields);
+  if (!empty($result)){
+    $arrayResult = json_decode($result,true);
+    if (!empty($arrayResult['uid'])){
+      /** @var \Drupal\user\Entity\User $user */
+      $user = user_load_by_mail($post_fields['mail']);
+      $user->set('field_id_in_d7', $arrayResult['uid']);
+      $user->save();
+    }
   }
 }
 /**
@@ -41,7 +68,7 @@ if(!empty($form_state->getValue('login')) && !empty($form_state->getValue('login
   $values = $form_state->getValue('login')['register'];
   $post_fields['name'] = $values['name'];
   $post_fields['mail'] = $values['mail'];
-  $post_fields['pass'] = $values['name'];
+  $post_fields['pass'] = $values['pass'];
   $post_fields['roles'] = array(18); // 18 = pre-authorized
   $result = sendHttpRequest($post_fields);
   if (!empty($result)){
@@ -68,7 +95,7 @@ function sendHttpRequest(  $post_fields = null ,$method= 'post'){
     return NULL;
   }
   if($method == 'put'){
-    $url = $api_url.$post_fields['uid'];
+    $url = $api_url.'/'.$post_fields['uid'];
     $uid = $post_fields['uid'];
     unset($post_fields['uid']);
    // dd(json_encode($post_fields));
@@ -82,11 +109,11 @@ function sendHttpRequest(  $post_fields = null ,$method= 'post'){
         ],
       ])->getBody()->getContents();
     \Drupal::logger('bg_user_api')->debug(
-      'Update user id '.$uid.' </br>Result update user to d7: <pre>@placeholder_name</pre>',
+      'Update user id '.$uid.'<br> Api url :'.$url.' </br>Result update user to d7: <pre>@placeholder_name</pre>',
       array('@placeholder_name' => print_r( $response, TRUE))
     );
   }else{
-    $url = $api_url;
+    $url = $api_url.'/register';
     $response = \Drupal::httpClient()
       ->post($url, [
         'auth' => [$api_user , $api_password],
@@ -97,7 +124,8 @@ function sendHttpRequest(  $post_fields = null ,$method= 'post'){
         ],
       ])->getBody()->getContents();
     \Drupal::logger('bg_user_api')->debug(
-      'Adding user email '.$post_fields['mail'].' </br>Result add user to d7: <pre>@placeholder_name</pre>',
+
+      '<br>Adding user email '.$post_fields['mail'].'<br> Api url :'.$url.' </br>Result add user to d7: <pre>@placeholder_name</pre>',
       array('@placeholder_name' => print_r( $response, TRUE))
     );
   }

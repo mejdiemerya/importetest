@@ -6,10 +6,12 @@ dependencies:
     - field.field.node.credit_cost_guidance.body
     - field.field.node.credit_cost_guidance.field_credit_labels
     - field.field.node.credit_cost_guidance.field_credits
-    - field.field.node.credit_cost_guidance.field_image_landscape
+    - field.field.node.credit_cost_guidance.field_image_landscape_v2
     - field.field.node.credit_cost_guidance.field_image_portrait
+    - field.field.node.credit_cost_guidance.field_image_portrait_v2
     - node.type.credit_cost_guidance
   module:
+    - image
     - text
 id: node.credit_cost_guidance.default
 targetEntityType: node
@@ -39,12 +41,14 @@ content:
     third_party_settings: {  }
     weight: 10
     region: content
-  field_image_landscape:
-    type: entity_reference_entity_view
+  field_image_landscape_v2:
+    type: image
     label: above
     settings:
-      view_mode: default
-      link: false
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
     weight: 106
     region: content
@@ -57,11 +61,26 @@ content:
     third_party_settings: {  }
     weight: 105
     region: content
+  field_image_portrait_v2:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 107
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 100
     region: content
 hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
   search_api_excerpt: true
   uid: true

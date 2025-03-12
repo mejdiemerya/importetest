@@ -61,7 +61,7 @@ process:
 #
 #    source: style_parent
 
-
-migration_dependencies: {}
+#
+#migration_dependencies: {}
 
 

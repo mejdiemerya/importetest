@@ -1,0 +1,62 @@
+id: bg_license
+label: Commerce license
+migration_tags:
+  - Drupal 7
+  - Commerce
+  - Content
+source:
+  plugin: bg_license
+process:
+  license_id: license_id
+  type:
+    plugin: static_map
+    source: type
+    map:
+      file: commerce_file
+      buildinggreen_license: role
+  uid : uid
+#  state :
+#    plugin: default_value
+#    default_value: 'new'
+  state:
+    plugin: static_map
+    source: status
+    map:
+#      4: 'revoked'
+#      3: 'expired'
+      2: 'active'
+#      1: 'pending'
+#      0: 'new'
+  product_variation :
+    plugin: static_map
+    source: product_id
+    map:
+      11: 5 #BGPRM-MI
+      77: 10 #LUPRM-MI
+      216: 13 #LUPNW-LDSW
+      70: 11 #LUPRM-YI
+      220: 4 #BGPNG-WELL-AP-Dv2
+      131: 6 #LUPNG-V4AP-SITE
+      81: 7 #LUPNG-V4AP
+      218: 8 #BGPNG-WELL-APv2
+      80: 9 #LUPNG-V4GA
+  expiration_type/target_plugin_id:
+    plugin: default_value
+    default_value: 'unlimited'
+#  expiration_type__target_plugin_configuration: expiration_type__target_plugin_configuration
+  created: created
+  granted: granted
+  renewed: renewed
+  changed: changed
+  originating_order : originating_order
+  license_role/entity_id:
+    plugin: get
+    source: license_id
+  license_role/target_id:
+    plugin: get
+    source: role_name
+
+
+destination:
+  plugin: 'entity:commerce_license'
+  destination_module: commerce_license

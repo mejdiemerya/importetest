@@ -1,0 +1,32 @@
+# Migration configuration for user accounts. We've described most of what goes
+# into migration configuration in migrate_plus.migration.beer_term.yml, so won't
+# repeat that here.
+id: credit_documentation_entry
+label: credit_documentation_entry
+source:
+  plugin: credit_documentation_entry_node
+destination:
+  plugin: entity:node
+process:
+  type:
+    plugin: default_value
+    default_value: 'credit_documentation_entry'
+  title: title
+  nid: nid
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+  field_documentation_file:
+    plugin: get
+    source: myfile
+
+
+  field_documentation_type:
+    plugin: get
+    source: field_documentation_type_tid
+
+dependencies:
+  enforced:
+    module:
+      - migrate_drupal

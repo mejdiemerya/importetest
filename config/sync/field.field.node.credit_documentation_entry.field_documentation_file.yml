@@ -1,11 +1,12 @@
-uuid: 4c329e94-aa66-40fe-9e95-920d625af324
+uuid: a20fa448-b347-41fa-a1cb-71e5045e450c
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_documentation_file
-    - media.type.document
     - node.type.credit_documentation_entry
+  module:
+    - file
 id: node.credit_documentation_entry.field_documentation_file
 field_name: field_documentation_file
 entity_type: node
@@ -17,13 +18,10 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:media'
-  handler_settings:
-    target_bundles:
-      document: document
-    sort:
-      field: _none
-      direction: ASC
-    auto_create: false
-    auto_create_bundle: ''
-field_type: entity_reference
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'txt pdf doc docx xls xlsx rtf'
+  max_filesize: ''
+  description_field: false
+field_type: file

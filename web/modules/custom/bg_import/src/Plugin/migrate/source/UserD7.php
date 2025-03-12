@@ -66,31 +66,11 @@ public function createIfNotExist($filepath) {
 
 
 }
-public function copyPicture($uid) {
-  $file_system = \Drupal::service('file_system');
-  $userPicture = $this->getPicture($uid);
-  if(!$userPicture || empty($userPicture)){
-    return -1;
-  }
-  if(!empty($userPicture->uri) && file_exists($file_system->realpath($userPicture->uri))){
-    //$userPicture->uri =   $file_system->copy($imgFileToCopy, "public://user_pictures/img_user_none".time().".png");
-//    var_dump($userPicture->uri);
-//    var_dump($uid);
-    $userPicture->uri =   $file_system->copy($userPicture->uri, 'public://user_pictures/' . basename($userPicture->uri));
-    $file = File::create([
-      'filename' => basename($userPicture->uri),
-      'uri' => 'public://user_pictures/' . basename($userPicture->uri),
-      'status' => 1,
-      'uid' => $uid,
-    ]);
-    return  $file->save();
-  }
-  return -1;
-}
+
 public function createPicture($uid) {
   $file_system = \Drupal::service('file_system');
   $userPicture = $this->getPicture($uid);
-  if(!$userPicture || empty($userPicture)){
+  if(!$userPicture || empty($userPicture) || empty($userPicture->uri)){
     return -1;
   }
   ////$imgFileToCopy = "public://"
@@ -232,11 +212,13 @@ public function createPicture($uid) {
 
 
     //$fileId = $this->copyPicture($uid);
+
     $fileId = $this->createPicture($uid);
     if($fileId != -1){
-     // var_dump($uid.'--'.$fileId);
       $row->setSourceProperty('picture', $fileId);
       //$row->setSourceProperty('picture', $fileId);
+    }else{
+      $row->setSourceProperty('picture', null);
     }
     // on importe les roles
     $query = $this->select('users_roles', 'r');
