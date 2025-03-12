@@ -202,3 +202,5 @@ if (empty($settings['file_scan_ignore_directories'])) {
     'bower_components',
   ];
 }
+
+ini_set('memory_limit', '512M');
