@@ -1,0 +1,78 @@
+uuid: 2e3deeca-e7dc-4380-8bc6-cf762d094820
+langcode: en
+status: true
+dependencies: {  }
+id: bg_order_item
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Commerce
+  - Content
+migration_group: null
+label: 'Commerce order item'
+source:
+  plugin: bg_line_item
+process:
+  order_item_id: line_item_id
+  revision_id: revision_id
+  type:
+    plugin: static_map
+    source: status
+    map:
+      invoiced: default
+      recurring_open: recurring_product_variation
+  uid: uid
+  order_id: order_id
+  status: status
+  created: created
+  changed: changed
+  title: title_product
+  unit_price: unit_price
+  total_price: total
+  billing_period/starts:
+    plugin: get
+    source: formatted_time_start
+  billing_period/ends:
+    plugin: get
+    source: formatted_time_end
+  license/bundle:
+    plugin: default_value
+    default_value: default
+  license/target_id:
+    plugin: get
+    source: cl_billing_license_target_id
+  subscription/target_id:
+    -
+      plugin: get
+      source: cl_billing_license_target_id
+  purchased_entity:
+    plugin: static_map
+    source: line_item_label
+    map:
+      BGPRM-MI: 5
+      LUPRM-MI: 10
+      LUPNW-LDSW: 13
+      LUPRM-YI: 8
+      BGPNG-WELL-AP-Dv2: 220
+      LUPNG-V4AP-SITE: 131
+      LUPNG-V4AP: 81
+      BGPNG-WELL-APv2: 218
+      LUPNG-V4GA: 80
+  quantity: quantity
+  adjustments:
+    -
+      plugin: commerce1_order_item_discount_adjustment
+      source: order_components/0/data/components
+    -
+      plugin: commerce_adjustments
+  uses_legacy_adjustments:
+    plugin: default_value
+    default_value: false
+destination:
+  plugin: 'entity:commerce_order_item'
+  destination_module: commerce_order
+  optional:
+    - d7_field_instance
+migration_dependencies: null

@@ -7,7 +7,10 @@ dependencies:
     - field.field.node.credit_bev_image.field_credits
     - field.field.node.credit_bev_image.field_image_landscape
     - field.field.node.credit_bev_image.field_image_portrait
+    - field.field.node.credit_bev_image.field_image_portrait_v2
     - node.type.credit_bev_image
+  module:
+    - image
 id: node.credit_bev_image.default
 targetEntityType: node
 bundle: credit_bev_image
@@ -47,11 +50,26 @@ content:
     third_party_settings: {  }
     weight: 105
     region: content
+  field_image_portrait_v2:
+    type: image
+    label: above
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 107
+    region: content
   links:
     settings: {  }
     third_party_settings: {  }
     weight: 100
     region: content
 hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
   search_api_excerpt: true
   uid: true

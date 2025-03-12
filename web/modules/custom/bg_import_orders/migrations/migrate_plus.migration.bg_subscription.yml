@@ -1,0 +1,55 @@
+id: bg_subscription
+label: Commerce subscription
+migration_tags:
+  - Drupal 7
+  - Commerce
+  - Content
+source:
+  plugin: bg_subscription
+process:
+  title : product_title
+  subscription_id:
+    plugin: get
+    source: license_id
+  type:
+    plugin: default_value
+    default_value: 'product_variation'
+  uid : uid
+  store_id:
+    plugin: default_value
+    default_value: '1'
+  billing_schedule:
+    plugin: get
+    source: billing_schedule
+  payment_method:
+    plugin: default_value
+    default_value: '1'
+  purchased_entity:
+    plugin: static_map
+    source: product_id
+    map:
+      11: 5 #BGPRM-MI
+      77: 10 #LUPRM-MI
+      216: 13 #LUPNW-LDSW
+      70: 11 #LUPRM-YI
+      220: 4 #BGPNG-WELL-AP-Dv2
+      131: 6 #LUPNG-V4AP-SITE
+      81: 7 #LUPNG-V4AP
+      218: 8 #BGPNG-WELL-APv2
+      80: 9 #LUPNG-V4GA
+
+  unit_price: unit_price
+  state:
+    plugin: default_value
+    default_value: 'active'
+  initial_order : originating_order
+  created: granted
+  changed: granted
+  next_renewal: expires
+  starts: granted
+  orders/target_id: originating_order
+
+
+destination:
+  plugin: 'entity:commerce_subscription'
+  destination_module: commerce_subscription

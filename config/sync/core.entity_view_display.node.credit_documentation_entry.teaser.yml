@@ -12,14 +12,6 @@ targetEntityType: node
 bundle: credit_documentation_entry
 mode: teaser
 content:
-  field_documentation_file:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: content
   field_documentation_type:
     type: entity_reference_label
     label: hidden
@@ -29,6 +21,11 @@ content:
     weight: 0
     region: content
 hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_documentation_file: true
+  langcode: true
   links: true
   search_api_excerpt: true
   uid: true

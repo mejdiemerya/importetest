@@ -1,0 +1,143 @@
+id: bg_commerce_order
+label: Commerce order
+migration_tags:
+  - Drupal 7
+  - Commerce
+  - Content
+#class: Drupal\bg_import_orders\Plugin\migrate\Order
+source:
+  plugin: bg_commerce_order
+process:
+  # If you are using this file to build a custom migration consider removing
+  # the order_id field to allow incremental migrations.
+  order_id: order_id
+  order_number: order_number
+  revision_id: revision_id
+  type: type
+  billing_period/starts:
+    plugin: get
+    source: start
+  billing_period/ends:
+    plugin: get
+    source: end
+#    plugin: static_map
+#    source: type
+#    default_value: default
+#    map:
+#      commerce_order: default
+  uid: uid
+  ip_address: hostname
+  state: status
+  total_price: total
+
+
+  billing_profile/target_id:
+    plugin: get
+    source:  commerce_customer_billing_profile_id
+  billing_profile/target_revision_id:
+    plugin: get
+    source: commerce_customer_billing_profile_id
+
+
+#  billing_profile/target_revision_id:
+#    plugin: migration_lookup
+#    migration:
+#      - bg_profile
+#    source: commerce_customer_billing_profile_id
+#    index: 0
+  #  billing_profile/target_id:
+#    plugin: get
+#    source: commerce_customer_billing_profile_id
+#  billing_profile/target_revision_id:
+#    plugin: get
+#    source: commerce_customer_billing_profile_id
+#  billing_profile/target_id:
+#    plugin: migration_lookup
+#    migration: bg_profile
+#    source: commerce_customer_billing_profile_id
+#    no_stub: true
+#    source_ids:
+#      bg_profile:
+#        - target_id
+#  billing_profile/target_id:
+#    plugin: migration_lookup
+#    allow_multiple: true
+#    migration: bg_profile
+#    source: commerce_customer_billing_profile_id
+#
+#  billing_profile/target_id:
+#    plugin: get
+#    source: commerce_customer_billing_profile_id
+#  billing_profile/target_revision_id:
+#    plugin: get
+#    source: commerce_customer_billing_profile_id
+#  billing_profile/target_revision_id:
+#    plugin: migration_lookup
+#    allow_multiple: true
+#    migration: bg_profile
+#    source: commerce_customer_billing_profile_id
+
+#    plugin: get
+#    source: commerce_customer_billing_profile_id
+  order_items:
+    plugin: migration_lookup
+    migration: bg_order_item
+    source: commerce_line_items
+
+  cart:
+    plugin: static_map
+    source: status
+    default_value: false
+    map:
+      cart: true
+  created: created
+  changed: changed
+  # Set the placed time only if not draft or cancelled.
+  placed:
+    -
+      plugin: skip_on_value
+      method: process
+      source: '@state'
+      value:
+        - draft
+        - cancelled
+    -
+      plugin: get
+      source: created
+  # Set the completed time only if completed
+  completed:
+    -
+      plugin: skip_on_value
+      method: process
+      not_equals: true
+      source: '@state'
+      value: completed
+    -
+      plugin: get
+      source: changed
+  mail: mail
+  payment_method : transaction_id
+  payment_gateway  :
+    plugin: default_value
+    default_value: 'authorize'
+  # Do not refresh the order during migration.
+  data/refresh_state: refresh_state
+  store_id:
+    plugin: default_value
+    source: default_store_id
+    default_value: 1
+#  adjustments:
+#    -
+#      plugin: commerce1_order_adjustment_shipping
+#      source: shipping_line_items
+#    -
+#      plugin: commerce_adjustments
+destination:
+  plugin: 'entity:commerce_order'
+  destination_module: commerce_order
+#migration_dependencies:
+#  required:
+#    - bg_order_item
+#    - bg_profile
+#  optional:
+#    - d7_field_instance

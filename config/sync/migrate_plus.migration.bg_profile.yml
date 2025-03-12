@@ -1,0 +1,46 @@
+uuid: 68a8a9a5-5989-44b1-8b74-b6a0e3c5a1df
+langcode: en
+status: true
+dependencies: {  }
+id: bg_profile
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags:
+  - 'Drupal 7'
+  - Commerce
+  - Content
+migration_group: null
+label: 'Commerce customer profile'
+source:
+  plugin: bg_profile
+  profile_type:
+    - billing
+    - shipping
+process:
+  profile_id: profile_id
+  revision_id: myrevisionid
+  type:
+    plugin: static_map
+    source: type
+    bypass: true
+    map:
+      billing: customer
+  uid: uid
+  address: profile_address
+  status: status
+  is_default:
+    plugin: callback
+    callable: is_string
+    source: cadtype
+  created: created
+  changed: changed
+  data: data
+destination:
+  plugin: 'entity:profile'
+  destination_module: profile
+migration_dependencies:
+  required:
+    - user_d7
+  optional:
+    - d7_field_instance
