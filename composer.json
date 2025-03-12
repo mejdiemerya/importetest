@@ -18,11 +18,11 @@
             "package": {
                 "name": "buildingreen/rate",
                 "type": "drupal-module",
-                "version": "3",
+                "version": "3.2",
 
                 "dist": {
                     "type": "zip",
-                    "url": "https://git.drupalcode.org/project/rate/-/archive/3.0.x/rate-3.0.x.zip"
+                    "url": "https://git.drupalcode.org/project/rate/-/archive/3.2.x/rate-3.2.x.zip"
                 }
             }
         }
@@ -30,7 +30,7 @@
 
     ],
     "require": {
-        "buildingreen/rate": "^3.0",
+        "buildingreen/rate": "^3.2",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
         "dompdf/dompdf": "^3.1",
@@ -102,6 +102,8 @@
         "drupal/webform": "^6.3@beta",
         "drush/drush": "^13.3",
         "kint-php/kint": "^6.0",
+        "pantheon-se/node-composer": "^2.1",
+        "pantheon-systems/drupal-integrations": "^11.1",
         "phpmailer/phpmailer": "^6.9"
     },
     "conflict": {
@@ -116,10 +118,16 @@
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
+            "pantheon-se/node-composer": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true
         },
         "sort-packages": true
+    },
+    "scripts": {
+        "post-install-cmd": ["@build"],
+        "post-update-cmd": ["@build"],
+        "build": "cd web/themes/custom/buildinggreen/front_app && ../../../../../vendor/bin/npm install && ../../../../../vendor/bin/npm run build"
     },
     "extra": {
         "drupal-scaffold": {
@@ -160,9 +168,6 @@
             "drupal/core": {
                 "Add Exception for TypeError Argument must be String in \\Drupal\\Component\\Utility\\Html escape{}\n":"https://www.drupal.org/files/issues/2024-11-07/TypeError_htmlspecialchars_ArgumentNustBeTypeString_ArrayGiven-3352384-62.patch"
 
-            },
-            "buildingreen/rate": {
-                "Automated Drupal 11 compatibility fixes for rate\n": "https://www.drupal.org/files/issues/2024-05-21/rate.3.1.0.rector.patch"
             }
         },
         "drupal-core-project-message": {
@@ -185,6 +190,11 @@
                 "  * Remove the plugin that prints this message:",
                 "      composer remove drupal/core-project-message"
             ]
+        },
+        "pantheon-se": {
+            "node-composer": {
+                "node-version": "18.20.5"
+            }
         }
     }
 }
