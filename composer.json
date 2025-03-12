@@ -80,6 +80,7 @@
         "drupal/pathauto": "^1.13",
         "drupal/quick_links": "^2.0",
         "drupal/quiz": "^7.0",
+        "drupal/reroute_email": "^2.3@RC",
         "drupal/restui": "^1.22",
         "drupal/rules": "^4.0",
         "drupal/salesforce": "^5.1",
