@@ -79,8 +79,19 @@
           <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
         {% endif %}
           <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'credit_id':content.title_forum['#credit_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
-          <a type="button" class="btn btn-light btn-wrap" href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}"><i class="glyphicon glyphicon-leaf"></i> <div>See LEEDuser&rsquo;s guidance on {{ content.title_forum['#text'] }}>&nbsp;&raquo;</div></a>
+          <a type="button" class="btn btn-light btn-wrap" href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}"><i class="glyphicon glyphicon-leaf"></i> <div>See LEEDuser&rsquo;s guidance on {{ content.title_forum['#text'] }}&raquo;</div></a>
       </div>
+      {% if credit_faqs|length > 0 %}
+        <div class="faqs mt10">
+          <h5 class="mt0">FAQs about {{ content.title_forum['#name'] }} :</h5>
+
+          {% for credit_faq in credit_faqs %}
+            <p><a href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}#tab-faq">{{ credit_faq.title }}</a></p>
+          {% endfor %}
+
+          <p><strong style="font-style: normal;"><a href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}#tab-faq">View answers</a> &raquo;</strong></p>
+        </div>
+      {% endif %}
 
 
     {% elseif content.title_forum['#tipsheet'] %}
@@ -134,7 +145,11 @@
 
       <div class="post-text">
         <div class="meta mb10 hidden-xs">
+          {% if content.field_project_location['#markup'] is not empty %}
+
           <div class="location float-end d-flex align-items-center">Project location: {{ content.field_project_location }}</div>
+          {% endif %}
+
           <p class="date"><span class="glyphicon glyphicon-time"></span>{{ date}} </p>
         </div>
         {{content.field_question}}
@@ -151,7 +166,7 @@
       {% if not logged_in %}
         <div class="margin-bottom-x well well-success mt-2">
           <h4 class="title comment-form">Add new comment</h4>
-          <p class="small line-snug">To post a comment, you need to <a href="/signup/#comments">register for a LEEDuser Basic membership</a> (free) or <a href="#" data-toggle="modal" data-target="#login-modal">login to your existing profile</a>.</p>
+          <p class="small line-snug">To post a comment, you need to <a href="/signup/#comments">register for a LEEDuser Basic membership</a> (free) or <a href="{{ path('user.login') }}" data-toggle="modal" data-target="#login-modal">login to your existing profile</a>.</p>
         </div>
         {% else %}
       <div id="comments" class="comment-wrapper magnify">

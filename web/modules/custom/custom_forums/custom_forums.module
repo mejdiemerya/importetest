@@ -138,6 +138,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
         'tipsheet' => false,
         'text' => '', // Placeholder for text
         'title' => '',
+        'name'=>''
       ];
       // Initialize credit and tipsheet IDs.
       $credit_id = NULL;
@@ -159,6 +160,9 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       if (!empty($entity->get('field_credits')->target_id)) {
         $credit_id = $entity->get('field_credits')->target_id;
         if ($credit_id) {
+          $term = $entity->get('field_credits')->entity;
+          $credit_name = $term->getName();
+          $result['name'] = $credit_name;
           $label = getCreditFilterLabel($credit_id);
           $link = Url::fromRoute('entity.taxonomy_term.canonical', ['taxonomy_term' => $credit_id])->toString();
           $result['markup'] = sprintf('<a href="%s"><strong>%s:</strong><em>%s</em></a><br>', $link, $label['title'], $label['description']);
@@ -194,7 +198,8 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
         '#credit' => $result['credit'], // Include the credit flag.
         '#tipsheet' => $result['tipsheet'], // Include the tipsheet flag.
         '#text' => $result['text'], // Include the text.
-        '#title' => $result['title']
+        '#title' => $result['title'],
+        '#name' => $result['name'],
 
       ];
     }
@@ -291,25 +296,27 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
   }
   // Check if the entity is a user.
   if ($entity->getEntityTypeId() === 'user') {
-
-    // Load the user roles.
-    $roles = $entity->getRoles();
-
-    // Filter to include only 'lu_premium' and 'lu_guest_expert'.
-    $roles = array_filter($roles, function ($role_id) {
-      return in_array($role_id, ['lu_premium', 'lu_guest_expert']);
-    });
-
-    // Load role entities for the remaining role IDs.
-    $role_entities = Role::loadMultiple($roles);
-
-    // Build a comma-separated list of role labels.
     $role_labels = [];
-    foreach ($role_entities as $role) {
-      $role_labels[] = $role->label();
+
+    // Load and filter the user roles.
+    $roles = $entity->getRoles();
+    $has_guest_expert = in_array('lu_guest_expert', $roles);
+    $is_admin = in_array('administrator', $roles);
+
+    if ($entity->hasPermission('access leeduser premium content')) {
+      $role_labels[] = 'LEEDuser Premium Member';
     }
 
-    // Format roles for display if the 'roles' component exists.
+    if ($has_guest_expert) {
+      $role_entities = Role::loadMultiple(['lu_guest_expert']);
+      foreach ($role_entities as $role) {
+        $role_labels = [$role->label()];
+      }
+    }
+    if (!$has_guest_expert && !$is_admin) {
+      $role_labels = ['LEEDuser Basic Member'];
+    }
+
     if (!empty($role_labels) && $display->getComponent('roles')) {
       $build['roles'] = [
         '#markup' => '<div class="role_labels xsmall">' . implode(', ', $role_labels) . "</div>",
@@ -858,6 +865,11 @@ function custom_forums_entity_base_field_info_alter(&$fields, EntityTypeInterfac
   switch ($entity_type->id()) {
 
     case 'node':
+      $fields['created']->setDisplayConfigurable('view', TRUE)
+        ->setDisplayOptions('view', ['region' => 'hidden']);
+      $fields['uid']->setDisplayConfigurable('view', TRUE)
+        ->setDisplayOptions('view', ['region' => 'hidden']);
+      break;
     case 'comment':
       $fields['uid']->setDisplayConfigurable('view', TRUE)
         ->setDisplayOptions('view', ['region' => 'hidden']);
@@ -918,6 +930,7 @@ function custom_forums_preprocess_node(array &$variables)
 
       $subscription_credit_flag = $flag_service->getFlagById('subscription_credit');
       $credit_id = $variables['node']->get('field_credits')->target_id;
+      $variables['credit_faqs'] = _lu_content_get_credit_faqs($credit_id, 20);
       if ($credit_id) {
         $term = Term::load($credit_id);
         $is_flagged = $subscription_credit_flag->isFlagged($term);
@@ -1006,14 +1019,13 @@ function custom_forums_preprocess_page(&$variables)
 /**
  * Implements hook_theme().
  */
-function custom_forums_theme($existing, $type, $theme, $path)
-{
+function custom_forums_theme($existing, $type, $theme, $path) {
   return [
     'post_question_modal' => [
       'variables' => [
         'form' => NULL,
-        'is_authenticated' => NULL,
-        'is_anonymous' => NULL,
+        'is_authenticated'=>NULL,
+        'is_anonymous'=>NULL,
       ],
     ],
     'membership_promo_block' => [
@@ -1022,12 +1034,18 @@ function custom_forums_theme($existing, $type, $theme, $path)
     'membership_content_block' => [
       'variables' => [],
     ],
-    'doc_toolkit_tab' => [
+    'doc_toolkit_tab'=>[
       'variables' => [
         'documentation' => NULL,
-        'resources' => NULL,
+        'resources'=>NULL,
       ],
-    ]
+    ],
+    'email_safety_message' => [
+      'variables' => [],
+    ],
+    'sucess_signup' => [
+      'variables' => [],
+    ],
   ];
 }
 
@@ -1088,6 +1106,34 @@ function loadAllParentsModal($tid)
 
 
   return $parents;
+}
+function _lu_content_get_credit_faqs($term, $limit = 'all') {
+  $limit = is_numeric($limit) && intval($limit) > 0 ? intval($limit) : NULL;
+
+  $query = \Drupal::entityTypeManager()->getStorage('node')->getQuery()
+    ->condition('type', 'credit_faq')
+    ->condition('status', 1)
+    ->sort('created', 'DESC')
+    ->condition('field_credits.target_id', $term)->accessCheck(false);
+
+  if ($limit) {
+    $query->range(0, $limit);
+  }
+
+  $nids = $query->execute();
+
+  $faqs = [];
+  if (!empty($nids)) {
+    $nodes = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($nids);
+    foreach ($nodes as $node) {
+      $faqs[] = [
+        'nid' => $node->id(),
+        'title' => $node->label(),
+      ];
+    }
+  }
+
+ return $faqs;
 }
 
 function getTipsheetName($nid)
@@ -1473,4 +1519,6 @@ LEEDuser is a product of BuildingGreen, Inc.
 
   $mailManager->mail($module, $key, $to, $langcode, $params);
 }
+
+
 

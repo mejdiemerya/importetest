@@ -48,7 +48,17 @@ content:
   masquerade:
     settings: {  }
     third_party_settings: {  }
-    weight: 50
+    weight: 3
+    region: content
+  salesforce_id:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  salesforce_last_sync:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
     region: content
   user_picture:
     type: image
@@ -99,4 +109,6 @@ hidden:
   member_for: true
   roles: true
   search_api_excerpt: true
+  user_email_verification_verified: true
+  user_email_verification_verified_date: true
   user_name: true

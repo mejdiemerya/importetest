@@ -33,7 +33,7 @@ class MembershipBasicSignupForm extends FormBase {
       $step = (int) $step_request;
       $form_state->set('step', $step);
     }
-    
+
     $form['selector'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['row']],
@@ -189,7 +189,7 @@ class MembershipBasicSignupForm extends FormBase {
           'mail' => $email,
           'field_first_name' => $first_name,
           'field_last_name' => $last_name,
-          'roles' => ['lu_basic'],
+          'roles' => ['lu_basic','bg_basic'],
           'status' => 1,
         ]);
         $user->setPassword($password);

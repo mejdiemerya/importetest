@@ -3,10 +3,14 @@ langcode: en
 status: true
 dependencies:
   module:
+    - bg_product_cart
     - comment
+    - field_permissions
 id: bg_premium
 label: bg_premium
 weight: 22
 is_admin: null
 permissions:
+  - 'access premium content'
   - 'skip comment approval'
+  - 'view own field_website'

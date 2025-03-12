@@ -9,6 +9,7 @@ display:
           label: Title
         type:
           label: 'Type de contenu'
+          separator: ', '
         name:
           label: Auteur
         status:
@@ -20,6 +21,7 @@ display:
           label: 'Mis à jour'
         langcode:
           label: Langue
+          separator: ', '
         operations:
           label: Actions
       pager:
@@ -34,6 +36,8 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
+          sort_asc_label: Asc
+          sort_desc_label: Desc
       filters:
         title:
           expose:
@@ -54,6 +58,7 @@ display:
           expose:
             label: Langue
   page_1:
+    display_title: Page
     display_options:
       menu:
         title: Contenu

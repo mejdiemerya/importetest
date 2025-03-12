@@ -1,9 +1,12 @@
 uuid: 7a7db806-30bc-4fe5-955c-6bd5992e1eeb
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - bg_product_cart
 id: bg_trial
 label: bg_trial
 weight: 24
 is_admin: null
-permissions: {  }
+permissions:
+  - 'access premium content'

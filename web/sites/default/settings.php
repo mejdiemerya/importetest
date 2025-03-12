@@ -909,23 +909,16 @@ $databases['default']['default'] = array (
   'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
   'autoload' => 'core/modules/mysql/src/Driver/Database/mysql/',
 );
-$databases['migrate']['default']
 
-  = ['database' => 'db',
-
-  'username' => 'db',
-
-  'password' => 'db',
-
-  'prefix' => '',
-
-  'host' => 'ddev-buildgreen-db',
-
-  'port' => '3306',
-
-  'driver' => 'mysql',
-
-  'namespace' => 'Drupal\\mysql\\Driver\\Database\\mysql',
-
-];
 $settings['cache']['bins']['discovery_migration'] = 'cache.backend.memory';
+
+# CONFIG LIEES A PANTHEON
+$settings['container_yamls'][] = __DIR__ . '/services.yml';
+$settings['config_sync_directory'] = dirname(DRUPAL_ROOT) . '/config';
+include __DIR__ . "/settings.pantheon.php";
+$local_settings = __DIR__ . "/settings.local.php";
+if (file_exists($local_settings)) {
+  include $local_settings;
+}
+$settings['install_profile'] = 'standard';
+# FIN CONFIG PANTHEON

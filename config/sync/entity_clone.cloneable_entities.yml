@@ -89,3 +89,8 @@ cloneable_entities:
   - og_membership
   - og_membership_type
   - og_role
+  - salesforce_auth
+  - salesforce_mapped_object
+  - salesforce_mapping
+  - key
+  - key_config_override

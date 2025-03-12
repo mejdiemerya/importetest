@@ -12,6 +12,7 @@ dependencies:
     - commerce_checkout
     - commerce_product
     - contact
+    - field_permissions
     - filter
     - form_mode_manager
     - media
@@ -34,6 +35,7 @@ permissions:
   - 'use text format restricted_html'
   - 'use user.default form mode'
   - 'view e_membership_display commerce_product'
+  - 'view field_website'
   - 'view media'
   - 'view published modal_list_forums storage entities'
   - 'view published other_rating_systems storage entities'
