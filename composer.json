@@ -127,7 +127,7 @@
     "scripts": {
         "post-install-cmd": ["@build"],
         "post-update-cmd": ["@build"],
-        "build": "cd web/themes/custom/buildinggreen/front_app && ../../../../../vendor/bin/npm install && ../../../../../vendor/bin/npm run build"
+        "build": "cd web/themes/custom/buildinggreen/front_app && ../../../../../vendor/bin/npm install && ../../../../../vendor/bin/npm run init && ../../../../../vendor/bin/npm run build"
     },
     "extra": {
         "drupal-scaffold": {
