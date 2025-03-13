@@ -6,11 +6,13 @@ dependencies:
     - field.field.node.credit_resource.body
     - field.field.node.credit_resource.field_credit_labels
     - field.field.node.credit_resource.field_credits
+    - field.field.node.credit_resource.field_link
     - field.field.node.credit_resource.field_resource_type
     - field.field.node.credit_resource.field_sources
     - node.type.credit_resource
   module:
     - content_moderation
+    - link
     - path
     - text
 id: node.credit_resource.default
@@ -53,6 +55,14 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_link:
+    type: link_default
+    weight: 127
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
   field_resource_type:
     type: entity_reference_autocomplete
