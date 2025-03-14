@@ -1,0 +1,42 @@
+uuid: a238ed24-c0e2-4699-9e5b-855e5a798016
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.webcast.body
+    - field.field.node.webcast.field_liens
+    - field.field.node.webcast.field_presenters
+    - field.field.node.webcast.field_video
+    - node.type.webcast
+  module:
+    - text
+id: node.webcast.search_result
+targetEntityType: node
+bundle: webcast
+mode: search_result
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 300
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_liens: true
+  field_presenters: true
+  field_video: true
+  langcode: true
+  search_api_excerpt: true
+  uid: true

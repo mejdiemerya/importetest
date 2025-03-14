@@ -1,0 +1,65 @@
+uuid: fb0399ec-1955-4c31-864f-13f1673459b8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.webcast.body
+    - field.field.node.webcast.field_liens
+    - field.field.node.webcast.field_presenters
+    - field.field.node.webcast.field_video
+    - node.type.webcast
+  module:
+    - entity_reference_revisions
+    - link
+    - text
+id: node.webcast.default
+targetEntityType: node
+bundle: webcast
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_liens:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_presenters:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_video:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  links: true
+  search_api_excerpt: true
+  uid: true

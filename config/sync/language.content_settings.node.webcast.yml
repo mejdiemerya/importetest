@@ -1,0 +1,11 @@
+uuid: 6823ae9e-5d07-493d-b7fc-f52f39c5991b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.webcast
+id: node.webcast
+target_entity_type_id: node
+target_bundle: webcast
+default_langcode: site_default
+language_alterable: false
