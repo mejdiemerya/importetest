@@ -3,6 +3,7 @@
 
 use Drupal\comment\Entity\Comment;
 use Drupal\Core\Cache\CacheableMetadata;
+use Drupal\Core\Database\Query\Condition;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Form\FormStateInterface;
@@ -10,6 +11,7 @@ use Drupal\Core\Render\Markup;
 use Drupal\Core\Url;
 use Drupal\flag\FlaggingInterface;
 use Drupal\node\Entity\Node;
+use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
@@ -17,6 +19,9 @@ use Drupal\og\Og;
 use Drupal\Core\Mail\MailManagerInterface;
 use Drupal\Component\Utility\Html;
 use Drupal\Core\Language\LanguageInterface;
+use Drupal\views\Plugin\views\join\Standard;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\views\ViewExecutable;
 
 
 function custom_forums_entity_extra_field_info()
@@ -1040,6 +1045,11 @@ function custom_forums_theme($existing, $type, $theme, $path) {
         'resources'=>NULL,
       ],
     ],
+    'doc_toolkit_tipsheet'=>[
+      'variables' => [
+        'tipsheet' => NULL,
+      ],
+    ],
     'email_safety_message' => [
       'variables' => [],
     ],
@@ -1521,4 +1531,338 @@ LEEDuser is a product of BuildingGreen, Inc.
 }
 
 
+/**
+ * Implements hook_views_query_alter().
+ */
+function custom_forums_views_query_alter(ViewExecutable $view, QueryPluginBase $query)
+{
+  if ($view->id() == 'credit_page_tab_content') {
 
+    if (strpos($view->current_display, 'credit_bev') === 0) {
+
+      // Clear all existing conditions.
+      $query->where = [];
+
+      // Set group operator to OR.
+      $query->setGroupOperator('OR');
+
+      // Load the credit term and credit label.
+      $credit_term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($view->args[0]);
+      $credit_label = _lu_get_credit_label_from_credit($credit_term);
+
+      // Ensure the join uses the correct fields.
+      $join = new \Drupal\views\Plugin\views\join\Standard([
+        'table' => 'node__field_credit_labels',
+        'field' => 'entity_id',
+        'left_table' => 'node_field_data', // Correct table for node data in Drupal 10.
+        'left_field' => 'nid',  // Ensure the left_field is set correctly.
+      ], 'LEFT', 'node_field_data', 'nid');
+
+      // Add the relationship to the query.
+      $query->addRelationship('node__field_credit_labels', $join, 'node_field_data');
+
+      // Create a condition group for the AND conditions.
+      $existing_conditions = new Condition('AND');
+
+      // Add the published status check if the user does not have admin permission.
+      if (!\Drupal::currentUser()->hasPermission('administer site configuration')) {
+        $existing_conditions->condition('node_field_data.status', 1, '=');
+      }
+
+      // Add conditions based on field_credits and field_project_phase.
+      $existing_conditions->condition('node__field_credits.field_credits_target_id', $view->args[0], '=');
+
+      $existing_conditions->condition('node_field_data.type', ['credit_bev', 'credit_bev_image'], 'IN');
+
+      // Add the AND conditions to the query.
+      $query->addWhere(1, $existing_conditions);
+      if ($credit_label) {
+      // Create a condition group for the OR conditions.
+      $or_conditions = new Condition('AND');
+
+      // Add conditions for credit labels and project phase.
+      $or_conditions->condition('node__field_credit_labels.field_credit_labels_target_id', $credit_label->id(), '=');
+      $or_conditions->condition('node_field_data.type', ['credit_bev', 'credit_bev_image'], 'IN');
+
+      // Include unpublished nodes for admin users.
+      if (\Drupal::currentUser()->hasPermission('administer site configuration')) {
+        $or_conditions->condition('node_field_data.status', 1, '=');
+      }
+
+      // Add the OR conditions to the query.
+      $query->addWhere(2, $or_conditions);
+    }
+    }
+    if (strpos($view->current_display, 'credit_faq') === 0) {
+
+      // Clear all existing conditions.
+      $query->where = [];
+
+      // Set group operator to OR.
+      $query->setGroupOperator('OR');
+
+      // Load the credit term and credit label.
+      $credit_term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($view->args[0]);
+      $credit_label = _lu_get_credit_label_from_credit($credit_term);
+
+      // Ensure the join uses the correct fields.
+      $join = new \Drupal\views\Plugin\views\join\Standard([
+        'table' => 'node__field_credit_labels',
+        'field' => 'entity_id',
+        'left_table' => 'node_field_data', // Correct table for node data in Drupal 10.
+        'left_field' => 'nid',  // Ensure the left_field is set correctly.
+      ], 'LEFT', 'node_field_data', 'nid');
+
+      // Add the relationship to the query.
+      $query->addRelationship('node__field_credit_labels', $join, 'node_field_data');
+
+      // Create a condition group for the AND conditions.
+      $existing_conditions = new Condition('AND');
+
+      // Add the published status check if the user does not have admin permission.
+      if (!\Drupal::currentUser()->hasPermission('administer site configuration')) {
+        $existing_conditions->condition('node_field_data.status', 1, '=');
+      }
+
+      // Add conditions based on field_credits and field_project_phase.
+      $existing_conditions->condition('node__field_credits.field_credits_target_id', $view->args[0], '=');
+
+      $existing_conditions->condition('node_field_data.type', ['credit_faq'], 'IN');
+
+      // Add the AND conditions to the query.
+      $query->addWhere(1, $existing_conditions);
+      if ($credit_label) {
+        // Create a condition group for the OR conditions.
+        $or_conditions = new Condition('AND');
+
+        // Add conditions for credit labels and project phase.
+        $or_conditions->condition('node__field_credit_labels.field_credit_labels_target_id', $credit_label->id(), '=');
+        $or_conditions->condition('node_field_data.type', ['credit_faq'], 'IN');
+
+        // Include unpublished nodes for admin users.
+        if (\Drupal::currentUser()->hasPermission('administer site configuration')) {
+          $or_conditions->condition('node_field_data.status', 1, '=');
+        }
+
+        // Add the OR conditions to the query.
+        $query->addWhere(2, $or_conditions);
+      }
+    }
+    if (strpos($view->current_display, 'credit_checklist') === 0) {
+
+      // Clear all existing conditions.
+      $query->where = [];
+
+      // Set group operator to OR.
+      $query->setGroupOperator('OR');
+
+      // Load the credit term and credit label.
+      $credit_term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($view->args[0]);
+      $credit_label = _lu_get_credit_label_from_credit($credit_term);
+
+      // Ensure the join uses the correct fields.
+      $join = new \Drupal\views\Plugin\views\join\Standard([
+        'table' => 'node__field_credit_labels',
+        'field' => 'entity_id',
+        'left_table' => 'node_field_data', // Correct table for node data in Drupal 10.
+        'left_field' => 'nid',  // Ensure the left_field is set correctly.
+      ], 'LEFT', 'node_field_data', 'nid');
+
+      // Add the relationship to the query.
+      $query->addRelationship('node__field_credit_labels', $join, 'node_field_data');
+
+      // Create a condition group for the AND conditions.
+      $existing_conditions = new Condition('AND');
+
+      // Add the published status check if the user does not have admin permission.
+      if (!\Drupal::currentUser()->hasPermission('administer site configuration')) {
+        $existing_conditions->condition('node_field_data.status', 1, '=');
+      }
+
+      // Add conditions based on field_credits and field_project_phase.
+      $existing_conditions->condition('node__field_credits.field_credits_target_id', $view->args[0], '=');
+      $existing_conditions->condition('node__field_project_phase.field_project_phase_target_id', $view->args[1], '=');
+
+      $existing_conditions->condition('node_field_data.type', ['credit_checklist'], 'IN');
+
+      // Add the AND conditions to the query.
+      $query->addWhere(1, $existing_conditions);
+        // Create a condition group for the OR conditions.
+        $or_conditions = new Condition('AND');
+
+        // Add conditions for credit labels and project phase.
+        $or_conditions->condition('node__field_credit_labels.field_credit_labels_target_id', $credit_label->id(), '=');
+        $or_conditions->condition('node__field_project_phase.field_project_phase_target_id', $view->args[1], '=');
+
+        $or_conditions->condition('node_field_data.type', ['credit_checklist'], 'IN');
+
+        // Include unpublished nodes for admin users.
+        if (\Drupal::currentUser()->hasPermission('administer site configuration')) {
+          $or_conditions->condition('node_field_data.status', 1, '=');
+        }
+
+        // Add the OR conditions to the query.
+        $query->addWhere(2, $or_conditions);
+
+    }
+
+    if (strpos($view->current_display, 'credit_documentation_section') === 0) {
+
+        // Clear all existing conditions.
+        $query->where = [];
+
+        // Set group operator to OR.
+        $query->setGroupOperator('OR');
+
+        // Load the credit term and credit label.
+        $credit_term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($view->args[0]);
+        $credit_label = _lu_get_credit_label_from_credit($credit_term);
+
+        // Ensure the join uses the correct fields.
+        $join = new \Drupal\views\Plugin\views\join\Standard([
+          'table' => 'node__field_credit_labels',
+          'field' => 'entity_id',
+          'left_table' => 'node_field_data', // Correct table for node data in Drupal 10.
+          'left_field' => 'nid',  // Ensure the left_field is set correctly.
+        ], 'LEFT', 'node_field_data', 'nid');
+
+        // Add the relationship to the query.
+        $query->addRelationship('node__field_credit_labels', $join, 'node_field_data');
+
+        // Create a condition group for the AND conditions.
+        $existing_conditions = new Condition('AND');
+
+        // Add the published status check if the user does not have admin permission.
+        if (!\Drupal::currentUser()->hasPermission('administer site configuration')) {
+          $existing_conditions->condition('node_field_data.status', 1, '=');
+        }
+
+        // Add conditions based on field_credits and field_project_phase.
+        $existing_conditions->condition('node__field_credits.field_credits_target_id', $view->args[0], '=');
+
+        $existing_conditions->condition('node_field_data.type', ['credit_documentation_section', 'tipsheet'], 'IN');
+
+        // Add the AND conditions to the query.
+        $query->addWhere(1, $existing_conditions);
+
+        // Create a condition group for the OR conditions.
+          $or_conditions = new Condition('AND');
+
+        // Add conditions for credit labels and project phase.
+        $or_conditions->condition('node__field_credit_labels.field_credit_labels_target_id', $credit_label->id(), '=');
+        $or_conditions->condition('node_field_data.type', ['credit_documentation_section', 'tipsheet'], 'IN');
+
+        // Include unpublished nodes for admin users.
+        if (\Drupal::currentUser()->hasPermission('administer site configuration')) {
+          $or_conditions->condition('node_field_data.status', 1, '=');
+        }
+
+        // Add the OR conditions to the query.
+        $query->addWhere(2, $or_conditions);
+      }
+    if (strpos($view->current_display, 'credit_resources') === 0) {
+
+      // Clear all existing conditions.
+      $query->where = [];
+
+      // Set group operator to OR.
+      $query->setGroupOperator('OR');
+
+      // Load the credit term and credit label.
+      $credit_term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($view->args[0]);
+      $credit_label = _lu_get_credit_label_from_credit($credit_term);
+
+      // Ensure the join uses the correct fields.
+      $join = new \Drupal\views\Plugin\views\join\Standard([
+        'table' => 'node__field_credit_labels',
+        'field' => 'entity_id',
+        'left_table' => 'node_field_data', // Correct table for node data in Drupal 10.
+        'left_field' => 'nid',  // Ensure the left_field is set correctly.
+      ], 'LEFT', 'node_field_data', 'nid');
+
+      // Add the relationship to the query.
+      $query->addRelationship('node__field_credit_labels', $join, 'node_field_data');
+
+      // Create a condition group for the AND conditions.
+      $existing_conditions = new Condition('AND');
+
+      // Add the published status check if the user does not have admin permission.
+      if (!\Drupal::currentUser()->hasPermission('administer site configuration')) {
+        $existing_conditions->condition('node_field_data.status', 1, '=');
+      }
+
+      // Add conditions based on field_credits and field_project_phase.
+      $existing_conditions->condition('node__field_credits.field_credits_target_id', $view->args[0], '=');
+
+      $existing_conditions->condition('node_field_data.type', ['credit_resource'], 'IN');
+
+      // Add the AND conditions to the query.
+      $query->addWhere(1, $existing_conditions);
+      if ($credit_label) {
+        // Create a condition group for the OR conditions.
+        $or_conditions = new Condition('AND');
+
+        // Add conditions for credit labels and project phase.
+        $or_conditions->condition('node__field_credit_labels.field_credit_labels_target_id', $credit_label->id(), '=');
+        $or_conditions->condition('node_field_data.type', ['credit_resource'], 'IN');
+
+        // Include unpublished nodes for admin users.
+        if (\Drupal::currentUser()->hasPermission('administer site configuration')) {
+          $or_conditions->condition('node_field_data.status', 1, '=');
+        }
+
+        // Add the OR conditions to the query.
+        $query->addWhere(2, $or_conditions);
+      }
+    }
+
+  }
+
+}
+
+
+
+/**
+ * Helper function to get credit label from credit term.
+ */
+function _lu_get_credit_label_from_credit(Term $credit_term) {
+
+  $query = \Drupal::entityQuery('taxonomy_term')
+    ->condition('field_credits.target_id', $credit_term->id())->accessCheck(FALSE)
+    ->condition('vid', 'credit_labels')
+    ->range(0, 1); // Get only one result.
+
+  $tids = $query->execute();
+
+  // Load and return the first matching term if found.
+  return $tids ? Term::load(reset($tids)) : NULL;
+}
+
+/**
+ * Implements hook_views_post_execute().
+ */
+function custom_forums_views_post_execute(ViewExecutable $view) {
+  // Check the view and displays.
+  if ($view->id() === 'credit_page_tab_content' && in_array($view->current_display, ['credit_documentation_section', 'credit_documentation_section_mobile'], TRUE)) {
+    foreach ($view->result as $row) {
+      // Ensure the entity exists and is a node.
+      $entity = $row->_entity ?? NULL;
+      if ($entity instanceof NodeInterface && $entity->bundle() === 'tipsheet') {
+
+        // Set the body to the summary if available.
+        if ($entity->hasField('body') && !$entity->get('body')->isEmpty()) {
+          $summary = $entity->body->summary;
+          $row->_entity->set('body', $summary);
+        }
+
+        // Render custom tipsheet output.
+
+//        $row->field_field_documents[0]['rendered'] = \Drupal::service('renderer')->render([
+//          '#theme' => 'doc_toolkit_tipsheet',
+//          '#tipsheet' => $entity,
+//        ]);
+
+      }
+    }
+  }
+}
