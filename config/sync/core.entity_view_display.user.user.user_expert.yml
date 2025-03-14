@@ -74,6 +74,16 @@ content:
     third_party_settings: {  }
     weight: 5
     region: content
+  user_email_verification_verified:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  user_email_verification_verified_date:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
   user_name:
     settings: {  }
     third_party_settings: {  }

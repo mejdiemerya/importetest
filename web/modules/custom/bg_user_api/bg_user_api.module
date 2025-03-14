@@ -41,48 +41,48 @@ function bg_user_api_form_alter(&$form, &$form_state,$form_id) {
 function bg_user_api_user_register_form_submit(&$form, &$form_state) {
 
 
-  $post_fields['name'] = $form_state->getValue('name') ;
-  $post_fields['mail'] = $form_state->getValue('mail') ;
-  $post_fields['pass'] = $form_state->getValue('pass') ;
-  $post_fields['roles'] = array(18); // 18 = pre-authorized
-  $result = sendHttpRequest($post_fields);
-  if (!empty($result)){
-    $arrayResult = json_decode($result,true);
-    if (!empty($arrayResult['uid'])){
-      /** @var \Drupal\user\Entity\User $user */
-      $user = user_load_by_mail($post_fields['mail']);
-      $user->set('field_id_in_d7', $arrayResult['uid']);
-      $user->save();
-    }
-  }
+//  $post_fields['name'] = $form_state->getValue('name') ;
+//  $post_fields['mail'] = $form_state->getValue('mail') ;
+//  $post_fields['pass'] = $form_state->getValue('pass') ;
+//  $post_fields['roles'] = array(18); // 18 = pre-authorized
+//  $result = sendHttpRequest($post_fields);
+//  if (!empty($result)){
+//    $arrayResult = json_decode($result,true);
+//    if (!empty($arrayResult['uid'])){
+//      /** @var \Drupal\user\Entity\User $user */
+//      $user = user_load_by_mail($post_fields['mail']);
+//      $user->set('field_id_in_d7', $arrayResult['uid']);
+//      $user->save();
+//    }
+//  }
 }
 /**
  * Implements bg_user_api_form_commerce_checkout_form_registration_submit()
  * @param \Drupal\Core\Form\FormStateInterface $form_state
  */
-function bg_user_api_form_commerce_checkout_form_registration_submit(&$form, &$form_state) {
- //dd($form_state->getValue('login') );
-if(!empty($form_state->getValue('login')) && !empty($form_state->getValue('login')['register']) ){
-
-// dd($form_state->getValue('login')['register']);
-  $values = $form_state->getValue('login')['register'];
-  $post_fields['name'] = $values['name'];
-  $post_fields['mail'] = $values['mail'];
-  $post_fields['pass'] = $values['pass'];
-  $post_fields['roles'] = array(18); // 18 = pre-authorized
-  $result = sendHttpRequest($post_fields);
-  if (!empty($result)){
-    $arrayResult = json_decode($result,true);
-    if (!empty($arrayResult['uid'])){
-      /** @var \Drupal\user\Entity\User $user */
-      $user = user_load_by_mail($values['mail']);
-      $user->set('field_id_in_d7', $arrayResult['uid']);
-      $user->save();
-    }
-  }
-
-}
-}
+//function bg_user_api_form_commerce_checkout_form_registration_submit(&$form, &$form_state) {
+// //dd($form_state->getValue('login') );
+//if(!empty($form_state->getValue('login')) && !empty($form_state->getValue('login')['register']) ){
+//
+//// dd($form_state->getValue('login')['register']);
+//  $values = $form_state->getValue('login')['register'];
+//  $post_fields['name'] = $values['name'];
+//  $post_fields['mail'] = $values['mail'];
+//  $post_fields['pass'] = $values['pass'];
+//  $post_fields['roles'] = array(18); // 18 = pre-authorized
+//  $result = sendHttpRequest($post_fields);
+//  if (!empty($result)){
+//    $arrayResult = json_decode($result,true);
+//    if (!empty($arrayResult['uid'])){
+//      /** @var \Drupal\user\Entity\User $user */
+//      $user = user_load_by_mail($values['mail']);
+//      $user->set('field_id_in_d7', $arrayResult['uid']);
+//      $user->save();
+//    }
+//  }
+//
+//}
+//}
 
 
 function sendHttpRequest(  $post_fields = null ,$method= 'post'){
