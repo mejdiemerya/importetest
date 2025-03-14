@@ -1,0 +1,10 @@
+uuid: 3b600d43-64f2-40c7-98ed-6b409bad6b7a
+langcode: en
+status: true
+dependencies: {  }
+id: item_presenter
+label: 'Item presenter'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

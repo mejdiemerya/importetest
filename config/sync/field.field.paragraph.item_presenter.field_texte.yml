@@ -1,0 +1,24 @@
+uuid: f7248edc-dba9-47cf-8d5c-47cff5e0fd38
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_texte
+    - filter.format.full_html
+    - paragraphs.paragraphs_type.item_presenter
+  module:
+    - text
+id: paragraph.item_presenter.field_texte
+field_name: field_texte
+entity_type: paragraph
+bundle: item_presenter
+label: Texte
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - full_html
+field_type: text_long

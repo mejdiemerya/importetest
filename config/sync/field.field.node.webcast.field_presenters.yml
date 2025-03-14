@@ -1,0 +1,100 @@
+uuid: 0ed91e49-90c6-43f8-96bd-54bd13300275
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_presenters
+    - node.type.webcast
+    - paragraphs.paragraphs_type.presenters
+  module:
+    - entity_reference_revisions
+id: node.webcast.field_presenters
+field_name: field_presenters
+entity_type: node
+bundle: webcast
+label: Presenters
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      presenters: presenters
+    negate: 0
+    target_bundles_drag_drop:
+      descriptions_sidebar:
+        weight: 25
+        enabled: false
+      hero:
+        weight: 26
+        enabled: false
+      hero_pricing:
+        weight: 27
+        enabled: false
+      home_forme:
+        weight: 28
+        enabled: false
+      image_sidebar:
+        weight: 29
+        enabled: false
+      item:
+        weight: 30
+        enabled: false
+      item_presenter:
+        weight: 31
+        enabled: false
+      leed_credits:
+        weight: 34
+        enabled: false
+      leed_process:
+        weight: 35
+        enabled: false
+      leeduser_premium:
+        weight: 32
+        enabled: false
+      leeduser_recommends:
+        weight: 33
+        enabled: false
+      membership:
+        weight: 36
+        enabled: false
+      membership_item:
+        weight: 37
+        enabled: false
+      multichoice:
+        weight: 38
+        enabled: false
+      presenters:
+        weight: 39
+        enabled: true
+      quiz_question_term_pool:
+        weight: 40
+        enabled: false
+      quiz_result_feedback:
+        weight: 41
+        enabled: false
+      quiz_select:
+        weight: 42
+        enabled: false
+      renewal_price:
+        weight: 43
+        enabled: false
+      testimonials:
+        weight: 44
+        enabled: false
+      testimonials_item:
+        weight: 45
+        enabled: false
+      text_well_marquee:
+        weight: 46
+        enabled: false
+      tribox_global:
+        weight: 47
+        enabled: false
+      views_recent_posts:
+        weight: 48
+        enabled: false
+field_type: entity_reference_revisions
