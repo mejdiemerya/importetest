@@ -28,6 +28,9 @@ final class CreditResourceNode extends SqlBase {
     $query->addJoin('left','field_data_body', 'f5', 'f5.entity_id = n.nid');
     $query ->fields('f5', ["body_value","body_format"] );
 
+    $query->addJoin('left','field_data_field_link', 'f6', 'f6.entity_id = n.nid');
+    $query ->fields('f6', ["field_link_title","field_link_url"] );
+
     $query ->condition("n.type","credit_resource" );
 
     return $query;

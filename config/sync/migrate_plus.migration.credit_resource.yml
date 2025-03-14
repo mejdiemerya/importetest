@@ -42,6 +42,12 @@ process:
   field_sources:
     plugin: get
     source: field_sources_tid
+  field_link/uri:
+    plugin: get
+    source: field_link_url
+  field_link/title:
+    plugin: get
+    source: field_link_title
 destination:
   plugin: 'entity:node'
 migration_dependencies: null
