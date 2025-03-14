@@ -3,25 +3,15 @@ display:
     display_title: 'Par défaut'
     display_options:
       fields:
-        thumbnail__target_id:
-          separator: ', '
-        name:
-          separator: ', '
-        bundle:
-          label: Type
-          separator: ', '
         uid:
           label: Auteur
-          separator: ', '
         status:
           label: Status
           settings:
             format_custom_false: Unpublished
             format_custom_true: Published
-          separator: ', '
         changed:
           label: 'Mis à jour'
-          separator: ', '
         operations:
           label: Actions
       pager:
@@ -40,12 +30,7 @@ display:
           submit_button: Filter
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
       filters:
-        bundle:
-          expose:
-            label: Type
         status:
           expose:
             label: Vrai

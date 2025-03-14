@@ -7,24 +7,34 @@ dependencies:
     - field.field.node.credit_documentation_entry.field_documentation_file
     - field.field.node.credit_documentation_entry.field_documentation_type
     - node.type.credit_documentation_entry
+  module:
+    - file
 id: node.credit_documentation_entry.teaser
 targetEntityType: node
 bundle: credit_documentation_entry
 mode: teaser
 content:
+  field_documentation_file:
+    type: file_default
+    label: hidden
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
   field_documentation_type:
     type: entity_reference_label
     label: hidden
     settings:
-      link: true
+      link: false
     third_party_settings: {  }
     weight: 0
     region: content
 hidden:
+  created: true
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  field_documentation_file: true
   langcode: true
   links: true
   search_api_excerpt: true

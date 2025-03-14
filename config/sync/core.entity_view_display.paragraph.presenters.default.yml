@@ -1,0 +1,28 @@
+uuid: 3e8bd63f-d5dc-40fd-81f1-8bf95f960a03
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.presenters.field_presenters
+    - paragraphs.paragraphs_type.presenters
+  module:
+    - entity_reference_revisions
+id: paragraph.presenters.default
+targetEntityType: paragraph
+bundle: presenters
+mode: default
+content:
+  field_presenters:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  search_api_excerpt: true
