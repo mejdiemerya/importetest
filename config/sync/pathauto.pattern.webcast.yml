@@ -1,0 +1,22 @@
+uuid: b69943ba-15ff-4299-acc9-8fe91cfa79bc
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: webcast
+label: webcast
+type: 'canonical_entities:node'
+pattern: '/[node:title]'
+selection_criteria:
+  46bed37d-59d5-446b-b356-e31144ee6374:
+    id: 'entity_bundle:node'
+    negate: false
+    uuid: 46bed37d-59d5-446b-b356-e31144ee6374
+    context_mapping:
+      node: node
+    bundles:
+      webcast: webcast
+selection_logic: and
+weight: -5
+relationships: {  }

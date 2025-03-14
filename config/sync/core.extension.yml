@@ -52,6 +52,7 @@ module:
   datetime_range: 0
   dblog: 0
   devel: 0
+  devel_generate: 0
   display_link_plus: 0
   draggableviews: 0
   dynamic_entity_reference: 0

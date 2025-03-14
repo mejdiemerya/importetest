@@ -5,23 +5,11 @@ display:
       fields:
         id:
           label: ID
-          separator: ', '
-        type:
-          separator: ', '
         value:
           label: Valeur
-          separator: ', '
-        vote_source:
-          separator: ', '
-        user_id:
-          separator: ', '
-        timestamp:
-          separator: ', '
       pager:
         options:
           tags:
-            next: ››
-            previous: ‹‹
             first: '« First'
             last: 'Last »'
           expose:
@@ -33,29 +21,13 @@ display:
           submit_button: Apply
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
-          sort_asc_label: Asc
-          sort_desc_label: Desc
   admin_page:
     display_options:
       fields:
         id:
           label: ID
-          separator: ', '
-        type:
-          separator: ', '
-        entity_id:
-          separator: ', '
-        entity_type:
-          separator: ', '
         value:
           label: Valeur
-          separator: ', '
-        vote_source:
-          separator: ', '
-        user_id:
-          separator: ', '
-        timestamp:
-          separator: ', '
   node_page:
     display_options:
       arguments:
