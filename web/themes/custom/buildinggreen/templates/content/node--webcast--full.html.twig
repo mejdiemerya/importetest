@@ -98,7 +98,7 @@
       </div>
     </footer>
   {% endif %}
-
+  {{ dd(logged_in) }}
   <div{{ content_attributes.addClass('node__content') }}>
     <div class="row">
       <div class="col-md-8">
@@ -107,6 +107,7 @@
           {{ label }}
         </h1>
         {{ content.field_video }}
+        {% if not logged_in %}
         <div class="paywall nullify">
 
           <div data-ng-show="!(premium && spotlight)">
@@ -121,6 +122,7 @@
           </div>
 
         </div>
+        {% endif %}
         {{ content.body }}
       </div>
       <div class="col-md-4">
