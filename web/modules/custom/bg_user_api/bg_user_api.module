@@ -30,7 +30,7 @@ function bg_user_api_form_alter(&$form, &$form_state,$form_id) {
 
   }
   if($form_id == "commerce_checkout_flow_multistep_default"){
-    $form['#submit'][]  = ('bg_user_api_form_commerce_checkout_form_registration_submit') ;
+   // $form['#submit'][]  = ('bg_user_api_form_commerce_checkout_form_registration_submit') ;
 
   }
 }

@@ -44,18 +44,19 @@ class SendMailClientOrderComplete extends ActionBase
    */
   public function execute($entity = NULL, $product = NULL)
   {
-    /** @var \Drupal\commerce_payment\Entity\Payment $entity */
-    $orders = $entity->getOrder()->getItems();
+    $order = \Drupal::routeMatch()->getParameter('commerce_order');
 
-    foreach ($orders as $order) {
-      $variation = $order->getPurchasedEntity();
+    if ($order instanceof Drupal\commerce_order\Entity\Order) {
+      $orderItems = $order->getItems();
 
-      if ($variation->get('type')->target_id == 'membership' && $entity->get('avs_response_code')->value == 'Y') {
+      foreach ($orderItems as $orderItem) {
+        /** @var \Drupal\commerce_order\Entity\OrderItem $orderItem */
+        $variation = $orderItem->getPurchasedEntity();
 
-        $send = $this->sendMail($variation);
-
+        if ($variation && $variation->get('type')->target_id == 'membership' && $order->get('avs_response_code')->value == 'Y') {
+          $send = $this->sendMail($variation);
+        }
       }
-
     }
 
 
