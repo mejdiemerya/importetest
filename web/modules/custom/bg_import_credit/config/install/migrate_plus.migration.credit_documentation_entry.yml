@@ -20,11 +20,16 @@ process:
   field_documentation_file:
     plugin: get
     source: myfile
-
-
   field_documentation_type:
     plugin: get
     source: field_documentation_type_tid
+
+  field_link/uri:
+    plugin: get
+    source: field_link_url
+  field_link/title:
+    plugin: get
+    source: field_link_title
 
 dependencies:
   enforced:
