@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.credit_cost_guidance.field_credit_labels
     - field.field.node.credit_cost_guidance.field_credits
     - field.field.node.credit_cost_guidance.field_image_landscape_v2
-    - field.field.node.credit_cost_guidance.field_image_portrait
     - field.field.node.credit_cost_guidance.field_image_portrait_v2
     - node.type.credit_cost_guidance
   module:
@@ -39,7 +38,6 @@ hidden:
   field_credit_labels: true
   field_credits: true
   field_image_landscape_v2: true
-  field_image_portrait: true
   field_image_portrait_v2: true
   langcode: true
   search_api_excerpt: true

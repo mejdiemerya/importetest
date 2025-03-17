@@ -7,9 +7,7 @@ dependencies:
     - field.field.node.credit_checklist.field_credit_labels
     - field.field.node.credit_checklist.field_credit_tip_type
     - field.field.node.credit_checklist.field_credits
-    - field.field.node.credit_checklist.field_image_landscape
     - field.field.node.credit_checklist.field_image_landscape_v2
-    - field.field.node.credit_checklist.field_image_portrait
     - field.field.node.credit_checklist.field_image_portrait_v2
     - field.field.node.credit_checklist.field_project_phase
     - field.field.node.credit_checklist.field_who_does_it
@@ -165,6 +163,4 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-hidden:
-  field_image_landscape: true
-  field_image_portrait: true
+hidden: {  }

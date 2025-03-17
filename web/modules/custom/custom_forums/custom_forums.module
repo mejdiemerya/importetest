@@ -395,6 +395,25 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       $rendered_phases = []; // Array to store the names of rendered project phases
 
       if (!empty($checklist_phases)) {
+        if (\Drupal::currentUser()->hasPermission('access draggableviews') && !empty($_REQUEST['show_sort'])) {
+          $viewpoints_view_display = 'credit_checklist_admin'; // Admin sorting view
+          $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+            t('hide sorting'),
+            \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-checklist'])
+          )->toString();
+        } else {
+          $viewpoints_view_display = 'credit_checklist'; // Default view
+
+          if (\Drupal::currentUser()->hasPermission('access draggableviews')) {
+            $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+              t('show sorting'),
+              \Drupal\Core\Url::fromRoute('<current>', [], [
+                'query' => ['show_sort' => 'true'],
+                'fragment' => 'tab-checklist',
+              ])
+            )->toString();
+          }
+        }
         foreach ($checklist_phases as $checklist_phase) {
           $project_phases = $checklist_phase->get('field_project_phase')->referencedEntities();
           $project_phase = reset($project_phases); // Get the first referenced entity
@@ -410,7 +429,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
 
               // Render the view for the project phase
               $view = \Drupal\views\Views::getView('credit_page_tab_content');
-              $view->setDisplay('credit_checklist');
+              $view->setDisplay('$viewpoints_view_display');
               $view->setArguments([$entity->id(), $project_phase->id()]); // Combine the arguments into one array
               $view->execute();
               $credit_checklists = $view->render();
@@ -425,7 +444,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
         }
         // Embed the view programmatically.
         $build['credit_checklists'] = [
-          '#markup' => $checklists_output,
+          '#markup' => $viewpoints_output.$checklists_output,
           '#cache' => [
             '#max-age' => 0,
           ]
@@ -435,80 +454,149 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
 
     }
     if ($display->getComponent('credit_bev')) {
+      $viewpoints_output = '';
+      if (\Drupal::currentUser()->hasPermission('access draggableviews') && !empty($_REQUEST['show_sort'])) {
+        $viewpoints_view_display = 'credit_bev_admin'; // Admin sorting view
+        $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+          t('hide sorting'),
+          \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-bev'])
+        )->toString();
+      } else {
+        $viewpoints_view_display = 'credit_bev'; // Default view
 
-      // Generate a link with the 'hide sorting' label and a fragment.
-      $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
-        t('hide sorting'),
-        \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-bev'])
-      )->toString();
+        if (\Drupal::currentUser()->hasPermission('access draggableviews')) {
+          $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+            t('show sorting'),
+            \Drupal\Core\Url::fromRoute('<current>', [], [
+              'query' => ['show_sort' => 'true'],
+              'fragment' => 'tab-bev',
+            ])
+          )->toString();
+        }
+      }
+
       $view = \Drupal\views\Views::getView('credit_page_tab_content');
-      $view->setDisplay('credit_bev');
+      $view->setDisplay($viewpoints_view_display);
       $view->setArguments([$entity->id()]);
       $view->execute();
       $credit_bev = $view->render();
       // Embed the view programmatically.
       $build['credit_bev'] = [
-        '#markup' => \Drupal::service('renderer')->render($credit_bev),
+        '#markup' => $viewpoints_output . \Drupal::service('renderer')->render($credit_bev),
+        '#allowed_tags' => ['a'],
         '#cache' => [
           '#max-age' => 0,
         ]
       ];
     }
     if ($display->getComponent('credit_faq')) {
+      $viewpoints_output = '';
+      if (\Drupal::currentUser()->hasPermission('access draggableviews') && !empty($_REQUEST['show_sort'])) {
+        $viewpoints_view_display = 'credit_faq_admin'; // Admin sorting view
+        $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+          t('hide sorting'),
+          \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-faq'])
+        )->toString();
+      } else {
+        $viewpoints_view_display = 'credit_faq';
 
-      // Generate a link with the 'hide sorting' label and a fragment.
-      $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
-        t('hide sorting'),
-        \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-bev'])
-      )->toString();
+        if (\Drupal::currentUser()->hasPermission('access draggableviews')) {
+          $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+            t('show sorting'),
+            \Drupal\Core\Url::fromRoute('<current>', [], [
+              'query' => ['show_sort' => 'true'],
+              'fragment' => 'tab-faq',
+            ])
+          )->toString();
+        }
+      }
+
       $view = \Drupal\views\Views::getView('credit_page_tab_content');
-      $view->setDisplay('credit_faq');
+      $view->setDisplay($viewpoints_view_display);
       $view->setArguments([$entity->id()]);
       $view->execute();
       $credit_faq = $view->render();
       // Embed the view programmatically.
       $build['credit_faq'] = [
-        '#markup' => \Drupal::service('renderer')->render($credit_faq),
+        '#markup' =>$viewpoints_output. \Drupal::service('renderer')->render($credit_faq),
         '#cache' => [
           '#max-age' => 0,
         ]
       ];
     }
     if ($display->getComponent('credit_documentation_section')) {
+      $viewpoints_output = '';
+      if (\Drupal::currentUser()->hasPermission('access draggableviews') && !empty($_REQUEST['show_sort'])) {
+        $viewpoints_view_display = 'credit_documentation_section_admin'; // Admin sorting view
+        $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+          t('hide sorting'),
+          \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-docs'])
+        )->toString();
+      } else {
+        $viewpoints_view_display = 'credit_documentation_section';
 
+        if (\Drupal::currentUser()->hasPermission('access draggableviews')) {
+          $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+            t('show sorting'),
+            \Drupal\Core\Url::fromRoute('<current>', [], [
+              'query' => ['show_sort' => 'true'],
+              'fragment' => 'tab-docs',
+            ])
+          )->toString();
+        }
+      }
       // Generate a link with the 'hide sorting' label and a fragment.
       $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
         t('hide sorting'),
         \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-bev'])
       )->toString();
       $view = \Drupal\views\Views::getView('credit_page_tab_content');
-      $view->setDisplay('credit_documentation_section');
+      $view->setDisplay($viewpoints_view_display);
       $view->setArguments([$entity->id()]);
       $view->execute();
       $credit_documentation_section = $view->render();
       // Embed the view programmatically.
       $build['credit_documentation_section'] = [
-        '#markup' => \Drupal::service('renderer')->render($credit_documentation_section),
+        '#markup' => $viewpoints_output. \Drupal::service('renderer')->render($credit_documentation_section),
         '#cache' => [
           '#max-age' => 0,
         ]
       ];
     }
     if ($display->getComponent('credit_resources')) {
+      $viewpoints_output = '';
+      if (\Drupal::currentUser()->hasPermission('access draggableviews') && !empty($_REQUEST['show_sort'])) {
+        $viewpoints_view_display = 'credit_resources_admin'; // Admin sorting view
+        $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+          t('hide sorting'),
+          \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-docs'])
+        )->toString();
+      } else {
+        $viewpoints_view_display = 'credit_resources';
 
+        if (\Drupal::currentUser()->hasPermission('access draggableviews')) {
+          $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
+            t('show sorting'),
+            \Drupal\Core\Url::fromRoute('<current>', [], [
+              'query' => ['show_sort' => 'true'],
+              'fragment' => 'tab-docs',
+            ])
+          )->toString();
+        }
+      }
       // Generate a link with the 'hide sorting' label and a fragment.
       $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
         t('hide sorting'),
         \Drupal\Core\Url::fromRoute('<current>', [], ['fragment' => 'tab-bev'])
       )->toString();
       $view = \Drupal\views\Views::getView('credit_page_tab_content');
-      $view->setDisplay('credit_resources');
+      $view->setDisplay($viewpoints_view_display);
       $view->setArguments([$entity->id()]);
       $view->execute();
       $credit_resources = $view->render();
       // Embed the view programmatically.
       $build['credit_resources'] = [
-        '#markup' => \Drupal::service('renderer')->render($credit_resources),
+        '#markup' => $viewpoints_output. \Drupal::service('renderer')->render($credit_resources),
         '#cache' => [
           '#max-age' => 0,
         ]
@@ -535,7 +623,6 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       ];
     }
     if ($display->getComponent('cost_guidance')) {
-
       // Generate a link with the 'hide sorting' label and a fragment.
       $viewpoints_output = \Drupal\Core\Link::fromTextAndUrl(
         t('hide sorting'),
@@ -548,7 +635,7 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       $cost_guidance = $view->render();
       // Embed the view programmatically.
       $build['cost_guidance'] = [
-        '#markup' => \Drupal::service('renderer')->render($cost_guidance),
+        '#markup' => $viewpoints_output .\Drupal::service('renderer')->render($cost_guidance),
         '#cache' => [
           '#max-age' => 0,
         ]
@@ -1317,6 +1404,11 @@ function custom_forums_preprocess_taxonomy_term(&$variables)
     }
     //credit language
     $variables['show_credit_language_tab'] = TRUE;
+    //hide credit language tab for PIf pages
+    if (substr($term->name->value, 0, 3) == 'PIf')
+    {
+      $variables['show_credit_language_tab'] = FALSE;
+    }
   }
 }
 

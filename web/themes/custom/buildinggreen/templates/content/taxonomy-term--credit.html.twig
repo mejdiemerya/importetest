@@ -153,10 +153,25 @@
 
               </div><!-- end tab-pane -->
               <div class="tab-pane" id="cost">
+                <p class="supertitle">What does it cost?</p>
+
+                {% if  not can_access_leeduser_content %}
+                  <h3>Cost estimates for this credit</h3>
+
+                  <p>On each BD+C v4 credit, LEEDuser offers the wisdom of a team of architects, engineers, cost estimators, and LEED experts with hundreds of LEED projects between then. They analyzed the sustainable design strategies associated with each LEED credit, but also to assign actual costs to those strategies.</p>
+
+                  <p>Our tab contains overall cost guidance, notes on what “soft costs” to expect, and a strategy-by-strategy breakdown of what to consider and what it might cost, in percentage premiums, actual costs, or both.</p>
+
+                  <p class="mb15">This information is also available in a full PDF download in <a href="/continuing-education/cost-leed-v4">The Cost of LEED v4</a> report.</p>
+
+                  <a class="btn btn-midtone center-block" href="/continuing-education/cost-leed-v4">Learn more about <em>The Cost of LEED v4</em>&nbsp;&raquo;</a>
+                  {{ membership_content_block }}
+
+                {% else %}
                 {{ content.cost_guidance|raw }}
                 <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
                    class="btn btn-midtone btn-wrap btn-left btn-xl mt-5"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
-
+                {% endif %}
               </div>
               <div class="tab-pane" id="checklists">
                 <p class="supertitle">Checklists</p>

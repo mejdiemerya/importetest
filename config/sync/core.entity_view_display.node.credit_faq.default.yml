@@ -20,7 +20,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 1
     region: content
   field_credit_faq_question:
     type: basic_string
@@ -35,7 +35,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 104
+    weight: 3
     region: content
   field_credits:
     type: entity_reference_label
@@ -43,13 +43,18 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 0
+    weight: 4
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 1
+    weight: 0
     region: content
 hidden:
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
   search_api_excerpt: true
   uid: true

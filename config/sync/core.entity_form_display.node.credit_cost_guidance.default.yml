@@ -7,14 +7,12 @@ dependencies:
     - field.field.node.credit_cost_guidance.field_credit_labels
     - field.field.node.credit_cost_guidance.field_credits
     - field.field.node.credit_cost_guidance.field_image_landscape_v2
-    - field.field.node.credit_cost_guidance.field_image_portrait
     - field.field.node.credit_cost_guidance.field_image_portrait_v2
     - image.style.thumbnail
     - node.type.credit_cost_guidance
   module:
     - content_moderation
     - image
-    - media_library
     - path
     - text
 id: node.credit_cost_guidance.default
@@ -65,13 +63,6 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_image_portrait:
-    type: media_library_widget
-    weight: 125
-    region: content
-    settings:
-      media_types: {  }
     third_party_settings: {  }
   field_image_portrait_v2:
     type: image_image
