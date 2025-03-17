@@ -6,9 +6,11 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.credit_documentation_entry.field_documentation_file
     - field.field.node.credit_documentation_entry.field_documentation_type
+    - field.field.node.credit_documentation_entry.field_link
     - node.type.credit_documentation_entry
   module:
     - file
+    - link
 id: node.credit_documentation_entry.teaser
 targetEntityType: node
 bundle: credit_documentation_entry
@@ -29,6 +31,18 @@ content:
       link: false
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_link:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 2
     region: content
 hidden:
   created: true

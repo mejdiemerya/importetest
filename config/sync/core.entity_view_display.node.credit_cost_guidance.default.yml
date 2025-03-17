@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.credit_cost_guidance.field_credit_labels
     - field.field.node.credit_cost_guidance.field_credits
     - field.field.node.credit_cost_guidance.field_image_landscape_v2
-    - field.field.node.credit_cost_guidance.field_image_portrait
     - field.field.node.credit_cost_guidance.field_image_portrait_v2
     - node.type.credit_cost_guidance
   module:
@@ -23,7 +22,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 101
+    weight: 1
     region: content
   field_credit_labels:
     type: entity_reference_label
@@ -31,7 +30,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 104
+    weight: 5
     region: content
   field_credits:
     type: entity_reference_label
@@ -39,7 +38,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 10
+    weight: 4
     region: content
   field_image_landscape_v2:
     type: image
@@ -50,16 +49,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 106
-    region: content
-  field_image_portrait:
-    type: entity_reference_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    weight: 105
+    weight: 3
     region: content
   field_image_portrait_v2:
     type: image
@@ -70,14 +60,15 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 107
+    weight: 2
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
+  created: true
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true

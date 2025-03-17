@@ -5,10 +5,12 @@ dependencies:
   config:
     - field.field.node.credit_documentation_entry.field_documentation_file
     - field.field.node.credit_documentation_entry.field_documentation_type
+    - field.field.node.credit_documentation_entry.field_link
     - node.type.credit_documentation_entry
   module:
     - content_moderation
     - file
+    - link
     - path
 id: node.credit_documentation_entry.default
 targetEntityType: node
@@ -37,6 +39,14 @@ content:
       match_limit: 10
       size: 60
       placeholder: ''
+    third_party_settings: {  }
+  field_link:
+    type: link_default
+    weight: 127
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
     third_party_settings: {  }
   langcode:
     type: language_select

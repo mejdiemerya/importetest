@@ -11,7 +11,7 @@ id: node.credit_form_update.body
 field_name: body
 entity_type: node
 bundle: credit_form_update
-label: Body
+label: 'Description of change'
 description: ''
 required: false
 translatable: true

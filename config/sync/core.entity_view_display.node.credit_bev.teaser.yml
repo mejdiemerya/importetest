@@ -7,9 +7,7 @@ dependencies:
     - field.field.node.credit_bev.body
     - field.field.node.credit_bev.field_credit_labels
     - field.field.node.credit_bev.field_credits
-    - field.field.node.credit_bev.field_image_landscape
     - field.field.node.credit_bev.field_image_landscape_v2
-    - field.field.node.credit_bev.field_image_portrait
     - field.field.node.credit_bev.field_image_portrait_v2
     - node.type.credit_bev
   module:
@@ -33,14 +31,13 @@ content:
     weight: 100
     region: content
 hidden:
+  created: true
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
   field_credit_labels: true
   field_credits: true
-  field_image_landscape: true
   field_image_landscape_v2: true
-  field_image_portrait: true
   field_image_portrait_v2: true
   langcode: true
   search_api_excerpt: true
