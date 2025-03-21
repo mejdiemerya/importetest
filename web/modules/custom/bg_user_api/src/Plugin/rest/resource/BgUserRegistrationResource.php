@@ -52,7 +52,7 @@ class BgUserRegistrationResource extends UserRegistrationResource {
       $account->setPassword($this->passwordGenerator->generate());
     }
 
-    $this->checkEditFieldAccess($account);
+    //$this->checkEditFieldAccess($account);
 
     // Make sure that the user entity is valid (email and name are valid).
     $this->validate($account);
