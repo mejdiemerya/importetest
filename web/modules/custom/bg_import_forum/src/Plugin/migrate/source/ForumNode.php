@@ -40,7 +40,18 @@ final class ForumNode extends SqlBase {
 
     return $query;
   }
+  public function getFieldRecordTid($fieldName, $tid){
+    $result = $this->select("field_data_{$fieldName}", 'f')
+      ->fields('f', ["{$fieldName}_tid"])
+      ->condition('f.bundle', 'forum', '=')
+      ->condition('f.entity_id', $tid, '=');
 
+    $rows =  $result->execute()->fetchCol();
+    if(!empty($rows)){
+      return $rows;
+    }
+    return null;
+  }
   /**
    * {@inheritdoc}
    */
@@ -69,7 +80,9 @@ final class ForumNode extends SqlBase {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row): bool {
-
+    $credits = $this->getFieldRecordTid('field_credits',$row->getSourceProperty('nid'));
+    $row->setSourceProperty('field_credits_tid', $credits);
+    $row->setSourceProperty('status', 0);
     return parent::prepareRow($row);
   }
 
