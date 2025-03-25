@@ -82,7 +82,6 @@ final class ForumNode extends SqlBase {
   public function prepareRow(Row $row): bool {
     $credits = $this->getFieldRecordTid('field_credits',$row->getSourceProperty('nid'));
     $row->setSourceProperty('field_credits_tid', $credits);
-    $row->setSourceProperty('status', 0);
     return parent::prepareRow($row);
   }
 
