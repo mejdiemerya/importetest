@@ -1,12 +1,9 @@
 uuid: 6159c273-9104-4fba-a6b8-04314158b658
 langcode: en
 status: true
-dependencies:
-  module:
-    - commerce_order
+dependencies: {  }
 id: pre_authorized
 label: pre-authorized
 weight: 17
 is_admin: null
-permissions:
-  - 'view own commerce_order'
+permissions: {  }

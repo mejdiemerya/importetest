@@ -12,5 +12,5 @@ weight: 23
 is_admin: null
 permissions:
   - 'access premium content'
+  - 'edit own field_website'
   - 'skip comment approval'
-  - 'view own field_website'

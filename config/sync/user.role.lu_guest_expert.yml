@@ -4,9 +4,11 @@ status: true
 dependencies:
   module:
     - bg_product_cart
+    - field_permissions
 id: lu_guest_expert
-label: 'LEEDuser Experts'
+label: lu_guest_expert
 weight: 33
 is_admin: null
 permissions:
   - 'access leeduser premium content'
+  - 'edit own field_website'

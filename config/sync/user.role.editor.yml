@@ -8,10 +8,15 @@ dependencies:
     - bg_product_cart
     - block
     - comment
+    - commerce_checkout
+    - commerce_file
     - draggableviews
+    - field_permissions
     - filter
+    - masquerade
     - node
     - path
+    - quiz
     - search
     - shortcut
     - system
@@ -22,26 +27,34 @@ weight: 34
 is_admin: null
 permissions:
   - 'access administration pages'
+  - 'access checkout'
   - 'access comments'
   - 'access content'
   - 'access content overview'
   - 'access draggableviews'
   - 'access leeduser premium content'
   - 'access premium content'
+  - 'access private fields'
+  - 'access quiz'
   - 'access user profiles'
   - 'administer blocks'
   - 'administer comments'
   - 'administer content types'
+  - 'administer field permissions'
   - 'administer nodes'
   - 'administer permissions'
   - 'administer shortcuts'
   - 'administer taxonomy'
   - 'administer users'
+  - 'bypass license control'
   - 'bypass node access'
   - 'create url aliases'
+  - 'delete results for own quiz'
   - 'edit own comments'
+  - 'masquerade as any user'
   - 'post comments'
   - 'search content'
   - 'skip comment approval'
   - 'use text format full_html'
+  - 'view results for own quiz'
   - 'view the administration theme'
