@@ -1,0 +1,19 @@
+uuid: dea92da5-8727-4bb9-b714-704a26fb7dcc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_credit
+    - node.type.blog
+id: node.blog.field_credit
+field_name: field_credit
+entity_type: node
+bundle: blog
+label: Credit
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -89,9 +89,18 @@
     {{ title_suffix }}
 
     <div{{ content_attributes.addClass('node__content') }}>
+
       <div class="node__content__dek lead">{{ content.field_dek }}</div>
       <div class="node__content__author magnify">{{ 'by '|t }} {{ content.field_author.0['#title'] }}</div>
       <div class="node__content__date small">{{ date }}</div>
+      <figure>
+        {{ content.field_image_landscape }}
+        <figcaption>
+          {{ content.field_dek }}
+          <span class="credit">{{ content.field_credit }}</span>
+        </figcaption>
+
+      </figure>
       <div class="node__content__body magnify">{{ content.body }}</div>
       <div class="node__content__Comments">
         <h2 class="title" data-gtm-vis-has-fired7025260_75="1">Comments</h2>

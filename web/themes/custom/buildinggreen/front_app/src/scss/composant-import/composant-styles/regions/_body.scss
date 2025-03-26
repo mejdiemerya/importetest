@@ -879,3 +879,39 @@ article[data-drupal-selector="edit-review-payment-information-summary"]{
     display: inline-block !important;
   }
 }
+
+
+.node--type-blog{
+  .node__content{
+    > figure{
+      border: 1px solid #a6a6a6;
+      margin-top: 0.5em;
+      margin-bottom: 1em;
+      @include media-breakpoint-up(md){
+        width: 300px;
+      }
+      @include media-breakpoint-up(lg){
+        width: 450px;
+        float: right;
+        margin: 0 0 1em 1em;
+      }
+      img {
+        margin: 0.5em 0;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      figcaption{
+        font-family: source-sans-pro, "Trebuchet MS", Helvetica, sans-serif;
+        font-size: 13px;
+        line-height: 1.2;
+        margin: 1em;
+        .credit {
+          font-size: 12px;
+          text-align: right;
+          display: block;
+        }
+      }
+    }
+  }
+}
