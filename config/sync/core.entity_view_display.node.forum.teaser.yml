@@ -26,6 +26,26 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
+  created:
+    type: timestamp
+    label: hidden
+    settings:
+      date_format: olivero_medium
+      custom_date_format: ''
+      timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
+        description: ''
+    third_party_settings: {  }
+    weight: 11
+    region: content
   field_last_comment_author:
     type: entity_reference_entity_view
     label: hidden
@@ -97,6 +117,9 @@ hidden:
   comment_button: true
   comment_forum: true
   content_moderation_control: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   field_credits: true
   field_tipsheet: true
   langcode: true

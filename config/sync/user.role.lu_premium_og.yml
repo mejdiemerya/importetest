@@ -11,4 +11,4 @@ weight: 29
 is_admin: null
 permissions:
   - 'access leeduser premium content'
-  - 'view own field_website'
+  - 'edit own field_website'

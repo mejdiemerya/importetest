@@ -13,7 +13,7 @@ filename: ''
 modeldata: |
   <?xml version="1.0" encoding="UTF-8"?>
   <bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:qa="http://some-company/schema/bpmn/qa" id="sample-diagram" targetNamespace="http://bpmn.io/schema/bpmn" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
-    <bpmn2:process id="Process_ecB57ZV" name="moderator approval (comment) " isExecutable="true" camunda:versionTag="v3">
+    <bpmn2:process id="Process_ecB57ZV" name="moderator approval (comment) " isExecutable="false" camunda:versionTag="v3">
       <bpmn2:extensionElements>
         <camunda:properties>
           <camunda:property />
@@ -267,6 +267,9 @@ modeldata: |
           <dc:Bounds x="120" y="240" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="Gateway_1b51cov_di" bpmnElement="Gateway_1b51cov" isMarkerVisible="true">
+          <dc:Bounds x="845" y="255" width="50" height="50" />
+        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="Activity_05utzck_di" bpmnElement="Activity_05utzck">
           <dc:Bounds x="270" y="240" width="100" height="80" />
           <bpmndi:BPMNLabel />
@@ -279,6 +282,10 @@ modeldata: |
           <dc:Bounds x="410" y="240" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
+        <bpmndi:BPMNShape id="BPMNShape_0fg65q6" bpmnElement="Activity_0akijl3">
+          <dc:Bounds x="820" y="100" width="100" height="80" />
+          <bpmndi:BPMNLabel />
+        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="BPMNShape_0wmy9vb" bpmnElement="Event_1ma91fw">
           <dc:Bounds x="22" y="262" width="36" height="36" />
           <bpmndi:BPMNLabel>
@@ -289,15 +296,8 @@ modeldata: |
           <dc:Bounds x="540" y="240" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="Gateway_1b51cov_di" bpmnElement="Gateway_1b51cov" isMarkerVisible="true">
-          <dc:Bounds x="845" y="255" width="50" height="50" />
-        </bpmndi:BPMNShape>
         <bpmndi:BPMNShape id="BPMNShape_0s6na4y" bpmnElement="Activity_0tqas65">
           <dc:Bounds x="1000" y="240" width="100" height="80" />
-          <bpmndi:BPMNLabel />
-        </bpmndi:BPMNShape>
-        <bpmndi:BPMNShape id="BPMNShape_0fg65q6" bpmnElement="Activity_0akijl3">
-          <dc:Bounds x="820" y="100" width="100" height="80" />
           <bpmndi:BPMNLabel />
         </bpmndi:BPMNShape>
         <bpmndi:BPMNEdge id="Flow_0349bzn_di" bpmnElement="Flow_0349bzn">

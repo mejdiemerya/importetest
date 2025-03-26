@@ -2,8 +2,44 @@ uuid: e345464c-2306-47cc-a2dd-e113f0e8a3c4
 langcode: en
 status: true
 dependencies:
+  config:
+    - filter.format.full_html
+    - node.type.article
+    - node.type.forum
+    - node.type.page
+    - node.type.webcast
   module:
+    - announcements_feed
+    - bg_product_cart
+    - block
+    - comment
+    - commerce_checkout
+    - commerce_file
+    - contact
+    - contextual
+    - devel
+    - draggableviews
+    - facets
     - field_permissions
+    - filter
+    - forum
+    - image
+    - language
+    - locale
+    - masquerade
+    - node
+    - path
+    - pathauto
+    - quiz
+    - reroute_email
+    - rules
+    - salesforce
+    - search
+    - shortcut
+    - system
+    - taxonomy
+    - views_ui
+    - votingapi
 _core:
   default_config_hash: OeKGIkmZA_c-t6QLH81WNQx8gDCc1MRmxaTuQgxBByU
 id: administrator
@@ -11,8 +47,102 @@ label: administrator
 weight: 20
 is_admin: true
 permissions:
+  - 'access administration pages'
+  - 'access announcements'
+  - 'access checkout'
+  - 'access comments'
+  - 'access content'
+  - 'access content overview'
+  - 'access contextual links'
+  - 'access devel information'
+  - 'access draggableviews'
+  - 'access leeduser premium content'
+  - 'access premium content'
+  - 'access private fields'
+  - 'access quiz'
+  - 'access rules debug'
+  - 'access site in maintenance mode'
+  - 'access site reports'
+  - 'access site-wide contact form'
+  - 'access user contact forms'
+  - 'access user profiles'
+  - 'administer actions'
+  - 'administer blocks'
+  - 'administer comments'
+  - 'administer contact forms'
+  - 'administer content types'
+  - 'administer facets'
+  - 'administer field permissions'
+  - 'administer filters'
+  - 'administer forums'
+  - 'administer image styles'
+  - 'administer languages'
+  - 'administer menu'
+  - 'administer modules'
+  - 'administer nodes'
+  - 'administer pathauto'
+  - 'administer permissions'
+  - 'administer quiz configuration'
+  - 'administer reroute email'
+  - 'administer rules'
+  - 'administer salesforce'
+  - 'administer search'
+  - 'administer shortcuts'
+  - 'administer site configuration'
+  - 'administer software updates'
+  - 'administer taxonomy'
+  - 'administer themes'
+  - 'administer url aliases'
+  - 'administer users'
+  - 'administer views'
+  - 'administer voting api'
+  - 'bypass license control'
+  - 'bypass node access'
+  - 'bypass rules access'
+  - 'cancel account'
+  - 'change own username'
+  - 'create article content'
   - 'create field_website'
+  - 'create page content'
+  - 'create url aliases'
+  - 'customize shortcut links'
+  - 'delete any article content'
+  - 'delete any forum content'
+  - 'delete any page content'
+  - 'delete any webcast content'
+  - 'delete own article content'
+  - 'delete own forum content'
+  - 'delete own page content'
+  - 'delete own webcast content'
+  - 'delete results for own quiz'
+  - 'edit any article content'
+  - 'edit any forum content'
+  - 'edit any page content'
+  - 'edit any webcast content'
   - 'edit field_website'
+  - 'edit own article content'
+  - 'edit own comments'
   - 'edit own field_website'
+  - 'edit own forum content'
+  - 'edit own page content'
+  - 'edit own webcast content'
+  - 'edit question titles'
+  - 'masquerade as any user'
+  - 'masquerade as super user'
+  - 'notify of path changes'
+  - 'post comments'
+  - 'score own quiz'
+  - 'search content'
+  - 'select account cancellation method'
+  - 'skip comment approval'
+  - 'switch shortcut sets'
+  - 'switch users'
+  - 'translate interface'
+  - 'use advanced search'
+  - 'use text format full_html'
+  - 'view any quiz question correct response'
   - 'view field_website'
   - 'view own field_website'
+  - 'view own unpublished content'
+  - 'view results for own quiz'
+  - 'view the administration theme'

@@ -1,6 +1,6 @@
 uuid: 8a2114df-5d90-449c-97a9-7f384735854c
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - comment.type.comment_forum

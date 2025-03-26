@@ -6,9 +6,9 @@ dependencies:
     - bg_product_cart
     - field_permissions
 id: lu_premium
-label: 'LEEDuser Premium Member'
+label: lu_premium
 weight: 28
 is_admin: null
 permissions:
   - 'access leeduser premium content'
-  - 'view own field_website'
+  - 'edit own field_website'
