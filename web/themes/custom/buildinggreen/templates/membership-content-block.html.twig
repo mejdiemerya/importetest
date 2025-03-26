@@ -1,14 +1,21 @@
 <div class="paywall nullify">
 
-  <div data-ng-show="!(premium && spotlight)">
+  <div >
     <h3>For full access, sign up now for <strong>LEEDuser&nbsp;Premium</strong></h3>
 
     <div>
       or
-      <a data-ng-show="current_domain.id == 'LU'" class="btn btn-lg btn-success condensed nofade" href="" buy="77">Get a Monthly Subscription for <price id="77"></price></a>
+      <a class="btn btn-lg btn-success condensed nofade ng-scope" href="#">Get a Monthly Subscription for
+        <span class="ng-binding">$15.95</span>
+      </a>
     </div>
-    <a data-toggle="modal" data-target="#group-link-modal" href="#" class="btn btn-default btn-wrap" data-ng-show="uid == 0">Firm or campus members &ndash; click here &raquo;</a>
-    <p data-ng-show="uid == 0">Already a premium member? <a href="{{ path('user.login') }}" data-toggle="modal" data-target="#login-modal">Log in now</a></p>
+    <div>
+      <a href="#" class="btn btn-default btn-wrap">Firm or campus members – click here »</a>
+    </div>
+    <div></div>
+    <p>Already a premium member?
+      <a href="/user">Log in now</a>
+    </p>
   </div>
 
 </div>

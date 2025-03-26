@@ -5,9 +5,11 @@ dependencies:
   config:
     - field.field.node.credit_documentation_entry.field_documentation_file
     - field.field.node.credit_documentation_entry.field_documentation_type
+    - field.field.node.credit_documentation_entry.field_link
     - node.type.credit_documentation_entry
   module:
     - file
+    - link
 id: node.credit_documentation_entry.default
 targetEntityType: node
 bundle: credit_documentation_entry
@@ -28,6 +30,18 @@ content:
       link: true
     third_party_settings: {  }
     weight: 101
+    region: content
+  field_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 107
     region: content
   links:
     settings: {  }

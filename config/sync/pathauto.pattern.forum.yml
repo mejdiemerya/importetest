@@ -9,10 +9,10 @@ label: forum
 type: 'canonical_entities:node'
 pattern: '/forum/[node:title]'
 selection_criteria:
-  9c52d457-61c7-40c1-9a33-6024f26ce17b:
+  05d62b74-7e0f-405e-8adc-6aab45219649:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 9c52d457-61c7-40c1-9a33-6024f26ce17b
+    uuid: 05d62b74-7e0f-405e-8adc-6aab45219649
     context_mapping:
       node: node
     bundles:

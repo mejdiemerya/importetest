@@ -7,9 +7,7 @@ dependencies:
     - field.field.node.credit_checklist.field_credit_labels
     - field.field.node.credit_checklist.field_credit_tip_type
     - field.field.node.credit_checklist.field_credits
-    - field.field.node.credit_checklist.field_image_landscape
     - field.field.node.credit_checklist.field_image_landscape_v2
-    - field.field.node.credit_checklist.field_image_portrait
     - field.field.node.credit_checklist.field_image_portrait_v2
     - field.field.node.credit_checklist.field_project_phase
     - field.field.node.credit_checklist.field_who_does_it
@@ -27,7 +25,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 101
+    weight: 1
     region: content
   field_credit_labels:
     type: entity_reference_label
@@ -35,7 +33,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 104
+    weight: 2
     region: content
   field_credit_tip_type:
     type: entity_reference_label
@@ -43,16 +41,15 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 103
+    weight: 5
     region: content
-  field_image_landscape:
-    type: entity_reference_entity_view
+  field_credits:
+    type: entity_reference_label
     label: above
     settings:
-      view_mode: default
-      link: false
+      link: true
     third_party_settings: {  }
-    weight: 106
+    weight: 3
     region: content
   field_image_landscape_v2:
     type: image
@@ -63,16 +60,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 106
-    region: content
-  field_image_portrait:
-    type: entity_reference_entity_view
-    label: above
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
-    weight: 105
+    weight: 8
     region: content
   field_image_portrait_v2:
     type: image
@@ -83,7 +71,7 @@ content:
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: 107
+    weight: 7
     region: content
   field_project_phase:
     type: entity_reference_label
@@ -91,7 +79,7 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 102
+    weight: 4
     region: content
   field_who_does_it:
     type: entity_reference_label
@@ -99,19 +87,18 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 107
+    weight: 6
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
   created: true
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
-  field_credits: true
   langcode: true
   search_api_excerpt: true
   uid: true

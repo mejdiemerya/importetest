@@ -24,7 +24,7 @@ content:
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    weight: 101
+    weight: 1
     region: content
   field_campus_applicable:
     type: boolean
@@ -34,7 +34,7 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 104
+    weight: 5
     region: content
   field_credits:
     type: entity_reference_label
@@ -42,16 +42,16 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-    weight: 10
+    weight: 7
     region: content
   field_date:
     type: datetime_default
     label: above
     settings:
       timezone_override: ''
-      format_type: medium
+      format_type: long
     third_party_settings: {  }
-    weight: 102
+    weight: 2
     region: content
   field_internationally_applicable:
     type: boolean
@@ -61,29 +61,34 @@ content:
       format_custom_false: ''
       format_custom_true: ''
     third_party_settings: {  }
-    weight: 105
+    weight: 4
     region: content
   field_pre_v4_ref_guide_name:
     type: basic_string
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 107
+    weight: 6
     region: content
   field_updated_date:
     type: datetime_default
     label: above
     settings:
       timezone_override: ''
-      format_type: medium
+      format_type: long
     third_party_settings: {  }
-    weight: 103
+    weight: 3
     region: content
   links:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
+    weight: 0
     region: content
 hidden:
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
   search_api_excerpt: true
   uid: true

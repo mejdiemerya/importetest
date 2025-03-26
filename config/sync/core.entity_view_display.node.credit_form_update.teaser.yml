@@ -33,11 +33,16 @@ content:
     weight: 100
     region: content
 hidden:
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   field_campus_applicable: true
   field_credits: true
   field_date: true
   field_internationally_applicable: true
   field_pre_v4_ref_guide_name: true
   field_updated_date: true
+  langcode: true
   search_api_excerpt: true
   uid: true

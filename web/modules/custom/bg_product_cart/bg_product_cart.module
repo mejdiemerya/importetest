@@ -13,7 +13,7 @@ use Drupal\file\Entity\File;
 function bg_product_cart_mail($key, &$message, $params)
 {
 
-  //var_dump($key);die;
+
   $options = array(
     'langcode' => $message['langcode'],
   );
@@ -52,7 +52,9 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
 
     foreach ($variables['product_entity']->get('field_related_products') as $relatedProduct) {
       $resultsOdersP = getOrderByUserAndProduct($account->id(), $relatedProduct->target_id);
+
       if (!empty($resultsOdersP)) {
+
         $variables['has_purchased'] = TRUE;
         $variationItem = \Drupal\commerce_product\Entity\ProductVariation::load($relatedProduct->target_id);
         if ($variationItem->get('type')->target_id == "per_node_access") {
@@ -106,7 +108,7 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
       );
 
       //check for premium member price
-      $premium_user = user_load_by_name('googlebotip');//use googlebotip because they have premium roles for bot sites
+      $premium_user = user_load_by_name('googlebotIP_1');
       $pricesGooglebotip = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($premium_user, $store));
       $variables['in_pricelist'] = FALSE;
 
@@ -140,6 +142,7 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
       ) {
 
         $variables['has_purchased'] = TRUE;
+
       }
     }
 
@@ -149,9 +152,12 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
       }
 
     }
-
+    if ($account->isAnonymous()) {
+      $variables['has_purchased'] = false;
+    }
     $variables['has_purchased_product'] = $variables['has_purchased'];
     $variables ['add_cart_variation'] = $tabLinkCartVariations;
+
   }
 }
 

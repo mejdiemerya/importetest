@@ -26,6 +26,9 @@ final class CreditDocumentationEntryNode extends SqlBase {
     $query =  $this->select(' node', 'n');
     $query ->fields('n', $fields);
 
+    $query->addJoin('left','field_data_field_link', 'f6', 'f6.entity_id = n.nid');
+    $query ->fields('f6', ["field_link_title","field_link_url"] );
+
     $query ->condition("n.type","credit_documentation_entry" );
 
     return $query;
