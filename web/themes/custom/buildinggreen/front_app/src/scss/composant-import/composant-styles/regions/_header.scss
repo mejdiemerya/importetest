@@ -319,6 +319,8 @@ button{
     }
     .glyphicon-menu-hamburger {
       position: relative;
+      width: 20px;
+      height: 30px;
       &::before {
         content:'';
         background-image: url("data:image/svg+xml,%3Csvg width='22' height='15' viewBox='0 0 22 15' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cline y1='1.5' x2='22' y2='1.5' stroke='%23fff' stroke-width='3'/%3E%3Cline y1='7.5' x2='22' y2='7.5' stroke='%23fff' stroke-width='3'/%3E%3Cline y1='13.5' x2='22' y2='13.5' stroke='%23fff' stroke-width='3'/%3E%3C/svg%3E%0A");
@@ -326,9 +328,11 @@ button{
         background-size: cover;
         width: 12px;
         height: 11px;
-        position: absolute;
-        top: 10px;
-        right: -5px;
+        //position: absolute;
+        //top: 10px;
+        //right: -5px;
+        display: inline-block;
+        vertical-align: middle;
       }
     }
   }
