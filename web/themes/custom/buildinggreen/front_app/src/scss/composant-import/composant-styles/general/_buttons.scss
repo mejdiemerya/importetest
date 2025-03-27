@@ -45,6 +45,9 @@
     font-size: 20px;
     line-height: 1.3333333;
     border-radius: 6px;
+    @media (max-width: 575.98px){
+      padding: 9px 12px;
+    }
   }
 }
 .address-book__edit-link,

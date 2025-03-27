@@ -41,8 +41,8 @@
 
     <div class="content">
       <div class="visible-md-block visible-lg-block visible-xl-block">
-        <div class="row">
-          <div class="col-sm-3 col-lg-2">
+        <div class="row g-4">
+          <div class="col-sm-3 col-lg-4 col-xl-2">
             <ul class="nav nav-pills nav-stacked credit-page-nav">
               {% if has_credit_bev %}
                 <li role="presentation" class="active"><a data-toggle="pill" href="#bev">LEEDuser&rsquo;s viewpoint</a>
@@ -226,9 +226,8 @@
 
               </div>
 
-            </div><!-- end tab-content -->
-
-          </div><!-- end col -->
+            </div>
+          </div>
           <div class="col-lg-3 hidden-md">
             <div class="card panel panel-default mb-3" style="display: none">
               <div class="card-header panel-heading">
@@ -256,6 +255,213 @@
               </div>
             </div>
             {{ content.field_guest_expert }}
+          </div>
+        </div>
+      </div>
+      <div class="visible-xs-block visible-sm-block">
+
+        <div class="accordion" id="accordionpagecredit">
+          {% if has_credit_bev %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading_presentation">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsepresentation" aria-expanded="true" aria-controls="collapsepresentation">
+                  LEEDuser&rsquo;s viewpoint
+                </button>
+              </h2>
+              <div id="collapsepresentation" class="accordion-collapse collapse show" aria-labelledby="headingpresentation" data-bs-parent="#accordionpagecredit">
+                <div class="accordion-body">
+                  <p class="supertitle mb-0">LEEDuser overview</p>
+                  {% if not can_access_leeduser_content and has_credit_bev %}
+                    <h3>Frank advice from LEED experts</h3>
+                    <p class="mb15">LEED is changing all the time, and every project is unique. Even seasoned professionals can miss a critical detail and lose a credit or even a prerequisite at the last minute. Our expert advice guides our LEEDuser Premium members and saves you valuable time.</p>
+                    {{ membership_content_block }}
+
+                  {% elseif not can_access_leeduser_content and not has_credit_bev   %}
+                    <h4 class="mt10">Explore this LEED credit</h4>
+                    <p>Post your questions on this credit in the <a href="/forums/?f[0]=credit:{{ term.tid.value }}">forum</a>, and click on the credit language tab to review to the LEED requirements.</p>
+
+                  {% else %}
+                    {{ content.credit_bev }}
+                    <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
+                       class="btn btn-midtone btn-wrap btn-left btn-xl mt-5"><strong>See all forum discussions about this
+                        credit&nbsp;&raquo;</strong></a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if show_credit_language_tab %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-credit-language">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-credit-language" aria-expanded="false" aria-controls="collapse-credit-language">
+                  Credit language
+                </button>
+              </h2>
+              <div id="collapse-credit-language" class="accordion-collapse collapse" aria-labelledby="heading-credit-language" data-bs-parent="#accordionpagecredit">
+                <div class="accordion-body">
+                  <p class="supertitle">Credit language</p>
+                  <div class="well well-sm">
+                    <div class="media">
+                      <div class="media-left media-middle">
+                        <img class="media-object" src="/themes/custom/buildinggreen/front_app/dist/assets/images/usgbc_170.png" width="85"
+                             alt="USGBC logo">
+                      </div>
+                      <div class="media-body">
+                        <p class="xsmall mt05">&copy; Copyright U.S. Green Building Council, Inc. All rights reserved.</p>
+                      </div>
+                    </div>
+                  </div>
+                  {% if content.field_intent['#items'] is not empty %}
+                    <h4>Intent</h4>
+                    {{ content.field_intent.0['#text']|raw }}
+                  {% endif %}
+                  {% if content.field_credit_requirement_text['#items'] is not empty %}
+                    <h4>Requirements</h4>
+                    {{ content.field_credit_requirement_text.0['#text']|raw }}
+                  {% endif %}
+                  <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
+                     class="btn btn-midtone btn-wrap btn-left btn-xl mt-5"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if cost_guidance_tab %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-cost">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapse-cost">
+                  What does it cost?
+                </button>
+              </h2>
+              <div id="collapse-cost" class="accordion-collapse collapse" aria-labelledby="heading-cost" data-bs-parent="#accordionpagecredit">
+                <div class="accordion-body">
+                  <p class="supertitle mb0">Frequently asked questions</p>
+                  {{ content.credit_faq|raw }}
+                  <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
+                     class="btn btn-midtone btn-wrap btn-left btn-xl mt-5"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          {% if content.credit_checklists['#markup'] is not empty %}
+
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-checklists">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-checklists" aria-expanded="false" aria-controls="collapse-checklists">
+                  Checklists
+                </button>
+              </h2>
+              <div id="collapse-checklists" class="accordion-collapse collapse" aria-labelledby="heading-checklists" data-bs-parent="#accordionpagecredit">
+                <div class="accordion-body">
+                  <p class="supertitle">Checklists</p>
+                  <div class="checklist">
+                    {% if  not can_access_leeduser_content %}
+                      <h3>Step by step to LEED certification</h3>
+                      <p class="mb15">LEEDuser&rsquo;s checklists walk you through the key action steps you need to earn a credit, including how to avoid common pitfalls and save money.</p>
+                      {{ membership_content_block }}
+
+                    {% else %}
+                      <table class="legend nullify">
+                        <tr>
+                          <td><strong>LEGEND:</strong></td>
+                          <td><span class="glyphicon glyphicon-ok" style="color: #4f85da;"></span> Action steps</td>
+                          <td><span class="glyphicon glyphicon-thumbs-up" style="color: #577974;"></span> Best practices
+                          </td>
+                          <td><span class="glyphicon glyphicon-piggy-bank" style="color: #eaa0ad;"></span> Cost tip</td>
+                          <td><span class="glyphicon glyphicon-flash" style="color: #f66;"></span> Hot tip</td>
+                        </tr>
+                      </table>
+                      {{ content.credit_checklists|raw }}
+                      <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
+                         class="btn btn-midtone btn-wrap btn-left btn-xl mt-5"><strong>See all forum discussions about this
+                          credit&nbsp;&raquo;</strong></a>
+
+                    {% endif %}
+                  </div><!-- end checklist -->
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if show_doc_tab %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-docs">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-docs" aria-expanded="false" aria-controls="collapse-docs">
+                  Documentation toolkit
+                </button>
+              </h2>
+              <div id="collapse-docs" class="accordion-collapse collapse" aria-labelledby="heading-docs" data-bs-parent="#accordionpagecredit">
+                <div class="accordion-body">
+                  <p class="supertitle">Documentation toolkit</p>
+                  {% if  not can_access_leeduser_content  %}
+                    <div class="magnify">
+                      <h3>The motherlode of cheat sheets</h3>
+                      <p class="mb15">LEEDuser’s Documentation Toolkit is loaded with calculators to help assess credit compliance, tracking spreadsheets for materials, sample templates to help guide your narratives and LEED Online submissions, and examples of actual submissions from certified LEED projects for you to check your work against. To get your plaque, start with the right toolkit.</p>
+                    </div>
+                    {{ membership_content_block }}
+
+                  {% else %}
+                    {{ docs_tab }}
+                    <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
+                       class="btn btn-midtone btn-wrap btn-left btn-xl mt-5"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+
+                  {% endif %}
+                  <hr>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if credit_faq %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-faq">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-faq" aria-expanded="false" aria-controls="collapse-faq">
+                  FAQ
+                </button>
+              </h2>
+              <div id="collapse-faq" class="accordion-collapse collapse" aria-labelledby="heading-faq" data-bs-parent="#accordionpagecredit">
+                <div class="accordion-body">
+                  <p class="supertitle mb0">Frequently asked questions</p>
+                  {{ content.credit_faq|raw }}
+                  <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
+                     class="btn btn-midtone btn-wrap btn-left btn-xl mt-5"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if addenda_tab %}
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading-addenda">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-addenda" aria-expanded="false" aria-controls="collapse-addenda">
+                  Addenda
+                </button>
+              </h2>
+              <div id="collapse-addenda" class="accordion-collapse collapse" aria-labelledby="heading-addenda" data-bs-parent="#accordionpagecredit">
+                <div class="accordion-body">
+                  <p class="supertitle mb0">Addenda</p>
+                  {{ content.credit_addenda }}
+                  <a href="/forums/?f[0]=credit:{{ term.tid.value }}"
+                     class="btn btn-midtone btn-wrap btn-left btn-xl mt-5"><strong>See all forum discussions about this credit&nbsp;&raquo;</strong></a>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+
+        </div>
+        <div class="row g-3">
+          <div class="col-md-6">{{ content.field_guest_expert }}</div>
+          <div class="col-md-6">
+            <a href="/forums/?f[0]=credit:{{ term.tid.value }}" class="btn btn-midtone btn-wrap text-start mt-4"><strong>See
+                all forum discussions about this credit&nbsp;&raquo;</strong></a>
+            {% if v4_credit_url %}
+              <a href="{{ v4_credit_url }}" class="btn btn-light btn-wrap btn-left mt-3"><strong>View the LEED v4 version of this credit&nbsp;&raquo;</strong></a>
+
+            {% endif %}
+            {% if v41_credit_url %}
+              <a href="{{ v41_credit_url}}" class="btn btn-success btn-wrap btn-left mt-3"><strong>View the LEED v4.1 version of this credit&nbsp;&raquo;</strong></a>
+            {% endif %}
           </div>
         </div>
       </div>

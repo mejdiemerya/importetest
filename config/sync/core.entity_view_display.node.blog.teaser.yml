@@ -7,7 +7,10 @@ dependencies:
     - field.field.node.blog.body
     - field.field.node.blog.comment
     - field.field.node.blog.field_author
+    - field.field.node.blog.field_caption_image
+    - field.field.node.blog.field_credit
     - field.field.node.blog.field_dek
+    - field.field.node.blog.field_image_landscape
     - node.type.blog
   module:
     - text
@@ -46,6 +49,14 @@ content:
     region: content
 hidden:
   comment: true
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  field_caption_image: true
+  field_credit: true
+  field_image_landscape: true
+  langcode: true
   links: true
   search_api_excerpt: true
   uid: true

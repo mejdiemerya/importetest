@@ -192,6 +192,8 @@ $font-size-small: ceil(($font-size-base * 0.85)); // ~12px
 
   @include MQ(SMtoM) {
     width: 65%;
+    margin: auto;
+    max-width: 330px;
   }
 
   div.browser-group,
@@ -199,7 +201,9 @@ $font-size-small: ceil(($font-size-base * 0.85)); // ~12px
     padding: 5px 15px 10px;
     background-color: #eee;
     margin-bottom: 1px;
-
+    @media only screen and (max-width: 575px) {
+      width: 100%;
+    }
     label {
       color: $gray;
     }
@@ -229,7 +233,7 @@ $font-size-small: ceil(($font-size-base * 0.85)); // ~12px
 
       margin-bottom: 0;
       @include gradient-vertical($gray-light, $gray-lighter, 0%, 100%);
-
+      max-width: 25%;
       &:first-of-type {
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;

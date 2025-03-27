@@ -7,7 +7,10 @@ dependencies:
     - field.field.node.blog.body
     - field.field.node.blog.comment
     - field.field.node.blog.field_author
+    - field.field.node.blog.field_caption_image
+    - field.field.node.blog.field_credit
     - field.field.node.blog.field_dek
+    - field.field.node.blog.field_image_landscape
     - node.type.blog
   module:
     - comment
@@ -41,6 +44,21 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
+  field_caption_image:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_credit:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 6
+    region: content
   field_dek:
     type: basic_string
     label: hidden
@@ -48,7 +66,21 @@ content:
     third_party_settings: {  }
     weight: 0
     region: content
+  field_image_landscape:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
 hidden:
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
   links: true
   read_more_comment_links: true
   search_api_excerpt: true
