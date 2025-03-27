@@ -94,6 +94,7 @@ function sendHttpRequest($post_fields = null, $method = 'post')
       array('@placeholder_name' => print_r($response, TRUE))
     );
   } else {
+    $post_fields['status'] = 1;
     $url = $api_url . '/register';
     $response = \Drupal::httpClient()
       ->post($url, [
