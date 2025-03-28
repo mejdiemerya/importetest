@@ -30,8 +30,8 @@ process:
     plugin: get
     source: billing_schedule
   payment_method:
-    plugin: default_value
-    default_value: '1'
+    plugin: get
+    source: payment_method
   purchased_entity:
     plugin: static_map
     source: product_id

@@ -120,6 +120,14 @@ class BGSubscription extends FieldableEntity {
       ->fields('cpr');
     $query->addJoin('inner','commerce_product', 'f4', 'f4.product_id = cpr.product_id');
     $query->addField('f4', 'title', 'product_title');
+    //$query->addJoin('inner',' field_data_cl_billing_license', 'f5', 'f5.cl_billing_license_target_id = cpr.license_id');
+    //$query->addJoin('inner',' commerce_line_item', 'f6', 'f5.entity_id = f6.line_item_id');
+   // $query->addJoin('inner',' commerce_payment_transaction', 'f7', 'f7.order_id = f6.order_id');
+    //$query->fields('f7', ['transaction_id']);
+    //$query->addField('f4', 'title', 'product_title');
+
+
+
     //field_data_commerce_order_total
     $query ->condition("cpr.status", 2 );
     $query ->condition("cpr.type", "buildinggreen_license" );
@@ -128,7 +136,21 @@ class BGSubscription extends FieldableEntity {
 
     return $query;
   }
+  public function getCard($uid){
+    $query = $this->select("commerce_cardonfile", 'f')
+      ->fields('f', ["card_id"]);
+    $query ->condition("f.uid", $uid );
+    $query ->condition("f.status", 1 );
+    $query ->condition("f.instance_default", 1 );
+    $query ->orderBy("f.card_id", 'DESC' );
+    $query ->range(0, 1 );
 
+    $rows =  $query->execute()->fetchCol();
+    if(!empty($rows)){
+      return $rows[0];
+    }
+    return null;
+  }
   /**
    * {@inheritdoc}
    */
@@ -156,6 +178,25 @@ class BGSubscription extends FieldableEntity {
     ]);
     $row->setSourceProperty('billing_schedule',
        $this->getBillingCycleType($row->getSourceProperty('product_id'))
+    );
+    $card = $this->getCard($row->getSourceProperty('uid'));
+//var_dump($row->getSourceProperty('product_id'));
+//    $tab = [
+//      11,
+//      77,
+//      216,
+//      70,
+//      220,
+//      131,
+//      81,
+//      218,
+//      80
+//    ];
+//    if(in_array($row->getSourceProperty('product_id'),$tab)  )
+//      var_dump($row);
+   // var_dump($row->getSourceProperty('license_id'));
+    $row->setSourceProperty('payment_method',
+      $card
     );
     //$row->setSourceProperty('billing_schedule','billing_monthly');
 
