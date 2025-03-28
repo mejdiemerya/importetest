@@ -37,17 +37,34 @@ class BgPaymentMethod  extends FieldableEntity {
   /**
    * {@inheritdoc}
    */
+//  public function query() {
+//    // Process the receipts in chronological order.
+//    $query =  $this->select('commerce_cardonfile', 'pt')
+//      ->fields('pt');
+//    $query->addJoin('left','commerce_payment_transaction', 'f1', 'f1.order_id  = pt.order_id');
+//    $query ->fields('f1', ["created","changed"] );
+//    $query->addJoin('left','field_data_commerce_cardonfile_profile', 'f2', 'f2.entity_id  = pt.card_id');
+//    $query ->fields('f2', ["commerce_cardonfile_profile_profile_id" ] );
+//
+//    // $query ->condition("pt.uid", 57813 );
+// //echo $query->__toString();
+//    return $query;
+//  }
   public function query() {
     // Process the receipts in chronological order.
     $query =  $this->select('commerce_cardonfile', 'pt')
       ->fields('pt');
-    $query->addJoin('left','commerce_payment_transaction', 'f1', 'f1.order_id  = pt.order_id');
-    $query ->fields('f1', ["created","changed"] );
+//    $query->addJoin('left','commerce_payment_transaction', 'f1', 'f1.order_id  = pt.order_id');
+//    $query ->fields('f1', ["created","changed"] );
     $query->addJoin('left','field_data_commerce_cardonfile_profile', 'f2', 'f2.entity_id  = pt.card_id');
     $query ->fields('f2', ["commerce_cardonfile_profile_profile_id" ] );
+    $query->addJoin('left','commerce_customer_profile', 'f3', 'f3.uid  = pt.uid');
+    $query->addField('f3', 'revision_id', 'myrevisionid');
+    $query->addField('f3', 'profile_id', 'myprofile_id');
+    $query ->condition("f3.status", 1 );
 
     // $query ->condition("pt.uid", 57813 );
- //echo $query->__toString();
+    //echo $query->__toString();
     return $query;
   }
 
@@ -63,6 +80,11 @@ class BgPaymentMethod  extends FieldableEntity {
 
     $expires = mktime(23,59,59, $card_exp_month, $last_day_of_specified_month, $card_exp_year);
 
+    $profile_idcard = $row->getSourceProperty('commerce_cardonfile_profile_profile_id');
+    $profile_id = $row->getSourceProperty('myprofile_id');
+    if(empty($profile_idcard)) {
+      $row->setSourceProperty('commerce_cardonfile_profile_profile_id', $profile_id);
+    }
     $row->setSourceProperty('expires', $expires);
     return parent::prepareRow($row);
   }

@@ -187,7 +187,11 @@ class BgCommerceOrder extends FieldableEntity {
     ]);
 
 //canceled
-
+if(!empty( $row->getSourceProperty('commerce_customer_billing_profile_id')))
+{
+  var_dump($row->getSourceProperty('order_id').'--'.
+  $row->getSourceProperty('commerce_customer_billing_profile_id'));
+}
     return parent::prepareRow($row);
   }
 

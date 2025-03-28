@@ -58,6 +58,8 @@ class BgPayment  extends FieldableEntity {
     $query =  $this->select('commerce_payment_transaction', 'pt')
       ->fields('pt')
       ->orderBy('changed');
+    $query->addJoin('inner','commerce_cardonfile', 'f1', 'f1.order_id = pt.order_id');
+    $query->fields('f1', ['order_id']);
     // $query ->condition("pt.uid", 57813 );
 //echo $query->__toString();
     return $query;
