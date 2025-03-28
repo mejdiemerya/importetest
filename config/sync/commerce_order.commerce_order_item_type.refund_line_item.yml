@@ -1,0 +1,10 @@
+uuid: 6c8a4006-1978-4046-9a5f-6041ff73d1fa
+langcode: en
+status: true
+dependencies: {  }
+id: refund_line_item
+label: refund_line_item
+traits: {  }
+locked: false
+purchasableEntityType: commerce_product_variation
+orderType: default

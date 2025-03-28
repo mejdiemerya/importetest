@@ -1,0 +1,10 @@
+uuid: a13a17a2-0da4-4031-8b0d-3f1ca03db9b1
+langcode: en
+status: true
+dependencies: {  }
+id: recurring
+label: recurring
+traits: {  }
+locked: false
+purchasableEntityType: commerce_product_variation
+orderType: default

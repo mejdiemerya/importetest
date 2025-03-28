@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.field.node.webcast.body
     - field.field.node.webcast.field_liens
-    - field.field.node.webcast.field_presenters
+    - field.field.node.webcast.field_presenter
     - field.field.node.webcast.field_video
     - node.type.webcast
   module:
@@ -44,9 +44,9 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-  field_presenters:
+  field_presenter:
     type: paragraphs
-    weight: 122
+    weight: 124
     region: content
     settings:
       title: Paragraph
