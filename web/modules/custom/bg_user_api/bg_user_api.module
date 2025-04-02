@@ -56,7 +56,7 @@ function bg_user_api_form_commerce_checkout_form_registration_submit(&$form, &$f
     $values = $form_state->getValue('login')['register'];
     $post_fields['name'] = $values['name'];
     $post_fields['mail'] = $values['mail'];
-    $post_fields['pass'] = $values['pass'];
+    $post_fields['pass'] = $values['password'];
 
     $post_fields['uid'] = $form_state->getStorage()["logged_in_uid"];
     $post_fields['roles'] = array(18); // 18 = pre-authorized
