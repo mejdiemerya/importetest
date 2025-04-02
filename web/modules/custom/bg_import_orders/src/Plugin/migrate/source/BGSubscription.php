@@ -191,7 +191,7 @@ class BGSubscription extends FieldableEntity {
     $row->setSourceProperty('payment_method',
       $card
     );
- 
+
     return parent::prepareRow($row);
   }
 

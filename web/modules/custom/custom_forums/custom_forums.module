@@ -676,7 +676,7 @@ function custom_forums_entity_insert(EntityInterface $entity)
 
 function custom_forums_entity_delete(EntityInterface $entity)
 {
-  if ($entity instanceof Comment) {
+  if ($entity instanceof Comment && $entity->bundle() == 'comment_forum') {
     // Get the related node of the comment.
     $node_related = $entity->getCommentedEntity();
 
