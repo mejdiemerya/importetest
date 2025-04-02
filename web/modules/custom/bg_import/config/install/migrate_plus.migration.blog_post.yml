@@ -1,0 +1,38 @@
+# Migration configuration for user accounts. We've described most of what goes
+# into migration configuration in migrate_plus.migration.beer_term.yml, so won't
+# repeat that here.
+id: blog_post
+label: blog
+source:
+  plugin: blog_node
+destination:
+  plugin: entity:node
+process:
+  type:
+    plugin: default_value
+    default_value: 'blog'
+  title: title
+  nid: nid
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+
+  'field_dek/value':
+    plugin: get
+    source: field_dek_value
+  'body/value':
+    plugin: get
+    source: body_value
+  'body/format':
+    plugin: default_value
+    default_value: 'full_html'
+  'field_author/target_id':
+    plugin: get
+    source: field_author_target_id
+
+
+dependencies:
+  enforced:
+    module:
+      - migrate_drupal
