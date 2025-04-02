@@ -136,12 +136,15 @@ class BGSubscription extends FieldableEntity {
 
     return $query;
   }
-  public function getCard($uid){
+  public function getCard($uid, $nostatus = 0){
     $query = $this->select("commerce_cardonfile", 'f')
       ->fields('f', ["card_id"]);
     $query ->condition("f.uid", $uid );
-    $query ->condition("f.status", 1 );
-    $query ->condition("f.instance_default", 1 );
+    if(empty($nostatus)){
+      $query ->condition("f.status", 1 );
+      $query ->condition("f.instance_default", 1 );
+    }
+
     $query ->orderBy("f.card_id", 'DESC' );
     $query ->range(0, 1 );
 
@@ -180,31 +183,15 @@ class BGSubscription extends FieldableEntity {
        $this->getBillingCycleType($row->getSourceProperty('product_id'))
     );
     $card = $this->getCard($row->getSourceProperty('uid'));
-//var_dump($row->getSourceProperty('product_id'));
-//    $tab = [
-//      11,
-//      77,
-//      216,
-//      70,
-//      220,
-//      131,
-//      81,
-//      218,
-//      80
-//    ];
-//    if(in_array($row->getSourceProperty('product_id'),$tab)  )
-//      var_dump($row);
-   // var_dump($row->getSourceProperty('license_id'));
+
+    if(empty($card)){
+      $card = $this->getCard($row->getSourceProperty('uid'), 1);
+    }
+
     $row->setSourceProperty('payment_method',
       $card
     );
-    //$row->setSourceProperty('billing_schedule','billing_monthly');
-
-//    $row->setSourceProperty('next_renewal',
-//      $this->fetchCiBilling($this->getLastOrderId($row->getSourceProperty('license_id')),'end')
-//    );
-
-   // var_dump($row);
+ 
     return parent::prepareRow($row);
   }
 
