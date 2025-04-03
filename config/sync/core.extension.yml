@@ -110,6 +110,7 @@ module:
   menu_ui: 0
   migrate: 0
   migrate_conditions: 0
+  migrate_devel: 0
   migrate_drupal: 0
   migrate_drupal_ui: 0
   migrate_plus: 0

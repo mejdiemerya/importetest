@@ -1,0 +1,46 @@
+uuid: ba707b1d-5846-4ab2-9b99-49b955aab149
+langcode: en
+status: true
+dependencies: {  }
+id: blog_comment
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: null
+label: 'Comments on blog'
+source:
+  plugin: blog_comment
+process:
+  pid: pid
+  cid: cid
+  entity_id: nid
+  entity_type:
+    plugin: default_value
+    default_value: node
+  field_name:
+    plugin: default_value
+    default_value: comment
+  comment_type:
+    plugin: default_value
+    default_value: comment
+  subject: subject
+  uid: uid
+  name: name
+  mail: mail
+  nid: nid
+  language: language
+  langcode: language
+  hostname: hostname
+  created: created
+  changed: changed
+  status: status
+  thread: thread
+  homepage: homepage
+  comment_body/value: comment_body_value
+  comment_body/format:
+    plugin: default_value
+    default_value: basic_html
+destination:
+  plugin: 'entity:comment'
+migration_dependencies: null

@@ -1,9 +1,9 @@
-uuid: 08441af3-903e-4793-9798-6c43c623cc26
+uuid: 9bf8b03a-1e3e-440a-b107-bd6e2204735e
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.search_result
     - field.field.node.blog.body
     - field.field.node.blog.comment
     - field.field.node.blog.field_author
@@ -13,66 +13,49 @@ dependencies:
     - field.field.node.blog.field_dek
     - field.field.node.blog.field_image
     - field.field.node.blog.field_image_landscape
-    - image.style.medium
+    - image.style.thumbnail
     - node.type.blog
   module:
     - image
-    - text
-id: node.blog.teaser
+id: node.blog.search_result
 targetEntityType: node
 bundle: blog
-mode: teaser
+mode: search_result
 content:
-  body:
-    type: text_trimmed
-    label: hidden
-    settings:
-      trim_length: 600
-    third_party_settings: {  }
-    weight: 2
-    region: content
-  field_author:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: content
-  field_dek:
-    type: basic_string
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    weight: 0
-    region: content
   field_image:
     type: image
     label: hidden
     settings:
       image_link: content
-      image_style: medium
+      image_style: thumbnail
       image_loading:
         attribute: lazy
     third_party_settings: {  }
-    weight: -1
+    weight: 0
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
     region: content
   read_more_comment_links:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 0
     region: content
 hidden:
+  body: true
   comment: true
   created: true
   entity_print_view_epub: true
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
+  field_author: true
   field_caption_image: true
   field_credit: true
   field_credit_url: true
+  field_dek: true
   field_image_landscape: true
   langcode: true
-  links: true
   search_api_excerpt: true
   uid: true
