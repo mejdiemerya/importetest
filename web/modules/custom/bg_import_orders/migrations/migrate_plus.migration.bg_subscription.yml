@@ -28,7 +28,7 @@ process:
     plugin: static_map
     source: product_id
     map:
-      11: 5 #BGPRM-MI
+#      11: 5 #BGPRM-MI
       77: 10 #LUPRM-MI
       216: 13 #LUPNW-LDSW
       70: 11 #LUPRM-YI

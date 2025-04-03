@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   module:
+    - text
     - user
 id: user.field_bio
 field_name: field_bio

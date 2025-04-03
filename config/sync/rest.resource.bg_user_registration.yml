@@ -1,0 +1,18 @@
+uuid: 93ca0ab0-ce5f-4045-8dc5-4232471ffec9
+langcode: en
+status: true
+dependencies:
+  module:
+    - basic_auth
+    - bg_user_api
+    - serialization
+id: bg_user_registration
+plugin_id: bg_user_registration
+granularity: resource
+configuration:
+  methods:
+    - POST
+  formats:
+    - json
+  authentication:
+    - basic_auth
