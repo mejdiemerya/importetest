@@ -21,8 +21,26 @@ function buildinggreen_theme_suggestions_page_alter(array &$suggestions, array $
 function buildinggreen_preprocess_node(&$variables)
 {
   $node = $variables['node'];
+
+
+
   //check content type
   if ($node->getType() == 'blog') {
+    $currentUser = \Drupal::currentUser();
+
+    if ($currentUser->isAnonymous() || !\Drupal::currentUser()->hasPermission('access leeduser premium content')) {
+
+      $membership_promo_block = [
+        '#theme' => 'membership_promo_block',
+      ];
+
+      $membership_promo_block = \Drupal::service('renderer')->render($membership_promo_block);
+      $found = preg_match_all("/<\/p>/", $variables['content']['body'][0]['#text'], $matches, PREG_OFFSET_CAPTURE);
+      $num_paragraphs = 5;
+      if ($found !== FALSE && $found > $num_paragraphs) {
+        $variables['content']['body'][0]['#text'] = substr_replace($variables['content']['body'][0]['#text'], '</p>' . $membership_promo_block, $matches[0][$num_paragraphs][1], strlen('</p>'));
+      }
+    }
     $variables['#attached']['library'][] = 'buildinggreen/blog';
   }
   // Obtenir le timestamp de création du contenu.
