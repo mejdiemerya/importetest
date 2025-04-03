@@ -1,0 +1,41 @@
+id: d7_user_role
+label: User roles
+migration_tags:
+  - Drupal 7
+  - Configuration
+
+source:
+  plugin: d7_user_role
+
+process:
+  id:
+    plugin: machine_name
+    source: name
+
+  label: name
+
+  permissions:
+    - plugin: static_map
+      source: permissions
+      bypass: true
+      map:
+        access content: 'access content'
+        post comments: 'post comments'
+        # ajoute ici d'autres permissions à mapper si besoin
+    - plugin: flatten
+
+  weight: weight
+
+destination:
+  plugin: entity:user_role
+
+migration_dependencies:
+  optional:
+    - block_content_type
+    - contact_category
+    - d7_comment_type
+    - d7_filter_format
+    - d7_node_type
+    - d7_shortcut_set
+    - d7_taxonomy_vocabulary
+    - d7_taxonomy_vocabulary_translation

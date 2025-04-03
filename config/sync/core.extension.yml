@@ -19,6 +19,7 @@ module:
   bg_import_webcast: 0
   bg_invoice: 0
   bg_product_cart: 0
+  bg_user_api: 0
   big_pipe: 0
   block: 0
   block_content: 0
