@@ -1,0 +1,74 @@
+# Migration configuration for user accounts. We've described most of what goes
+# into migration configuration in migrate_plus.migration.beer_term.yml, so won't
+# repeat that here.
+id: webcast
+label: webcast
+source:
+  plugin: webcast_node
+destination:
+  plugin: entity:node
+process:
+
+  type:
+    plugin: default_value
+    default_value: 'webcast'
+  title:
+    plugin: skip_on_empty
+    method: row
+    source: title
+  nid: nid
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+  'body/value':
+    plugin: get
+    source: body_value
+  'body/summary':
+    plugin: get
+    source: body_summary
+  'body/format':
+    plugin: default_value
+    default_value: 'full_html'
+  field_liens:
+    plugin: sub_process
+    source: field_liens
+    process:
+      title: title
+      uri: uri
+  field_presenter:
+    plugin: sub_process
+    source: field_presenter
+    process:
+      target_id:
+        - plugin: migration_lookup
+          method: process
+          migration: field_presenter_to_paragraph
+          source: value
+        - plugin: extract
+          index:
+            - 0
+      target_revision_id:
+        - plugin: migration_lookup
+          method: process
+          migration: field_presenter_to_paragraph
+          source: value
+        - plugin: extract
+          index:
+            - 1
+  field_video/target_id:
+    plugin: get
+    source: field_video_target_id
+
+
+
+migration_dependencies:
+  required:
+    - text_to_media
+    - field_presenter_to_paragraph
+
+dependencies:
+  enforced:
+    module:
+      - migrate_drupal
+

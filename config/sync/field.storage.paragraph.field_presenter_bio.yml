@@ -1,12 +1,12 @@
-uuid: 7296693a-03eb-4416-8464-0ca3f16f5a35
+uuid: afb3da3f-99dc-42ee-a4df-8db8710e15a3
 langcode: en
 status: true
 dependencies:
   module:
     - paragraphs
     - text
-id: paragraph.field_texte_accordion
-field_name: field_texte_accordion
+id: paragraph.field_presenter_bio
+field_name: field_presenter_bio
 entity_type: paragraph
 type: text_long
 settings: {  }

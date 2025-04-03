@@ -5,7 +5,7 @@ dependencies:
   config:
     - field.field.node.webcast.body
     - field.field.node.webcast.field_liens
-    - field.field.node.webcast.field_presenters
+    - field.field.node.webcast.field_presenter
     - field.field.node.webcast.field_video
     - node.type.webcast
   module:
@@ -36,14 +36,14 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  field_presenters:
+  field_presenter:
     type: entity_reference_revisions_entity_view
-    label: hidden
+    label: above
     settings:
       view_mode: default
       link: ''
     third_party_settings: {  }
-    weight: 2
+    weight: 4
     region: content
   field_video:
     type: entity_reference_entity_view

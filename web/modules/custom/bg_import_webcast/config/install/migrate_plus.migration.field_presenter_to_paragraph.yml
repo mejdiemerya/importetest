@@ -1,0 +1,31 @@
+id: field_presenter_to_paragraph
+label: 'Drupal 7 Field Collection Presenter to Paragraph'
+source:
+  key: migrate
+  plugin: paragraph_presenter
+  field_name: field_presenter
+  high_water_property:
+    name: revision_id
+    alias: fr
+process:
+  type:
+    plugin: default_value
+    default_value: item_presenter
+  field_presenter_name: field_presenter_name
+  field_accreditations: field_accreditations
+  field_firm: field_firm
+  field_presenter_bio/value:
+    plugin: get
+    source: field_presenter_bio_value
+
+  field_presenter_bio/format:
+    plugin: default_value
+    default_value: full_html
+  field_presenter_photo/target_id:
+    plugin: get
+    source: field_presenter_photo_target_id
+  field_presenter_photo/alt: Image alt
+
+destination:
+  plugin: 'entity_reference_revisions:paragraph'
+  default_bundle: item_presenter

@@ -1,15 +1,15 @@
-uuid: 59fb9bc4-9ba9-4c50-8684-3992e90c6f3f
+uuid: d55206e3-3c91-4e53-8ab3-16e817bde74d
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.paragraph.field__title
+    - field.storage.paragraph.field_presenter_name
     - paragraphs.paragraphs_type.item_presenter
-id: paragraph.item_presenter.field__title
-field_name: field__title
+id: paragraph.item_presenter.field_presenter_name
+field_name: field_presenter_name
 entity_type: paragraph
 bundle: item_presenter
-label: Title
+label: Name
 description: ''
 required: false
 translatable: false

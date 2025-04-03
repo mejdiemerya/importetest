@@ -16,6 +16,7 @@ module:
   bg_import_og: 0
   bg_import_orders: 0
   bg_import_product: 0
+  bg_import_webcast: 0
   bg_invoice: 0
   bg_product_cart: 0
   big_pipe: 0
@@ -180,7 +181,6 @@ module:
   webform_templates: 0
   webform_ui: 0
   workflows: 0
-  eca_form: 1
   facets: 1
   flag: 1
   forum: 1

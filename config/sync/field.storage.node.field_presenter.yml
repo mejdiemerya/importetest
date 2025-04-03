@@ -1,4 +1,4 @@
-uuid: 3becd695-f07c-4c23-840e-2ca1e337ab20
+uuid: a729e811-c768-4c93-be3a-0d3e3b0731bf
 langcode: en
 status: true
 dependencies:
@@ -6,8 +6,8 @@ dependencies:
     - entity_reference_revisions
     - node
     - paragraphs
-id: node.field_presenters
-field_name: field_presenters
+id: node.field_presenter
+field_name: field_presenter
 entity_type: node
 type: entity_reference_revisions
 settings:

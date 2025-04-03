@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: commerce_node_checkout
-label: 'Commerce Node Checkout'
+label: commerce_node_checkout
 traits:
   - commerce_license_order_item_type
 locked: false

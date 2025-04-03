@@ -6,7 +6,7 @@ dependencies:
     - core.entity_view_mode.node.search_index
     - field.field.node.webcast.body
     - field.field.node.webcast.field_liens
-    - field.field.node.webcast.field_presenters
+    - field.field.node.webcast.field_presenter
     - field.field.node.webcast.field_video
     - node.type.webcast
   module:
@@ -34,7 +34,7 @@ hidden:
   entity_print_view_pdf: true
   entity_print_view_word_docx: true
   field_liens: true
-  field_presenters: true
+  field_presenter: true
   field_video: true
   langcode: true
   search_api_excerpt: true
