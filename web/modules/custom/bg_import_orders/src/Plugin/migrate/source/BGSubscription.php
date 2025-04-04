@@ -217,8 +217,12 @@ class BGSubscription extends FieldableEntity {
     );
 
     $initialOrder = $this->getOriginatingOrder($row->getSourceProperty('uid'), $row->getSourceProperty('sku'));
-//    if($row->getSourceProperty('license_id')== 101518)
-//    var_dump($initialOrder);
+//    if($row->getSourceProperty('license_id')== 101532){
+//      var_dump($row->getSourceProperty('uid'));
+//      var_dump($row->getSourceProperty('sku'));
+//      var_dump($initialOrder);
+//    }
+
     $row->setSourceProperty('initial_order',
       $initialOrder
     );
