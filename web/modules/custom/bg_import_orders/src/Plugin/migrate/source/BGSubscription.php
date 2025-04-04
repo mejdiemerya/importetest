@@ -55,6 +55,29 @@ class BGSubscription extends FieldableEntity {
 
      return null;
   }
+  public function getOriginatingOrder($uid, $line_item_label) {
+
+
+
+    $query = $this->select('commerce_line_item', 'cpr')
+      ->fields('cpr');
+    $query ->condition("cpr.line_item_label", $line_item_label );
+    $query ->condition("cpr.type", 'recurring' );
+
+
+    $query->addJoin('inner','commerce_order', 'f4', 'f4.order_id = cpr.order_id');
+    $query ->condition("f4.uid", $uid );
+    $query ->condition("f4.status", 'invoiced' );
+    $query->addField('f4', 'order_id', 'intial_order');
+    $query->orderBy('f4.order_id' ,'DESC');
+    $query->range(0,1);
+    //echo $query->__toString();
+     $result = $query->execute()->fetchObject();
+     if(!empty($result->intial_order))
+     return $result->intial_order;
+
+     return null;
+  }
   public function getLastOrderId($license_id) {
     $query = $this->select('field_data_cl_billing_license', 'cpr')
       ->fields('cpr');
@@ -120,6 +143,7 @@ class BGSubscription extends FieldableEntity {
       ->fields('cpr');
     $query->addJoin('inner','commerce_product', 'f4', 'f4.product_id = cpr.product_id');
     $query->addField('f4', 'title', 'product_title');
+    $query->addField('f4', 'sku', 'sku');
     //$query->addJoin('inner',' field_data_cl_billing_license', 'f5', 'f5.cl_billing_license_target_id = cpr.license_id');
     //$query->addJoin('inner',' commerce_line_item', 'f6', 'f5.entity_id = f6.line_item_id');
    // $query->addJoin('inner',' commerce_payment_transaction', 'f7', 'f7.order_id = f6.order_id');
@@ -192,6 +216,12 @@ class BGSubscription extends FieldableEntity {
       $card
     );
 
+    $initialOrder = $this->getOriginatingOrder($row->getSourceProperty('uid'), $row->getSourceProperty('sku'));
+//    if($row->getSourceProperty('license_id')== 101518)
+//    var_dump($initialOrder);
+    $row->setSourceProperty('initial_order',
+      $initialOrder
+    );
     return parent::prepareRow($row);
   }
 
