@@ -12,7 +12,8 @@ source:
     - shipping
 process:
   profile_id: profile_id
-  revision_id: myrevisionid
+  revision_id: profile_id
+#  revision_id: myrevisionid
   # Change the Commerce 1 default customer bundle 'billing' to 'customer'.
   type:
     plugin: static_map
