@@ -42,7 +42,7 @@ process:
   state:
     plugin: default_value
     default_value: 'active'
-  initial_order : originating_order
+  initial_order : initial_order
   created: granted
   changed: granted
   next_renewal: expires
