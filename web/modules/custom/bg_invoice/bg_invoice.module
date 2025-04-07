@@ -1,0 +1,54 @@
+<?php
+
+use Dompdf\Dompdf;
+use Drupal\bg_invoice\Controller\InvoiceController;
+use Drupal\commerce_order\Entity\Order;
+
+function bg_invoice_commerce_order_update($order) {
+  if ($order->getState()->getId() == 'completed') {
+    order_email_send_notification($order);
+
+  }
+}
+function order_email_send_notification(Order $order) {
+  $mailManager = \Drupal::service('plugin.manager.mail');
+  $module = 'order_email';
+  $key = 'order_completed';
+
+  $to = $order->getEmail();
+
+
+  $params['subject'] = "Your order from BuildingGreen, Inc. (BuildingGreen.com | LEEDuser.com)";
+  $params['message'] = [
+    "Thank you for your order from BuildingGreen, Inc. for Buildinggreen.com or LEEDuser.com products, or your Peer Networks Membership.",
+    "A printable PDF receipt is attached to this email."
+  ];
+
+  $langcode = $order->getCustomer()->getPreferredLangcode();
+
+  // Générer la facture PDF.
+  $dompdf = new Dompdf();
+  $pdfController = new InvoiceController($dompdf);
+  $pdf_data = $pdfController->generatePdf($order->id());
+
+  $params['attachments'][] = [
+    'filecontent' => $pdf_data,
+    'filename' => 'invoice_' . date('Y-m') . '_' . $order->id() . '.pdf',
+    'filemime' => 'application/pdf',
+  ];
+
+   $mailManager->mail($module, $key, $to, $langcode, $params);
+
+
+}
+function order_email_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'order_completed':
+      $message['subject'] = $params['subject'];
+      $message['body'] = $params['message'];
+      if (!empty($params['attachments'])) {
+        $message['attachments'] = $params['attachments'];
+      }
+      break;
+  }
+}
