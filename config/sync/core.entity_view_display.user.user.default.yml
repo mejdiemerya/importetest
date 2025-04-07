@@ -50,7 +50,7 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    weight: 5
+    weight: 3
     region: content
   field_id_in_d7:
     type: number_integer
@@ -59,12 +59,20 @@ content:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 52
+    weight: 5
+    region: content
+  field_organization:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
     region: content
   masquerade:
     settings: {  }
     third_party_settings: {  }
-    weight: 4
+    weight: 2
     region: content
   salesforce_id:
     settings: {  }
@@ -79,7 +87,7 @@ content:
   user_name:
     settings: {  }
     third_party_settings: {  }
-    weight: 3
+    weight: 1
     region: content
   user_picture:
     type: image
@@ -116,7 +124,6 @@ hidden:
   field_last_name: true
   field_last_reminded: true
   field_nari_member: true
-  field_organization: true
   field_region: true
   field_regional_coordinator: true
   field_sub_notification_last: true

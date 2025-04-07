@@ -4,12 +4,7 @@ use Dompdf\Dompdf;
 use Drupal\bg_invoice\Controller\InvoiceController;
 use Drupal\commerce_order\Entity\Order;
 
-function bg_invoice_commerce_order_update($order) {
-  if ($order->getState()->getId() == 'completed') {
-    order_email_send_notification($order);
 
-  }
-}
 function order_email_send_notification(Order $order) {
   $mailManager = \Drupal::service('plugin.manager.mail');
   $module = 'order_email';
