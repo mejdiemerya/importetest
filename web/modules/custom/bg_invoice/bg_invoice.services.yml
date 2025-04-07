@@ -2,4 +2,7 @@ services:
   bg_invoice.dompdf:
     class: Dompdf\Dompdf
     arguments: []
-
+  bg_invoice.order_completed_subscriber:
+    class: Drupal\bg_invoice\EventSubscriber\OrderCompletedSubscriber
+    tags:
+      - { name: event_subscriber }
