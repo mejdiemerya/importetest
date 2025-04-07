@@ -53,6 +53,8 @@
   (b5_footer_bg_schema != 'none' ? " bg-#{b5_footer_bg_schema}" : ' ') %}
 
 <header role="banner">
+  {% if (current_user_id == url_user_id and logged_in) %}
+
   <nav class="navbar navbar-inverse navbar-hover p-0 mb-0" id="utility">
     {% if page.nav_branding or page.nav_main or page.nav_additional %}
       <nav class="{{ nav_classes }} w-100">
@@ -80,10 +82,41 @@
       </nav>
     {% endif %}
   </nav>
+
   <div class="container-fluid d-flex flex-column flex-lg-row justify-content-lg-between navbar-inverse">
     {{ page.header }}
     {{ page.nav_branding }}
   </div>
+  {% else %}
+    <nav class="navbar navbar-inverse navbar-hover p-0 mb-0" id="utility">
+      {% if page.nav_branding or page.nav_main or page.nav_additional %}
+        <nav class="{{ nav_classes }} w-100">
+          <div class="d-flex flex-column flex-lg-row">
+            {% if page.nav_main or page.nav_additional %}
+              <div class="d-flex align-center d-lg-none justify-content-between w-100">
+                <div class="logo d-lg-none"><img src="/themes/custom/buildinggreen/logo-white.png" alt="Home"/></div>
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-txt">{{ 'MENU'|t }}</span>
+                  <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+              </div>
+
+
+              <div
+                class="collapse navbar-collapse justify-content-md-end w-100 justify-content-lg-between flex-column flex-lg-row"
+                id="navbarSupportedContent">
+                {{ page.nav_main }}
+                {{ page.nav_additional }}
+              </div>
+            {% endif %}
+          </div>
+        </nav>
+      {% endif %}
+    </nav>
+
+  {% endif %}
 </header>
 
 <main role="main" class="pt-0">
@@ -101,6 +134,8 @@
     {% if page.breadcrumb %}
       {{ page.breadcrumb }}
     {% endif %}
+    {% if (current_user_id == url_user_id and logged_in) %}
+
     <div class="row g-0">
       {#      {% if page.sidebar_first %} #}
       <div class="order-2 order-lg-1 col-12 col-lg-2 bg-light-custom py-4 user-sidebar" role="tablist">
@@ -134,7 +169,7 @@
             </p>
             {% endif %}
           </div>
-          {% if is_group_leader  %}
+          {% if is_og_parent  %}
             <h3>Team Management</h3>
           <ul class="menu-simple line-snug team-options">
             <li>
@@ -228,17 +263,17 @@
 
 {#          </div>#}
           <!-- group tabs - LU -->
-          <div id="group-members-lu" class="tab-pane">
-            <div id="comments"><h2 class="title mt10"> Management - Members</h2></div>
-            <h3>{{ group_name }} overview</h3>
-            <ul>
-              <li>Total members: {{ total_members }}</li>
-            </ul>
-            {{ drupal_view('og_members_admin','block_1' ,'node', group_nid) }}
-
-            {{ drupal_entity_form('node', group_nid) }}
-
-          </div>
+          {% if group_nid is not empty %}
+            <div id="group-members-lu" class="tab-pane">
+              <div id="comments"><h2 class="title mt10"> Management - Members</h2></div>
+              <h3>{{ group_name }} overview</h3>
+              <ul>
+                <li>Total members: {{ total_members }}</li>
+              </ul>
+              {{ drupal_view('og_members_admin', 'block_1', 'node', group_nid) }}
+              {{ drupal_entity_form('node', group_nid) }}
+            </div>
+          {% endif %}
           <div id="group-order-history-lu" class="tab-pane">
             <div id="comments"><h2 class="title mt10"> Management - Order History</h2></div>
             {{ drupal_view('mes_commandes', 'page_1') }}
@@ -291,6 +326,11 @@
         </div>
       {% endif %}
     </div>
+    {% else %}
+
+      <div class="tab-pane fade active show" id="nav-view-profile" role="tabpanel"
+           aria-labelledby="nav-view-profile-tab">{{ page.content }}</div>
+    {% endif %}
   </div>
 
 </main>

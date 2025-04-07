@@ -68,6 +68,8 @@ function buildinggreen_preprocess_page(&$variables)
     $account = \Drupal\user\Entity\User::load($current_user_id);
 $is_premium_user = $account->hasRole('lu_premium_og');
 $variables['is_premium_user'] = $is_premium_user;
+    $is_og_parent = $account->hasRole('lu_og_parent');
+    $variables['is_og_parent'] = $is_og_parent;
     // Récupère les champs personnalisés (prénom et nom).
     $first_name = $account->get('field_first_name')->value ?? '';
     $last_name = $account->get('field_last_name')->value ?? '';
@@ -123,7 +125,6 @@ $variables['is_premium_user'] = $is_premium_user;
         $node = Node::load(reset($nids));
         $group_name = $node->getTitle();
         $variables['group_name'] = $group_name;
-        $variables['is_group_leader'] = !empty($nids);
         $variables['group_nid'] = $group_nid;
         $total_members = _get_group_total_members($variables['group_nid']);
 
@@ -132,7 +133,16 @@ $variables['is_premium_user'] = $is_premium_user;
       }
         // Passer le formulaire au template Twig.
       $variables['subscription_edit_form'] = $form;
+      $variables['current_user_id'] = $uid;
 
+      // Assuming you extract the user ID from the URL somehow
+      $route_match = \Drupal::routeMatch();
+      $user = $route_match->getParameter('user');
+
+      // Ensure we have a valid user entity.
+      if ($user instanceof \Drupal\user\Entity\User) {
+        $variables['url_user_id'] = $user->id();
+      }
     }
 
 
