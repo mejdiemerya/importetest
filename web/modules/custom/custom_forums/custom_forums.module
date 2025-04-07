@@ -1548,18 +1548,26 @@ function custom_forums_node_update(Node $node)
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
           // Vérifier si l'utilisateur existe déjà.
           $existing_user = user_load_by_mail($email);
-
+          $is_new_user=FALSE;
           if (!$existing_user) {
+
             // Créer un nouvel utilisateur.
             $user = User::create([
               'name' => $email,
               'mail' => $email,
               'status' => 1, // Activer le compte.
-              'roles' => ['lu_premium'], // Assigner le rôle.
+              'roles' => ['lu_premium_og'], // Assigner le rôle.
             ]);
             $user->save();
+            $is_new_user=TRUE;
           } else {
             $user = $existing_user;
+            // Assigner le rôle 'lu_premium_og' au membre du groupe existant.
+            if (!in_array('lu_premium_og', $user->getRoles())) {
+              $user->addRole('lu_premium_og');
+              $user->save();
+            }
+
           }
           $query = $connection->select('og_membership', 'ogm')
             ->condition('entity_id', $group_id)
@@ -1581,7 +1589,7 @@ function custom_forums_node_update(Node $node)
           }
 
           // Envoyer l'email de bienvenue.
-          custom_forums_send_welcome_email($user, $owner_name, $owner_mail);
+          custom_forums_send_welcome_email($node,$user, $owner_name, $owner_mail,$is_new_user);
         }
       }
     }
@@ -1595,18 +1603,35 @@ function custom_forums_node_update(Node $node)
 /**
  * Fonction pour envoyer un e-mail de bienvenue.
  */
-function custom_forums_send_welcome_email(\Drupal\user\Entity\User $user, $owner_name, $owner_mail)
-{
+function custom_forums_send_welcome_email($node,  $user, $owner_name, $owner_mail, $is_new_user = FALSE) {
   $mailManager = \Drupal::service('plugin.manager.mail');
   $module = 'my_module';
   $key = 'welcome_email';
   $to = $user->getEmail();
   $langcode = $user->getPreferredLangcode();
-  $params['subject'] = 'Welcome to LEEDuser Team Membership';
-  $params['message'] = "
+  $params['subject'] = 'You’ve been invited to a LEEDuser team';
+  if ($is_new_user) {
+    $one_time_login_url=user_pass_reset_url($user);
+    $params['message'] = "
 Hello " . $user->getDisplayName() . ",
 
-You have been added to container’s team membership at LEEDuser.com.
+You have been added to " . $node->getTitle() . "’s team membership at LEEDuser.com.
+
+This gives you full access to LEEDuser’s premium content. We invite you to log into LEEDuser and start browsing our wide range of LEED credit information and forums.
+".$one_time_login_url."
+If you have questions about this invitation, contact $owner_name ($owner_mail).
+
+For all other questions, contact BuildingGreen, Inc. customer service at customersupport@buildinggreen.com.
+
+LEEDuser is a product of BuildingGreen, Inc.
+";
+    $mailManager->mail($module, $key, $to, $langcode, $params);
+
+  }else{
+    $params['message'] = "
+Hello " . $user->getDisplayName() . ",
+
+You have been added to " . $node->getTitle() . "’s team membership at LEEDuser.com.
 
 This gives you full access to LEEDuser’s premium content. We invite you to log into LEEDuser and start browsing our wide range of LEED credit information and forums.
 
@@ -1618,11 +1643,29 @@ For all other questions, contact BuildingGreen, Inc. customer service at custome
 
 LEEDuser is a product of BuildingGreen, Inc.
 ";
+    $mailManager->mail($module, $key, $to, $langcode, $params);
 
-  $mailManager->mail($module, $key, $to, $langcode, $params);
+  }
+
 }
 
+/**
+ * Implements hook_mail().
+ */
+function my_module_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'welcome_email':
+      // Set the subject
+      $message['subject'] = $params['subject'];
 
+      // Set the body of the email
+      $message['body'][] = $params['message'];
+
+      // Optionally, set the sender's name and email address
+      $message['headers']['From'] = 'noreply@leeduser.com';
+      break;
+  }
+}
 /**
  * Implements hook_views_query_alter().
  */
