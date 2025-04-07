@@ -141,14 +141,14 @@
               <a class="pull-left">LEEDuser</a>
 {#              <a href="#" data-toggle="modal" data-target="#group-management-help-modal-lu"><span class="glyphicon glyphicon-question-sign"></span></a>#}
               <ul id="lu-team-options" class="expanded">
-                <li><a href="#group-members-lu" data-bs-toggle="tab" data-bs-target="#group-members-lu" role="tab" aria-controls="nav-members-tab" > Members</a></li>
-                <li><a href="#group-order-history-lu" data-bs-toggle="tab" data-bs-target="#group-order-history-lu" role="tab" aria-controls="nav-order-history" > Order History</a></li>
+                <li><a href="#group-members-lu" data-bs-toggle="tab" data-bs-target="#group-members-lu" role="tab" aria-controls="nav-members-tab" >Team Members</a></li>
+                <li><a href="#group-order-history-lu" data-bs-toggle="tab" data-bs-target="#group-order-history-lu" role="tab" aria-controls="nav-order-history" > Team Order History</a></li>
                 <li>
                   <a href ="/user/{{ user_id }}/payment-methods" class="nav-link" >
-                    Credit Cards</a></li>
+                    Team Credit Cards</a></li>
                 <li>
                   <a href="/user/{{ user_id }}/address-book"
-                  >Saved Addresses</a></li>
+                  >Team Saved Addresses</a></li>
               </ul>
             </li>
 
@@ -166,7 +166,7 @@
           </li>
 
           <li>
-            <a href="/user/{{ user_id }}/edit/profile" class="nav-link" id="nav-edit-profile-tab" >Profile
+            <a href="/user/{{ user_id }}/edit/profile" class="nav-link" id="nav-edit-profile-tab" >Edit Profile
             </a>
           </li>
 
@@ -231,6 +231,9 @@
           <div id="group-members-lu" class="tab-pane">
             <div id="comments"><h2 class="title mt10"> Management - Members</h2></div>
             <h3>{{ group_name }} overview</h3>
+            <ul>
+              <li>Total members: {{ total_members }}</li>
+            </ul>
             {{ drupal_view('og_members_admin','block_1' ,'node', group_nid) }}
 
             {{ drupal_entity_form('node', group_nid) }}

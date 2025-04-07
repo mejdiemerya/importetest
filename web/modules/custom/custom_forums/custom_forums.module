@@ -12,6 +12,7 @@ use Drupal\Core\Url;
 use Drupal\flag\FlaggingInterface;
 use Drupal\node\Entity\Node;
 use Drupal\node\NodeInterface;
+use Drupal\og\Entity\OgMembership;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\user\Entity\Role;
 use Drupal\user\Entity\User;
@@ -698,6 +699,17 @@ function custom_forums_entity_delete(EntityInterface $entity)
     }
     $node_related->save();
   }
+    // Check if the deleted entity is an OgMembership.
+    if ($entity instanceof OgMembership && $entity->getEntityTypeId() === 'og_membership') {
+      $user = User::load($entity->getOwnerId());
+
+      if ($user && $user->hasRole('lu_premium_og')) {
+        // Remove the 'lu_premium_og' role.
+        $user->removeRole('lu_premium_og');
+        $user->save();
+      }
+    }
+
 }
 
 function custom_forums_form_alter(&$form, &$form_state, $form_id)
@@ -838,6 +850,28 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
       if (isset($form['field_question']['widget'])) {
         $form['field_question']['widget']['#after_build'][] = '_allowed_formats_remove_textarea_help';
       }
+    }
+  }
+  if ($form_id === 'node_team_account_form') {
+    // Get the current user.
+    $current_user = \Drupal::currentUser();
+
+    if (!$current_user->hasPermission('administer nodes')) {
+      if (isset($form['title'])) {
+        $form['title']['#access'] = FALSE;
+      }
+
+      if (isset($form['revision_information'])) {
+        $form['revision_information']['#access'] = FALSE;
+      }
+
+      if (isset($form['actions']['delete'])) {
+        $form['actions']['delete']['#access'] = FALSE;
+      }
+      if (isset($form['field_invit_people'])) {
+        $form['field_invit_people']['widget'][0]['value']['#default_value'] = '';
+      }
+
     }
   }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\Core\Database\Database;
 use Drupal\Core\Datetime\DateFormatterInterface;
 use Drupal\node\Entity\Node;
 
@@ -124,7 +125,10 @@ $variables['is_premium_user'] = $is_premium_user;
         $variables['group_name'] = $group_name;
         $variables['is_group_leader'] = !empty($nids);
         $variables['group_nid'] = $group_nid;
+        $total_members = _get_group_total_members($variables['group_nid']);
 
+        // Pass total members to the template.
+        $variables['total_members'] = $total_members;
       }
         // Passer le formulaire au template Twig.
       $variables['subscription_edit_form'] = $form;
@@ -139,6 +143,27 @@ $variables['is_premium_user'] = $is_premium_user;
     $variables['last_name'] = NULL;
   }
 
-}
+}/**
+ * Function to get the total number of group members.
+ */
+function _get_group_total_members($group_nid) {
+  // Load the group node to get the owner's ID.
+  $group = Node::load($group_nid);
+  if (!$group) {
+    return 0;
+  }
 
+  $owner_id = $group->getOwnerId();
+
+  // Database query to get the count of members excluding the owner.
+  $connection = Database::getConnection();
+  $query = $connection->select('og_membership', 'ogm')
+    ->condition('entity_id', $group_nid)
+    ->condition('entity_type', 'node')
+    ->condition('state', 'active')  // Assuming 'active' is the state value.
+    ->condition('uid', $owner_id, '<>')
+    ->countQuery();
+
+  return (int) $query->execute()->fetchField();
+}
 
