@@ -62,7 +62,7 @@ class BGSubscription extends FieldableEntity {
     $query = $this->select('commerce_line_item', 'cpr')
       ->fields('cpr');
     $query ->condition("cpr.line_item_label", $line_item_label );
-    $query ->condition("cpr.type", 'recurring' );
+    //$query ->condition("cpr.type", 'recurring' );
 
 
     $query->addJoin('inner','commerce_order', 'f4', 'f4.order_id = cpr.order_id');
