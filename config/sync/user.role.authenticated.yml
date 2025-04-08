@@ -3,6 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
+    - filter.format.basic_html
+    - filter.format.full_html
     - node.type.forum
     - node.type.team_account
   module:
@@ -15,6 +17,7 @@ dependencies:
     - commerce_recurring
     - contact
     - field_permissions
+    - filter
     - form_mode_manager
     - node
     - profile
@@ -35,6 +38,7 @@ permissions:
   - 'access site-wide contact form'
   - 'access user profiles'
   - 'bypass license control'
+  - 'create customer profile'
   - 'create forum content'
   - 'create team_account content'
   - 'edit own comments'
@@ -43,6 +47,8 @@ permissions:
   - 'search content'
   - 'skip comment approval'
   - 'update own customer profile'
+  - 'use text format basic_html'
+  - 'use text format full_html'
   - 'use user.password form mode'
   - 'use user.profile form mode'
   - 'view commerce_product'
