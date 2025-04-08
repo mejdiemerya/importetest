@@ -729,11 +729,20 @@ class LeeduserSearchForm extends FormBase {
     return $countries_with_children;
   }
   protected function getLeedVersion() {
-    $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('credit', 0, 1); // Level 1 terms.
+    $versions = [
+      'v4.1' => 'LEED v4.1',
+      'v4' => 'LEED v4',
+      'v2009' => 'LEED 2009'
+    ];
+
     $leed_version = [];
-    foreach ($tree as $term) {
-      $leed_version[$term->tid] ='LEED '.$term->name;
+    foreach ($versions as $name => $label) {
+      $termId = $this->getTermIdByName($name, 'credit');
+      if ($termId !== null) {
+        $leed_version[$termId] = $label;
+      }
     }
+
     return $leed_version;
   }
   /**

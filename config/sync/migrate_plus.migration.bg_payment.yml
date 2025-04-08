@@ -16,6 +16,7 @@ source:
   plugin: bg_payment
 process:
   payment_id: transaction_id
+  payment_method: card_id
   payment_gateway:
     plugin: default_value
     default_value: authorize

@@ -16,8 +16,10 @@ module:
   bg_import_og: 0
   bg_import_orders: 0
   bg_import_product: 0
+  bg_import_webcast: 0
   bg_invoice: 0
   bg_product_cart: 0
+  bg_user_api: 0
   big_pipe: 0
   block: 0
   block_content: 0
@@ -110,6 +112,7 @@ module:
   menu_ui: 0
   migrate: 0
   migrate_conditions: 0
+  migrate_devel: 0
   migrate_drupal: 0
   migrate_drupal_ui: 0
   migrate_plus: 0
@@ -179,7 +182,6 @@ module:
   webform_templates: 0
   webform_ui: 0
   workflows: 0
-  eca_form: 1
   facets: 1
   flag: 1
   forum: 1

@@ -102,8 +102,34 @@ field_settings:
         - anonymous
       view_mode:
         'entity:node':
+          ':default': ''
+          accueil: ':default'
           article: search_index
+          author: ':default'
+          blog: ':default'
+          credit_bev: ':default'
+          credit_bev_image: ':default'
+          credit_checklist: ':default'
+          credit_cost_guidance: ':default'
+          credit_documentation_entry: ':default'
+          credit_documentation_section: ':default'
+          credit_faq: ':default'
+          credit_form_update: ':default'
+          credit_global_acp: ':default'
+          credit_leed_interpretation: ':default'
+          credit_rating_system_correction: ':default'
+          credit_reference_guide_correctio: ':default'
+          credit_regional_acp: ':default'
+          credit_resource: ':default'
+          firmwide_pricing: ':default'
+          forum: ':default'
           page: search_index
+          pricing: ':default'
+          team_account: ':default'
+          teams: ':default'
+          tipsheet: ':default'
+          webcast: ':default'
+          webform: ':default'
   status:
     label: 'Publishing status'
     datasource_id: 'entity:node'

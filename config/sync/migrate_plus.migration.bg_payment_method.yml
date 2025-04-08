@@ -15,6 +15,7 @@ label: 'Commerce payment method'
 source:
   plugin: bg_payment_method
 process:
+  method_id: card_id
   type:
     plugin: default_value
     default_value: credit_card
@@ -23,7 +24,12 @@ process:
     plugin: default_value
     default_value: authorize
   remote_id: remote_id
-  billing_profile/target_id: commerce_cardonfile_profile_profile_id
+  billing_profile/target_id:
+    plugin: get
+    source: commerce_cardonfile_profile_profile_id
+  billing_profile/target_revision_id:
+    plugin: get
+    source: myrevisionid
   expires: expires
   created: created
   changed: changed

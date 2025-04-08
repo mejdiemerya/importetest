@@ -1,6 +1,8 @@
 <?php
 
+use Drupal\Core\Database\Database;
 use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\node\Entity\Node;
 
 /**
  * @file
@@ -21,8 +23,26 @@ function buildinggreen_theme_suggestions_page_alter(array &$suggestions, array $
 function buildinggreen_preprocess_node(&$variables)
 {
   $node = $variables['node'];
+
+
+
   //check content type
   if ($node->getType() == 'blog') {
+    $currentUser = \Drupal::currentUser();
+
+    if ($currentUser->isAnonymous() || !\Drupal::currentUser()->hasPermission('access leeduser premium content')) {
+
+      $membership_promo_block = [
+        '#theme' => 'membership_promo_block',
+      ];
+
+      $membership_promo_block = \Drupal::service('renderer')->render($membership_promo_block);
+      $found = preg_match_all("/<\/p>/", $variables['content']['body'][0]['#text'], $matches, PREG_OFFSET_CAPTURE);
+      $num_paragraphs = 5;
+      if ($found !== FALSE && $found > $num_paragraphs) {
+        $variables['content']['body'][0]['#text'] = substr_replace($variables['content']['body'][0]['#text'], '</p>' . $membership_promo_block, $matches[0][$num_paragraphs][1], strlen('</p>'));
+      }
+    }
     $variables['#attached']['library'][] = 'buildinggreen/blog';
   }
   // Obtenir le timestamp de création du contenu.
@@ -48,7 +68,8 @@ function buildinggreen_preprocess_page(&$variables)
     $account = \Drupal\user\Entity\User::load($current_user_id);
 $is_premium_user = $account->hasRole('lu_premium_og');
 $variables['is_premium_user'] = $is_premium_user;
-
+    $is_og_parent = $account->hasRole('lu_og_parent');
+    $variables['is_og_parent'] = $is_og_parent;
     // Récupère les champs personnalisés (prénom et nom).
     $first_name = $account->get('field_first_name')->value ?? '';
     $last_name = $account->get('field_last_name')->value ?? '';
@@ -87,10 +108,41 @@ $variables['is_premium_user'] = $is_premium_user;
       $variables['renewed'] = $date;
       $variables['totl'] = $formatted_number;
       $form = \Drupal::service('entity.form_builder')->getForm($subscription, 'cancel');
+      $current_user = \Drupal::currentUser();
+      $uid = $current_user->id();
 
-      // Passer le formulaire au template Twig.
+// Load nodes of type 'team_account' where the current user is the owner.
+      $query = \Drupal::entityQuery('node')
+        ->condition('type', 'team_account')
+        ->condition('uid', $uid)
+        ->accessCheck(TRUE)
+        ->range(0, 1); // Get only one node if multiple exist.
+
+      $nids = $query->execute();
+
+      if (!empty($nids)) {
+        $group_nid = reset($nids);
+        $node = Node::load(reset($nids));
+        $group_name = $node->getTitle();
+        $variables['group_name'] = $group_name;
+        $variables['group_nid'] = $group_nid;
+        $total_members = _get_group_total_members($variables['group_nid']);
+
+        // Pass total members to the template.
+        $variables['total_members'] = $total_members;
+      }
+        // Passer le formulaire au template Twig.
       $variables['subscription_edit_form'] = $form;
+      $variables['current_user_id'] = $uid;
 
+      // Assuming you extract the user ID from the URL somehow
+      $route_match = \Drupal::routeMatch();
+      $user = $route_match->getParameter('user');
+
+      // Ensure we have a valid user entity.
+      if ($user instanceof \Drupal\user\Entity\User) {
+        $variables['url_user_id'] = $user->id();
+      }
     }
 
 
@@ -101,6 +153,27 @@ $variables['is_premium_user'] = $is_premium_user;
     $variables['last_name'] = NULL;
   }
 
-}
+}/**
+ * Function to get the total number of group members.
+ */
+function _get_group_total_members($group_nid) {
+  // Load the group node to get the owner's ID.
+  $group = Node::load($group_nid);
+  if (!$group) {
+    return 0;
+  }
 
+  $owner_id = $group->getOwnerId();
+
+  // Database query to get the count of members excluding the owner.
+  $connection = Database::getConnection();
+  $query = $connection->select('og_membership', 'ogm')
+    ->condition('entity_id', $group_nid)
+    ->condition('entity_type', 'node')
+    ->condition('state', 'active')  // Assuming 'active' is the state value.
+    ->condition('uid', $owner_id, '<>')
+    ->countQuery();
+
+  return (int) $query->execute()->fetchField();
+}
 

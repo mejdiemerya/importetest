@@ -431,12 +431,22 @@ class CreditSelectorForm extends FormBase {
     return $rating_systems_with_children;
   }
   protected function getLeedVersion() {
-    $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('credit', 0, 1); // Level 1 terms.
-    $rating_system = [];
-    foreach ($tree as $term) {
-      $rating_system[$term->tid] ='LEED '.$term->name;
+    $versions = [
+      'v4.1' => 'LEED v4.1',
+      'v4' => 'LEED v4',
+      'v2009' => 'LEED 2009',
+      'Pilot Credits'=>'LEED Pilot Credits'
+    ];
+
+    $leed_version = [];
+    foreach ($versions as $name => $label) {
+      $termId = $this->getTermIdByName($name, 'credit');
+      if ($termId !== null) {
+        $leed_version[$termId] = $label;
+      }
     }
-    return $rating_system;
+
+    return $leed_version;
   }
   function getTermIdByName($term_name, $vocabulary) {
     // Load the term storage handler.

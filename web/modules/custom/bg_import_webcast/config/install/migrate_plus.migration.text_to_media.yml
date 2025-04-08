@@ -1,0 +1,39 @@
+id: text_to_media
+label: Migrate Static Text to Remote Video Media
+source:
+  plugin: d7_node
+  node_type: webcast
+  key: migrate
+  constants:
+    bundle: remote_video
+  fields:
+    - name: field_video_url
+      label: 'Video URL'
+  ids:
+    nid:
+      type: integer
+
+process:
+  field_media_oembed_video:
+    - plugin: get
+      source: field_video_url
+  name:
+    plugin: get
+    source: title
+  status:
+    plugin: get
+    source: status
+  uid:
+    plugin: get
+    source: uid
+
+destination:
+  plugin: entity:media
+  default_bundle: remote_video
+
+migration_dependencies: {}
+
+dependencies:
+  enforced:
+    module:
+      - migrate_drupal

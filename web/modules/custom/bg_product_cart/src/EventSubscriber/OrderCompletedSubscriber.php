@@ -5,6 +5,7 @@ namespace Drupal\bg_product_cart\EventSubscriber;
 use Drupal\commerce_order\Event\OrderEvents;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\commerce_order\Event\OrderEvent;
+use Drupal\user\Entity\User;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 /**
@@ -58,6 +59,14 @@ class OrderCompletedSubscriber implements EventSubscriberInterface {
             $node = $this->entityTypeManager->getStorage('node')->load(reset($nids));
             $node->setPublished();
             $node->save();
+            $user = User::load($order->getCustomerId());
+            if ($user) {
+              if (!$user->hasRole('lu_og_parent')) {
+                $user->addRole('lu_og_parent');
+                $user->save();
+
+              }
+            }
           }
           break; // Arrêter la boucle une fois qu'on a trouvé un item correspondant.
         }

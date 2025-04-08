@@ -1,15 +1,15 @@
-uuid: 0ed91e49-90c6-43f8-96bd-54bd13300275
+uuid: ba0cd073-6a8a-45ae-92de-4ba4b27ae630
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_presenters
+    - field.storage.node.field_presenter
     - node.type.webcast
-    - paragraphs.paragraphs_type.presenters
+    - paragraphs.paragraphs_type.item_presenter
   module:
     - entity_reference_revisions
-id: node.webcast.field_presenters
-field_name: field_presenters
+id: node.webcast.field_presenter
+field_name: field_presenter
 entity_type: node
 bundle: webcast
 label: Presenters
@@ -22,7 +22,7 @@ settings:
   handler: 'default:paragraph'
   handler_settings:
     target_bundles:
-      presenters: presenters
+      item_presenter: item_presenter
     negate: 0
     target_bundles_drag_drop:
       descriptions_sidebar:
@@ -45,7 +45,7 @@ settings:
         enabled: false
       item_presenter:
         weight: 31
-        enabled: false
+        enabled: true
       leed_credits:
         weight: 34
         enabled: false
@@ -69,7 +69,7 @@ settings:
         enabled: false
       presenters:
         weight: 39
-        enabled: true
+        enabled: false
       quiz_question_term_pool:
         weight: 40
         enabled: false

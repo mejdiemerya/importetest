@@ -58,8 +58,10 @@ class BgPayment  extends FieldableEntity {
     $query =  $this->select('commerce_payment_transaction', 'pt')
       ->fields('pt')
       ->orderBy('changed');
+    $query->addJoin('inner','commerce_cardonfile', 'f1', 'f1.order_id = pt.order_id');
+    $query->fields('f1', ['order_id','card_id']);
     // $query ->condition("pt.uid", 57813 );
-//echo $query->__toString();
+
     return $query;
   }
 
@@ -91,6 +93,7 @@ class BgPayment  extends FieldableEntity {
       'currency_code' =>  (!empty($currency_code)) ? $currency_code : 'USD',
       'number' => 0,
     ]);
+//    if($nid == 89939)
 //var_dump($row);
     return parent::prepareRow($row);
   }

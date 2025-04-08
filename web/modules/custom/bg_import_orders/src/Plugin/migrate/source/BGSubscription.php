@@ -55,6 +55,29 @@ class BGSubscription extends FieldableEntity {
 
      return null;
   }
+  public function getOriginatingOrder($uid, $line_item_label) {
+
+
+
+    $query = $this->select('commerce_line_item', 'cpr')
+      ->fields('cpr');
+    $query ->condition("cpr.line_item_label", $line_item_label );
+    //$query ->condition("cpr.type", 'recurring' );
+
+
+    $query->addJoin('inner','commerce_order', 'f4', 'f4.order_id = cpr.order_id');
+    $query ->condition("f4.uid", $uid );
+    $query ->condition("f4.status", 'invoiced' );
+    $query->addField('f4', 'order_id', 'intial_order');
+    $query->orderBy('f4.order_id' ,'DESC');
+    $query->range(0,1);
+    //echo $query->__toString();
+     $result = $query->execute()->fetchObject();
+     if(!empty($result->intial_order))
+     return $result->intial_order;
+
+     return null;
+  }
   public function getLastOrderId($license_id) {
     $query = $this->select('field_data_cl_billing_license', 'cpr')
       ->fields('cpr');
@@ -120,6 +143,15 @@ class BGSubscription extends FieldableEntity {
       ->fields('cpr');
     $query->addJoin('inner','commerce_product', 'f4', 'f4.product_id = cpr.product_id');
     $query->addField('f4', 'title', 'product_title');
+    $query->addField('f4', 'sku', 'sku');
+    //$query->addJoin('inner',' field_data_cl_billing_license', 'f5', 'f5.cl_billing_license_target_id = cpr.license_id');
+    //$query->addJoin('inner',' commerce_line_item', 'f6', 'f5.entity_id = f6.line_item_id');
+   // $query->addJoin('inner',' commerce_payment_transaction', 'f7', 'f7.order_id = f6.order_id');
+    //$query->fields('f7', ['transaction_id']);
+    //$query->addField('f4', 'title', 'product_title');
+
+
+
     //field_data_commerce_order_total
     $query ->condition("cpr.status", 2 );
     $query ->condition("cpr.type", "buildinggreen_license" );
@@ -128,7 +160,24 @@ class BGSubscription extends FieldableEntity {
 
     return $query;
   }
+  public function getCard($uid, $nostatus = 0){
+    $query = $this->select("commerce_cardonfile", 'f')
+      ->fields('f', ["card_id"]);
+    $query ->condition("f.uid", $uid );
+    if(empty($nostatus)){
+      $query ->condition("f.status", 1 );
+      $query ->condition("f.instance_default", 1 );
+    }
 
+    $query ->orderBy("f.card_id", 'DESC' );
+    $query ->range(0, 1 );
+
+    $rows =  $query->execute()->fetchCol();
+    if(!empty($rows)){
+      return $rows[0];
+    }
+    return null;
+  }
   /**
    * {@inheritdoc}
    */
@@ -157,13 +206,26 @@ class BGSubscription extends FieldableEntity {
     $row->setSourceProperty('billing_schedule',
        $this->getBillingCycleType($row->getSourceProperty('product_id'))
     );
-    //$row->setSourceProperty('billing_schedule','billing_monthly');
+    $card = $this->getCard($row->getSourceProperty('uid'));
 
-//    $row->setSourceProperty('next_renewal',
-//      $this->fetchCiBilling($this->getLastOrderId($row->getSourceProperty('license_id')),'end')
-//    );
+    if(empty($card)){
+      $card = $this->getCard($row->getSourceProperty('uid'), 1);
+    }
 
-   // var_dump($row);
+    $row->setSourceProperty('payment_method',
+      $card
+    );
+
+    $initialOrder = $this->getOriginatingOrder($row->getSourceProperty('uid'), $row->getSourceProperty('sku'));
+//    if($row->getSourceProperty('license_id')== 101532){
+//      var_dump($row->getSourceProperty('uid'));
+//      var_dump($row->getSourceProperty('sku'));
+//      var_dump($initialOrder);
+//    }
+
+    $row->setSourceProperty('initial_order',
+      $initialOrder
+    );
     return parent::prepareRow($row);
   }
 

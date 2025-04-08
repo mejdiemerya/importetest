@@ -9,11 +9,15 @@ dependencies:
     - field.field.node.blog.field_author
     - field.field.node.blog.field_caption_image
     - field.field.node.blog.field_credit
+    - field.field.node.blog.field_credit_url
     - field.field.node.blog.field_dek
+    - field.field.node.blog.field_image
     - field.field.node.blog.field_image_landscape
+    - image.style.wide
     - node.type.blog
   module:
     - comment
+    - image
     - text
 id: node.blog.default
 targetEntityType: node
@@ -59,12 +63,31 @@ content:
     third_party_settings: {  }
     weight: 6
     region: content
+  field_credit_url:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 7
+    region: content
   field_dek:
     type: basic_string
     label: hidden
     settings: {  }
     third_party_settings: {  }
     weight: 0
+    region: content
+  field_image:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: wide
+      image_loading:
+        attribute: eager
+    third_party_settings: {  }
+    weight: -1
     region: content
   field_image_landscape:
     type: entity_reference_entity_view

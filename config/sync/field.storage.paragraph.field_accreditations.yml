@@ -1,11 +1,11 @@
-uuid: 7c0cab55-0468-4aae-a21b-a8f35acfa6a2
+uuid: 094663dc-92ff-4f33-9b80-c4e9bfd5cce6
 langcode: en
 status: true
 dependencies:
   module:
     - paragraphs
-id: paragraph.field__title
-field_name: field__title
+id: paragraph.field_accreditations
+field_name: field_accreditations
 entity_type: paragraph
 type: string
 settings:

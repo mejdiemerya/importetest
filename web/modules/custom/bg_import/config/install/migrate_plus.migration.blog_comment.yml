@@ -1,0 +1,38 @@
+# Migration configuration for blog comments. No new concepts here.
+id: blog_comment
+label: Comments on blog
+source:
+  plugin: blog_comment
+destination:
+  plugin: entity:comment
+process:
+  pid: pid
+  cid: cid
+  entity_id: nid
+  entity_type:
+    plugin: default_value
+    default_value: node
+  field_name:
+    plugin: default_value
+    default_value: comment
+  comment_type:
+    plugin: default_value
+    default_value: comment
+  subject: subject
+  uid: uid
+  name: name
+  mail: mail
+  nid: nid
+  language: language
+  langcode: language
+  hostname: hostname
+  created: created
+  changed: changed
+  status: status
+  thread: thread
+  homepage: homepage
+  'comment_body/value': comment_body_value
+  'comment_body/format':
+    plugin: default_value
+    default_value: basic_html
+

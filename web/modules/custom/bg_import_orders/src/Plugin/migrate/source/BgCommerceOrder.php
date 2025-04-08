@@ -185,6 +185,15 @@ class BgCommerceOrder extends FieldableEntity {
       'currency_code' => $value[0]["currency_code"],
       'number' => $value[0]["amount"]/100,
     ]);
+    $card = $this->getCard($row->getSourceProperty('uid'));
+
+    if(empty($card)){
+      $card = $this->getCard($row->getSourceProperty('uid'), 1);
+    }
+
+    $row->setSourceProperty('payment_method',
+      $card
+    );
 
 //canceled
 
@@ -203,6 +212,24 @@ class BgCommerceOrder extends FieldableEntity {
       }
     }
     return $values;
+  }
+  public function getCard($uid, $nostatus = 0){
+    $query = $this->select("commerce_cardonfile", 'f')
+      ->fields('f', ["card_id"]);
+    $query ->condition("f.uid", $uid );
+    if(empty($nostatus)){
+      $query ->condition("f.status", 1 );
+      $query ->condition("f.instance_default", 1 );
+    }
+
+    $query ->orderBy("f.card_id", 'DESC' );
+    $query ->range(0, 1 );
+
+    $rows =  $query->execute()->fetchCol();
+    if(!empty($rows)){
+      return $rows[0];
+    }
+    return null;
   }
 
 }

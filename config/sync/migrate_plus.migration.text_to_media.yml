@@ -1,0 +1,47 @@
+uuid: bcd83a4f-452e-4c97-9798-7c2e7f727929
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - migrate_drupal
+_core:
+  default_config_hash: VC7JPGDaqqelw8LfLifkIi-9rLLGap7uPTA_hZib3B4
+id: text_to_media
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: null
+label: 'Migrate Static Text to Remote Video Media'
+source:
+  plugin: d7_node
+  node_type: webcast
+  key: migrate
+  constants:
+    bundle: remote_video
+  fields:
+    -
+      name: field_video_url
+      label: 'Video URL'
+  ids:
+    nid:
+      type: integer
+process:
+  field_media_oembed_video:
+    -
+      plugin: get
+      source: field_video_url
+  name:
+    plugin: get
+    source: title
+  status:
+    plugin: get
+    source: status
+  uid:
+    plugin: get
+    source: uid
+destination:
+  plugin: 'entity:media'
+  default_bundle: remote_video
+migration_dependencies: {  }

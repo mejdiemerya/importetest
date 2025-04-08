@@ -1,0 +1,7 @@
+name: 'Custom Cleanup'
+type: module
+description: 'Commande Drush pour supprimer les entités Commerce.'
+core_version_requirement: ^11
+package: Custom
+dependencies:
+  - drupal:commerce

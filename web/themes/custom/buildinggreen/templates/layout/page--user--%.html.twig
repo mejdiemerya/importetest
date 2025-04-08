@@ -53,6 +53,8 @@
   (b5_footer_bg_schema != 'none' ? " bg-#{b5_footer_bg_schema}" : ' ') %}
 
 <header role="banner">
+  {% if (current_user_id == url_user_id and logged_in) %}
+
   <nav class="navbar navbar-inverse navbar-hover p-0 mb-0" id="utility">
     {% if page.nav_branding or page.nav_main or page.nav_additional %}
       <nav class="{{ nav_classes }} w-100">
@@ -80,10 +82,41 @@
       </nav>
     {% endif %}
   </nav>
+
   <div class="container-fluid d-flex flex-column flex-lg-row justify-content-lg-between navbar-inverse">
     {{ page.header }}
     {{ page.nav_branding }}
   </div>
+  {% else %}
+    <nav class="navbar navbar-inverse navbar-hover p-0 mb-0" id="utility">
+      {% if page.nav_branding or page.nav_main or page.nav_additional %}
+        <nav class="{{ nav_classes }} w-100">
+          <div class="d-flex flex-column flex-lg-row">
+            {% if page.nav_main or page.nav_additional %}
+              <div class="d-flex align-center d-lg-none justify-content-between w-100">
+                <div class="logo d-lg-none"><img src="/themes/custom/buildinggreen/logo-white.png" alt="Home"/></div>
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-txt">{{ 'MENU'|t }}</span>
+                  <span class="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+              </div>
+
+
+              <div
+                class="collapse navbar-collapse justify-content-md-end w-100 justify-content-lg-between flex-column flex-lg-row"
+                id="navbarSupportedContent">
+                {{ page.nav_main }}
+                {{ page.nav_additional }}
+              </div>
+            {% endif %}
+          </div>
+        </nav>
+      {% endif %}
+    </nav>
+
+  {% endif %}
 </header>
 
 <main role="main" class="pt-0">
@@ -101,6 +134,8 @@
     {% if page.breadcrumb %}
       {{ page.breadcrumb }}
     {% endif %}
+    {% if (current_user_id == url_user_id and logged_in) %}
+
     <div class="row g-0">
       {#      {% if page.sidebar_first %} #}
       <div class="order-2 order-lg-1 col-12 col-lg-2 bg-light-custom py-4 user-sidebar" role="tablist">
@@ -112,10 +147,17 @@
               Now&nbsp;»</a>
           </div>
           <div class="account-status sans-serif mb-4">
+            <h4> LEEDuser Premium</h4>
+            {% if is_premium_user %}
 
-            <h4>
-              {{ titlesubscription }}
-              <br>
+              <p class="small"><em style="display: inline-block; margin-bottom: 0.25em;">Site access provided by:</em><br>
+              <strong>
+                {{ group_name }}
+              </strong>
+            </p>
+            {% else %}
+              <h4>
+                <br>
               <small><em>{{ billed }}</em></small>
             </h4>
             <p class="small">
@@ -125,17 +167,29 @@
                                       type="button" role="tab" aria-controls="nav-membership-info-lu" aria-selected="false">manage auto-renewal</a>
 
             </p>
-            {% if is_premium_user %}
-            <p class="small">
-              Manage groupe:<br>
-
-{#              <a class="text-decoration-underline" id="nav-membership-info-lu-tab" data-bs-toggle="tab" data-bs-target="#nav-membership-info-lu"#}
-{#                 type="button" role="tab" aria-controls="nav-membership-info-lu" aria-selected="false">groupe membership</a>#}
-              {{ drupal_view('grouped', 'block_1') }}
-
-            </p>
             {% endif %}
           </div>
+          {% if is_og_parent  %}
+            <h3>Team Management</h3>
+          <ul class="menu-simple line-snug team-options">
+            <li>
+              <a class="pull-left">LEEDuser</a>
+{#              <a href="#" data-toggle="modal" data-target="#group-management-help-modal-lu"><span class="glyphicon glyphicon-question-sign"></span></a>#}
+              <ul id="lu-team-options" class="expanded">
+                <li><a href="#group-members-lu" data-bs-toggle="tab" data-bs-target="#group-members-lu" role="tab" aria-controls="nav-members-tab" >Team Members</a></li>
+                <li><a href="#group-order-history-lu" data-bs-toggle="tab" data-bs-target="#group-order-history-lu" role="tab" aria-controls="nav-order-history" > Team Order History</a></li>
+                <li>
+                  <a href ="/user/{{ user_id }}/payment-methods" class="nav-link" >
+                    Team Credit Cards</a></li>
+                <li>
+                  <a href="/user/{{ user_id }}/address-book"
+                  >Team Saved Addresses</a></li>
+              </ul>
+            </li>
+
+          </ul>
+          {% endif %}
+
         </div>
         <ul class="menu-simple line-snug">
 
@@ -147,7 +201,7 @@
           </li>
 
           <li>
-            <a href="/user/{{ user_id }}/edit/profile" class="nav-link" id="nav-edit-profile-tab" >Profile
+            <a href="/user/{{ user_id }}/edit/profile" class="nav-link" id="nav-edit-profile-tab" >Edit Profile
             </a>
           </li>
 
@@ -208,6 +262,30 @@
 {#            <div id="comments"><h2 class="title">>Email & Password</a> </h2></div>#}
 
 {#          </div>#}
+          <!-- group tabs - LU -->
+          {% if group_nid is not empty %}
+            <div id="group-members-lu" class="tab-pane">
+              <div id="comments"><h2 class="title mt10"> Management - Members</h2></div>
+              <h3>{{ group_name }} overview</h3>
+              <ul>
+                <li>Total members: {{ total_members }}</li>
+              </ul>
+              {{ drupal_view('og_members_admin', 'block_1', 'node', group_nid) }}
+              {{ drupal_entity_form('node', group_nid) }}
+            </div>
+          {% endif %}
+          <div id="group-order-history-lu" class="tab-pane">
+            <div id="comments"><h2 class="title mt10"> Management - Order History</h2></div>
+            {{ drupal_view('mes_commandes', 'page_1') }}
+
+          </div>
+          <div id="group-credit-cards-lu" class="tab-pane">
+            <div id="comments"><h2 class="title mt10">Management - Credit Cards</h2></div>
+          </div>
+          <div id="group-addressbook-lu" class="tab-pane">
+            <div id="comments"><h2 class="title mt10"> Management - Save Addresses</h2></div>
+          </div>
+          <!-- end group tabs - LU -->
 
           <div class="tab-pane fade" id="nav-continuing-education" role="tabpanel" aria-labelledby="nav-continuing-education-tab">
             <div id="comments"><h2 class="title">Continuing Education</h2></div>
@@ -248,6 +326,11 @@
         </div>
       {% endif %}
     </div>
+    {% else %}
+
+      <div class="tab-pane fade active show" id="nav-view-profile" role="tabpanel"
+           aria-labelledby="nav-view-profile-tab">{{ page.content }}</div>
+    {% endif %}
   </div>
 
 </main>

@@ -53,7 +53,7 @@ class SendMailClientOrderComplete extends ActionBase
         /** @var \Drupal\commerce_order\Entity\OrderItem $orderItem */
         $variation = $orderItem->getPurchasedEntity();
 
-        if ($variation && $variation->get('type')->target_id == 'membership' && $order->get('avs_response_code')->value == 'Y') {
+        if ($variation && $variation->get('type')->target_id == 'membership' ) {
           $send = $this->sendMail($variation);
         }
       }

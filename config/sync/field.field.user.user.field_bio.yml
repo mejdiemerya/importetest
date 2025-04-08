@@ -9,13 +9,14 @@ dependencies:
     - filter.format.restricted_html
   module:
     - text
+    - user
 id: user.user.field_bio
 field_name: field_bio
 entity_type: user
 bundle: user
 label: Bio
 description: ''
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''

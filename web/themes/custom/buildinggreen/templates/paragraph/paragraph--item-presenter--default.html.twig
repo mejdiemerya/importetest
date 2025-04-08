@@ -51,9 +51,12 @@
       <div class="card">
         <div class="card-body bg-light">
           <div class="card-body-top">
-            <div class="float-start">{{ content.field_image_profil }}</div>
-            <h5 class="card-title mt-0">{{ content.field__title }}</h5>
-            <div class="card-text small">{{ content.field_texte }}
+            <div class="float-start">{{ content.field_presenter_photo }}</div>
+            <h5 class="card-title mt-0">{{ content.field_presenter_name }}</h5>
+            <div class="card-text small">
+              {{ content.field_accreditations }}
+              {{ content.field_firm }}
+
               <button class="btn btn-link" type="button" data-bs-toggle="collapse"
                       data-bs-target="#panelsStayOpen-{{ paragraph.id() }}" aria-expanded="true"
                       aria-controls="panelsStayOpen-{{ paragraph.id() }}">
@@ -65,7 +68,7 @@
         <div id="panelsStayOpen-{{ paragraph.id() }}" class="bg-white accordion-collapse collapse"
              aria-labelledby="panelsStayOpen-headingOne">
           <div class="accordion-body small px-3 pb-3 pt-1">
-            {{ content.field_texte_accordion }}
+            {{ content.field_presenter_bio }}
           </div>
         </div>
       </div>
