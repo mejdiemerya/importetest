@@ -10,7 +10,7 @@ id: user.user.field_accreditations
 field_name: field_accreditations
 entity_type: user
 bundle: user
-label: Accreditations
+label: 'Professional credentials'
 description: ''
 required: false
 translatable: false
