@@ -90,6 +90,9 @@ process:
       LUPNG-V4AP: 81
       BGPNG-WELL-APv2: 218
       LUPNG-V4GA: 80
+      LUPRM-YT: 68
+      LUPRM-YT-20: 67
+      LUPRM-YT-30: 117
 #      5: 'BGPRM-MI'
 #    plugin: migration_lookup
 #    migration: commerce1_product_variation
