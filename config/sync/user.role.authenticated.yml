@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - filter.format.basic_html
     - filter.format.full_html
     - node.type.forum
     - node.type.team_account
@@ -47,7 +46,6 @@ permissions:
   - 'search content'
   - 'skip comment approval'
   - 'update own customer profile'
-  - 'use text format basic_html'
   - 'use text format full_html'
   - 'use user.password form mode'
   - 'use user.profile form mode'
