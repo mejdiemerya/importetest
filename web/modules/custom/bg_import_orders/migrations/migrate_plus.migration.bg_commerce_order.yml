@@ -116,7 +116,9 @@ process:
       plugin: get
       source: changed
   mail: mail
-  payment_method : transaction_id
+  payment_method:
+    plugin: get
+    source: payment_method
   payment_gateway  :
     plugin: default_value
     default_value: 'authorize'
