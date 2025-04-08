@@ -480,7 +480,6 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
       // Embed the view programmatically.
       $build['credit_bev'] = [
         '#markup' => $viewpoints_output . \Drupal::service('renderer')->render($credit_bev),
-        '#allowed_tags' => ['a'],
         '#cache' => [
           '#max-age' => 0,
         ]
