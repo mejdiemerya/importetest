@@ -81,19 +81,18 @@ process:
 #    bypass: true
     source: line_item_label
     map:
-      BGPRM-MI: 5
-      LUPRM-MI: 10
-      LUPNW-LDSW: 13
+      BGPRM-MI: 3
+      LUPRM-MI: 7
+#      LUPNW-LDSW: 13
       LUPRM-YI: 8
-      BGPNG-WELL-AP-Dv2: 220
-      LUPNG-V4AP-SITE: 131
-      LUPNG-V4AP: 81
-      BGPNG-WELL-APv2: 218
-      LUPNG-V4GA: 80
-      LUPRM-YT: 68
-      LUPRM-YT-20: 67
-      LUPRM-YT-30: 117
-#      5: 'BGPRM-MI'
+      BGPNG-WELL-AP-Dv2: 3
+      LUPNG-V4AP-SITE: 4
+      LUPNG-V4AP: 5
+      BGPNG-WELL-APv2: 3
+      LUPNG-V4GA: 6
+      LUPRM-YT: 9
+      LUPRM-YT-20: 10
+      LUPRM-YT-30: 11
 #    plugin: migration_lookup
 #    migration: commerce1_product_variation
 #    source: commerce_product

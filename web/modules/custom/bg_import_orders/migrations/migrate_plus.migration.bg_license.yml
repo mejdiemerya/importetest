@@ -32,17 +32,16 @@ process:
     source: product_id
     map:
       11: 5 #BGPRM-MI
-#      77: 10 #LUPRM-MI
-      216: 13 #LUPNW-LDSW
-#      70: 11 #LUPRM-YI
+      77: 10 #LUPRM-MI
+      70: 11 #LUPRM-YI
       220: 4 #BGPNG-WELL-AP-Dv2
       131: 6 #LUPNG-V4AP-SITE
       81: 7 #LUPNG-V4AP
       218: 8 #BGPNG-WELL-APv2
-#      80: 9 #LUPNG-V4GA
-      68: 9
-      67: 10
-      117: 11
+      80: 9 #LUPNG-V4GA
+      68: 12 #LUPRM-YT
+      67: 13 #LUPRM-YT-20
+      117: 14 #LUPRM-YT-30
 
   expiration_type/target_plugin_id:
     plugin: default_value
