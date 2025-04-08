@@ -1,0 +1,24 @@
+<div class="modal fade" id="modal_sign_in" tabindex="-1" role="dialog" aria-labelledby="modalPostQuestionLabel"
+     aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalLoginLabel" data-gtm-vis-has-fired7025260_75="1">Sign in to your LEEDuser account</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body post-question">
+        {% if is_anonymous %}
+          <p class="large">This feature available to logged-in users only.</p>
+          <a class="mt05 btn btn-primary" href="/user/login" data-toggle="modal" data-target="#login-modal" data-dismiss="modal">Log in to your account &raquo;</a>
+          <br />
+          <a class="mt10 btn btn-success" href="/signup">Sign up for a free Basic Membership &raquo;</a>
+        {% endif %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -76,10 +76,23 @@
         {% if flagged_terms['is_flagged'] %}
           <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
         {% else %}
+        {% if  logged_in %}
+
           <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
+        {% else %}
+          <a class="btn btn-light btn-wrap" type="button" href="#" data-bs-toggle="modal" data-bs-target="#modal_sign_in"><i class="glyphicon glyphicon-envelope"></i>Subscribe to new posts about {{ content.title_forum['#text'] }}</a>
+
         {% endif %}
+
+        {% endif %}
+        {% if  logged_in %}
+
           <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'credit_id':content.title_forum['#credit_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
-          <a type="button" class="btn btn-light btn-wrap" href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}"><i class="glyphicon glyphicon-leaf"></i> <div>See LEEDuser&rsquo;s guidance on {{ content.title_forum['#text'] }}&raquo;</div></a>
+        {% else %}
+          <a  type="button" class="btn btn-light btn-wrap" href="#" data-bs-toggle="modal" data-bs-target="#post-question-modal"><i class="glyphicon glyphicon-question-sign"></i>Post a new question about{{ content.title_forum['#text'] }}</a>
+        {% endif %}
+
+        <a type="button" class="btn btn-light btn-wrap" href="/taxonomy/term/{{ content.title_forum['#credit_id'] }}"><i class="glyphicon glyphicon-leaf"></i> <div>See LEEDuser&rsquo;s guidance on {{ content.title_forum['#text'] }}&raquo;</div></a>
       </div>
       {% if credit_faqs|length > 0 %}
         <div class="faqs mt10">
@@ -101,9 +114,20 @@
         {% if flagged_terms['is_flagged'] %}
           <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
         {% else %}
-          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
+          {% if  logged_in %}
+
+            <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
+          {% else %}
+            <a class="btn btn-light btn-wrap" type="button" href="#" data-bs-toggle="modal" data-bs-target="#modal_sign_in"><i class="glyphicon glyphicon-envelope"></i>Subscribe to new posts about {{ content.title_forum['#text'] }}</a>
+
         {% endif %}
+        {% endif %}
+        {% if  logged_in %}
+
         <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'tipsheet_id':content.title_forum['#tipsheet_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#text'] }}</div></a>
+        {% else %}
+          <a  type="button" class="btn btn-light btn-wrap" href="#" data-bs-toggle="modal" data-bs-target="#post-question-modal"><i class="glyphicon glyphicon-question-sign"></i>Post a new question about{{ content.title_forum['#text'] }}</a>
+        {% endif %}
         <a type="button" class="btn btn-light btn-wrap" href="/node/{{ content.title_forum['#tipsheet_id'] }}"><i class="glyphicon glyphicon-leaf"></i> <div>View <strong><em>{{ content.title_forum['#text'] }}</em></strong>&nbsp;&raquo;</div></a>
       </div>
 
@@ -115,9 +139,18 @@
         {% if flagged_terms['is_flagged'] %}
           <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope text-danger"></i> <div>Unsubscribe from posts about {{ content.title_forum['#text'] }}</div></a>
         {% else %}
-          <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
+          {% if  logged_in %}
+
+            <a type="button" class="btn btn-light btn-wrap" href="{{ flagged_terms['flag_link'] }}"><i class="glyphicon glyphicon-envelope"></i> <div>Subscribe to new posts about {{ content.title_forum['#text'] }}</div></a>
+          {% else %}
+            <a class="btn btn-light btn-wrap" type="button" href="#" data-bs-toggle="modal" data-bs-target="#modal_sign_in"><i class="glyphicon glyphicon-envelope"></i>Subscribe to new posts about {{ content.title_forum['#text'] }}</a>
+
+          {% endif %}        {% endif %}
+        {% if  logged_in %}
+          <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'forum_id':content.title_forum['#forum_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#forum_name'] }}</div></a>
+        {% else %}
+          <a  type="button" class="btn btn-light btn-wrap" href="#" data-bs-toggle="modal" data-bs-target="#post-question-modal"><i class="glyphicon glyphicon-question-sign"></i>Post a new question about{{ content.title_forum['#text'] }}</a>
         {% endif %}
-        <a type="button" class="btn btn-light btn-wrap" href="{{ path('node.add', {'node_type': 'forum'}, {'query': {'forum_id':content.title_forum['#forum_id'] }}) }}"><i class="glyphicon glyphicon-question-sign"></i> <div>Post a new question about{{ content.title_forum['#forum_name'] }}</div></a>
       </div>
     {% endif %}
 
