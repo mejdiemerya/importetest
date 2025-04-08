@@ -308,19 +308,15 @@ function custom_forums_entity_view(array &$build, \Drupal\Core\Entity\EntityInte
     $roles = $entity->getRoles();
     $has_guest_expert = in_array('lu_guest_expert', $roles);
     $is_admin = in_array('administrator', $roles);
-
+    if (!$has_guest_expert && !$is_admin) {
+      $role_labels = ['LEEDuser Basic Member'];
+    }
     if ($entity->hasPermission('access leeduser premium content')) {
-      $role_labels[] = 'LEEDuser Premium Member';
+      $role_labels = ['LEEDuser Premium Member'];
     }
 
     if ($has_guest_expert) {
-      $role_entities = Role::loadMultiple(['lu_guest_expert']);
-      foreach ($role_entities as $role) {
-        $role_labels = [$role->label()];
-      }
-    }
-    if (!$has_guest_expert && !$is_admin) {
-      $role_labels = ['LEEDuser Basic Member'];
+        $role_labels = ['LEEDuser Expert'];
     }
 
     if (!empty($role_labels) && $display->getComponent('roles')) {
