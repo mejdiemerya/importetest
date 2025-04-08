@@ -17,6 +17,9 @@
  */
 #}
 <article>
+  <div class="profile">
+
+
   <div id="profile-pic" class="mt0 stroke mb10">
   {% if content.user_picture['#items'] %}
     {{ content.user_picture }}
@@ -26,7 +29,7 @@
     </div>
   {% endif %}
   </div>
-  <div>
+    <div style="display: block; overflow: hidden;">
     {% if content %}
 
 
@@ -48,5 +51,5 @@
 
     {% endif %}
   </div>
-
+  </div>
 </article>

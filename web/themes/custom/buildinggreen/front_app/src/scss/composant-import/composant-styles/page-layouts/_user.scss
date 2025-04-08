@@ -1,0 +1,35 @@
+#profile-pic {
+  float: left;
+  margin-right: 20px;
+}
+.account-number {
+  font-size: $font-size-small;
+  text-transform: uppercase;
+}
+.page-user {
+
+  /*h1, */ul.links {
+  display: none;
+}
+
+  .profile {
+
+    overflow: hidden;
+
+    .accreditations {
+      color: $gray-dark;
+    }
+
+    .job-title {
+      margin: 1.5em 0 0;
+      font-weight: 600;
+      color: $gray-dark;
+    }
+
+    .member-since {
+      margin-top: 2em;
+      font-size: $font-size-small;
+      color: $gray-light;
+    }
+  }
+}
