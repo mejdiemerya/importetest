@@ -23,7 +23,7 @@ process:
     source: commerce_cardonfile_profile_profile_id
   billing_profile/target_revision_id:
     plugin: get
-    source: myrevisionid
+    source: commerce_cardonfile_profile_profile_id
   expires: expires
   created: created
   changed: changed
