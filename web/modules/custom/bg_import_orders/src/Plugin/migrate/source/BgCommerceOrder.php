@@ -117,7 +117,7 @@ class BgCommerceOrder extends FieldableEntity {
     $query->addJoin('inner','commerce_line_item', 'f5', 'f5.order_id = ord.order_id');
     $query ->fields('f5', ["line_item_label" ] );
     $query->condition('f5.line_item_label', $tabProducts, 'IN');
-    $query->condition('ord.order_id', 208002 );//test a enlever
+    //$query->condition('ord.order_id', 208002 );//test a enlever
 //    $query->addJoin('left','commerce_cardonfile', 'f3', 'f3.order_id = ord.order_id');
 //    $query->addJoin('left','field_data_commerce_cardonfile_profile', 'f4', 'f4.entity_id = f3.card_id');
 //    $query ->fields('f4', ["commerce_cardonfile_profile_profile_id" ] );
