@@ -86,16 +86,19 @@ class BgCommerceOrder extends FieldableEntity {
    * {@inheritdoc}
    */
   public function query() {
+
     $tabProducts = [
       'BGPRM-MI',
       'LUPRM-MI',
-      'LUPNW-LDSW',
       'LUPRM-YI',
       'BGPNG-WELL-AP-Dv2',
       'LUPNG-V4AP-SITE',
       'LUPNG-V4AP',
       'BGPNG-WELL-APv2',
-      'LUPNG-V4GA'
+      'LUPNG-V4GA',
+      'LUPRM-YT',
+      'LUPRM-YT-20',
+      'LUPRM-YT-30',
     ];
     $query = $this->select('commerce_order', 'ord')
       ->fields('ord');
@@ -106,6 +109,7 @@ class BgCommerceOrder extends FieldableEntity {
     $query ->fields('f1', ["cl_billing_cycle_target_id"] );
     $query->addJoin('left','cl_billing_cycle', 'f2', 'f2.billing_cycle_id = f1.cl_billing_cycle_target_id');
     $query ->fields('f2', ["start","end"] );
+    $query ->addField('f2',  "type","billing_schedule_sql"  );
     $query->addJoin('left','field_data_commerce_customer_billing', 'f3', 'f3.entity_id = ord.order_id');
     $query ->fields('f3', ["commerce_customer_billing_profile_id" ] );
     $query->addJoin('left','commerce_payment_transaction', 'f4', 'f4.order_id = ord.order_id');
@@ -113,6 +117,7 @@ class BgCommerceOrder extends FieldableEntity {
     $query->addJoin('inner','commerce_line_item', 'f5', 'f5.order_id = ord.order_id');
     $query ->fields('f5', ["line_item_label" ] );
     $query->condition('f5.line_item_label', $tabProducts, 'IN');
+    //$query->condition('ord.order_id', 208002 );//test a enlever
 //    $query->addJoin('left','commerce_cardonfile', 'f3', 'f3.order_id = ord.order_id');
 //    $query->addJoin('left','field_data_commerce_cardonfile_profile', 'f4', 'f4.entity_id = f3.card_id');
 //    $query ->fields('f4', ["commerce_cardonfile_profile_profile_id" ] );
@@ -179,6 +184,13 @@ class BgCommerceOrder extends FieldableEntity {
       $row->setSourceProperty('order_number',null);
     }else{
       $row->setSourceProperty('type',"default");
+    }
+    if($row->getSourceProperty('billing_schedule_sql') == 'monthly'){
+      $row->setSourceProperty('billing_schedule',"billing_monthly");
+    }
+
+    if($row->getSourceProperty('billing_schedule_sql') == 'annual'){
+      $row->setSourceProperty('billing_schedule',"billing_annual");
     }
 
     $row->setSourceProperty('total', [
