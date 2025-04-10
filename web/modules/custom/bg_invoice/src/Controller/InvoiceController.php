@@ -24,15 +24,16 @@ class InvoiceController extends ControllerBase {
 
     public function generatePdf($invoice_id) {
       $order = Order::load($invoice_id);
-      $profiles = \Drupal::entityTypeManager()
-        ->getStorage('profile')
-        ->loadByProperties(['uid' => $order->getCustomer()->id()]);
-      $profile = reset($profiles);
       $completed_time = $order->getCompletedTime();
       $date = \DateTime::createFromFormat('U', $completed_time);
-
-      // Formater la date au format américain (MM/DD/YYYY).
       $formatted_date = $date->format('m/d/Y');
+      $profile = $order->getBillingProfile();
+// Sécuriser l'adresse
+      $customer_address = 'Adresse non disponible';
+      if ($profile && !$profile->get('address')->isEmpty()) {
+        $address = $profile->get('address')->getValue()[0];
+        $customer_address = $address['address_line1'] . ' ' . $address['country_code'];
+      }
 
 
 
@@ -47,7 +48,7 @@ class InvoiceController extends ControllerBase {
             'order_no' => $order->getOrderNumber(),
             'date' => $formatted_date,
             'customer_name' => $order->getCustomer()->field_first_name->getValue()[0]['value'].' '.$order->getCustomer()->field_last_name->getValue()[0]['value'],
-            'customer_address' => $profile->address->getValue()[0]['address_line1'].' '.$profile->address->getValue()[0]['country_code'],
+            'customer_address' => $customer_address,
         ];
 
         // Render the HTML using Twig.
