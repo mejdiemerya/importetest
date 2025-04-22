@@ -90,6 +90,43 @@ function buildinggreen_preprocess_page(&$variables)
 
     // Charge l'utilisateur connecté.
     $account = \Drupal\user\Entity\User::load($current_user_id);
+//trial status - LU
+    $variables['trial_status_lu'] = 'not_taken';
+    if ((isset($account->get('field_trial_taken_lu')->value) && ($account->get('field_trial_taken_lu')->value == 1)) )
+    {
+      //expired premium user who also took trial previously
+      $variables['trial_status_lu'] = 'premium_expired';
+
+    }
+
+    //membership_level - LU
+    if ( $account->hasPermission('access leeduser premium content'))
+    {
+      $variables['is_lu_premium']  = 'premium';
+    }else{
+      $variables['is_lu_basic'] = 'basic';
+    }
+// Load nodes of type 'team_account' where the current user is the owner.
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'team_account')
+      ->condition('uid', $current_user_id)
+      ->accessCheck(TRUE)
+      ->range(0, 1); // Get only one node if multiple exist.
+
+    $nids = $query->execute();
+    if (!empty($nids)) {
+      $group_nid = reset($nids);
+      $node = Node::load(reset($nids));
+      $group_name = $node->getTitle();
+      $groupe_parent_id=$node->getOwnerId();
+      $variables['group_name'] = $group_name;
+      $variables['group_nid'] = $group_nid;
+      $variables['groupe_parent_id']=$groupe_parent_id;
+      $total_members = _get_group_total_members($variables['group_nid']);
+
+      // Pass total members to the template.
+      $variables['total_members'] = $total_members;
+    }
 $is_premium_user = $account->hasRole('lu_premium_og');
 $variables['is_premium_user'] = $is_premium_user;
     $is_og_parent = $account->hasRole('lu_og_parent');
@@ -103,6 +140,7 @@ $variables['is_premium_user'] = $is_premium_user;
     $variables['first_name'] = $first_name;
     $variables['last_name'] = $last_name;
     $variables['titlesubscription'] = $last_name;
+
     $subscriptions = \Drupal::entityTypeManager()
       ->getStorage('commerce_subscription')
       ->loadByProperties([
@@ -128,33 +166,14 @@ $variables['is_premium_user'] = $is_premium_user;
 
 // Construire les variables
       $variables['titlesubscription'] = $subscription_title;
-      $variables['billed'] = $subscription->getBillingSchedule()->id();
+      $variables['billed'] = $subscription->getBillingSchedule()->label();
       $variables['renewed'] = $date;
       $variables['totl'] = $formatted_number;
       $form = \Drupal::service('entity.form_builder')->getForm($subscription, 'cancel');
       $current_user = \Drupal::currentUser();
       $uid = $current_user->id();
 
-// Load nodes of type 'team_account' where the current user is the owner.
-      $query = \Drupal::entityQuery('node')
-        ->condition('type', 'team_account')
-        ->condition('uid', $uid)
-        ->accessCheck(TRUE)
-        ->range(0, 1); // Get only one node if multiple exist.
 
-      $nids = $query->execute();
-
-      if (!empty($nids)) {
-        $group_nid = reset($nids);
-        $node = Node::load(reset($nids));
-        $group_name = $node->getTitle();
-        $variables['group_name'] = $group_name;
-        $variables['group_nid'] = $group_nid;
-        $total_members = _get_group_total_members($variables['group_nid']);
-
-        // Pass total members to the template.
-        $variables['total_members'] = $total_members;
-      }
         // Passer le formulaire au template Twig.
       $variables['subscription_edit_form'] = $form;
       $variables['current_user_id'] = $uid;
@@ -194,7 +213,7 @@ function _get_group_total_members($group_nid) {
   $query = $connection->select('og_membership', 'ogm')
     ->condition('entity_id', $group_nid)
     ->condition('entity_type', 'node')
-    ->condition('state', 'active')  // Assuming 'active' is the state value.
+    ->condition('state', 'active')
     ->condition('uid', $owner_id, '<>')
     ->countQuery();
 

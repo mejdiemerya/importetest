@@ -93,14 +93,16 @@
       <div class="node__content__dek lead">{{ content.field_dek }}</div>
 {#      <div class="node__content__author magnify">{{ 'by '|t }} {{ content.field_author.0['#title'] }}</div>#}
       <div class="node__content__date small">{{ date }}</div>
+      {% if content.field_image.0 is not empty%}
       <figure>
         <div class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{ content.field_image }}</div>
         <figcaption>
           {{ content.field_caption_image.0['#text']|raw }}
           <span class="credit">{{ content.field_credit }}</span>
         </figcaption>
-
       </figure>
+      {% endif %}
+
       <div class="node__content__body magnify">{{ content.body }}</div>
       <div class="node__content__Comments">
         <h2 class="title" data-gtm-vis-has-fired7025260_75="1">Comments</h2>
