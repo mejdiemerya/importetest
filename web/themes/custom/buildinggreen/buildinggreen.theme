@@ -141,7 +141,20 @@ $variables['is_premium_user'] = $is_premium_user;
     $variables['last_name'] = $last_name;
     $variables['titlesubscription'] = $last_name;
 
-    $subscriptions = \Drupal::entityTypeManager()
+    $licences = \Drupal::entityTypeManager()
+      ->getStorage('commerce_license')
+      ->loadByProperties([
+        'state' => 'active',
+        'uid' => $current_user_id,
+      ]);
+
+    $licence = reset($licences);
+    if ($licence) {
+      $renewal_date=$licence->get('expires')->value;
+      $date = date("j/n/Y", $renewal_date);
+      $variables['renewed'] = $date;
+    }
+      $subscriptions = \Drupal::entityTypeManager()
       ->getStorage('commerce_subscription')
       ->loadByProperties([
         'state' => 'active',

@@ -22,9 +22,9 @@ class BgLicense extends FieldableEntity {
 
   //
   public function getOrderId($license_id) {
-    $query = $this->select('field_data_cl_billing_license', 'cpr')
+    $query = $this->select('field_data_commerce_license', 'cpr')
       ->fields('cpr');
-    $query ->condition("cpr.cl_billing_license_target_id", $license_id );
+    $query ->condition("cpr.commerce_license_target_id", $license_id );
 
     $query->addJoin('left','commerce_line_item', 'f4', 'f4.line_item_id = cpr.entity_id');
     $query->addField('f4', 'order_id', 'originating_order');
@@ -71,8 +71,28 @@ class BgLicense extends FieldableEntity {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
-    $row->setSourceProperty('originating_order' ,$this->getOrderId($row->getSourceProperty('license_id')));
-//var_dump($row);
+  $expires = $this->getLicenseExpires($row->getSourceProperty('license_id'));
+
+  if (!empty($expires)) {
+    $expiration_type =[
+      'target_plugin_id' => 'rolling_interval',
+      'target_plugin_configuration' => [
+        'interval' => [
+          'interval' => '1',
+          'period' => 'year'
+        ],
+      ],
+      ];
+    $row->setSourceProperty('expiration_type', $expiration_type);
+  }else
+  {
+    $row->setSourceProperty('expiration_type', ['target_plugin_id' =>'unlimited']);
+
+  }
+
+
+  $row->setSourceProperty('originating_order' ,$this->getOrderId($row->getSourceProperty('license_id')));
+
     return parent::prepareRow($row);
   }
 
@@ -83,6 +103,14 @@ class BgLicense extends FieldableEntity {
     $ids['license_id']['type'] = 'integer';
     $ids['license_id']['alias'] = 'cpr';
     return $ids;
+  }
+
+  protected function getLicenseExpires($license_id) {
+    $query = $this->getDatabase()->select('commerce_license', 'cl');
+    $query->addField('cl', 'expires');
+    $query->condition('cl.license_id', $license_id);
+    $results = $query->execute()->fetchField();;
+    return $results;
   }
 
 }

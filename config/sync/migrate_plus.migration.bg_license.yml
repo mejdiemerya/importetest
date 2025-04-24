@@ -1,4 +1,4 @@
-uuid: 4379c583-5cff-411d-83c3-8823ff213de3
+uuid: a2e61647-8c2f-4269-8442-4ae243eb5e52
 langcode: en
 status: true
 dependencies: {  }
@@ -32,23 +32,32 @@ process:
     plugin: static_map
     source: product_id
     map:
-      11: 5
+      11: 3
       77: 10
-      216: 13
       70: 11
-      220: 4
-      131: 6
+      220: 3
+      131: 4
       81: 7
       218: 8
       80: 9
-  expiration_type/target_plugin_id:
+      68: 12
+      67: 13
+      117: 14
+  expiration_type:
+    plugin: get
+    source: expiration_type
+  created:
     plugin: default_value
-    default_value: unlimited
-  created: created
+    default_value: '1742451164'
   granted: granted
   renewed: renewed
-  changed: changed
-  originating_order: originating_order
+  changed:
+    plugin: default_value
+    default_value: '1742451164'
+  expires: expires
+  originating_order:
+    plugin: get
+    source: originating_order
   license_role/entity_id:
     plugin: get
     source: license_id
