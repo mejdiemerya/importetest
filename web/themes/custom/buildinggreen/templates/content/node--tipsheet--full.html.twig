@@ -131,8 +131,14 @@
         </div>
       </div>
       {% else %}
-        {% set bodyContent = content.body|render|striptags %}
-        {{ bodyContent|length > 180 ? bodyContent|slice(0, 200) ~ '...' : bodyContent }}
+
+        {% set bodyEntity = elements['#node'].body %}
+        {% if bodyEntity.summary is not empty %}
+          {{ bodyEntity.summary|raw }}
+        {% else %}
+          {% set bodyText = bodyEntity.value|striptags %}
+          {{ bodyText|length > 600 ? bodyText|slice(0, 600) ~ '...' : bodyText }}
+        {% endif %}
       {% endif %}
 
       {% if ( (logged_in and ( 'administrator' not in user_roles) ) and (logged_in and ( 'lu_premium' not in user_roles) ) and (  logged_in and ( 'bg_premium' not in user_roles)) or (not logged_in)) %}

@@ -147,28 +147,69 @@
               Now&nbsp;»</a>
           </div>
           <div class="account-status sans-serif mb-4">
-            <h4> LEEDuser Premium</h4>
-            {% if is_premium_user %}
+            {% if group_name %}
 
-              <p class="small"><em style="display: inline-block; margin-bottom: 0.25em;">Site access provided by:</em><br>
-              <strong>
-                {{ group_name }}
-              </strong>
-            </p>
-            {% else %}
-              <h4>
-                <br>
-              <small><em>{{ billed }}</em></small>
-            </h4>
-            <p class="small">
-              NEXT CHARGE:<br>
+                 <h4> LEEDuser Premium</h4>
+
+            {% if 'administer site configuration' in user.permissions %}
+              <p class="small">
+                <em style="display: inline-block; margin-bottom: 0.25em;">Site access provided by:</em><br>
+                <strong>{{ group_name }}</strong>
+              </p>
+
+              <small>
+                <a href="users/{{ groupe_parent_id }}">(view parent user)</a>
+              </small>
+                        <br />
+                <small>
+              {% if is_og_parent %}
+
+                <a href="#membership-info" data-toggle="tab" class="underline tab-link">
+                    view license info
+                  </a>
+                </small>
+              {% endif %}
+
+              {% else %}
+              <p class="small"><em style="display: inline-block; margin-bottom: 0.25em;">Site access provided by:</em><br><strong>{{ group_name }}</strong></p>
+              {% endif %}
+            {% if  billed %}
               {{ totl }} on {{ renewed }}<br>
               <a class="text-decoration-underline" id="nav-membership-info-lu-tab" data-bs-toggle="tab" data-bs-target="#nav-membership-info-lu"
-                                      type="button" role="tab" aria-controls="nav-membership-info-lu" aria-selected="false">manage auto-renewal</a>
+                 type="button" role="tab" aria-controls="nav-membership-info-lu" aria-selected="false">manage auto-renewal</a>
+            {% else %}
 
-            </p>
+              <p><span class="glyphicon glyphicon-exclamation-sign pull-right"></span> <small style="display: block;">Team premium membership expired
+                </small></p>
             {% endif %}
-          </div>
+
+            {% else %}
+              {% if is_lu_premium %}
+
+                <h4>
+                  LEEDuser Premium
+                  <br>
+                  <small><em>{{ billed }}</em></small>
+                </h4>
+                <p class="small">
+                  NEXT CHARGE:<br>
+                  $ {{ totl }} on {{ renewed }}<br>
+                  <a class="text-decoration-underline" id="nav-membership-info-lu-tab" data-bs-toggle="tab" data-bs-target="#nav-membership-info-lu"
+                     type="button" role="tab" aria-controls="nav-membership-info-lu" aria-selected="false">manage auto-renewal</a>
+                </p>
+              {% elseif is_lu_basic  %}
+                <h4>LEEDuser Basic</h4>
+                {% if trial_status_lu =='not_taken'  %}
+                  <a class="btn btn-sm btn-success btn-wrap mb-2" href="/membership">Subscribe
+                    Now&nbsp;»</a>
+                {% endif %}
+                {% if trial_status_lu =='premium_expired'  %}
+                  <p class="small">Your  LEEDuser Premium membership expired </p>
+                  <a class="btn btn-sm btn-success btn-wrap" href="/pricing" >Upgrade now to LEEDuserPremium&nbsp;&raquo;</a>
+                {% endif %}
+              {% endif %}
+            {% endif %}
+            </div>
           {% if is_og_parent  %}
             <h3>Team Management</h3>
           <ul class="menu-simple line-snug team-options">
@@ -194,9 +235,10 @@
         <ul class="menu-simple line-snug">
 
           <li>
-            <a href="/user" class="nav-link" id="nav-view-profile-tab" >View Profile
-            </a>
-
+            <button class="nav-link active" id="nav-view-profile-tab" data-bs-toggle="tab"
+                    data-bs-target="#nav-view-profile" type="button" role="tab" aria-controls="nav-view-profile"
+                    aria-selected="true">View Profile
+            </button>
           </li>
 
           <li>
@@ -246,6 +288,8 @@
         <div class="tab-content" id="nav-tabContent">
 
           <div class="tab-pane fade" id="nav-membership-info-lu" role="tabpanel" aria-labelledby="nav-membership-info-lu-tab">
+            <b>Product:</b> {{ titlesubscription }} <br />
+            <b>Premium access expire:</b> {{ renewed}}<br />
             {{ subscription_edit_form }}
           </div>
 
@@ -330,6 +374,8 @@
       <div class="tab-pane fade active show" id="nav-view-profile" role="tabpanel"
            aria-labelledby="nav-view-profile-tab">{{ page.content }}</div>
     {% endif %}
+
+
   </div>
 
 </main>

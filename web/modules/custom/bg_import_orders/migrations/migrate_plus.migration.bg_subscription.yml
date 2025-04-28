@@ -47,10 +47,15 @@ process:
   initial_order : initial_order
   created: granted
   changed: granted
+  ends:
+    plugin: get
+    source: ends
   next_renewal: expires
   starts: granted
   orders/target_id: originating_order
-
+  scheduled_changes:
+    plugin: get
+    source: scheduled_changes
 
 destination:
   plugin: 'entity:commerce_subscription'

@@ -17,6 +17,7 @@ dependencies:
     - contact
     - field_permissions
     - filter
+    - flag
     - form_mode_manager
     - node
     - profile
@@ -41,10 +42,18 @@ permissions:
   - 'create forum content'
   - 'create team_account content'
   - 'edit own comments'
+  - 'flag forum_notification'
+  - 'flag notification'
+  - 'flag subscription_credit'
+  - 'flag subscription_tipsheet'
   - 'manage own commerce_payment_method'
   - 'post comments'
   - 'search content'
   - 'skip comment approval'
+  - 'unflag forum_notification'
+  - 'unflag notification'
+  - 'unflag subscription_credit'
+  - 'unflag subscription_tipsheet'
   - 'update own customer profile'
   - 'use text format full_html'
   - 'use user.password form mode'

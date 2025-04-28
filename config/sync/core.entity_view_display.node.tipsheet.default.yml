@@ -45,7 +45,7 @@ content:
     type: entity_reference_entity_view
     label: above
     settings:
-      view_mode: default
+      view_mode: user_expert
       link: false
     third_party_settings: {  }
     weight: 102
@@ -70,6 +70,10 @@ content:
     weight: 100
     region: content
 hidden:
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   langcode: true
   search_api_excerpt: true
   uid: true
