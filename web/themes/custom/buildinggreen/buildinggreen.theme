@@ -141,19 +141,6 @@ $variables['is_premium_user'] = $is_premium_user;
     $variables['last_name'] = $last_name;
     $variables['titlesubscription'] = $last_name;
 
-    $licences = \Drupal::entityTypeManager()
-      ->getStorage('commerce_license')
-      ->loadByProperties([
-        'state' => 'active',
-        'uid' => $current_user_id,
-      ]);
-
-    $licence = reset($licences);
-    if ($licence) {
-      $renewal_date=$licence->get('expires')->value;
-      $date = date("j/n/Y", $renewal_date);
-      $variables['renewed'] = $date;
-    }
       $subscriptions = \Drupal::entityTypeManager()
       ->getStorage('commerce_subscription')
       ->loadByProperties([
@@ -165,12 +152,16 @@ $variables['is_premium_user'] = $is_premium_user;
     if (!empty($subscription)) {
       $renewal_date = $subscription->getNextRenewalDate();
       $renewal_date = $renewal_date->getTimestamp();
-      $date = date("j/n/Y", $renewal_date);
+      $dateTime = new DateTime();
+      $dateTime->setTimestamp($renewal_date);
+      $dateTime->setTimezone(new DateTimeZone('America/New_York'));
 
+// Formater la date
+      $date = $dateTime->format('n/j/Y');
 // Obtenir la première commande
       $orders = $subscription->getOrders(); // Stocker le résultat dans une variable
-      $order = reset($orders);
 
+      $order = reset($orders);
 // Formater le prix total
       $formatted_number = number_format($order->total_price->getvalue()[0]['number'], 2);
 

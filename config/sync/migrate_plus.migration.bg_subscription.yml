@@ -36,25 +36,30 @@ process:
     plugin: static_map
     source: product_id
     map:
-      11: 5
+      11: 3
       77: 10
-      216: 13
       70: 11
-      220: 4
-      131: 6
+      220: 3
+      131: 4
       81: 7
       218: 8
       80: 9
+      68: 12
+      67: 13
+      117: 14
   unit_price: unit_price
   state:
     plugin: default_value
     default_value: active
-  initial_order: originating_order
+  initial_order: initial_order
   created: granted
   changed: granted
   next_renewal: expires
   starts: granted
   orders/target_id: originating_order
+  scheduled_changes:
+    plugin: get
+    source: scheduled_changes
 destination:
   plugin: 'entity:commerce_subscription'
   destination_module: commerce_subscription

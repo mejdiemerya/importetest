@@ -43,21 +43,14 @@ process:
       68: 12
       67: 13
       117: 14
-  expiration_type:
-    plugin: get
-    source: expiration_type
-  created:
+  expiration_type/target_plugin_id:
     plugin: default_value
-    default_value: '1742451164'
+    default_value: unlimited
+  created: created
   granted: granted
   renewed: renewed
-  changed:
-    plugin: default_value
-    default_value: '1742451164'
-  expires: expires
-  originating_order:
-    plugin: get
-    source: originating_order
+  changed: changed
+  originating_order: originating_order
   license_role/entity_id:
     plugin: get
     source: license_id
