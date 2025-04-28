@@ -2,6 +2,7 @@
 
 namespace Drupal\bg_import_orders\Plugin\migrate\source;
 
+use Drupal\commerce_recurring\ScheduledChange;
 use Drupal\migrate\Row;
 use Drupal\migrate_drupal\Plugin\migrate\source\d7\FieldableEntity;
 
@@ -40,7 +41,23 @@ class BGSubscription extends FieldableEntity {
     return null;
 
   }
-  public function getOrderId($license_id) {
+  public function getOrderreId($license_id) {
+    $query = $this->select('field_data_commerce_license', 'cpr')
+      ->fields('cpr');
+    $query ->condition("cpr.commerce_license_target_id", $license_id );
+
+    $query->addJoin('left','commerce_line_item', 'f4', 'f4.line_item_id = cpr.entity_id');
+    $query->addField('f4', 'order_id', 'originating_order');
+    $query->orderBy('f4.order_id' ,'DESC');
+    $query->range(0,1);
+    $result = $query->execute()->fetchObject();
+    if(!empty($result->originating_order))
+      return $result->originating_order;
+
+    return null;
+  }
+
+  public function getOrderrecurringId($license_id) {
     $query = $this->select('field_data_cl_billing_license', 'cpr')
       ->fields('cpr');
     $query ->condition("cpr.cl_billing_license_target_id", $license_id );
@@ -115,12 +132,11 @@ class BGSubscription extends FieldableEntity {
     $query = $this->select('field_data_commerce_order_total', 'cpr')
       ->fields('cpr');
     $query ->condition("cpr.entity_id", $originating_order );
-
      $result = $query->execute()->fetchObject();
      if(!empty($result->commerce_order_total_amount))
      return $result->commerce_order_total_amount/100;
 
-     return null;
+     return 0;
   }
   public function fetchCiBilling($originating_order,$field) {
     $query = $this->select('field_data_cl_billing_cycle', 'cpr')
@@ -194,15 +210,20 @@ class BGSubscription extends FieldableEntity {
 
 
       $last_order_id = $this->getLastActiveOrderId($row->getSourceProperty('license_id'));
-      if(empty($last_order_id)){
-        return FALSE;
+    $row->setSourceProperty('originating_order' ,$this->getOrderrecurringId($row->getSourceProperty('license_id')));
+
+    if(empty($last_order_id)){
+        $row->setSourceProperty('originating_order' ,$this->getOrderreId($row->getSourceProperty('license_id')));
+        $scheduled_change = new ScheduledChange('state', 'canceled', \Drupal::time()->getRequestTime());
+        $row->setSourceProperty('scheduled_changes', $scheduled_change);
+        $row->setSourceProperty('ends', $row->getSourceProperty('expires'));
       }
 
-    $row->setSourceProperty('originating_order' ,$this->getOrderId($row->getSourceProperty('license_id')));
     $row->setSourceProperty('unit_price', [
       'currency_code' => 'USD',
       'number' => $this->getOrderAmount($row->getSourceProperty('originating_order')),
     ]);
+
     $row->setSourceProperty('billing_schedule',
        $this->getBillingCycleType($row->getSourceProperty('product_id'))
     );
@@ -226,6 +247,7 @@ class BGSubscription extends FieldableEntity {
     $row->setSourceProperty('initial_order',
       $initialOrder
     );
+
     return parent::prepareRow($row);
   }
 

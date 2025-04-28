@@ -53,7 +53,15 @@ content:
     third_party_settings: {  }
     weight: 3
     region: content
-  field_organization:
+  field_first_name:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_last_name:
     type: string
     label: hidden
     settings:
@@ -61,7 +69,7 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  field_title:
+  field_organization:
     type: string
     label: hidden
     settings:
@@ -69,25 +77,18 @@ content:
     third_party_settings: {  }
     weight: 4
     region: content
-  masquerade:
-    settings: {  }
+  field_title:
+    type: string
+    label: hidden
+    settings:
+      link_to_entity: false
     third_party_settings: {  }
     weight: 5
     region: content
-  user_email_verification_verified:
+  masquerade:
     settings: {  }
     third_party_settings: {  }
-    weight: 100
-    region: content
-  user_email_verification_verified_date:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 100
-    region: content
-  user_name:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 1
+    weight: 6
     region: content
   user_picture:
     type: image
@@ -115,14 +116,12 @@ hidden:
   field_dp_firm_token: true
   field_dp_token: true
   field_expert_notification_last: true
-  field_first_name: true
   field_gbci_email: true
   field_gbci_number: true
   field_hide_email: true
   field_id_in_d7: true
   field_ilfi_member: true
   field_last_mailchimp_sync_date: true
-  field_last_name: true
   field_last_reminded: true
   field_nari_member: true
   field_region: true
@@ -135,3 +134,6 @@ hidden:
   member_for: true
   roles: true
   search_api_excerpt: true
+  user_email_verification_verified: true
+  user_email_verification_verified_date: true
+  user_name: true

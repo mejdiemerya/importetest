@@ -36,6 +36,10 @@ content:
     weight: 100
     region: content
 hidden:
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
   field_credits: true
   field_file_information: true
   field_guest_expert: true

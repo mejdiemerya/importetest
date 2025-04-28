@@ -71,6 +71,8 @@ class BgLicense extends FieldableEntity {
    * {@inheritdoc}
    */
   public function prepareRow(Row $row) {
+    \Drupal::logger('bg_subscription')->info('Source IDs: @ids', ['@ids' => print_r($row->getSource(), TRUE)]);
+
     $row->setSourceProperty('originating_order' ,$this->getOrderId($row->getSourceProperty('license_id')));
 //var_dump($row);
     return parent::prepareRow($row);

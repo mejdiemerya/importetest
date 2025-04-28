@@ -16,6 +16,7 @@ id: commerce_node_checkout
 label: 'Pay to publish'
 traits:
   - commerce_license
+  - purchasable_entity_subscription
 locked: false
 orderItemType: commerce_node_checkout
 generateTitle: false
