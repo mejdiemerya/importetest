@@ -169,8 +169,8 @@ display:
           label: Price
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: '${{ price__number }}'
             make_link: false
             path: ''
             absolute: false
@@ -208,10 +208,15 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: number
-          type: commerce_price_default
+          type: commerce_price_calculated
           settings:
             strip_trailing_zeroes: false
-            currency_display: symbol
+            currency_display: none
+            adjustment_types:
+              fee: '0'
+              promotion: '0'
+              tax: '0'
+              subscription: '0'
           group_column: ''
           group_columns: {  }
           group_rows: true
@@ -300,7 +305,7 @@ display:
           label: Quantity
           exclude: false
           alter:
-            alter_text: true
+            alter_text: false
             text: '{{ quantity }}&nbsp;x'
             make_link: false
             path: ''
@@ -341,8 +346,8 @@ display:
           click_sort_column: value
           type: number_decimal
           settings:
-            thousand_separator: ''
-            decimal_separator: ','
+            thousand_separator: .
+            decimal_separator: .
             scale: 2
             prefix_suffix: false
           group_column: value
@@ -368,8 +373,8 @@ display:
           label: Total
           exclude: false
           alter:
-            alter_text: false
-            text: ''
+            alter_text: true
+            text: '${{ total_price__number }}'
             make_link: false
             path: ''
             absolute: false
@@ -410,7 +415,7 @@ display:
           type: commerce_price_default
           settings:
             strip_trailing_zeroes: false
-            currency_display: symbol
+            currency_display: none
           group_column: ''
           group_columns: {  }
           group_rows: true

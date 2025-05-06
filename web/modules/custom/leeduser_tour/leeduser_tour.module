@@ -21,6 +21,14 @@ function leeduser_tour_theme() {
       ],
       'template' => 'store-template',
     ],
+    'pilot_template' => [
+      'variables' => [
+        'title' => '',
+        'content' => '',
+        'additional_data' => '',
+      ],
+      'template' => 'pilot-template',
+    ],
   ];
 }
 

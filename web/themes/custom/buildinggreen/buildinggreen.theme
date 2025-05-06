@@ -50,7 +50,22 @@ function buildinggreen_preprocess_node(&$variables)
   $node = $variables['node'];
 
 
+if ($node->getType() == 'forum') {
+if ($variables['node']->hasField('uid') && !$variables['node']->get('uid')->isEmpty()) {
+  $account = $variables['node']->get('uid')->entity;
+  if ($account && $account->hasField('field_first_name') && $account->hasField('field_last_name')) {
+    $variables['author_first_name'] = $account->get('field_first_name')->value;
+    $variables['author_last_name'] = $account->get('field_last_name')->value;
+  }
+}
+if ($variables['node']->hasField('field_project_location') && !$variables['node']->get('field_project_location')->isEmpty()) {
+  $term = $variables['node']->get('field_project_location')->entity;
 
+  $variables['project_location_tid'] = $term->id();
+}
+
+
+}
   //check content type
   if ($node->getType() == 'blog') {
     $currentUser = \Drupal::currentUser();
