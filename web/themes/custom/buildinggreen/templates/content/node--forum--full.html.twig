@@ -178,9 +178,14 @@
 
       <div class="post-text">
         <div class="meta mb10 hidden-xs">
-          {% if content.field_project_location['#markup'] is not empty %}
+          {% if content.field_project_location|render is not empty %}
+          <div class="location float-end d-flex align-items-center">Project location :
+            <a class="" href="/forums?f[0]=location:{{ project_location_tid }}" data-gtm-vis-has-fired7025260_75="1">
+              {{ content.field_project_location }}
+            </a>
 
-          <div class="location float-end d-flex align-items-center">Project location: {{ content.field_project_location }}</div>
+
+          </div>
           {% endif %}
 
           <p class="date"><span class="glyphicon glyphicon-time"></span>{{ date}} </p>
