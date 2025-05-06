@@ -12,3 +12,10 @@ store.page:
     _title: 'Store'
   requirements:
     _permission: 'access content'
+pilot.page:
+  path: '/pilot'
+  defaults:
+    _controller: '\Drupal\leeduser_tour\Controller\LeeduserTourController::pilot'
+    _title: 'pilot'
+  requirements:
+    _permission: 'access content'

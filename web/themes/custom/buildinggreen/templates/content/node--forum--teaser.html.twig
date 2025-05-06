@@ -100,8 +100,18 @@
             </a>
           {% endif %}
           <h6>
-            <em class="pr05">{{ 'posted by'|t }} <a href="{{ path('entity.user.canonical', {'user': node.uid.target_id}) }}" class="OP"><strong>{{ author_name }}</strong></a>
-              on {{ date }} </em>
+            <em class="pr05 d-flex">{{ 'posted by'|t }} <a href="{{ path('entity.user.canonical', {'user': node.uid.target_id}) }}" class="OP"><strong>{{ author_first_name }} {{ author_last_name }}</strong>
+              </a>
+              on {{ date }}
+
+
+              {% if content.field_project_location|render is not empty %}
+
+              <a class=" label label-default hidden-xs ms-2" href="/forums?f%5B0%5D=location%3A{{ project_location_tid }}" data-gtm-vis-has-fired7025260_75="1">
+                {{ content.field_project_location }}
+              </a>
+              {% endif %}
+            </em>
           </h6>
 
 
