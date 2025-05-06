@@ -1,0 +1,31 @@
+uuid: bb0a02b7-bd78-4c69-ba8b-d479d4a9839c
+langcode: en
+status: true
+dependencies: {  }
+id: bg_og_compus_wide
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: null
+label: 'bg og membership'
+source:
+  plugin: bg_og_compus_wide
+process:
+  type:
+    plugin: default_value
+    default_value: default
+  entity_type:
+    plugin: default_value
+    default_value: node
+  entity_bundle:
+    plugin: default_value
+    default_value: campus_wide_account
+  uid: etid
+  entity_id:
+    plugin: migration_lookup
+    migration: compuswide_node
+    source: gid
+destination:
+  plugin: 'entity:og_membership'
+migration_dependencies: null

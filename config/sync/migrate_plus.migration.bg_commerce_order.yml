@@ -69,7 +69,9 @@ process:
       plugin: get
       source: changed
   mail: mail
-  payment_method: transaction_id
+  payment_method:
+    plugin: get
+    source: payment_method
   payment_gateway:
     plugin: default_value
     default_value: authorize
@@ -78,6 +80,9 @@ process:
     plugin: default_value
     source: default_store_id
     default_value: 1
+  billing_schedule/target_id:
+    plugin: get
+    source: billing_schedule
 destination:
   plugin: 'entity:commerce_order'
   destination_module: commerce_order

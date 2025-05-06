@@ -1,0 +1,15 @@
+uuid: 01f9ae22-ba5d-4a90-8672-3cdc52cadcd8
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.campus_wide_account
+id: node-campus_wide_account-member
+label: Member
+weight: 7
+group_id: null
+group_type: node
+group_bundle: campus_wide_account
+is_admin: false
+permissions: {  }
+role_type: required

@@ -25,11 +25,44 @@
                     "url": "https://git.drupalcode.org/project/rate/-/archive/3.2.x/rate-3.2.x.zip"
                 }
             }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "buildingreen/field_ipaddress",
+                "type": "drupal-module",
+                "version": "2.0.x-dev",
+
+                "source": {
+                    "type": "git",
+                    "url": "https://git.drupalcode.org/project/field_ipaddress.git",
+                    "reference": "2.0.x"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "buildingreen/ip_login",
+                "type": "drupal-module",
+                "version": "4.0.0-beta",
+
+                "source": {
+                    "type": "git",
+                    "url": "https://git.drupalcode.org/project/ip_login.git",
+                    "reference": "4.x"
+                },
+                "require": {
+                    "buildingreen/field_ipaddress":  "2.0.x-dev"
+                }
+            }
         }
 
 
     ],
     "require": {
+        "buildingreen/field_ipaddress": "2.0.x-dev",
+        "buildingreen/ip_login": "^4.0@beta",
         "buildingreen/rate": "^3.2",
         "composer/installers": "^2.0",
         "cweagans/composer-patches": "^1.7",
@@ -80,6 +113,7 @@
         "drupal/pathauto": "^1.13",
         "drupal/quick_links": "^2.0",
         "drupal/quiz": "^7.0",
+        "drupal/redirect": "^1.11",
         "drupal/reroute_email": "^2.3@RC",
         "drupal/restui": "^1.22",
         "drupal/rules": "^4.0",
@@ -168,7 +202,9 @@
             "drupal/core": {
                 "Add Exception for TypeError Argument must be String in \\Drupal\\Component\\Utility\\Html escape{}\n":"https://www.drupal.org/files/issues/2024-11-07/TypeError_htmlspecialchars_ArgumentNustBeTypeString_ArrayGiven-3352384-62.patch"
 
-            }
+            },
+            "buildingreen/field_ipaddress":{
+               "Automated Drupal 11 compatibility fixes for field_ipaddress\n":"https://www.drupal.org/files/issues/2024-05-27/field_ipaddress.2.0.x-dev.rector.patch"}
         },
         "drupal-core-project-message": {
             "include-keys": [

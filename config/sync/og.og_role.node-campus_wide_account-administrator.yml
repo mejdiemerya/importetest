@@ -1,0 +1,15 @@
+uuid: 22860d27-44c5-4772-8c8d-af8b641a039d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.campus_wide_account
+id: node-campus_wide_account-administrator
+label: Administrator
+weight: 8
+group_id: null
+group_type: node
+group_bundle: campus_wide_account
+is_admin: true
+permissions: {  }
+role_type: null

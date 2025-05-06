@@ -1,0 +1,24 @@
+uuid: 67063143-54ee-4488-a6d1-cfc747ddf2dc
+langcode: en
+status: true
+dependencies: {  }
+id: compuswide_node
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: null
+label: 'nodes compus_wide_node'
+source:
+  plugin: compuswide_node
+process:
+  type: type
+  title: title
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+  promote: promote
+destination:
+  plugin: 'entity:node'
+migration_dependencies: null

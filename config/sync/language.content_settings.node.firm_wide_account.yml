@@ -1,0 +1,11 @@
+uuid: 4222081b-0df9-40ec-b02c-4409dab6b774
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.firm_wide_account
+id: node.firm_wide_account
+target_entity_type_id: node
+target_bundle: firm_wide_account
+default_langcode: site_default
+language_alterable: false

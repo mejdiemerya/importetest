@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3eea1e0841ab43c8f1e9827bda8ad16a",
+    "content-hash": "d8ace9dffe3a1478820940ebfbb10a42",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -61,6 +61,29 @@
                 "source": "https://github.com/asm89/stack-cors/tree/v2.2.0"
             },
             "time": "2023-11-14T13:51:46+00:00"
+        },
+        {
+            "name": "buildingreen/field_ipaddress",
+            "version": "2.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/field_ipaddress.git",
+                "reference": "2.0.x"
+            },
+            "type": "drupal-module"
+        },
+        {
+            "name": "buildingreen/ip_login",
+            "version": "4.0.0-beta",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/ip_login.git",
+                "reference": "4.x"
+            },
+            "require": {
+                "buildingreen/field_ipaddress": "2.0.x-dev"
+            },
+            "type": "drupal-module"
         },
         {
             "name": "buildingreen/rate",
@@ -7045,6 +7068,62 @@
                 "source": "https://git.drupalcode.org/project/rat/-/tree/1.0.0"
             },
             "time": "2023-07-19T22:22:22+00:00"
+        },
+        {
+            "name": "drupal/redirect",
+            "version": "1.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/redirect.git",
+                "reference": "8.x-1.11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/redirect-8.x-1.11.zip",
+                "reference": "8.x-1.11",
+                "shasum": "7df8b3524bbde07d254216039636947a689140ef"
+            },
+            "require": {
+                "drupal/core": "^9.2 || ^10 || ^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "8.x-1.11",
+                    "datestamp": "1737382886",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "berdir",
+                    "homepage": "https://www.drupal.org/user/214652"
+                },
+                {
+                    "name": "dave reid",
+                    "homepage": "https://www.drupal.org/user/53892"
+                },
+                {
+                    "name": "kristen pol",
+                    "homepage": "https://www.drupal.org/user/8389"
+                },
+                {
+                    "name": "pifagor",
+                    "homepage": "https://www.drupal.org/user/2375692"
+                }
+            ],
+            "description": "Allows users to redirect from old URLs to new URLs.",
+            "homepage": "https://www.drupal.org/project/redirect",
+            "support": {
+                "source": "https://git.drupalcode.org/project/redirect"
+            }
         },
         {
             "name": "drupal/reroute_email",
@@ -15149,6 +15228,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "buildingreen/field_ipaddress": 20,
+        "buildingreen/ip_login": 10,
         "drupal/commerce": 10,
         "drupal/commerce_invoice": 5,
         "drupal/commerce_recurring": 5,
