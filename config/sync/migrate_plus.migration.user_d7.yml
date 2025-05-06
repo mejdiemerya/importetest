@@ -135,6 +135,9 @@ process:
   field_dp_token:
     plugin: get
     source: field_dp_token
+  ip_login_data: field_ip_login
+  field_allowed_domains: field_allowed_domains
+  field_admin_notes: field_admin_notes
 destination:
   plugin: 'entity:user'
 migration_dependencies:

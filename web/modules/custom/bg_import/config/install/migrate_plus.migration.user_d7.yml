@@ -169,6 +169,10 @@ process:
     plugin: get
     source: field_dp_token
 
+  ip_login_data: field_ip_login
+  field_allowed_domains: field_allowed_domains
+  field_admin_notes: field_admin_notes
+
 migration_dependencies:
   required:
     - d7_user_role
