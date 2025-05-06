@@ -51,17 +51,15 @@ process:
     plugin: static_map
     source: line_item_label
     map:
-      BGPRM-MI: 3
+      BGPRM-MI: 5
       LUPRM-MI: 10
-      LUPRM-YI: 11
-      BGPNG-WELL-AP-Dv2: 3
-      LUPNG-V4AP-SITE: 6
-      LUPNG-V4AP: 7
-      BGPNG-WELL-APv2: 8
-      LUPNG-V4GA: 9
-      LUPRM-YT: 12
-      LUPRM-YT-20: 13
-      LUPRM-YT-30: 14
+      LUPNW-LDSW: 13
+      LUPRM-YI: 8
+      BGPNG-WELL-AP-Dv2: 220
+      LUPNG-V4AP-SITE: 131
+      LUPNG-V4AP: 81
+      BGPNG-WELL-APv2: 218
+      LUPNG-V4GA: 80
   quantity: quantity
   adjustments:
     -

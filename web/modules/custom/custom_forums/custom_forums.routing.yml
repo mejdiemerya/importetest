@@ -26,3 +26,9 @@ custom_forums.membership_signup.form:
     _title: 'Basic Membership Signup'
   requirements:
     _permission: 'access content'
+custom_forums.autologin:
+  path: '/autologin/{username}/{password}'
+  defaults:
+    _controller: '\Drupal\custom_forums\Controller\AutologinController::login'
+  requirements:
+    _permission: 'access content'

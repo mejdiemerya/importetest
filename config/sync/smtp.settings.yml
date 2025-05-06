@@ -13,10 +13,10 @@ smtp_from: asma.jedidi@emerya.fr
 smtp_fromname: asma.jedidi@emerya.fr
 smtp_client_hostname: ''
 smtp_client_helo: ''
-smtp_allowhtml: false
-smtp_test_address: asmajedidi03@gmail.com
+smtp_allowhtml: true
+smtp_test_address: ''
 smtp_reroute_address: ''
-smtp_debugging: false
+smtp_debugging: true
 smtp_debug_level: 1
 prev_mail_system: php_mail
 smtp_keepalive: true
