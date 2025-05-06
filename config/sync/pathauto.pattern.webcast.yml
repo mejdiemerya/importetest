@@ -7,12 +7,12 @@ dependencies:
 id: webcast
 label: webcast
 type: 'canonical_entities:node'
-pattern: '/[node:title]'
+pattern: 'webcast/[node:title]'
 selection_criteria:
-  46bed37d-59d5-446b-b356-e31144ee6374:
+  7e872771-e2e5-4897-aa79-4e481fcd492f:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 46bed37d-59d5-446b-b356-e31144ee6374
+    uuid: 7e872771-e2e5-4897-aa79-4e481fcd492f
     context_mapping:
       node: node
     bundles:
