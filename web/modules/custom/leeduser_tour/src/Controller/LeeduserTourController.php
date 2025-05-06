@@ -27,5 +27,12 @@ class LeeduserTourController extends ControllerBase {
       '#content' => $this->t('This is the content of the Leeduser Tour page. Customize it as needed!'),
     ];
   }
+  public function pilot() {
+    return [
+      '#theme' => 'pilot_template',
+      '#title' => $this->t('LEED Pilot Credit Library'),
+      '#content' => $this->t('This is the content of the Leeduser Tour page. Customize it as needed!'),
+    ];
+  }
 
 }
