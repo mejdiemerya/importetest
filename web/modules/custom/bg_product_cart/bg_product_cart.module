@@ -146,16 +146,16 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
       }
     }
 
-    if ($variables['has_purchased'] && empty($variables['purchased_nodes'])) {
+    if (!empty($variables['has_purchased']) && empty($variables['purchased_nodes'])) {
       foreach ($variables['product_entity']->getVariations() as $variation) {
         $variables['purchased_nodes'] = getQuizPurchased($variation);
       }
-
     }
+
     if ($account->isAnonymous()) {
       $variables['has_purchased'] = false;
     }
-    $variables['has_purchased_product'] = $variables['has_purchased'];
+    $variables['has_purchased'] = $variables['has_purchased'] ?? FALSE;
     $variables ['add_cart_variation'] = $tabLinkCartVariations;
 
   }
