@@ -197,7 +197,7 @@ class LeeduserSearchForm extends FormBase {
       '#suffix' => '</div>',
     ];
     // Display active location filters if they exist.
-    if (!empty($saved_values['location'])|| !empty($location_id)) {
+    if ( !empty($location_id)) {
       $form['active_location_filter_fieldset'] = [
         '#type' => 'fieldset',
         '#prefix' => '<div id="active_location_filter_fieldset">',
@@ -217,12 +217,9 @@ class LeeduserSearchForm extends FormBase {
         '#suffix' => '</div>',
         '#title' => t('Location Filters'),
       );
-      $all_filters = array_unique(array_merge(
-        $saved_values['location'] ?? [],
-        $location_id ?? []
-      ));
 
-      foreach ($all_filters as $filter) {
+
+      foreach ($location_id as $filter) {
 
           if ($term = Term::load($filter)) {
             $form['active_location_filter_fieldset']['location_queries']['saved_query_location_' . $term->id()] = [
@@ -237,7 +234,7 @@ class LeeduserSearchForm extends FormBase {
 
       }
     }
-    if (!empty(($saved_values['credits'])) || !empty($credit_id)) {
+    if ( !empty($credit_id)) {
       $form['active_credit_filter_fieldset']['clear_credits'] = array(
         '#type' => 'submit',
         '#name' => 'clear_credits',
@@ -251,11 +248,8 @@ class LeeduserSearchForm extends FormBase {
         '#type' => 'fieldset',
         '#title' => t('Credit Filters'),
       );
-      $all_filters = array_unique(array_merge(
-        $saved_values['credits'] ?? [],
-          $credit_id ?? []
-      ));
-        foreach ($all_filters as $filter) {
+
+        foreach ($credit_id as $filter) {
             if ($label = getCreditFilterLabel($filter)) {
             $form['active_credit_filter_fieldset']['queries']['saved_query_credit_' . $filter] = array(
               '#type' => 'checkbox',
