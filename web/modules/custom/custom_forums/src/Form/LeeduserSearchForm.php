@@ -69,6 +69,8 @@ class LeeduserSearchForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $current_user = \Drupal::currentUser();
+
     $store = $this->tempStoreFactory->get('leeduser_search'); // Adjust namespace as needed.
     // Attempt to retrieve saved values if they exist.
     $saved_values = $store->get('saved_values') ?: [];
@@ -78,13 +80,12 @@ class LeeduserSearchForm extends FormBase {
     $form['#attached']['library'][]='custom_forums/submit_on_enter';
     // Get the current request
     $request = \Drupal::request();
-
 // Retrieve query parameters from the current URL
     $query_params = $request->query->all();
 // Initialize variables to store extracted IDs
     $forum_id = null;
-    $credit_id = null;
-    $location_id = null;
+    $credit_id = [];
+    $location_id = [];
     $tipsheet_id= null;
 // Check if the 'f' parameter contains multiple items.
     if (isset($query_params['f'])) {
@@ -93,9 +94,9 @@ class LeeduserSearchForm extends FormBase {
         if (preg_match('/^forum:(\d+)$/', $param, $matches)) {
           $forum_id = $matches[1];
         } elseif (preg_match('/^credit:(\d+)$/', $param, $matches)) {
-          $credit_id = $matches[1];
+          $credit_id [] = $matches[1];
         } elseif (preg_match('/^location:(\d+)$/', $param, $matches)) {
-          $location_id = $matches[1];
+          $location_id [] = $matches[1];
         }
         elseif (preg_match('/^tipsheet:(\d+)$/', $param, $matches)) {
           $tipsheet_id = $matches[1];
@@ -103,27 +104,27 @@ class LeeduserSearchForm extends FormBase {
       }
     }
     $active_search_parents=[];
-    if($credit_id!== null) {
-
-      $active_search_parents = $this->loadAllParents($credit_id);
+    if (!empty($saved_values['credits']) && count($saved_values['credits']) === 1) {
+      $active_search_parents = $this->loadAllParents($saved_values['credits'][0]);
     }
-      if (count($active_search_parents) == 4 ){
-
-        $post_question_url = Url::fromRoute('node.add', [
-          'node_type' => 'forum'
-        ], [
-          'query' => [
-            'credit_id' => (int) $credit_id,
-            'forum_id' => $this->getTermIdByName('Credit Forums', 'forums'),
-            'destination' => 'forums',
-          ]
-        ])->toString();
-        $form['post_question'] = array(
-          '#prefix' => '<a id="post-question" href="' . $post_question_url . '"><i class="fi flaticon-communication"></i>',
-          '#suffix' => '</a>',
-          '#markup' => t('Post a question or comment'),
-        );
-
+    if ((count($active_search_parents) === 4 )&&
+      $current_user->isAuthenticated() &&
+      empty(array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $current_user->getRoles()))
+    ){
+      $post_question_url = Url::fromRoute('node.add', [
+        'node_type' => 'forum'
+      ], [
+        'query' => [
+          'credit_id' => (int) $credit_id,
+          'forum_id' => $this->getTermIdByName('Credit Forums', 'forums'),
+          'destination' => 'forums',
+        ]
+      ])->toString();
+      $form['post_question'] = array(
+        '#prefix' => '<a id="post-question" href="' . $post_question_url . '"><i class="fi flaticon-communication"></i>',
+        '#suffix' => '</a>',
+        '#markup' => t('Post a question or comment'),
+      );
 
     }
     elseif ($forum_id !== null) {
@@ -142,7 +143,7 @@ class LeeduserSearchForm extends FormBase {
       ];
 
     }
-      elseif ( $tipsheet_id !== null) {
+    elseif ( $tipsheet_id !== null) {
         $post_question_url = Url::fromRoute('node.add',
           [
             'node_type' => 'forum'
@@ -158,7 +159,7 @@ class LeeduserSearchForm extends FormBase {
           '#markup' => t('Post a question or comment'),
         ];
       }
-      else {
+    else {
 
       // Post Question Link.
       $form['post_question'] = [
@@ -168,6 +169,7 @@ class LeeduserSearchForm extends FormBase {
         '#markup' => t('Post a question or comment'),
       ];
     }
+
     $form['container_search'] = [
       '#type' => 'container',
       '#attributes' => ['class' => ['search-group', 'position-relative']],
@@ -195,7 +197,7 @@ class LeeduserSearchForm extends FormBase {
       '#suffix' => '</div>',
     ];
     // Display active location filters if they exist.
-    if (!empty($saved_values['location'])) {
+    if (!empty($saved_values['location'])|| !empty($location_id)) {
       $form['active_location_filter_fieldset'] = [
         '#type' => 'fieldset',
         '#prefix' => '<div id="active_location_filter_fieldset">',
@@ -215,19 +217,25 @@ class LeeduserSearchForm extends FormBase {
         '#suffix' => '</div>',
         '#title' => t('Location Filters'),
       );
-      // Assuming $filter contains term IDs, considering normalization if necessary.
-      $term_id = $saved_values['location'];
+      $all_filters = array_unique(array_merge(
+        $saved_values['location'] ?? [],
+        $location_id ?? []
+      ));
 
-      // Load all terms based on the IDs to create user-friendly descriptions.
-      $term = Term::load($term_id);
-        $form['active_location_filter_fieldset']['location_queries']['saved_query_location_' . $term->id()] = [
-          '#type' => 'checkbox',
-          '#title' => $term->getName(),
-          '#description' => $term->getDescription(),
-          '#default_value' => 1,
-          '#prefix' => sprintf('<div id="saved_query_location_%d">', $term->id()),
-          '#suffix' => '</div>',
-        ];
+      foreach ($all_filters as $filter) {
+
+          if ($term = Term::load($filter)) {
+            $form['active_location_filter_fieldset']['location_queries']['saved_query_location_' . $term->id()] = [
+              '#type' => 'checkbox',
+              '#title' => $term->getName(),
+              '#description' => $term->getDescription(),
+              '#default_value' => 1,
+              '#prefix' => '<div id="saved_query_location_' . $term->id() . '">',
+              '#suffix' => '</div>',
+            ];
+          }
+
+      }
     }
     if (!empty(($saved_values['credits'])) || !empty($credit_id)) {
       $form['active_credit_filter_fieldset']['clear_credits'] = array(
@@ -243,28 +251,20 @@ class LeeduserSearchForm extends FormBase {
         '#type' => 'fieldset',
         '#title' => t('Credit Filters'),
       );
-      if(!empty(($saved_values['credits']))){
-      $credit_id_filter = $saved_values['credits'];
-      if (($credit_id_filter)) {
-        $label = getCreditFilterLabel($credit_id_filter);
-        $form['active_credit_filter_fieldset']['queries']['saved_query_credit_' . $credit_id_filter] = array(
-          '#type' => 'checkbox',
-          '#title' => $label['title'],
-          '#suffix' => '<div class="credit-query-description">' . htmlspecialchars($label['description'], ENT_QUOTES, 'UTF-8') . '</div>',
-          '#default_value' => 1,
-        );
-      }
-      }
-      if (($credit_id)) {
-        $label = getCreditFilterLabel($credit_id);
-        $form['active_credit_filter_fieldset']['queries']['saved_query_credit_' . $credit_id] = array(
-          '#type' => 'checkbox',
-          '#title' => $label['title'],
-          '#suffix' => '<div class="credit-query-description">' . htmlspecialchars($label['description'], ENT_QUOTES, 'UTF-8') . '</div>',
-          '#default_value' => 1,
-        );
-      }
-
+      $all_filters = array_unique(array_merge(
+        $saved_values['credits'] ?? [],
+          $credit_id ?? []
+      ));
+        foreach ($all_filters as $filter) {
+            if ($label = getCreditFilterLabel($filter)) {
+            $form['active_credit_filter_fieldset']['queries']['saved_query_credit_' . $filter] = array(
+              '#type' => 'checkbox',
+              '#title' => $label['title'],
+              '#suffix' => '<div class="credit-query-description">' . htmlspecialchars($label['description'], ENT_QUOTES, 'UTF-8') . '</div>',
+              '#default_value' => 1,
+            );
+            }
+        }
     }
 
     $leed_version = $form_state->getValue('leed_version');  // Ensure the variable is initialized
@@ -885,10 +885,29 @@ class LeeduserSearchForm extends FormBase {
 
     // Initialize the 'f' query parameter as an array.
     $filters = [];
-
-    // Initialize credit variable.
     $credit = null;
     $location= null;
+
+    // Initialize credit variable.
+    $credits = [];
+    $locations= [];
+    // Get the current request
+    $request = \Drupal::request();
+// Retrieve query parameters from the current URL
+    $query_params = $request->query->all();
+
+    if (isset($query_params['f'])) {
+      foreach ($query_params['f'] as $param) {
+       if (preg_match('/^credit:(\d+)$/', $param, $matches)) {
+         $filters[] = 'credit:' . $matches[1];
+         $credits[]=$matches[1];
+        }
+        if (preg_match('/^location:(\d+)$/', $param, $matches)) {
+          $filters[] = 'location:' . $matches[1];
+          $locations[]=$matches[1];
+        }
+      }
+    }
     $keyword_search = $form_state->getValue('keyword_search');
     if (!empty($keyword_search)) {
       $search_api_fulltext = $keyword_search;
@@ -897,51 +916,53 @@ class LeeduserSearchForm extends FormBase {
     // LEED version.
     $leed_version = $form_state->getValue('leed_version');
     if (!empty($leed_version)) {
-      $filters[] = 'credit:' . $leed_version;
       $credit = $leed_version; // Assign credit here if version is not empty
     }
 
     // Rating system.
     $rating_system = $form_state->getValue('rating_system');
     if (!empty($rating_system)) {
-      $filters[] = 'credit:' . $rating_system;
       $credit = $rating_system; // Override previous credit assignment if not empty
     }
 
     // Credit category.
     $credit_category = $form_state->getValue('credit_category');
     if (!empty($credit_category)) {
-      $filters[] = 'credit:' . $credit_category;
       $credit = $credit_category; // Override again if category is not empty
     }
 
     // Actual Credit.
     $credit_value = $form_state->getValue('credit');
     if (!empty($credit_value)) {
-      $filters[] = 'credit:' . $credit_value;
       $credit = $credit_value; // Final hierarchy level, final override
     }
+if(!empty($credit)){
+  $credits[]=$credit;
+  $filters[] = 'credit:' . $credit;
+}
+
 
     // Location: region.
     $location_region = $form_state->getValue('location_region');
     if (!empty($location_region)) {
-      $filters[] = 'location:' . $location_region;
       $location=$location_region;
     }
 
     // Location: country.
     $location_country = $form_state->getValue('location_country');
     if (!empty($location_country)) {
-      $filters[] = 'location:' . $location_country;
       $location=$location_country;
-
+    }
+    if(!empty($location)){
+      $locations[]=$location;
+      $filters[] = 'location:' . $location;
     }
 
     // Save the form values to the TempStore.
     $values_to_save = [
-      'location' => $location,
+      'location' => $locations,
       'keyword_search' => $keyword_search,
-      'credits' => $credit, // Store the last assigned credit value
+      'credits' => $credits, // Store the last assigned credit value
     ];
     $store->set('saved_values', $values_to_save);
     $query_params = [
