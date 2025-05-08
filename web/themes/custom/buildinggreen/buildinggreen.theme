@@ -2,6 +2,8 @@
 
 use Drupal\Core\Database\Database;
 use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
 
@@ -323,5 +325,34 @@ function buildinggreen_preprocess_menu(&$variables) {
         ];
       }
     }
+
+}
+function  buildinggreen_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add reset password link.
+  $url_object = Url::fromRoute('user.pass');
+  $form['actions']['password_reset_link'] = [
+    '#type' => 'link',
+    '#url' => $url_object,
+    '#title' => new TranslatableMarkup('Forgot password?'),
+    '#attributes' => [
+      'class' => ['user-reset-password-link'],
+    ],
+  ];
+}
+function  buildinggreen_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if($form_id=='user_pass'){
+      // Add login link.
+  $url_object = Url::fromRoute('user.login');
+  $form['actions']['user_login_link'] = [
+    '#type' => 'link',
+    '#url' => $url_object,
+    '#title' => new TranslatableMarkup('Log in'),
+    '#attributes' => [
+      'class' => ['user_login_link'],
+    ],
+  ];
+    $form['actions']['submit'] ['#value']= t('E-mail new password');
+
+  }
 
 }

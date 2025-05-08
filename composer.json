@@ -102,6 +102,7 @@
         "drupal/interval": "^1.14",
         "drupal/jquery_ui": "^1.7",
         "drupal/jquery_ui_resizable": "^2.1",
+        "drupal/mail_login": "^4.0",
         "drupal/mailsystem": "^4.5",
         "drupal/masquerade": "^2.0",
         "drupal/migrate_conditions": "^2.2",

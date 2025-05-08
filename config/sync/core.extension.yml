@@ -106,6 +106,7 @@ module:
   leeduser_tour: 0
   link: 0
   locale: 0
+  mail_login: 0
   mailsystem: 0
   masquerade: 0
   media: 0
