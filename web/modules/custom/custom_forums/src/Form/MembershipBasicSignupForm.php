@@ -69,17 +69,34 @@ class MembershipBasicSignupForm extends FormBase {
         $form['selector']['col-1']['password'] = [
           '#type' => 'password',
           '#title' => $this->t('Password'),
-          '#required' => TRUE,
         ];
         $form['selector']['col-1']['login'] = [
           '#type' => 'submit',
           '#value' => $this->t('Submit'),
         ];
-        $form['selector']['col-1']['forgot_password'] = [
+        if ($form_state->get('login_error')) {
+          $form['selector']['col-1']['custom_error_message'] = [
+            '#markup' => '<div id="error_messages" class="label  bg-danger ng-binding">' . $form_state->get('login_error') . '</div>',
+          ];
+          $form_state->set('login_error', NULL);
+        }
+        $form['selector']['col-1']['forgot_password_link'] = [
           '#markup' => '<a href="#" id="forgot-password-link">' . $this->t('Forgot password?') . '</a>',
         ];
+
+        $form['selector']['col-1']['forgot_password'] = [
+          '#type' => 'submit',
+          '#value' => $this->t('Go to Step 3'),
+          '#submit' => ['::gotoStepThree'],
+          '#attributes' => [
+            'id' => 'forgot-password-submit',
+            'style' => 'display:none;',
+          ],
+        ];
+
         $form['#attached']['library'][] = 'custom_forums/forgot_password';
-      } else {
+      }
+      else {
         $form['selector']['col-1']['first_name'] = [
           '#type' => 'textfield',
           '#title' => $this->t('First Name'),
@@ -131,18 +148,12 @@ class MembershipBasicSignupForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $step = $form_state->get('step') ?? 1;
-
     if ($step == 1) {
       $email = $form_state->getValue('email');
       \Drupal::service('tempstore.private')->get('signup')->set('email', $email);
 
-      $existing_users = \Drupal::entityTypeManager()->getStorage('user')->loadByProperties(['mail' => $email]);
+      $form_state->set('step', 2);
 
-      if ($existing_users) {
-        $form_state->set('step', 2);
-      } else {
-        $form_state->set('step', 2);
-      }
       $form_state->setRebuild();
     }
     elseif ($step == 2) {
@@ -152,15 +163,21 @@ class MembershipBasicSignupForm extends FormBase {
       if ($existing_users) {
         $user = reset($existing_users);
         $password = $form_state->getValue('password');
-
+        if (empty($password)) {
+          $form_state->set('login_error', $this->t('Password is required.'));
+          $form_state->setRebuild();
+          return;
+        }
         if (\Drupal::service('password')->check($password, $user->getPassword())) {
           user_login_finalize($user);
           $form_state->setRedirect('<front>');
-        } else {
-          $form_state->set('step', 3);
+        }
+        else {
+          $form_state->set('login_error', $this->t('Invalid email or password.'));
           $form_state->setRebuild();
         }
-      } else {
+      }
+      else {
         $first_name = $form_state->getValue('first_name');
         $last_name = $form_state->getValue('last_name');
         $password = $form_state->getValue('password');
@@ -219,6 +236,10 @@ class MembershipBasicSignupForm extends FormBase {
     }
 
     $form_state->setRedirect('<front>');
+  }
+  public function gotoStepThree(array &$form, FormStateInterface $form_state) {
+    $form_state->set('step', 3);
+    $form_state->setRebuild();
   }
 
 }
