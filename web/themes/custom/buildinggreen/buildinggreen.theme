@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
+use Drupal\user\Entity\User;
 
 /**
  * @file
@@ -100,7 +101,18 @@ if ($variables['node']->hasField('field_project_location') && !$variables['node'
  */
 function buildinggreen_preprocess_page(&$variables)
 {
+  $current_user = \Drupal::currentUser();
+  $uid = $current_user->id();
+  $variables['current_user_id'] = $uid;
 
+  // Assuming you extract the user ID from the URL somehow
+  $route_match = \Drupal::routeMatch();
+  $user = $route_match->getParameter('user');
+
+  // Ensure we have a valid user entity.
+  if ($user instanceof User) {
+    $variables['url_user_id'] = $user->id();
+  }
   // Vérifie si l'utilisateur est connecté.
   if (\Drupal::currentUser()->isAuthenticated()) {
 
