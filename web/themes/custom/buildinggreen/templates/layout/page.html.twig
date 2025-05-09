@@ -114,7 +114,9 @@ set footer_classes = ' ' ~
 				</div>
 			{% endif %}
 			<div class="order-1 order-lg-2 {{ content_classes }}">
-				{{ page.content }}
+        {{ include('themes/custom/buildinggreen/templates/group-modal-sign-in.html.twig') }}
+
+        {{ page.content }}
 			</div>
 			{% if page.sidebar_second %}
 				<div class="order-3 {{ sidebar_second_classes }}">
