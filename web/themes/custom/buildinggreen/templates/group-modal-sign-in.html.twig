@@ -1,0 +1,24 @@
+
+<div class="modal fade" id="group-link-modal" role="dialog" aria-labelledby="modalGroupLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modalGroupLabel">Firm or campus member?</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% if is_anonymous %}
+        Please log in using your personal profile:<br>
+        <a class="margin-top btn btn-neutral" href="#" data-toggle="modal" data-target="#login-modal" data-dismiss="modal">Log in &raquo;</a>
+        &nbsp; <a class="margin-top btn btn-warning" href="/create-profile">Create personal profile &raquo;</a>
+        {% else %}
+        <a class="margin-top btn btn-neutral" href="/create-profile">Would you like to join your group? &raquo;</a>
+        {% endif %}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

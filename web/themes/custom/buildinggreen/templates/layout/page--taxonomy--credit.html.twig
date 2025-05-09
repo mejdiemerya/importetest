@@ -114,6 +114,8 @@
         </div>
       {% endif %}
       <div class="order-1 order-lg-2 {{ content_classes }}">
+        {{ include('themes/custom/buildinggreen/templates/group-modal-sign-in.html.twig') }}
+
         {{ drupal_block('leeduser_credit_selector_form_block') }}
 
         {{ page.content }}
