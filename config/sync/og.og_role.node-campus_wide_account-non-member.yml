@@ -1,0 +1,16 @@
+uuid: 593d0826-0231-406a-8df9-b5ddfc348f0f
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.campus_wide_account
+id: node-campus_wide_account-non-member
+label: Non-member
+weight: 6
+group_id: null
+group_type: node
+group_bundle: campus_wide_account
+is_admin: false
+permissions:
+  - subscribe
+role_type: required

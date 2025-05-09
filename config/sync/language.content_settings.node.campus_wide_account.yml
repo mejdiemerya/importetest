@@ -1,0 +1,11 @@
+uuid: 90656f1c-6cda-4fdb-9873-c6b58f8a2e4b
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.campus_wide_account
+id: node.campus_wide_account
+target_entity_type_id: node
+target_bundle: campus_wide_account
+default_langcode: site_default
+language_alterable: false

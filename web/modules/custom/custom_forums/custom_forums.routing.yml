@@ -26,3 +26,16 @@ custom_forums.membership_signup.form:
     _title: 'Basic Membership Signup'
   requirements:
     _permission: 'access content'
+custom_forums.autologin:
+  path: '/autologin/{username}/{password}'
+  defaults:
+    _controller: '\Drupal\custom_forums\Controller\AutologinController::login'
+  requirements:
+    _permission: 'access content'
+custom_forums.personal_profile:
+  path: '/create-profile'
+  defaults:
+    _form: '\Drupal\custom_forums\Form\CreatePersonalProfileForm'
+    _title: 'Create Personal Profile'
+  requirements:
+    _permission: 'access content'

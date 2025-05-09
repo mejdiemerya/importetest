@@ -9,6 +9,7 @@ dependencies:
     - field.field.user.user.field_admin_notes
     - field.field.user.user.field_adresse
     - field.field.user.user.field_aia_number
+    - field.field.user.user.field_allowed_domains
     - field.field.user.user.field_bio
     - field.field.user.user.field_bpi_number
     - field.field.user.user.field_bulletin_opt_in
@@ -35,6 +36,7 @@ dependencies:
     - field.field.user.user.field_website
     - field.field.user.user.user_picture
   module:
+    - field_ipaddress
     - user
 _core:
   default_config_hash: FaQ9Ptcpxpg30AtiqRDtl_8zbJArHP1LPfug_s59TOA
@@ -64,6 +66,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
+  ip_login_data:
+    type: ipaddress_default
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   commerce_remote_id: true
   contact: true
@@ -72,6 +80,7 @@ hidden:
   field_admin_notes: true
   field_adresse: true
   field_aia_number: true
+  field_allowed_domains: true
   field_bio: true
   field_bpi_number: true
   field_bulletin_opt_in: true

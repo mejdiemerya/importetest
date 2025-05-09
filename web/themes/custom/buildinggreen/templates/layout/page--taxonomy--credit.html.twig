@@ -114,6 +114,8 @@
         </div>
       {% endif %}
       <div class="order-1 order-lg-2 {{ content_classes }}">
+        {{ include('themes/custom/buildinggreen/templates/group-modal-sign-in.html.twig') }}
+
         {{ drupal_block('leeduser_credit_selector_form_block') }}
 
         {{ page.content }}
@@ -141,7 +143,7 @@
             </div>
             <div class="menu-footer">
               {{ page.footer_first }}
-              <p class="small">© 2020 BuildingGreen, Inc. All rights reserved except where noted.</p>
+              <p class="small">© {{ "now"|date("Y") }} BuildingGreen, Inc. All rights reserved except where noted.</p>
             </div>
           </div>
         </div>

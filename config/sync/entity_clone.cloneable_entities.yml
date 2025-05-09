@@ -94,3 +94,5 @@ cloneable_entities:
   - salesforce_mapping
   - key
   - key_config_override
+  - ip_wildcard
+  - redirect

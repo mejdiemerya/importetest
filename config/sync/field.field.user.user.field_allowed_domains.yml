@@ -1,0 +1,20 @@
+uuid: e7e45343-fcd8-4170-846e-719e23c035fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.field_allowed_domains
+  module:
+    - user
+id: user.user.field_allowed_domains
+field_name: field_allowed_domains
+entity_type: user
+bundle: user
+label: 'Allowed domains'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,28 @@
+
+id: bg_og_firm_wide
+label: bg og membership
+source:
+  plugin: bg_og_firm_wide
+process:
+  type:
+    plugin: default_value
+    default_value: 'default'
+  entity_type:
+    plugin: default_value
+    default_value: 'node'
+  entity_bundle:
+    plugin: default_value
+    default_value: 'firm_wide_account'
+  uid: etid
+#    plugin: migration_lookup
+#    migration: user_d7
+#    source: etid
+  entity_id:
+    plugin: migration_lookup
+    migration: firmwide_node
+    source: gid
+
+destination:
+  plugin: entity:og_membership
+
+

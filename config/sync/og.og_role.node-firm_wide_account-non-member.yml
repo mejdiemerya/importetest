@@ -1,0 +1,16 @@
+uuid: 8fc5badd-e73a-432e-8517-8b321d5d0cd9
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.firm_wide_account
+id: node-firm_wide_account-non-member
+label: Non-member
+weight: 3
+group_id: null
+group_type: node
+group_bundle: firm_wide_account
+is_admin: false
+permissions:
+  - subscribe
+role_type: required

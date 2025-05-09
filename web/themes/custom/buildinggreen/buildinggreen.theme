@@ -2,7 +2,11 @@
 
 use Drupal\Core\Database\Database;
 use Drupal\Core\Datetime\DateFormatterInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\TranslatableMarkup;
+use Drupal\Core\Url;
 use Drupal\node\Entity\Node;
+use Drupal\user\Entity\User;
 
 /**
  * @file
@@ -97,14 +101,37 @@ if ($variables['node']->hasField('field_project_location') && !$variables['node'
  */
 function buildinggreen_preprocess_page(&$variables)
 {
+  $current_user = \Drupal::currentUser();
+  $uid = $current_user->id();
+  $variables['current_user_id'] = $uid;
 
+  // Assuming you extract the user ID from the URL somehow
+  $route_match = \Drupal::routeMatch();
+  $user = $route_match->getParameter('user');
+
+  // Ensure we have a valid user entity.
+  if ($user instanceof User) {
+    $variables['url_user_id'] = $user->id();
+  }
   // Vérifie si l'utilisateur est connecté.
   if (\Drupal::currentUser()->isAuthenticated()) {
+
+
+
+
+
     // Récupère l'ID de l'utilisateur connecté.
     $current_user_id = \Drupal::currentUser()->id();
 
     // Charge l'utilisateur connecté.
     $account = \Drupal\user\Entity\User::load($current_user_id);
+    if (array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $account->getRoles()))
+    {
+      $variables['group_level']= 'enterprise';
+    }else{
+      $variables['group_level'] = 'individual';
+    }
+
 //trial status - LU
     $variables['trial_status_lu'] = 'not_taken';
     if ((isset($account->get('field_trial_taken_lu')->value) && ($account->get('field_trial_taken_lu')->value == 1)) )
@@ -121,12 +148,41 @@ function buildinggreen_preprocess_page(&$variables)
     }else{
       $variables['is_lu_basic'] = 'basic';
     }
+    // Load nodes of type 'campus_wide_account' where the current user is the owner.
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'campus_wide_account')
+      ->condition('uid', $current_user_id)
+      ->accessCheck(TRUE)
+      ->range(0, 1);
+
+    $nids = $query->execute();
+    if($nids){
+      $group_nid = reset($nids);
+      $node = Node::load(reset($nids));
+      $group_name = $node->getTitle();
+      $variables['group_type']='campus_wide_account';
+      $variables['group_name'] = $group_name;
+    }
+    $query = \Drupal::entityQuery('node')
+      ->condition('type', 'firm_wide_account')
+      ->condition('uid', $current_user_id)
+      ->accessCheck(TRUE)
+      ->range(0, 1);
+
+    $nids = $query->execute();
+    if($nids){
+      $group_nid = reset($nids);
+      $node = Node::load(reset($nids));
+      $group_name = $node->getTitle();
+      $variables['group_type']='firm_wide_account';
+      $variables['group_name'] = $group_name;
+    }
 // Load nodes of type 'team_account' where the current user is the owner.
     $query = \Drupal::entityQuery('node')
       ->condition('type', 'team_account')
       ->condition('uid', $current_user_id)
       ->accessCheck(TRUE)
-      ->range(0, 1); // Get only one node if multiple exist.
+      ->range(0, 1);
 
     $nids = $query->execute();
     if (!empty($nids)) {
@@ -149,6 +205,8 @@ $variables['is_premium_user'] = $is_premium_user;
     // Récupère les champs personnalisés (prénom et nom).
     $first_name = $account->get('field_first_name')->value ?? '';
     $last_name = $account->get('field_last_name')->value ?? '';
+    $organisation=$account->get('field_organization')->value ?? '';
+    $variables['organisation'] = $organisation;
 
     // Passe les variables au fichier Twig.
     $variables['user_id'] = $current_user_id;
@@ -239,3 +297,74 @@ function _get_group_total_members($group_nid) {
   return (int) $query->execute()->fetchField();
 }
 
+/**
+ * Implements hook_preprocess_menu().
+ */
+function buildinggreen_preprocess_menu(&$variables) {
+  if ($variables['menu_name'] === 'menu-user') {
+    $current_user = \Drupal::currentUser();
+    $destination = \Drupal::destination()->getAsArray();
+    $destination_encoded = urlencode($destination['destination'] ?? '');
+    $roles = $current_user->getRoles();
+    if (!$current_user->isAuthenticated() || !array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $current_user->getRoles())) {
+      foreach ($variables['items'] as $key => $item) {
+        if (trim($item['title']) === 'Create a profile') {
+          unset($variables['items'][$key]);
+        }
+      }
+    }
+
+    if (array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $roles)) {
+        $variables['items'] = [];
+
+        // Create a profile (via logout + redirect)
+        $variables['items'][] = [
+          'title' => 'Create a profile',
+          'url' => Url::fromUri('internal:/user/logout', [
+            'query' => ['destination' => "create-profile?destination=$destination_encoded"],
+          ]),
+          'attributes' => [],
+        ];
+
+        $variables['items'][] = [
+          'title' => 'Log in',
+          'url' => Url::fromUri('internal:/user/logout', [
+            'query' => ['destination' => "user?destination=$destination_encoded"],
+          ]),
+          'attributes' => [
+            'class' => ['login', 'hidden-xs'],
+          ],
+        ];
+      }
+    }
+
+}
+function  buildinggreen_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Add reset password link.
+  $url_object = Url::fromRoute('user.pass');
+  $form['actions']['password_reset_link'] = [
+    '#type' => 'link',
+    '#url' => $url_object,
+    '#title' => new TranslatableMarkup('Forgot password?'),
+    '#attributes' => [
+      'class' => ['user-reset-password-link'],
+    ],
+  ];
+}
+function  buildinggreen_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if($form_id=='user_pass'){
+      // Add login link.
+  $url_object = Url::fromRoute('user.login');
+  $form['actions']['user_login_link'] = [
+    '#type' => 'link',
+    '#url' => $url_object,
+    '#title' => new TranslatableMarkup('Log in'),
+    '#attributes' => [
+      'class' => ['user_login_link'],
+    ],
+  ];
+    $form['actions']['submit'] ['#value']= t('E-mail new password');
+
+  }
+
+}

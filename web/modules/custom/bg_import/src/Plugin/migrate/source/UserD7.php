@@ -5,6 +5,7 @@ namespace Drupal\bg_import\Plugin\migrate\source;
 use Drupal\Core\Datetime\DrupalDateTime;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\FileTransfer\FileTransfer;
+use Drupal\field_ipaddress\IpAddress;
 use Drupal\file\Entity\File;
 use Drupal\migrate\Row;
 use Drupal\migrate\Plugin\migrate\source\SqlBase;
@@ -50,6 +51,39 @@ class UserD7 extends SqlBase {
     }
     return null;
 }
+  public function fetchMultipleFieldRecord($fieldName, $uid){
+    $result = $this->select("field_data_{$fieldName}", 'f')
+      ->fields('f', ["{$fieldName}_value"])
+      ->condition('f.bundle', 'user', '=')
+      ->condition('f.entity_id', $uid, '=');
+    return $result->execute()->fetchCol();
+
+}
+
+  /**
+   * @throws \Exception
+   */
+  public function getFieldIp($uid){
+    $tabResult = [];
+    $result = $this->select("field_data_field_ip_login", 'f')
+      ->fields('f',['field_ip_login_start', 'field_ip_login_end','delta'])
+      ->condition('f.bundle', 'user', '=')
+      ->condition('f.entity_id', $uid, '=');
+      $rows = $result->execute()->fetchAll();
+      if(!empty($rows)){
+        foreach ($rows as $row){
+          $tabResult [] = [
+            'ip_start' => inet_pton(preg_replace('/\b0+(?=\d)/', '', long2ip($row['field_ip_login_start'])))// inet_pton(  long2ip($row['field_ip_login_start']))
+              ,
+            'ip_end' => inet_pton(preg_replace('/\b0+(?=\d)/', '', long2ip($row['field_ip_login_end'])))//inet_pton(  long2ip($row['field_ip_login_end']))
+            ,
+            'delta' => $row['delta'],
+
+          ];
+        }
+      }
+return $tabResult;
+  }
   public function getPicture($uid){
     $query = $this->select("users", 'u');
       //$query->fields('u', ["picture"]);
@@ -207,6 +241,19 @@ public function createPicture($uid) {
     $field_dp_token = $this->getFieldRecord('field_dp_token', $uid);
     if(!empty($field_dp_token)){
       $row->setSourceProperty('field_dp_token', $field_dp_token);
+    }
+    $field_allowed_domains = $this->fetchMultipleFieldRecord('field_allowed_domains', $uid);
+    if(!empty($field_allowed_domains)){
+      $row->setSourceProperty('field_allowed_domains', $field_allowed_domains);
+    }
+    $field_admin_notes = $this->fetchMultipleFieldRecord('field_admin_notes', $uid);
+    if(!empty($field_allowed_domains)){
+      $row->setSourceProperty('field_admin_notes', $field_admin_notes);
+    }
+
+    $field_ip = $this->getFieldIp(  $uid);
+    if(!empty($field_ip)){
+      $row->setSourceProperty('field_ip_login', $field_ip);
     }
 
 

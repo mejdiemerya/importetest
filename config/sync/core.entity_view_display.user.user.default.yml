@@ -8,6 +8,7 @@ dependencies:
     - field.field.user.user.field_admin_notes
     - field.field.user.user.field_adresse
     - field.field.user.user.field_aia_number
+    - field.field.user.user.field_allowed_domains
     - field.field.user.user.field_bio
     - field.field.user.user.field_bpi_number
     - field.field.user.user.field_bulletin_opt_in
@@ -52,6 +53,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 3
+    region: content
+  field_allowed_domains:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_bio:
     type: text_default
@@ -153,6 +162,7 @@ hidden:
   field_sub_notification_last: true
   field_trial_taken: true
   field_trial_taken_lu: true
+  ip_login_data: true
   langcode: true
   member_for: true
   roles: true

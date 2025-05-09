@@ -1,0 +1,15 @@
+uuid: 4bff89da-04d1-4a01-8f6c-4ebb277ceaea
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.firm_wide_account
+id: node-firm_wide_account-administrator
+label: Administrator
+weight: 5
+group_id: null
+group_type: node
+group_bundle: firm_wide_account
+is_admin: true
+permissions: {  }
+role_type: null

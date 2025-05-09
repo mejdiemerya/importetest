@@ -1,0 +1,17 @@
+# Migration configuration for beer content.
+id: compuswide_node
+label: nodes compus_wide_node
+source:
+  plugin: compuswide_node
+destination:
+  plugin: entity:node
+process:
+  # Hardcode the destination node type (bundle) as 'migrate_example_beer'.
+  type: type
+  title: title
+  uid: uid
+  status: status
+  created: created
+  changed: changed
+  promote: promote
+
