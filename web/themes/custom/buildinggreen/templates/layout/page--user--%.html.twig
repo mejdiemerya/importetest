@@ -143,7 +143,7 @@
         <div class="sans-serif mb-4">
           <div class="account-status sans-serif mb-4">
             <h4>BuildingGreen Basic</h4>
-            <a class="btn btn-sm btn-success btn-wrap mb-2" href="/membership">Subscribe
+            <a class="btn btn-sm btn-success btn-wrap mb-2" href="https://www.buildinggreen.com/membership">Subscribe
               Now&nbsp;»</a>
           </div>
           <div class="account-status sans-serif mb-4">
@@ -200,7 +200,7 @@
               {% elseif is_lu_basic  %}
                 <h4>LEEDuser Basic</h4>
                 {% if trial_status_lu =='not_taken'  %}
-                  <a class="btn btn-sm btn-success btn-wrap mb-2" href="/membership">Subscribe
+                  <a class="btn btn-sm btn-success btn-wrap mb-2" href="/pricing">Subscribe
                     Now&nbsp;»</a>
                 {% endif %}
                 {% if trial_status_lu =='premium_expired'  %}
@@ -251,7 +251,7 @@
                     type="button" >Email &amp; Password</a>
           </li>
           <li>
-            <button class="nav-link" id="nav-continuing-education-tab" data-bs-toggle="tab" data-bs-target="#nav-continuing-education"
+            <button class="nav-link d-none" id="nav-continuing-education-tab" data-bs-toggle="tab" data-bs-target="#nav-continuing-education"
                     type="button" role="tab" aria-controls="nav-continuing-education" aria-selected="false">Continuing Education</button>
           </li>
           <li>
@@ -350,6 +350,12 @@
 
           <div class="tab-pane fade" id="nav-subscriptions" role="tabpanel" aria-labelledby="nav-subscriptions-tab">
             <div id="comments"><h2 class="title">Subscriptions</h2></div>
+            <h2>Credits</h2>
+{#            {{ drupal_view('flaging_content_subscription', 'page_1') }}#}
+{#            {{ drupal_view('flagging_forum') }}#}
+{#            {{ drupal_view('flagging_tipsheet') }}#}
+{#            {{ drupal_view('flaging_content') }}#}
+
             {{ subscription_edit_form }}
           </div>
 
