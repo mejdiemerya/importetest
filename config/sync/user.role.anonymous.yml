@@ -8,6 +8,7 @@ dependencies:
     - commerce_product
     - contact
     - field_permissions
+    - media
     - search
     - system
 _core:
@@ -29,5 +30,6 @@ permissions:
   - 'view e_membership_display commerce_product'
   - 'view e_product_display commerce_product'
   - 'view field_website'
+  - 'view media'
   - 'view pay_to_publish commerce_product'
   - 'view reports_courses_study_guides_web commerce_product'

@@ -7,16 +7,16 @@ smtp_port: '465'
 smtp_protocol: ssl
 smtp_autotls: true
 smtp_timeout: 30
-smtp_username: asma.jedidi@emerya.fr
-smtp_password: asma1412023
-smtp_from: asma.jedidi@emerya.fr
-smtp_fromname: asma.jedidi@emerya.fr
+smtp_username: fenniamejdi@gmail.com
+smtp_password: 'xszy jsfe yjna ykvx'
+smtp_from: ''
+smtp_fromname: ''
 smtp_client_hostname: ''
 smtp_client_helo: ''
 smtp_allowhtml: true
-smtp_test_address: ''
+smtp_test_address: gdkjdqs@yopmail.com
 smtp_reroute_address: ''
 smtp_debugging: true
-smtp_debug_level: 1
+smtp_debug_level: 4
 prev_mail_system: php_mail
 smtp_keepalive: true
