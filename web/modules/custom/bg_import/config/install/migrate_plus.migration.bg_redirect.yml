@@ -1,0 +1,30 @@
+# Migration configuration for user accounts. We've described most of what goes
+# into migration configuration in migrate_plus.migration.beer_term.yml, so won't
+# repeat that here.
+id: bg_redirect
+label: d7 redirect
+source:
+  plugin: redirect_autologin
+destination:
+  plugin: entity:redirect
+process:
+  redirect_source/path:
+    plugin: get
+    source: source
+  redirect_redirect/uri:
+    plugin: get
+    source: redirect
+  uid:
+    plugin: get
+    source: uid
+  status_code:
+    plugin: default_value
+    default_value: 301
+  language:
+    plugin: get
+    source: language
+
+dependencies:
+  enforced:
+    module:
+      - migrate_drupal
