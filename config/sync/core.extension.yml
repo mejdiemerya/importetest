@@ -191,6 +191,7 @@ module:
   flag: 1
   forum: 1
   pathauto: 1
+  simple_pass_reset: 1
   views: 10
   form_mode_manager: 11
   paragraphs: 11
