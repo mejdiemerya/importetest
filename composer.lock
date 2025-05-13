@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "da0a0d87216ce5e875440a27599f2512",
+    "content-hash": "7dffcf1f99bd47fac1fa8b4ebdd73344",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -7669,6 +7669,62 @@
                 "source": "http://git.drupal.org/project/search_api_page.git",
                 "issues": "https://www.drupal.org/project/issues/search_api_page",
                 "irc": "irc://irc.freenode.org/drupal-search-api"
+            }
+        },
+        {
+            "name": "drupal/simple_pass_reset",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/simple_pass_reset.git",
+                "reference": "2.0.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/simple_pass_reset-2.0.0.zip",
+                "reference": "2.0.0",
+                "shasum": "0f77ad6fe3af06ac3c146d67f4593bad00452584"
+            },
+            "require": {
+                "drupal/core": "^11"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0",
+                    "datestamp": "1735549410",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Dave Cohen",
+                    "homepage": "https://www.drupal.org/user/18468"
+                },
+                {
+                    "name": "mukila",
+                    "homepage": "https://www.drupal.org/user/3223526"
+                },
+                {
+                    "name": "rszrama",
+                    "homepage": "https://www.drupal.org/user/49344"
+                },
+                {
+                    "name": "tim-diels",
+                    "homepage": "https://www.drupal.org/user/2915097"
+                }
+            ],
+            "description": "When resetting a password, skip the unnecessary and confusing one-time login form.",
+            "homepage": "https://www.drupal.org/project/simple_pass_reset",
+            "support": {
+                "source": "https://git.drupalcode.org/project/simple_pass_reset"
             }
         },
         {
