@@ -19,6 +19,7 @@ dependencies:
     - filter
     - flag
     - form_mode_manager
+    - media
     - node
     - profile
     - quiz
@@ -63,6 +64,7 @@ permissions:
   - 'view e_membership_display commerce_product'
   - 'view e_product_display commerce_product'
   - 'view field_website'
+  - 'view media'
   - 'view own commerce_order'
   - 'view own commerce_subscription'
   - 'view own customer profile'

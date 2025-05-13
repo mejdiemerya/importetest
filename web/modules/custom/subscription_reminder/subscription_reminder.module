@@ -38,7 +38,7 @@ function subscription_reminder_cron() {
         $user = $subscription->getCustomer();
 
         // Envoyer l'email à l'utilisateur.
-        subscription_reminder_send_email($user, $subscription);
+      //  subscription_reminder_send_email($user, $subscription);
 
         // Marquer que l'email a été envoyé pour ce cycle.
         if ($subscription->hasField('field_email_reminder_sent')) {
