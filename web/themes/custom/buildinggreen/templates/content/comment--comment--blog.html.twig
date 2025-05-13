@@ -104,7 +104,18 @@
     </div>
     <div class="post-text">
       <div class="mb-3"><span class="glyphicon glyphicon-time" data-gtm-vis-has-fired7025260_75="1"></span> {{ submitted }}</div>
-      {{ content }}
+      {{ content|without('links') }}
+      {% if 'bg_og_multiuser' in user.roles or 'lu_og_multiuser' in user.roles %}
+        <ul class="links list-inline">
+        <li class="comment-reply">
+          To post a comment, please <a href="/user/logout?destination=create-profile">create a personal profile</a>.
+        </li>
+      </ul>
+      {% else %}
+
+      {{ content.links }}
+      {% endif %}
+
     </div>
   </div>
 </article>
