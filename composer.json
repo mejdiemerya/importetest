@@ -122,6 +122,7 @@
         "drupal/salesforce": "^5.1",
         "drupal/search_api": "^1.37",
         "drupal/search_api_page": "^1.1",
+        "drupal/simple_pass_reset": "^2.0",
         "drupal/smtp": "^1.4",
         "drupal/stage_file_proxy": "^3.1",
         "drupal/svg_image_field": "^2.3",
