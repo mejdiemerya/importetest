@@ -80,6 +80,7 @@ module:
   eca_views: 0
   eca_workflow: 0
   editor: 0
+  email_registration: 0
   entity: 0
   entity_clone: 0
   entity_print: 0

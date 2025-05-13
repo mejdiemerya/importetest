@@ -5,7 +5,4 @@ defaults:
   sender: SMTPMailSystem
   formatter: SMTPMailSystem
 modules:
-  smtp:
-    none:
-      sender: SMTPMailSystem
-      formatter: SMTPMailSystem
+  smtp: {  }
