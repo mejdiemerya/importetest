@@ -351,9 +351,12 @@
 
           <div class="tab-pane fade" id="nav-subscriptions" role="tabpanel" aria-labelledby="nav-subscriptions-tab">
             <div id="comments"><h2 class="title">Subscriptions</h2></div>
-            <h2>Credits</h2>
-{#            {{ drupal_view('flaging_content_subscription', 'page_1') }}#}
-{#            {{ drupal_view('flagging_forum') }}#}
+            <h2>Credits</h2><br>
+            {{ drupal_view('flaging_content_subscription', 'page_1') }}
+            <h2>Forums</h2><br>
+            {{ drupal_view('duplicate_of_flaging_content_subscription', 'page_1') }}
+            <h2>Tipsheets</h2><br>
+            {{ drupal_view('tipsheets_flag') }}
 {#            {{ drupal_view('flagging_tipsheet') }}#}
 {#            {{ drupal_view('flaging_content') }}#}
 

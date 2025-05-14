@@ -1,18 +1,18 @@
-uuid: d12cb473-f429-439d-bfd1-75d16454d55d
+uuid: d64ae713-d721-4467-abad-1fdedae9f4dd
 langcode: en
 status: true
 dependencies:
   config:
-    - flag.flag.subscription_credit
-    - taxonomy.vocabulary.credit
+    - flag.flag.forum_notification
+    - taxonomy.vocabulary.forums
     - user.role.authenticated
   module:
     - flag
     - taxonomy
     - text
     - user
-id: flaging_content_subscription
-label: 'flaging content subscription'
+id: duplicate_of_flaging_content_subscription
+label: 'subscription form taxo'
 module: views
 description: ''
 tag: ''
@@ -265,7 +265,7 @@ display:
           entity_type: flagging
           plugin_id: entity_link_delete
           label: ''
-          exclude: false
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -407,7 +407,7 @@ display:
           plugin_id: bundle
           operator: in
           value:
-            credit: credit
+            forums: forums
           group: 1
           exposed: false
           expose:
@@ -514,8 +514,8 @@ display:
           entity_type: taxonomy_term
           plugin_id: flag_relationship
           required: true
-          flag: subscription_credit
-          user_scope: any
+          flag: forum_notification
+          user_scope: current
         uid:
           id: uid
           table: flagging
@@ -540,7 +540,7 @@ display:
         - user
         - user.roles
       tags:
-        - flag.flag.subscription_credit
+        - flag.flag.forum_notification
   page_1:
     id: page_1
     display_title: Page
@@ -559,4 +559,4 @@ display:
         - user
         - user.roles
       tags:
-        - flag.flag.subscription_credit
+        - flag.flag.forum_notification
