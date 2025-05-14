@@ -15,24 +15,22 @@ bundle: comment
 mode: default
 content:
   author:
-    weight: 0
+    weight: -2
     region: content
-    settings: {  }
-    third_party_settings: {  }
   comment_body:
     type: text_textarea
-    weight: 2
+    weight: 11
     region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 1
+  subject:
+    type: string_textfield
+    weight: 10
     region: content
     settings:
-      include_locked: true
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
-hidden:
-  subject: true
+hidden: {  }
