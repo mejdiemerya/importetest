@@ -148,56 +148,37 @@ function buildinggreen_preprocess_page(&$variables)
     }else{
       $variables['is_lu_basic'] = 'basic';
     }
-    // Load nodes of type 'campus_wide_account' where the current user is the owner.
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'campus_wide_account')
-      ->condition('uid', $current_user_id)
-      ->accessCheck(TRUE)
-      ->range(0, 1);
+    $memberships = \Drupal::entityTypeManager()
+      ->getStorage('og_membership')
+      ->loadByProperties(['uid' => $uid]);
 
-    $nids = $query->execute();
-    if($nids){
-      $group_nid = reset($nids);
-      $node = Node::load(reset($nids));
-      $group_name = $node->getTitle();
-      $variables['group_type']='campus_wide_account';
-      $variables['group_name'] = $group_name;
+    foreach ($memberships as $membership) {
+      // Récupérer le groupe associé à ce membership.
+      $group = $membership->getGroup();
+      $group_type = $group->bundle();
+      $group_nid=$membership->getGroupId();
+      $groupe_parent_id=$group->getOwnerId();
+      $variables['group_type_display'] = 'Group';
+
+      if ($group) {
+        $group_name = $group->label();
+        if (strpos($group_name, 'LU') !== FALSE) {
+          $variables['group_name'] = $group_name;
+          $variables['group_nid'] = $group_nid;
+          $variables['groupe_parent_id']=$groupe_parent_id;
+
+          $total_members = _get_group_total_members($variables['group_nid']);
+
+          $variables['total_members'] = $total_members;
+        }
+      }
+      if($group_type == 'team_account') {
+        $variables['group_type_display'] = 'Team';
+      }
+
     }
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'firm_wide_account')
-      ->condition('uid', $current_user_id)
-      ->accessCheck(TRUE)
-      ->range(0, 1);
 
-    $nids = $query->execute();
-    if($nids){
-      $group_nid = reset($nids);
-      $node = Node::load(reset($nids));
-      $group_name = $node->getTitle();
-      $variables['group_type']='firm_wide_account';
-      $variables['group_name'] = $group_name;
-    }
-// Load nodes of type 'team_account' where the current user is the owner.
-    $query = \Drupal::entityQuery('node')
-      ->condition('type', 'team_account')
-      ->condition('uid', $current_user_id)
-      ->accessCheck(TRUE)
-      ->range(0, 1);
 
-    $nids = $query->execute();
-    if (!empty($nids)) {
-      $group_nid = reset($nids);
-      $node = Node::load(reset($nids));
-      $group_name = $node->getTitle();
-      $groupe_parent_id=$node->getOwnerId();
-      $variables['group_name'] = $group_name;
-      $variables['group_nid'] = $group_nid;
-      $variables['groupe_parent_id']=$groupe_parent_id;
-      $total_members = _get_group_total_members($variables['group_nid']);
-
-      // Pass total members to the template.
-      $variables['total_members'] = $total_members;
-    }
 $is_premium_user = $account->hasRole('lu_premium_og');
 $variables['is_premium_user'] = $is_premium_user;
     $is_og_parent = $account->hasRole('lu_og_parent');

@@ -1,0 +1,41 @@
+uuid: aaec8fba-0f90-48b2-b898-043b66339e28
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.firm_wide_account.field_invit_people
+    - node.type.firm_wide_account
+  module:
+    - og
+id: node.firm_wide_account.default
+targetEntityType: node
+bundle: firm_wide_account
+mode: default
+content:
+  field_invit_people:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  og_group:
+    type: og_group_subscribe
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  search_api_excerpt: true
+  uid: true
