@@ -152,31 +152,32 @@ function buildinggreen_preprocess_page(&$variables)
       ->getStorage('og_membership')
       ->loadByProperties(['uid' => $uid]);
 
-    foreach ($memberships as $membership) {
-      // Récupérer le groupe associé à ce membership.
-      $group = $membership->getGroup();
-      $group_type = $group->bundle();
-      $group_nid=$membership->getGroupId();
-      $groupe_parent_id=$group->getOwnerId();
-      $variables['group_type_display'] = 'Group';
+foreach ($memberships as $membership) {
+  // Récupérer le groupe associé à ce membership.
+  $group = $membership->getGroup();
 
-      if ($group) {
-        $group_name = $group->label();
-        if (strpos($group_name, 'LU') !== FALSE) {
-          $variables['group_name'] = $group_name;
-          $variables['group_nid'] = $group_nid;
-          $variables['groupe_parent_id']=$groupe_parent_id;
+  if ($group) {
+    $group_type = $group->bundle();
+    $group_nid = $membership->getGroupId();
+    $groupe_parent_id = $group->getOwnerId();
+    $variables['group_type_display'] = 'Group';
 
-          $total_members = _get_group_total_members($variables['group_nid']);
+    $group_name = $group->label();
+    if (strpos($group_name, 'LU') !== FALSE) {
+      $variables['group_name'] = $group_name;
+      $variables['group_nid'] = $group_nid;
+      $variables['groupe_parent_id'] = $groupe_parent_id;
 
-          $variables['total_members'] = $total_members;
-        }
-      }
-      if($group_type == 'team_account') {
-        $variables['group_type_display'] = 'Team';
-      }
-
+      $total_members = _get_group_total_members($variables['group_nid']);
+      $variables['total_members'] = $total_members;
     }
+
+    if ($group_type == 'team_account') {
+      $variables['group_type_display'] = 'Team';
+    }
+  }
+}
+
 
 
 $is_premium_user = $account->hasRole('lu_premium_og');
