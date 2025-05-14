@@ -1,0 +1,7 @@
+name: 'Clean Empty Paragraphs'
+type: module
+description: 'Formatter to remove empty <p>&nbsp;</p> in text fields.'
+core_version_requirement: ^10 || ^11
+package: Custom
+dependencies:
+  - text
