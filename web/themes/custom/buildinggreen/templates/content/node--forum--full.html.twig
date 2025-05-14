@@ -164,7 +164,8 @@
     {% if content.title_forum['#markup'] is not empty %}
       <p class="topic-credit nullify mb-1">{{ content.title_forum }}</p>
     {% else %}
-      <p class="topic-credit nullify mb-1">{{ content.taxonomy_forums }}</p>
+
+      <p class="topic-credit nullify mb-1"><a href="/forums?f[0]=forum:{{ content.taxonomy_forums.0['#entity'].tid.value }}">{{ content.taxonomy_forums }}</a></p>
     {% endif %}
 
       <h1{{ title_attributes.addClass('node__title') }}>{{ label }}</h1>
