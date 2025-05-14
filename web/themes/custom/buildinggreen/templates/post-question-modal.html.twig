@@ -39,11 +39,22 @@
                   </li>
                   <li style="line-height: 1.4;" class="mt05"><strong>Basic membership</strong>: <a class="line" href="/signup">Sign up for free</a>.
                   </li>
-              </div>
+                <
             </div><!-- end option 2 -->
           </div><!-- end row -->
-        {% endif %}
-        {% if is_authenticated %}
+
+            {% elseif 'bg_og_multiuser' in user.roles or 'lu_og_multiuser' in user.roles %}
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="breathe magnify text-center">
+                    <p class="xlarge"><strong>To use the forum, please create a free personal profile.</strong></p>
+                    <p class="mb10"><em>If you already have a profile, log in now.</em></p>
+                    <a href="/user/logout?destination=user" class="btn btn-lg btn-primary mb10">Log in</a> <span style="display: inline-block; line-height: 2; vertical-align: text-bottom; padding: 0 10px;">OR</span>
+                    <a href="/user/logout?destination=create-profile" class="btn btn-lg btn-success mb10">Create a personal profile</a>
+                  </div>
+                </div>
+              </div>
+            {% else %}
 
           <div class="row">
             <div class="col-md-6" id="modal-option1">

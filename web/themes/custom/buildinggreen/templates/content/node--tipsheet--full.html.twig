@@ -94,7 +94,7 @@
       <h1>{{ label }}</h1>
     </div>
     <div class="col-sm-9">
-      {% if ((logged_in and 'lu_premium' in user_roles) or (logged_in and 'administrator' in user_roles)) %}
+      {% if (user.hasPermission('access leeduser premium content') or (logged_in and 'administrator' in user_roles)) %}
       <div class="horizontal-tabs">
         <ul class="horizontal-tabs-list nav nav-tabs"
             id="myTab" role="tablist">
@@ -141,7 +141,7 @@
         {% endif %}
       {% endif %}
 
-      {% if ( (logged_in and ( 'administrator' not in user_roles) ) and (logged_in and ( 'lu_premium' not in user_roles) ) and (  logged_in and ( 'bg_premium' not in user_roles)) or (not logged_in)) %}
+      {% if  (not user.hasPermission('access leeduser premium content')) or ( not user.hasPermission('access leeduser premium content')) or (not logged_in) %}
         <p>The most noteworthy changes in LEED v4 are as follows: </p>
         <div class="paywall nullify" data-gtm-vis-has-fired7025260_75="1">
 
@@ -170,9 +170,32 @@
           </div>
         </div>
       {% endif %}
-
-
+      {% if content.comment.0 %}
+        <div class="mb10" style="clear: both;">
+          <a href="#comments" class="btn btn-sm btn-success mr05 scroll-to-anchor">Post a comment</a>
+        </div>
+      {% else %}
+        <a href="/forums/?f[0]=tipsheet:{{elements['#node'].nid.value}}" class="btn btn-lg btn-midtone">See comments &raquo;</a>
+      {% endif %}
+      {% if not logged_in %}
+      <div class="margin-bottom-x well well-success mt-2">
+        <h4 class="title comment-form">Add new comment</h4>
+        <p class="small line-snug">To post a comment, you need to <a href="/signup/#comments">register for a LEEDuser Basic membership</a> (free) or <a href="{{ path('user.login') }}" data-toggle="modal" data-target="#login-modal">login to your existing profile</a>.</p>
       </div>
+      {% elseif 'bg_og_multiuser' in user.roles or 'lu_og_multiuser' in user.roles %}
+      <div class="margin-bottom-x well well-success mt-2">
+        <h4 class="title comment-form">Add new comment</h4>
+        <p class="small line-snug">To post a comment, you need to <a href="/user/logout?destination=create-profile">create a personal profile</a> (free) or <a href="/user/logout?destination=user" data-toggle="modal" data-target="#login-modal">login to your existing profile</a>.</p>
+      </div>
+
+      {% endif %}
+
+      <div id="comments" class="comment-wrapper magnify">
+        <div class="comments-only" data-gtm-vis-has-fired7025260_75="1">
+          {{ content.comment[0]['comment_form']  }}
+        </div>
+      </div>
+    </div>
       <div class="col-sm-3">
         {{ content.field_guest_expert }}
         <a href="/forums/?f[0]=tipsheet:{{elements['#node'].nid.value}}" class="btn btn-midtone btn-wrap text-start mt-4"><strong>See

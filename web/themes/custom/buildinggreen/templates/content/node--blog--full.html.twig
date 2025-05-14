@@ -92,6 +92,7 @@
 
       <div class="node__content__dek lead">{{ content.field_dek }}</div>
 {#      <div class="node__content__author magnify">{{ 'by '|t }} {{ content.field_author.0['#title'] }}</div>#}
+
       <div class="node__content__date small">{{ date }}</div>
       {% if content.field_image.0 is not empty%}
       <figure>
@@ -106,7 +107,12 @@
       <div class="node__content__body magnify">{{ content.body }}</div>
       <div class="node__content__Comments">
         <h2 class="title" data-gtm-vis-has-fired7025260_75="1">Comments</h2>
+        {% if 'bg_og_multiuser' in user.roles or 'lu_og_multiuser' in user.roles %}
+
+        {{ content.comment.0.comments }}
+        {% else %}
         {{ content.comment }}
+        {% endif %}
       </div>
     </div>
 

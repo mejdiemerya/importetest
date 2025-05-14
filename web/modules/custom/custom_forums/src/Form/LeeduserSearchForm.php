@@ -127,7 +127,7 @@ class LeeduserSearchForm extends FormBase {
       );
 
     }
-    elseif ($forum_id !== null) {
+    elseif ($forum_id !== null && empty(array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $current_user->getRoles()))) {
       $post_question_url = Url::fromRoute('node.add',
         [
         'node_type' => 'forum'
@@ -143,8 +143,10 @@ class LeeduserSearchForm extends FormBase {
       ];
 
     }
-    elseif ( $tipsheet_id !== null) {
-        $post_question_url = Url::fromRoute('node.add',
+    elseif ( $tipsheet_id !== null && empty(array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $current_user->getRoles()))) {
+
+
+      $post_question_url = Url::fromRoute('node.add',
           [
             'node_type' => 'forum'
           ], [
@@ -160,7 +162,6 @@ class LeeduserSearchForm extends FormBase {
         ];
       }
     else {
-
       // Post Question Link.
       $form['post_question'] = [
         '#type' => 'markup',

@@ -709,19 +709,29 @@ function custom_forums_entity_delete(EntityInterface $entity)
 
 function custom_forums_form_alter(&$form, &$form_state, $form_id)
 {
+
   $current_user = \Drupal::currentUser();
-
-  if ($form_id == 'comment_comment_forum_form') {
+  if ($form_id == 'comment_comment_forum_form'|| $form_id == 'comment_comment_form') {
     $comment = $form_state->getFormObject()->getEntity();
-    $entity_id = $comment->get('entity_id');
+    $entity_id = $comment->get('entity_id')->getValue()[0]['target_id'];
+$node=Node::load($entity_id);
+if($node->bundle()=='forum'){
 
-//$node=Node::load($entity_id);
-    // Load the current user.
-    $form['title'] = [
-      '#type' => 'markup',
-      '#markup' => '<h2 class="title comment-form">' . t('Post a reply ') . '</h2>',
-      '#weight' => -10,
-    ];
+  // Load the current user.
+  $form['title'] = [
+    '#type' => 'markup',
+    '#markup' => '<h2 class="title comment-form">' . t('Post a reply ') . '</h2>',
+    '#weight' => -10,
+  ];
+  // Change the label for the comment body field to "Response".
+  $form['comment_body']['widget'][0]['#title'] = t('Response');
+};
+
+  $form['title'] = [
+    '#type' => 'markup',
+    '#markup' => '<h2 class="title comment-form">' . t('Add new comment ') . '</h2>',
+    '#weight' => -10,
+  ];
     // Load the user entity (author of the comment or the current user).
     $current_user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
 
@@ -743,9 +753,6 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
       '#weight' => -10,
     ];
     $form['actions']['submit']['#value'] = t('Post Comment');
-
-    // Change the label for the comment body field to "Response".
-    $form['comment_body']['widget'][0]['#title'] = t('Response');
     // Remove the Preview button if it exists.
     if (isset($form['actions']['preview'])) {
       unset($form['actions']['preview']);
@@ -865,6 +872,25 @@ function custom_forums_form_alter(&$form, &$form_state, $form_id)
       }
       if (isset($form['field_invit_people'])) {
         $form['field_invit_people']['widget'][0]['value']['#default_value'] = '';
+      }
+
+    }
+  }
+  if($form_id=='contact_message_feedback_form'){
+    if (array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $current_user->getRoles()))
+    {
+      // Rendre les champs name et mail éditables et vides.
+      if (isset($form['name'])) {
+        $form['name']['#type'] = 'textfield';
+        $form['name']['#default_value'] = '';
+        $form['name']['#required'] = TRUE;
+        unset($form['name']['#value'], $form['name']['#plain_text']);
+      }
+      if (isset($form['mail'])) {
+        $form['mail']['#type'] = 'textfield';
+        $form['mail']['#default_value'] = '';
+        $form['mail']['#required'] = TRUE;
+        unset($form['mail']['#value'], $form['mail']['#plain_text']);
       }
 
     }
