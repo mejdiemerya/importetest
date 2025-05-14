@@ -3,13 +3,16 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_display.comment.comment.default
     - field.field.node.tipsheet.body
+    - field.field.node.tipsheet.comment
     - field.field.node.tipsheet.field_credits
     - field.field.node.tipsheet.field_file_information
     - field.field.node.tipsheet.field_guest_expert
     - field.field.node.tipsheet.field_leeduser_premium
     - node.type.tipsheet
   module:
+    - comment
     - commerce_file
     - entity_reference_revisions
     - text
@@ -24,6 +27,15 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 101
+    region: content
+  comment:
+    type: comment_default
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    weight: 110
     region: content
   field_credits:
     type: entity_reference_label

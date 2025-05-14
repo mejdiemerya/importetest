@@ -201,12 +201,18 @@
     </div>
       {{ membership_promo_block }}
       {{ content.comment_forum[0]['comments'] }}
+
       {% if not logged_in %}
         <div class="margin-bottom-x well well-success mt-2">
           <h4 class="title comment-form">Add new comment</h4>
           <p class="small line-snug">To post a comment, you need to <a href="/signup/#comments">register for a LEEDuser Basic membership</a> (free) or <a href="{{ path('user.login') }}" data-toggle="modal" data-target="#login-modal">login to your existing profile</a>.</p>
         </div>
-        {% else %}
+      {% elseif 'bg_og_multiuser' in user.roles or 'lu_og_multiuser' in user.roles %}
+        <div class="margin-bottom-x well well-success mt-2">
+          <h4 class="title comment-form">Add new comment</h4>
+          <p class="small line-snug">To post a comment, you need to <a href="/user/logout?destination=create-profile">create a personal profile</a> (free) or <a href="/user/logout?destination=user" data-toggle="modal" data-target="#login-modal">login to your existing profile</a>.</p>
+        </div>
+      {% else %}
       <div id="comments" class="comment-wrapper magnify">
         <div class="comments-only" data-gtm-vis-has-fired7025260_75="1">
           {{ content.comment_forum[0]['comment_form']  }}

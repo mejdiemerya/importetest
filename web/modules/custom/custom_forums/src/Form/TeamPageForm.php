@@ -34,7 +34,7 @@ class TeamPageForm extends FormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
 
       $account = \Drupal::currentUser();
-    if($account->isAnonymous()) {
+    if($account->isAnonymous() || array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $account->getRoles())) {
       $form['team_signup'] = [
         '#type' => 'markup',
         '#markup' => '
