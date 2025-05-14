@@ -854,7 +854,7 @@ if($node->bundle()=='forum'){
       }
     }
   }
-  if ($form_id === 'node_team_account_form') {
+  if ($form_id === 'node_team_account_form'|| $form_id === 'node_campus_wide_account_form'|| $form_id === 'node_firm_wide_account_form') {
     // Get the current user.
     $current_user = \Drupal::currentUser();
 
@@ -869,6 +869,9 @@ if($node->bundle()=='forum'){
 
       if (isset($form['actions']['delete'])) {
         $form['actions']['delete']['#access'] = FALSE;
+      }
+      if (isset($form['actions']['preview'])) {
+        $form['actions']['preview']['#access'] = FALSE;
       }
       if (isset($form['field_invit_people'])) {
         $form['field_invit_people']['widget'][0]['value']['#default_value'] = '';
@@ -1570,7 +1573,7 @@ function custom_forums_preprocess_flag__subscription_credit(&$variables)
 function custom_forums_node_update(Node $node)
 {
   // Vérifier si c'est un node de type 'team_account'.
-  if ($node->bundle() === 'team_account') {
+  if ($node->bundle() === 'team_account'|| $node->bundle() === 'firm_wide_account'|| $node->bundle() === 'campus_wide_account') {
     // Récupérer le champ 'invite_people'.
     $emails = explode("\n", trim($node->get('field_invit_people')->value));
 

@@ -1,0 +1,19 @@
+uuid: 1fdf21b3-46b9-4f23-aeff-dc74b8ea8c06
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_invit_people
+    - node.type.firm_wide_account
+id: node.firm_wide_account.field_invit_people
+field_name: field_invit_people
+entity_type: node
+bundle: firm_wide_account
+label: 'Invit people'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

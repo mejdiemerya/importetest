@@ -1,73 +1,31 @@
-uuid: e1196c0c-a763-43c1-a751-f662a659f2eb
+uuid: 747688c6-a35e-4e9d-8259-ef59a0d20aac
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.firmwide_pricing.body
-    - field.field.node.firmwide_pricing.field_image
-    - field.field.node.firmwide_pricing.field_leeduser_premium_members
-    - field.field.node.firmwide_pricing.field_our_members_include
-    - field.field.node.firmwide_pricing.field_webform
-    - image.style.thumbnail
-    - node.type.firmwide_pricing
+    - field.field.node.campus_wide_account.field_invit_people
+    - node.type.campus_wide_account
   module:
     - content_moderation
-    - image
     - path
-    - text
-    - webform
-id: node.firmwide_pricing.default
+id: node.campus_wide_account.default
 targetEntityType: node
-bundle: firmwide_pricing
+bundle: campus_wide_account
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 2
-    region: content
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-      show_summary: false
-    third_party_settings: {  }
   created:
     type: datetime_timestamp
     weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_image:
-    type: image_image
+  field_invit_people:
+    type: string_textarea
     weight: 1
     region: content
     settings:
-      progress_indicator: throbber
-      preview_image_style: thumbnail
-    third_party_settings: {  }
-  field_leeduser_premium_members:
-    type: text_textarea
-    weight: 123
-    region: content
-    settings:
       rows: 5
       placeholder: ''
-    third_party_settings: {  }
-  field_our_members_include:
-    type: text_textarea
-    weight: 122
-    region: content
-    settings:
-      rows: 5
-      placeholder: ''
-    third_party_settings: {  }
-  field_webform:
-    type: webform_entity_reference_select
-    weight: 121
-    region: content
-    settings:
-      default_data: true
-      webforms: {  }
     third_party_settings: {  }
   langcode:
     type: language_select
