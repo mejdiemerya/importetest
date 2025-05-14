@@ -1,0 +1,41 @@
+uuid: 86706e78-f8fd-4d6a-b5fb-aec0d01a4deb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.campus_wide_account.field_invit_people
+    - node.type.campus_wide_account
+  module:
+    - og
+id: node.campus_wide_account.default
+targetEntityType: node
+bundle: campus_wide_account
+mode: default
+content:
+  field_invit_people:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+  og_group:
+    type: og_group_subscribe
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  entity_print_view_epub: true
+  entity_print_view_pdf: true
+  entity_print_view_word_docx: true
+  langcode: true
+  search_api_excerpt: true
+  uid: true
