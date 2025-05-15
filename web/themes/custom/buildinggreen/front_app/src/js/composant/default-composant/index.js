@@ -10,10 +10,25 @@ var isMobile = window.matchMedia("only screen and (max-width: " + mobileMaxWidth
 (function ($) {
   Drupal.behaviors.customjs = {
     attach: function (context, settings) {
+
+
+      $(once('customjs', context === document ? 'html' : context))
+        .each(function customjs() {
+          $('#bg-leeduser-search-form select').each(function () {
+            console.log("0");
+            $(this).selectmenu({
+              change: function (event, ui) {
+                $(this).trigger('change');
+              }
+            });
+            $(".ui-selectmenu-button.ui-button").css('width', '100%');
+          });
+        });
+
       //$( "#bg-leeduser-search-form select" ).selectmenu();
-      $( "#bg-leeduser-search-form select" ).select2({
-        minimumResultsForSearch: 20,
-      });
+      // $( "#bg-leeduser-search-form select" ).select2({
+      //   minimumResultsForSearch: 20,
+      // });
 
       $(document).ready(function () {
         //$( "#bg-leeduser-search-form select" ).selectmenu();
@@ -33,3 +48,4 @@ var isMobile = window.matchMedia("only screen and (max-width: " + mobileMaxWidth
     }
   }
 })(jQuery);
+
