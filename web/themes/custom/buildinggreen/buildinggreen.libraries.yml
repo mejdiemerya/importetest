@@ -3,13 +3,17 @@ global-styling:
     theme:
       front_app/dist/assets/composant/default-composant/default-composant.min.css:  {}
       https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css:  {}
+      https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css:  {}
   js:
     https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js: {}
+    https://code.jquery.com/ui/1.14.1/jquery-ui.js: {}
     front_app/dist/assets/composant/default-composant/index.js: {}
     # front_app/src/js/composant/default-composant/nav.js: {}
   dependencies:
     - core/jquery
     - core/drupal
+    - core/once
+    - core/jquery.once
 
 hero:
   css:
