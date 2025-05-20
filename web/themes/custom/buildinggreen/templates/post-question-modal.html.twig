@@ -1,81 +1,75 @@
-<div class="modal fade" id="post-question-modal" tabindex="-1" role="dialog" aria-labelledby="modalPostQuestionLabel"
-     aria-hidden="true">
+<div class="modal fade" id="post-question-modal" tabindex="-1" role="dialog" aria-labelledby="modalPostQuestionLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
+
       {% if is_anonymous %}
         <h3 class="modal-title p-4" id="modalLoginLabel">Sign in to use the forum</h3>
       {% endif %}
+
       <div class="modal-body post-question">
         {% if is_anonymous %}
           <div class="row">
             <div class="col-md-6" id="modal-option1">
               <div class="breathe">
                 <p><em>Forum access is included with all levels of LEEDuser membership (basic and premium).</em></p>
-                <a href="{{ path('user.login') }}" class="btn btn-primary mb10" data-toggle="modal" data-target="#login-modal"
-                   data-dismiss="modal">Log in now</a> <span
-                  style="display: inline-block; line-height: 2; vertical-align: text-bottom; padding-left: 10px;">OR</span><br>
-                <a
-                  href="/signup"
-                  class="btn btn-success mt-2">Create a free basic membership</a>
+                <a href="{{ path('user.login') }}" class="btn btn-primary mb10" data-toggle="modal" data-target="#login-modal" data-dismiss="modal">Log in now</a>
+                <span style="display: inline-block; line-height: 2; vertical-align: text-bottom; padding-left: 10px;">OR</span><br>
+                <a href="/signup" class="btn btn-success mt-2">Create a free basic membership</a>
               </div>
-            </div><!-- end option 1 -->
+            </div>
             <div class="col-md-6" id="modal-option2">
               <div class="breathe">
-{#                <hr class="visible-xs-block visible-sm-block">#}
-                <p><em><strong>Not a member yet?</strong> LEEDuser Premium membership gives you access to all credit
-                    tips, checklists, documentation samples, and more.</em></p>
+                <p><em><strong>Not a member yet?</strong> LEEDuser Premium membership gives you access to all credit tips, checklists, documentation samples, and more.</em></p>
                 <ul>
-                  <li style="line-height: 1.4;"><strong>Monthly premium membership</strong> (auto-renews): <a
-                      class="line" href="/product/add/variation-cart/7/10" data-toggle="modal" data-target="#signup-modal"
-                      data-dismiss="modal">Get it now for $15.95/month</a>.
+                  <li style="line-height: 1.4;"><strong>Monthly premium membership</strong> (auto-renews):
+                    <a class="line" href="/product/add/variation-cart/7/10" data-toggle="modal" data-target="#signup-modal" data-dismiss="modal">Get it now for $15.95/month</a>.
                   </li>
                   <li style="line-height: 1.4;" class="mt05"><strong>Annual premium membership</strong> (auto-renews):
-                    <a class="line" href="/product/add/variation-cart/8/11"  data-toggle="modal" data-target="#signup-modal"
-                       data-dismiss="modal">Get it now for $159 /year</a>.
+                    <a class="line" href="/product/add/variation-cart/8/11" data-toggle="modal" data-target="#signup-modal" data-dismiss="modal">Get it now for $159 /year</a>.
                   </li>
-                  <li style="line-height: 1.4;" class="mt05"><strong>Basic membership</strong>: <a class="line" href="/signup">Sign up for free</a>.
+                  <li style="line-height: 1.4;" class="mt05"><strong>Basic membership</strong>:
+                    <a class="line" href="/signup">Sign up for free</a>.
                   </li>
-                <
-            </div><!-- end option 2 -->
-          </div><!-- end row -->
-
-            {% elseif 'bg_og_multiuser' in user.roles or 'lu_og_multiuser' in user.roles %}
-              <div class="row">
-                <div class="col-md-12">
-                  <div class="breathe magnify text-center">
-                    <p class="xlarge"><strong>To use the forum, please create a free personal profile.</strong></p>
-                    <p class="mb10"><em>If you already have a profile, log in now.</em></p>
-                    <a href="/user/logout?destination=user" class="btn btn-lg btn-primary mb10">Log in</a> <span style="display: inline-block; line-height: 2; vertical-align: text-bottom; padding: 0 10px;">OR</span>
-                    <a href="/user/logout?destination=create-profile" class="btn btn-lg btn-success mb10">Create a personal profile</a>
-                  </div>
-                </div>
+                </ul>
               </div>
-            {% else %}
+            </div>
+          </div>
 
+        {% elseif 'bg_og_multiuser' in user.roles or 'lu_og_multiuser' in user.roles %}
+          <div class="row">
+            <div class="col-md-12">
+              <div class="breathe magnify text-center">
+                <p class="xlarge"><strong>To use the forum, please create a free personal profile.</strong></p>
+                <p class="mb10"><em>If you already have a profile, log in now.</em></p>
+                <a href="/user/logout?destination=user" class="btn btn-lg btn-primary mb10">Log in</a>
+                <span style="display: inline-block; line-height: 2; vertical-align: text-bottom; padding: 0 10px;">OR</span>
+                <a href="/user/logout?destination=create-profile" class="btn btn-lg btn-success mb10">Create a personal profile</a>
+              </div>
+            </div>
+          </div>
+
+        {% else %}
           <div class="row">
             <div class="col-md-6" id="modal-option1">
               <p class="supertitle">OPTION 1</p>
               <p class="large"><strong>Post to a credit forum:</strong></p>
               {{ drupal_form('Drupal\\custom_forums\\Form\\TopicForm') }}
-            </div><!-- end option 1 -->
+            </div>
             <div class="col-md-6" id="modal-option2">
-{#              <hr class="visible-xs-block visible-sm-block">#}
               <p class="supertitle">OPTION 2</p>
               <p class="large"><strong>Post to another forum:</strong></p>
-
               {{ drupal_view('general_forums') }}
-            </div><!-- end option 2 -->
-          </div><!-- end row -->
+            </div>
+          </div>
         {% endif %}
       </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-bs-dismiss="modal" aria-label="Close">Close</button>
       </div>
     </div>
   </div>
-</div>
 </div>
