@@ -53,6 +53,18 @@
         {{ 'Skip to main content'|t }}
       </a>
     </div>
+    <div id="customAddToCartModal" style="display: none; position: fixed; z-index: 1050; top: 30%; left: 50%; transform: translate(-50%, -50%); background: #fff; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 0 10px rgba(0,0,0,0.3); max-width: 500px;">
+      <h3>You are currently logged in under an enterprise account</h3>
+      <p>
+        Before making a purchase, you'll need to
+        <a href="/user/logout?destination=user">login</a>
+        to your personal profile or
+        <a href="/user/logout?destination=create-profile">create</a>
+        one now.
+      </p>
+      <button type="button" class="btn btn-secondary mt-3" data-close-modal>Close</button>
+    </div>
+
     {{ page_top }}
     {{ page }}
     {{ page_bottom }}
