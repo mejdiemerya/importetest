@@ -6,6 +6,7 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
+use Drupal\Core\Render\AttachmentsInterface;
 
 /**
  * Implements hook_mail().
@@ -228,4 +229,14 @@ function bg_product_cart_theme($existing, $type, $theme, $path)
       'variables' => ['custom_message' => NULL],
     ],
   ];
+}
+/**
+ * Implémentation de hook_page_attachments().
+ */
+function bg_product_cart_page_attachments(array &$attachments) {
+  $request = \Drupal::request();
+
+  if ($request->query->get('show_modal') == '1') {
+    $attachments['#attached']['library'][] = 'bg_product_cart/add_to_cart_modal';
+  }
 }
