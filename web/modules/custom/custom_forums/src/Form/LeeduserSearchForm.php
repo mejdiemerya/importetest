@@ -20,7 +20,8 @@ use Drupal\Core\Url;
 /**
  * Class BgLeeduserSearchForm.
  */
-class LeeduserSearchForm extends FormBase {
+class LeeduserSearchForm extends FormBase
+{
   /**
    * The private temp store factory.
    *
@@ -43,7 +44,8 @@ class LeeduserSearchForm extends FormBase {
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
    */
-  public function __construct(PrivateTempStoreFactory $temp_store_factory, MessengerInterface $messenger) {
+  public function __construct(PrivateTempStoreFactory $temp_store_factory, MessengerInterface $messenger)
+  {
     $this->tempStoreFactory = $temp_store_factory;
     $this->messenger = $messenger;
   }
@@ -51,7 +53,8 @@ class LeeduserSearchForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public static function create(ContainerInterface $container) {
+  public static function create(ContainerInterface $container)
+  {
     return new static(
       $container->get('tempstore.private'),
       $container->get('messenger')
@@ -61,14 +64,16 @@ class LeeduserSearchForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId()
+  {
     return 'bg_leeduser_search_form';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function buildForm(array $form, FormStateInterface $form_state)
+  {
     $current_user = \Drupal::currentUser();
 
     $store = $this->tempStoreFactory->get('leeduser_search'); // Adjust namespace as needed.
@@ -76,8 +81,8 @@ class LeeduserSearchForm extends FormBase {
     $saved_values = $store->get('saved_values') ?: [];
     $form['#attached']['library'][] = 'core/drupal.ajax';
     $form['#attached']['library'][] = 'core/jquery';
-    $form['#attached']['library'][]='core/drupal.dialog';
-    $form['#attached']['library'][]='custom_forums/submit_on_enter';
+    $form['#attached']['library'][] = 'core/drupal.dialog';
+    $form['#attached']['library'][] = 'custom_forums/submit_on_enter';
     // Get the current request
     $request = \Drupal::request();
 // Retrieve query parameters from the current URL
@@ -86,7 +91,7 @@ class LeeduserSearchForm extends FormBase {
     $forum_id = null;
     $credit_id = [];
     $location_id = [];
-    $tipsheet_id= null;
+    $tipsheet_id = null;
 // Check if the 'f' parameter contains multiple items.
     if (isset($query_params['f'])) {
       // Loop through each parameter to extract key-value pairs.
@@ -97,25 +102,24 @@ class LeeduserSearchForm extends FormBase {
           $credit_id [] = $matches[1];
         } elseif (preg_match('/^location:(\d+)$/', $param, $matches)) {
           $location_id [] = $matches[1];
-        }
-        elseif (preg_match('/^tipsheet:(\d+)$/', $param, $matches)) {
+        } elseif (preg_match('/^tipsheet:(\d+)$/', $param, $matches)) {
           $tipsheet_id = $matches[1];
         }
       }
     }
-    $active_search_parents=[];
+    $active_search_parents = [];
     if (!empty($saved_values['credits']) && count($saved_values['credits']) === 1) {
       $active_search_parents = $this->loadAllParents($saved_values['credits'][0]);
     }
-    if ((count($active_search_parents) === 4 )&&
+    if ((count($active_search_parents) === 4) &&
       $current_user->isAuthenticated() &&
       empty(array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $current_user->getRoles()))
-    ){
+    ) {
       $post_question_url = Url::fromRoute('node.add', [
         'node_type' => 'forum'
       ], [
         'query' => [
-          'credit_id' => (int) $credit_id,
+          'credit_id' => (int)$credit_id,
           'forum_id' => $this->getTermIdByName('Credit Forums', 'forums'),
           'destination' => 'forums',
         ]
@@ -126,42 +130,39 @@ class LeeduserSearchForm extends FormBase {
         '#markup' => t('Post a question or comment'),
       );
 
-    }
-    elseif ($forum_id !== null && empty(array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $current_user->getRoles()))) {
+    } elseif ($forum_id !== null && empty(array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $current_user->getRoles()))) {
       $post_question_url = Url::fromRoute('node.add',
         [
-        'node_type' => 'forum'
-      ], [
-        'query' => [
-          'forum_id' => $forum_id,
-        ],
-      ])->toString();
+          'node_type' => 'forum'
+        ], [
+          'query' => [
+            'forum_id' => $forum_id,
+          ],
+        ])->toString();
       $form['post_question'] = [
         '#prefix' => '<a id="post-question" href="' . $post_question_url . '"><i class="fi flaticon-communication"></i>',
         '#suffix' => '</a>',
         '#markup' => t('Post a question or comment'),
       ];
 
-    }
-    elseif ( $tipsheet_id !== null && empty(array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $current_user->getRoles()))) {
+    } elseif ($tipsheet_id !== null && empty(array_intersect(['bg_og_multiuser', 'lu_og_multiuser'], $current_user->getRoles()))) {
 
 
       $post_question_url = Url::fromRoute('node.add',
-          [
-            'node_type' => 'forum'
-          ], [
-            'query' => [
-              'tipsheet_id' => $tipsheet_id,
-              'forum_id' => $this->getTermIdByName('Tipsheet Forum', 'forums'),
-            ],
-          ])->toString();
-        $form['post_question'] = [
-          '#prefix' => '<a id="post-question" href="' . $post_question_url . '"><i class="fi flaticon-communication"></i>',
-          '#suffix' => '</a>',
-          '#markup' => t('Post a question or comment'),
-        ];
-      }
-    else {
+        [
+          'node_type' => 'forum'
+        ], [
+          'query' => [
+            'tipsheet_id' => $tipsheet_id,
+            'forum_id' => $this->getTermIdByName('Tipsheet Forum', 'forums'),
+          ],
+        ])->toString();
+      $form['post_question'] = [
+        '#prefix' => '<a id="post-question" href="' . $post_question_url . '"><i class="fi flaticon-communication"></i>',
+        '#suffix' => '</a>',
+        '#markup' => t('Post a question or comment'),
+      ];
+    } else {
       // Post Question Link.
       $form['post_question'] = [
         '#type' => 'markup',
@@ -198,7 +199,7 @@ class LeeduserSearchForm extends FormBase {
       '#suffix' => '</div>',
     ];
     // Display active location filters if they exist.
-    if ( !empty($location_id)) {
+    if (!empty($location_id)) {
       $form['active_location_filter_fieldset'] = [
         '#type' => 'fieldset',
         '#prefix' => '<div id="active_location_filter_fieldset">',
@@ -222,20 +223,20 @@ class LeeduserSearchForm extends FormBase {
 
       foreach ($location_id as $filter) {
 
-          if ($term = Term::load($filter)) {
-            $form['active_location_filter_fieldset']['location_queries']['saved_query_location_' . $term->id()] = [
-              '#type' => 'checkbox',
-              '#title' => $term->getName(),
-              '#description' => $term->getDescription(),
-              '#default_value' => 1,
-              '#prefix' => '<div id="saved_query_location_' . $term->id() . '">',
-              '#suffix' => '</div>',
-            ];
-          }
+        if ($term = Term::load($filter)) {
+          $form['active_location_filter_fieldset']['location_queries']['saved_query_location_' . $term->id()] = [
+            '#type' => 'checkbox',
+            '#title' => $term->getName(),
+            '#description' => $term->getDescription(),
+            '#default_value' => 1,
+            '#prefix' => '<div id="saved_query_location_' . $term->id() . '">',
+            '#suffix' => '</div>',
+          ];
+        }
 
       }
     }
-    if ( !empty($credit_id)) {
+    if (!empty($credit_id)) {
       $form['active_credit_filter_fieldset']['clear_credits'] = array(
         '#type' => 'submit',
         '#name' => 'clear_credits',
@@ -250,31 +251,31 @@ class LeeduserSearchForm extends FormBase {
         '#title' => t('Credit Filters'),
       );
 
-        foreach ($credit_id as $filter) {
-            if ($label = getCreditFilterLabel($filter)) {
-            $form['active_credit_filter_fieldset']['queries']['saved_query_credit_' . $filter] = array(
-              '#type' => 'checkbox',
-              '#title' => $label['title'],
-              '#suffix' => '<div class="credit-query-description">' . htmlspecialchars($label['description'], ENT_QUOTES, 'UTF-8') . '</div>',
-              '#default_value' => 1,
-            );
-            }
+      foreach ($credit_id as $filter) {
+        if ($label = getCreditFilterLabel($filter)) {
+          $form['active_credit_filter_fieldset']['queries']['saved_query_credit_' . $filter] = array(
+            '#type' => 'checkbox',
+            '#title' => $label['title'],
+            '#suffix' => '<div class="credit-query-description">' . htmlspecialchars($label['description'], ENT_QUOTES, 'UTF-8') . '</div>',
+            '#default_value' => 1,
+          );
         }
+      }
     }
 
     $leed_version = $form_state->getValue('leed_version');  // Ensure the variable is initialized
     $rating_system = $form_state->getValue('rating_system');
-    $credit_category =  $form_state->getValue('credit_category');
+    $credit_category = $form_state->getValue('credit_category');
     $form['credit_filter_fieldset'] = array(
       '#type' => 'container',
-      '#title' =>  t('Filter by LEED Credit'),
+      '#title' => t('Filter by LEED Credit'),
       '#prefix' => '<div id="credit-filter-wrapper">',
       '#suffix' => '</div>',
     );
     $form['credit_filter_fieldset']['leed_version'] = [
       '#type' => 'select',
       '#empty_option' => t('Choose a LEED version'),
-      '#options' =>$this->getLeedVersion(),
+      '#options' => $this->getLeedVersion(),
       '#prefix' => '<div id="leed_version">',
       '#suffix' => '</div>',
       '#ajax' => [
@@ -298,7 +299,7 @@ class LeeduserSearchForm extends FormBase {
       '#prefix' => '<div id="credit_category">',
       '#suffix' => '</div>',
       '#type' => 'select',
-      '#empty_option' =>  t('Credit category (optional)'),
+      '#empty_option' => t('Credit category (optional)'),
       '#options' => !empty($rating_system) ? $this->getCreditCategoriesOptions($rating_system) : [],
       '#disabled' => empty($rating_system),
       '#ajax' => [
@@ -311,7 +312,7 @@ class LeeduserSearchForm extends FormBase {
       '#type' => 'select',
       '#prefix' => '<div id="credit">',
       '#suffix' => '</div>',
-      '#empty_option' =>  t('Credit (optional)'),
+      '#empty_option' => t('Credit (optional)'),
       '#options' => !empty($credit_category) ? $this->getCreditsOptions($credit_category) : [],
       '#disabled' => empty($credit_category),
     );
@@ -345,7 +346,7 @@ class LeeduserSearchForm extends FormBase {
     );
     $form['show_results'] = [
       '#type' => 'submit',
-      '#attributes' =>[
+      '#attributes' => [
         'class' => ['submit-on-enter'],
       ],
       '#value' => t('Show Results'),
@@ -380,7 +381,9 @@ class LeeduserSearchForm extends FormBase {
     }
     return $form;
   }
-  public function updateCreditCategories(array &$form, FormStateInterface $form_state) {
+
+  public function updateCreditCategories(array &$form, FormStateInterface $form_state)
+  {
     // Get the selected rating system.
     $selected_rating_system = $form_state->getValue('rating_system');
 
@@ -388,7 +391,7 @@ class LeeduserSearchForm extends FormBase {
     $credit_categories = $this->getCreditCategoriesOptions($selected_rating_system);
 
     // Set the options for the credit category select list.
-    $form['credit_filter_fieldset']['credit_category']['#options'] =[''=>t('Credit category (optional)')] + $credit_categories;
+    $form['credit_filter_fieldset']['credit_category']['#options'] = ['' => t('Credit category (optional)')] + $credit_categories;
     $form['credit_filter_fieldset']['credit']['#options'] = ['' => t('Credit(optional)')];
     $form['credit_filter_fieldset']['credit']['#attributes']['disabled'] = 'disabled';
     $form_state->setRebuild(TRUE);
@@ -396,7 +399,9 @@ class LeeduserSearchForm extends FormBase {
     // Return the updated credit category part of the form.
     return $form['credit_filter_fieldset'];
   }
-  public function updateCredits(array &$form, FormStateInterface $form_state) {
+
+  public function updateCredits(array &$form, FormStateInterface $form_state)
+  {
     // Get the selected credit category.
     $selected_credit_category = $form_state->getValue('credit_category');
 
@@ -404,19 +409,21 @@ class LeeduserSearchForm extends FormBase {
     $credits = $this->getCreditsOptions($selected_credit_category);
 
     // Set the options for the credit select list.
-    $form['credit_filter_fieldset']['credit']['#options'] =[''=>t('Credit (optional)')] + $credits;
+    $form['credit_filter_fieldset']['credit']['#options'] = ['' => t('Credit (optional)')] + $credits;
     $form_state->setRebuild(TRUE);
 
     // Return the updated credit part of the form.
     return $form['credit_filter_fieldset'];
   }
-  public function updateRatingSystems(array &$form, FormStateInterface $form_state) {
+
+  public function updateRatingSystems(array &$form, FormStateInterface $form_state)
+  {
     $selected_leed_version = $form_state->getValue('leed_version');
 
     // Fetch the rating systems based on selected LEED version.
     $rating_systems = $this->getRatingSystemOptions($selected_leed_version);
 
-    $form['credit_filter_fieldset']['rating_system']['#options'] =['' => t('Rating system (optional)')] +  $rating_systems;
+    $form['credit_filter_fieldset']['rating_system']['#options'] = ['' => t('Rating system (optional)')] + $rating_systems;
     $form['credit_filter_fieldset']['credit_category']['#options'] = ['' => t('Credit category (optional)')];
     $form['credit_filter_fieldset']['credit_category']['#attributes']['disabled'] = 'disabled';
     $form['credit_filter_fieldset']['credit']['#options'] = ['' => t('Credit (optional)')];
@@ -427,10 +434,12 @@ class LeeduserSearchForm extends FormBase {
 
     return $form['credit_filter_fieldset'];
   }
+
   /**
    * AJAX callback to update the country field based on selected region.
    */
-  public function updateLocationCountry(array &$form, FormStateInterface $form_state) {
+  public function updateLocationCountry(array &$form, FormStateInterface $form_state)
+  {
     // Get the selected region term ID.
     $region_tid = $form_state->getValue('location_region');
     // Fetch child terms (countries) for the selected region.
@@ -442,10 +451,12 @@ class LeeduserSearchForm extends FormBase {
 
     return $form['location_filter_fieldset']['location_country'];
   }
+
   /**
    * Submit handler to clear credit filters.
    */
-  public function clearCredits(array &$form, FormStateInterface $form_state) {
+  public function clearCredits(array &$form, FormStateInterface $form_state)
+  {
     // Access the TempStore instance for the current user.
     $store = $this->tempStoreFactory->get('leeduser_search');
 
@@ -488,10 +499,12 @@ class LeeduserSearchForm extends FormBase {
     // Ensure no further form processing happens after redirection.
     $form_state->setRebuild(FALSE);
   }
+
   /**
    * Submit handler to clear location filters.
    */
-  public function clearLocation(array &$form, FormStateInterface $form_state) {
+  public function clearLocation(array &$form, FormStateInterface $form_state)
+  {
     $store = $this->tempStoreFactory->get('leeduser_search');
 
     // Clear location-related entries in TempStore.
@@ -535,7 +548,8 @@ class LeeduserSearchForm extends FormBase {
   /**
    * Handler to clear the keyword search field and reset the URL.
    */
-  public function clearSearch(array &$form, FormStateInterface $form_state) {
+  public function clearSearch(array &$form, FormStateInterface $form_state)
+  {
     $store = $this->tempStoreFactory->get('leeduser_search');
 
     // Clear the specific entry for keyword_search in TempStore.
@@ -563,7 +577,9 @@ class LeeduserSearchForm extends FormBase {
     // Regardless of rebuild since we're redirecting.
     $form_state->setRebuild(FALSE);
   }
-  protected function getCreditCategories($rating_system_tid) {
+
+  protected function getCreditCategories($rating_system_tid)
+  {
     // Get the database connection.
     $connection = \Drupal::database();
 
@@ -591,21 +607,24 @@ class LeeduserSearchForm extends FormBase {
 
     return $credit_categories;
   }
-  protected function getCreditCategoriesOptions($leed_version) {
+
+  protected function getCreditCategoriesOptions($leed_version)
+  {
     $options = [];
     if (!empty($leed_version)) {
       $rating_systems = $this->getCreditCategories($leed_version);
       foreach ($rating_systems as $group_label => $group_items) {
-        $label=$this->getCreditFilterLabel($group_label);
+        $label = $this->getCreditFilterLabel($group_label);
         $options[$group_items] = [
-          $group_label =>$label['description'] ,
+          $group_label => $label['description'],
         ];
       }
     }
     return $options;
   }
 
-  protected function getCredits($credit_category_tid) {
+  protected function getCredits($credit_category_tid)
+  {
     // Get the database connection.
     $connection = \Drupal::database();
 
@@ -633,20 +652,24 @@ class LeeduserSearchForm extends FormBase {
 
     return $credits;
   }
-  protected function getCreditsOptions($leed_version) {
+
+  protected function getCreditsOptions($leed_version)
+  {
     $options = [];
     if (!empty($leed_version)) {
       $rating_systems = $this->getCredits($leed_version);
       foreach ($rating_systems as $group_label => $group_items) {
-        $label=$this->getCreditFilterLabel($group_label);
+        $label = $this->getCreditFilterLabel($group_label);
         $options[$group_items] = [
-          $group_label =>$label['description'] ,
+          $group_label => $label['description'],
         ];
       }
     }
     return $options;
   }
-  protected function getRatingSystems($leed_version_tid) {
+
+  protected function getRatingSystems($leed_version_tid)
+  {
     // Get the database connection.
     $connection = \Drupal::database();
 
@@ -682,14 +705,16 @@ class LeeduserSearchForm extends FormBase {
 
     return $rating_systems_with_children;
   }
-  protected function getRatingSystemOptions($leed_version) {
+
+  protected function getRatingSystemOptions($leed_version)
+  {
     $options = [];
     if (!empty($leed_version)) {
       $rating_systems = $this->getRatingSystems($leed_version);
       foreach ($rating_systems as $group_label => $group_items) {
-        $label=$this->getCreditFilterLabel($group_label);
+        $label = $this->getCreditFilterLabel($group_label);
         $options[$group_items] = [
-          $group_label =>$label['description'] ,
+          $group_label => $label['description'],
         ];
       }
     }
@@ -702,7 +727,8 @@ class LeeduserSearchForm extends FormBase {
    * @return array
    *   An associative array of region term IDs and names.
    */
-  protected function getLocationRegions() {
+  protected function getLocationRegions()
+  {
     // Load the tree of Level 1 terms (regions).
     $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('location', 0, 1); // Level 1 terms.
     $countries_with_children = [];
@@ -723,7 +749,9 @@ class LeeduserSearchForm extends FormBase {
 
     return $countries_with_children;
   }
-  protected function getLeedVersion() {
+
+  protected function getLeedVersion()
+  {
     $versions = [
       'v4.1' => 'LEED v4.1',
       'v4' => 'LEED v4',
@@ -740,6 +768,7 @@ class LeeduserSearchForm extends FormBase {
 
     return $leed_version;
   }
+
   /**
    * Fetches child terms (countries) for a given region term ID.
    *
@@ -749,7 +778,8 @@ class LeeduserSearchForm extends FormBase {
    * @return array
    *   An associative array of country term IDs and names.
    */
-  protected function getCountriesByRegion($region_tid) {
+  protected function getCountriesByRegion($region_tid)
+  {
     // Start timing.
     $start_time = microtime(true);
 
@@ -793,7 +823,8 @@ class LeeduserSearchForm extends FormBase {
    */
 
 
-  function loadAllParents($tid) {
+  function loadAllParents($tid)
+  {
 
 
     $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
@@ -818,7 +849,8 @@ class LeeduserSearchForm extends FormBase {
   }
 
 
-  function getTermIdByName($term_name, $vocabulary) {
+  function getTermIdByName($term_name, $vocabulary)
+  {
     // Load the term storage handler.
     $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
 
@@ -833,7 +865,9 @@ class LeeduserSearchForm extends FormBase {
     // Return the first TID found, or NULL if none found.
     return !empty($tids) ? reset($tids) : null;
   }
-  function getCreditFilterLabel($tid) {
+
+  function getCreditFilterLabel($tid)
+  {
     $parents = $this->loadAllParents($tid);
     \Drupal::logger('custom_module')->notice('Form state parents: @values', ['@values' => $tid]);
     $count = count($parents);
@@ -867,25 +901,28 @@ class LeeduserSearchForm extends FormBase {
     }
     return $data;
   }
+
   /**
    * {@inheritdoc}
    */
-  public function validateForm(array &$form, FormStateInterface $form_state) {
+  public function validateForm(array &$form, FormStateInterface $form_state)
+  {
     // Add validation if necessary.
   }
 
 
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state)
+  {
     $store = $this->tempStoreFactory->get('leeduser_search');
 
     // Initialize the 'f' query parameter as an array.
     $filters = [];
     $credit = null;
-    $location= null;
+    $location = null;
 
     // Initialize credit variable.
     $credits = [];
-    $locations= [];
+    $locations = [];
     // Get the current request
     $request = \Drupal::request();
 // Retrieve query parameters from the current URL
@@ -893,13 +930,13 @@ class LeeduserSearchForm extends FormBase {
 
     if (isset($query_params['f'])) {
       foreach ($query_params['f'] as $param) {
-       if (preg_match('/^credit:(\d+)$/', $param, $matches)) {
-         $filters[] = 'credit:' . $matches[1];
-         $credits[]=$matches[1];
+        if (preg_match('/^credit:(\d+)$/', $param, $matches)) {
+          $filters[] = 'credit:' . $matches[1];
+          $credits[] = $matches[1];
         }
         if (preg_match('/^location:(\d+)$/', $param, $matches)) {
           $filters[] = 'location:' . $matches[1];
-          $locations[]=$matches[1];
+          $locations[] = $matches[1];
         }
       }
     }
@@ -931,27 +968,37 @@ class LeeduserSearchForm extends FormBase {
     if (!empty($credit_value)) {
       $credit = $credit_value; // Final hierarchy level, final override
     }
-if(!empty($credit)){
-  $credits[]=$credit;
-  $filters[] = 'credit:' . $credit;
-}
+    if (!empty($credit)) {
+      $credits[] = $credit;
+      $filters[] = 'credit:' . $credit;
+    }
 
 
     // Location: region.
     $location_region = $form_state->getValue('location_region');
     if (!empty($location_region)) {
-      $location=$location_region;
+      $location = $location_region;
     }
 
     // Location: country.
     $location_country = $form_state->getValue('location_country');
     if (!empty($location_country)) {
-      $location=$location_country;
+      $location = $location_country;
     }
-    if(!empty($location)){
-      $locations[]=$location;
+    if (!empty($location)) {
+      $locations[] = $location;
       $filters[] = 'location:' . $location;
     }
+
+    foreach ($credits as $key => $credit_id) {
+      $field_name = 'saved_query_credit_' . $credit_id;
+      if ($form_state->getValue($field_name) == 0) {
+        unset($credits[$key]); // On enlève ce crédit
+      }
+    }
+
+// Réindexer les clés du tableau
+    $credits = array_values($credits);
 
     // Save the form values to the TempStore.
     $values_to_save = [
@@ -960,6 +1007,29 @@ if(!empty($credit)){
       'credits' => $credits, // Store the last assigned credit value
     ];
     $store->set('saved_values', $values_to_save);
+
+    $cleaned_filters = [];
+
+    foreach ($filters as $item) {
+      if (preg_match('/^(credit|location):(\d+)$/', $item, $matches)) {
+        $type = $matches[1]; // 'credit' ou 'location'
+        $id = $matches[2];
+        $field_name = 'saved_query_' . $type . '_' . $id;
+
+        // Si le champ existe et vaut 0, on le saute
+
+        if ($form_state->getValue($field_name) == 0 && null !== $form_state->getValue($field_name)) {
+
+          continue;
+        }
+      }
+
+      // Sinon, on garde l'élément
+      $cleaned_filters[] = $item;
+    }
+
+    $filters = $cleaned_filters;
+
     $query_params = [
       'f' => $filters,
     ];
@@ -967,7 +1037,10 @@ if(!empty($credit)){
     if (!empty($search_api_fulltext)) {
       $query_params['search_api_fulltext'] = $search_api_fulltext;
     }
+
+
     // Redirect with the filters appended to the URL.
     $form_state->setRedirect('<current>', [], ['query' => $query_params]);
-  }}
+  }
+}
 
