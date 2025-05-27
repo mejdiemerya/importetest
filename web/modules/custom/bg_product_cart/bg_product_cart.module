@@ -7,13 +7,20 @@ use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\file\Entity\File;
 use Drupal\Core\Render\AttachmentsInterface;
+use Drupal\user\Entity\User;
+
+define('BG_PRODUCT_CART_BASELINE_PRICE_USER', 'googlebotIP_1');
 
 /**
  * Implements hook_mail().
  */
 function bg_product_cart_mail($key, &$message, $params)
 {
-
+  $site_mail = \Drupal::config('system.site')->get('mail');
+  if (empty($site_mail)) {
+    $site_mail = 'no-reply@example.com';
+  }
+  $site_name = \Drupal::config('system.site')->get('name');
 
   $options = array(
     'langcode' => $message['langcode'],
@@ -22,10 +29,10 @@ function bg_product_cart_mail($key, &$message, $params)
   switch ($key) {
     case 'notification_client_order':
       $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed; delsp=yes';
-      $message['from'] = 'no-reply@leeduser.com';
-      $message['headers']['Sender'] = 'no-reply@leeduser.com';
-      $message['headers']['Return-Path'] = 'no-reply@leeduser.com';
-      $message['headers']['From'] = 'LEEDuser <no-reply@leeduser.com>';
+      $message['from'] = $site_name . ' <' . $site_mail . '>';
+      // $message['headers']['Sender'] = 'no-reply@leeduser.com';
+      // $message['headers']['Return-Path'] = 'no-reply@leeduser.com';
+      // $message['headers']['From'] = 'LEEDuser <no-reply@leeduser.com>'; // Replaced by the line above
       $message['subject'] = $params['subject'];
       $message['body'][] = $params['message'];
       break;
@@ -42,14 +49,16 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
 {
 
   if ($variables['product_entity']->get('type')->target_id == "reports_courses_study_guides_web") {
+    $variables['downloads'] = [];
     $priceResolv = \Drupal::service('commerce_pricelist.repository');
     $path_alias_manager = \Drupal::service('path_alias.manager');
-    $account = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+    $account = User::load(\Drupal::currentUser()->id());
     $store_id = $variables['product_entity']->get('stores')->target_id;
 
     $store = \Drupal\commerce_store\Entity\Store::load($store_id);
     $formatter = \Drupal::service('commerce_price.rounder');
     $tabLinkCartVariations = [];
+    $resultsOdersP = null;
 
     foreach ($variables['product_entity']->get('field_related_products') as $relatedProduct) {
       $resultsOdersP = getOrderByUserAndProduct($account->id(), $relatedProduct->target_id);
@@ -71,24 +80,35 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
 
       $order = Order::load($resultsOdersP);
       if (!empty($order)) {
-        if (!empty($order->getItems()[0]->getPurchasedEntity()->get('commerce_file'))) {
-          foreach ($order->getItems()[0]->getPurchasedEntity()->get('commerce_file') as $commerce_file) {
-            $file = File::load($commerce_file->getValue()['target_id']);
-            $variables['downloads'][] = array(
-              'label' => $commerce_file->getValue()['description'],
-              'path' => $file->getFileUri(),
-              'id' => $file->id(),
-            );
+        // Ensure getItems() returns an array and the first item exists.
+        $order_items = $order->getItems();
+        if (!empty($order_items) && isset($order_items[0])) {
+          $purchased_entity = $order_items[0]->getPurchasedEntity();
+          if ($purchased_entity && $purchased_entity->hasField('commerce_file') && !$purchased_entity->get('commerce_file')->isEmpty()) {
+            foreach ($purchased_entity->get('commerce_file') as $commerce_file_item) {
+              $file_data = $commerce_file_item->getValue();
+              if (isset($file_data['target_id'])) {
+                $file = File::load($file_data['target_id']);
+                if ($file) {
+                  $variables['downloads'][] = array(
+                    'label' => $file_data['description'] ?? $file->label(),
+                    'path' => $file->getFileUri(),
+                    'id' => $file->id(),
+                  );
+                }
+              }
+            }
           }
         }
-
       }
     }
-    foreach ($variables['product_entity']->getVariations() as $variation) {
+
+    $product_variations = $variables['product_entity']->getVariations();
+    foreach ($product_variations as $variation) {
 
       $price_list_item = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($account, $store));
 
-      if (!empty($variation->get('commerce_file')) && empty($variables['downloads'])) {
+      if (!$variation->get('commerce_file')->isEmpty() && empty($variables['downloads'])) {
         foreach ($variation->get('commerce_file') as $commerce_file) {
           $file = File::load($commerce_file->getValue()['target_id']);
           $variables['downloads'][] = array(
@@ -99,22 +119,39 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
         }
       }
 
+      $member_price_obj = $price_list_item ? $price_list_item->getPrice() : null;
+      $list_price_obj = $variation->getPrice();
 
-      if ($price_list_item)
-        $variables ['member_price'] = number_format($price_list_item->get('price')->number);
-      $variables ['list_price'] = number_format($variation->get('price')->number);
+      if ($member_price_obj) {
+        $variables['member_price'] = $formatter->round($member_price_obj)->getNumber();
+      } else {
+        unset($variables['member_price']);
+      }
+      $variables['list_price'] = $formatter->round($list_price_obj)->getNumber();
+
       $tabLinkCartVariations[] = new Link(
         t('Buy it now for ') . $variables['product']['variation_price'][0]["#markup"],
-        Url::fromUserInput(base_path() . 'product/add/variation-cart/' . $variables['product_entity']->id() . '/' . $variation->id())
+        Url::fromRoute('bg_product_cart.variation_cart_add', ['pid' => $variables['product_entity']->id(), 'vid' => $variation->id()])
       );
 
       //check for premium member price
-      $premium_user = user_load_by_name('googlebotIP_1');
-      $pricesGooglebotip = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($premium_user, $store));
-      $variables['in_pricelist'] = FALSE;
+      $baseline_user_name = defined('BG_PRODUCT_CART_BASELINE_PRICE_USER') ? BG_PRODUCT_CART_BASELINE_PRICE_USER : 'googlebotIP_1';
+      $premium_user_entities = User::loadByProperties(['name' => $baseline_user_name]);
+      $premium_user = $premium_user_entities ? reset($premium_user_entities) : null;
+      $pricesGooglebotip = null;
 
-      if (isset($variables ['member_price']) && $variables ['member_price'] / 100 < $pricesGooglebotip->get('price')->number) {
-        $variables['in_pricelist'] = TRUE;
+      if ($premium_user) {
+        $pricesGooglebotip = $priceResolv->loadItem($variation, 1, new \Drupal\commerce\Context($premium_user, $store));
+      } else {
+        \Drupal::logger('bg_product_cart')->warning('Baseline user for price check "@user" not found.', ['@user' => $baseline_user_name]);
+      }
+      $pricesGooglebotip_price_obj = ($pricesGooglebotip && $pricesGooglebotip->getPrice()) ? $pricesGooglebotip->getPrice() : null;
+
+      $variables['in_pricelist'] = FALSE;
+      if ($member_price_obj && $pricesGooglebotip_price_obj) {
+        if ($member_price_obj->lessThan($pricesGooglebotip_price_obj)) {
+          $variables['in_pricelist'] = TRUE;
+        }
       }
 
 //bg PN member
@@ -148,7 +185,7 @@ function bg_product_cart_preprocess_commerce_product(&$variables)
     }
 
     if (!empty($variables['has_purchased']) && empty($variables['purchased_nodes'])) {
-      foreach ($variables['product_entity']->getVariations() as $variation) {
+      foreach ($product_variations as $variation) {
         $variables['purchased_nodes'] = getQuizPurchased($variation);
       }
     }
@@ -169,25 +206,24 @@ function getQuizPurchased($variation)
   if (!empty($variation->get('field_purcased_content'))) {
     foreach ($variation->get('field_purcased_content') as $purcased_content) {
       //
-      $paragraph = Drupal\Paragraphs\Entity\Paragraph::load($purcased_content->getValue()['target_id']);
-      if (!empty($paragraph->get('field_quiz')->target_id)) {
-        $quiz = Drupal\quiz\Entity\Quiz::load($paragraph->get('field_quiz')->target_id);
-        $url_alias = $path_alias_manager->getAliasByPath("/quiz/" . $paragraph->get('field_quiz')->target_id);
-        $purchased_nodes [] = [
-          'type' => 'quiz',
-          'path' => $url_alias,
-          'label' => $quiz->get('title')->value,
-        ];
-
-      } elseif (!empty($paragraph->get('field_external_quiz_link')->uri)) {
+      $paragraph = \Drupal\paragraphs\Entity\Paragraph::load($purcased_content->getValue()['target_id']);
+      if ($paragraph && !empty($paragraph->get('field_quiz')->target_id)) {
+        $quiz = \Drupal\quiz\Entity\Quiz::load($paragraph->get('field_quiz')->target_id);
+        if ($quiz) {
+          $url_alias = $path_alias_manager->getAliasByPath("/quiz/" . $paragraph->get('field_quiz')->target_id);
+          $purchased_nodes [] = [
+            'type' => 'quiz',
+            'path' => $url_alias,
+            'label' => $quiz->get('title')->value,
+          ];
+        }
+      } elseif ($paragraph && !empty($paragraph->get('field_external_quiz_link')->uri)) {
         $purchased_nodes [] = [
           'type' => 'quiz',
           'path' => $paragraph->get('field_external_quiz_link')->uri,
           'label' => $paragraph->get('field_external_quiz_link')->title,
         ];
-
       }
-
     }
   }
   return $purchased_nodes;
@@ -195,14 +231,25 @@ function getQuizPurchased($variation)
 
 function getOrderByUserAndProduct($uid, $vid)
 {
-  $connection = Database::getConnection();
-  $query = $connection->select('commerce_order', 'o')
-    ->fields('o', ['order_id']);
-  $query->join('commerce_order_item', 'oi', 'o.order_id = oi.order_id');
-  $query->condition('o.uid', $uid);  // Filtrer par l'ID de l'utilisateur
-  $query->condition('oi.purchased_entity', $vid);  // Filtrer par l'ID du variation
-  $query->condition('o.state', 'completed');
-  return $query->execute()->fetchField();
+  $order_items_query = \Drupal::entityQuery('commerce_order_item')
+    ->condition('uid', $uid)
+    ->condition('purchased_entity', $vid)
+    ->accessCheck(FALSE);
+  $order_item_ids = $order_items_query->execute();
+
+  if (empty($order_item_ids)) {
+    return NULL;
+  }
+
+  $order_query = \Drupal::entityQuery('commerce_order')
+    ->condition('uid', $uid)
+    ->condition('state', 'completed')
+    ->condition('order_items', $order_item_ids, 'IN')
+    ->accessCheck(FALSE)
+    ->range(0, 1);
+  $order_ids = $order_query->execute();
+
+  return !empty($order_ids) ? reset($order_ids) : NULL;
 }
 
 /**

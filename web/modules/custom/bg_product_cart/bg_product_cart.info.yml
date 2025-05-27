@@ -5,3 +5,5 @@ package: Custom
 core_version_requirement: ^10 || ^11
 dependencies:
   - commerce:commerce
+  - paragraphs:paragraphs
+  - quiz:quiz

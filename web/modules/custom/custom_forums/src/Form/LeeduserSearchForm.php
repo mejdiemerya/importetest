@@ -14,6 +14,8 @@ use Drupal\taxonomy\TermInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\OpenModalDialogCommand;
+use Drupal\Core\Cache\CacheBackendInterface;
+use Drupal\Core\Cache\Cache;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Drupal\Core\Url;
 
@@ -37,17 +39,27 @@ class LeeduserSearchForm extends FormBase
   protected $messenger;
 
   /**
+   * The cache backend.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  protected $cache;
+
+  /**
    * Constructs a BgLeeduserSearchForm.
    *
    * @param \Drupal\Core\TempStore\PrivateTempStoreFactory $temp_store_factory
    *   The temp store factory.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cache
+   *   The cache backend.
    */
-  public function __construct(PrivateTempStoreFactory $temp_store_factory, MessengerInterface $messenger)
+  public function __construct(PrivateTempStoreFactory $temp_store_factory, MessengerInterface $messenger, CacheBackendInterface $cache)
   {
     $this->tempStoreFactory = $temp_store_factory;
     $this->messenger = $messenger;
+    $this->cache = $cache;
   }
 
   /**
@@ -57,7 +69,8 @@ class LeeduserSearchForm extends FormBase
   {
     return new static(
       $container->get('tempstore.private'),
-      $container->get('messenger')
+      $container->get('messenger'),
+      $container->get('cache.data')
     );
   }
 
@@ -580,6 +593,11 @@ class LeeduserSearchForm extends FormBase
 
   protected function getCreditCategories($rating_system_tid)
   {
+    $cid = "leeduser_search_form:credit_categories_for_rating:{$rating_system_tid}";
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
     // Get the database connection.
     $connection = \Drupal::database();
 
@@ -604,7 +622,7 @@ class LeeduserSearchForm extends FormBase
     foreach ($result as $record) {
       $credit_categories[$record->tid] = $record->name;
     }
-
+    $this->cache->set($cid, $credit_categories, Cache::PERMANENT, ['taxonomy_term_list:credit']);
     return $credit_categories;
   }
 
@@ -625,6 +643,11 @@ class LeeduserSearchForm extends FormBase
 
   protected function getCredits($credit_category_tid)
   {
+    $cid = "leeduser_search_form:credits_for_category:{$credit_category_tid}";
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
     // Get the database connection.
     $connection = \Drupal::database();
 
@@ -649,7 +672,7 @@ class LeeduserSearchForm extends FormBase
     foreach ($result as $record) {
       $credits[$record->tid] = $record->name;
     }
-
+    $this->cache->set($cid, $credits, Cache::PERMANENT, ['taxonomy_term_list:credit']);
     return $credits;
   }
 
@@ -670,6 +693,11 @@ class LeeduserSearchForm extends FormBase
 
   protected function getRatingSystems($leed_version_tid)
   {
+    $cid = "leeduser_search_form:rating_systems_for_leed:{$leed_version_tid}";
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
     // Get the database connection.
     $connection = \Drupal::database();
 
@@ -702,7 +730,7 @@ class LeeduserSearchForm extends FormBase
         $rating_systems_with_children[$sub_child_tid] = $child_terms[$sub_child_tid]->name;
       }
     }
-
+    $this->cache->set($cid, $rating_systems_with_children, Cache::PERMANENT, ['taxonomy_term_list:credit']);
     return $rating_systems_with_children;
   }
 
@@ -729,6 +757,11 @@ class LeeduserSearchForm extends FormBase
    */
   protected function getLocationRegions()
   {
+    $cid = 'leeduser_search_form:location_regions';
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
     // Load the tree of Level 1 terms (regions).
     $tree = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadTree('location', 0, 1); // Level 1 terms.
     $countries_with_children = [];
@@ -746,12 +779,17 @@ class LeeduserSearchForm extends FormBase
         $countries_with_children[$full_term->id()] = $full_term->getName(); // Get the term name using the full term entity.
       }
     }
-
+    $this->cache->set($cid, $countries_with_children, Cache::PERMANENT, ['taxonomy_term_list:location']);
     return $countries_with_children;
   }
 
   protected function getLeedVersion()
   {
+    $cid = 'leeduser_search_form:leed_versions';
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
     $versions = [
       'v4.1' => 'LEED v4.1',
       'v4' => 'LEED v4',
@@ -765,7 +803,7 @@ class LeeduserSearchForm extends FormBase
         $leed_version[$termId] = $label;
       }
     }
-
+    $this->cache->set($cid, $leed_version, Cache::PERMANENT, ['taxonomy_term_list:credit']);
     return $leed_version;
   }
 
@@ -780,6 +818,11 @@ class LeeduserSearchForm extends FormBase
    */
   protected function getCountriesByRegion($region_tid)
   {
+    $cid = "leeduser_search_form:countries_for_region:{$region_tid}";
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
+
     // Start timing.
     $start_time = microtime(true);
 
@@ -808,7 +851,7 @@ class LeeduserSearchForm extends FormBase
     // Log the execution time or print it.
     \Drupal::logger('custom_module')->notice('Execution time1: ' . $execution_time . ' seconds');
     // Or: print 'Execution time: ' . $execution_time . ' seconds';
-
+    $this->cache->set($cid, $countries, Cache::PERMANENT, ['taxonomy_term_list:location']);
     return $countries;
   }
 
@@ -825,7 +868,10 @@ class LeeduserSearchForm extends FormBase
 
   function loadAllParents($tid)
   {
-
+    $cid = "leeduser_search_form:all_parents:{$tid}";
+    if ($cache = $this->cache->get($cid)) {
+      return $cache->data;
+    }
 
     $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
     $parents = [];
@@ -844,7 +890,7 @@ class LeeduserSearchForm extends FormBase
       }
     }
 
-
+    $this->cache->set($cid, $parents, Cache::PERMANENT, ['taxonomy_term_list:credit']);
     return $parents;
   }
 
